@@ -1,9 +1,8 @@
 digraph G {
 ":app" -> ":core"
 ":app" -> ":common-ui"
-":app" -> ":ui-login" [color=red style=bold]
+":app" -> ":ui_auth" [color=red style=bold]
 ":app" -> ":ui-profile"
-":app" -> ":ui-register"
 ":app" -> ":ui-article-detail"
 ":app" -> ":ui-article-list"
 ":app" -> ":ui-explore"
@@ -14,19 +13,14 @@ digraph G {
 ":app" -> ":feature-article:worker"
 ":app" -> ":feature-category:datasource-impl"
 ":app" -> ":feature-auth:datasource-impl"
-":ui-login" -> ":core"
-":ui-login" -> ":ui-core"
-":ui-login" -> ":common-ui"
-":ui-login" -> ":feature-auth:domain:interactors" [color=red style=bold]
-":ui-login" -> ":feature-auth:domain:model"
+":ui_auth" -> ":core"
+":ui_auth" -> ":ui-core"
+":ui_auth" -> ":common-ui"
+":ui_auth" -> ":feature-auth:domain:interactors" [color=red style=bold]
+":ui_auth" -> ":feature-auth:domain:model"
 ":ui-profile" -> ":core"
 ":ui-profile" -> ":ui-core"
 ":ui-profile" -> ":common-ui"
-":ui-register" -> ":core"
-":ui-register" -> ":ui-core"
-":ui-register" -> ":common-ui"
-":ui-register" -> ":feature-auth:domain:interactors"
-":ui-register" -> ":feature-auth:domain:model"
 ":ui-article-detail" -> ":core"
 ":ui-article-detail" -> ":ui-core"
 ":ui-article-detail" -> ":common-ui"

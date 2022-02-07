@@ -45,10 +45,9 @@ include ':ui-article-detail'
 include ':ui-home'
 include ':ui-explore'
 include ':ui-subscribe-category'
-include ':ui-login'
-include ':ui-register'
 include ':ui-profile'
 include ':ui-article-list'
+include ':ui-auth'
 
 // Feature Auth
 include ":feature-auth"

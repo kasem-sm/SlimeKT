@@ -14,11 +14,11 @@ import com.google.accompanist.navigation.animation.composable
 import com.slime.ui_home.HomeScreen
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.ui_article_list.ListScreen
+import kasem.sm.ui_auth.login.LoginScreen
+import kasem.sm.ui_auth.register.RegisterScreen
 import kasem.sm.ui_detail.ArticleDetailScreen
 import kasem.sm.ui_explore.ExploreScreen
-import kasem.sm.ui_login.LoginScreen
 import kasem.sm.ui_profile.ProfileScreen
-import kasem.sm.ui_register.RegisterScreen
 import kasem.sm.ui_subscribe_category.SubscribeCategoryScreen
 
 internal fun NavGraphBuilder.attachSignUpScreen(
