@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdk App.minSdk
         targetSdk App.targetSdk
-        versionCode App.versionCode
-        versionName App.versionName
+        versionCode versionCode
+        versionName versionName
 
         vectorDrawables {
             useSupportLibrary true
