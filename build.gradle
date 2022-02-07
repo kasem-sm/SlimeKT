@@ -1,5 +1,40 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext {
+        def versionCode = 1
+        def versionPropsFile = file("version.properties")
+
+        Properties versionProps = new Properties()
+        if (versionPropsFile.exists())
+            versionProps.load(new FileInputStream(versionPropsFile))
+
+        def _patch = (versionProps["PATCH"] ?: "0").toInteger() + 1
+        def _major = (versionProps["MAJOR"] ?: "0").toInteger()
+        def _minor = (versionProps["MINOR"] ?: "0").toInteger()
+
+        List<String> runTasks = gradle.startParameter.getTaskNames()
+        def value = 0
+        for (String item : runTasks)
+            if (item.contains("assembleRelease")) {
+                value = 1
+            }
+        _versionCode = (versionProps["VERSION_CODE"] ?: "1").toInteger() + value
+        if (_patch == 99999) {
+            _patch = 0
+            _minor = _minor + 1
+        }
+        if (_major == 99) {
+            _major = 0
+            _major = _major + 1
+        }
+
+        versionProps["MAJOR"] = _major.toString()
+        versionProps["MINOR"] = _minor.toString()
+        versionProps["PATCH"] = _patch.toString()
+        versionProps["VERSION_CODE"] = _versionCode.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+        def versionName = "${_major}.${_versionCode}.${_minor}.${_patch}"
+    }
     repositories {
         google()
         mavenCentral()
@@ -19,9 +54,6 @@ buildscript {
 
 plugins {
     id "com.jraska.module.graph.assertion" version "2.2.0"
-    id 'org.jetbrains.kotlin.jvm' version '1.6.10' apply false
-    id 'com.android.library' version '7.1.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
 task clean(type: Delete) {
