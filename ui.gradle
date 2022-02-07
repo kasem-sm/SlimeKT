@@ -1,0 +1,23 @@
+// Generic build.gradle for ui layers
+
+apply {
+    from("$rootDir/common.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    // WHY
+    implementation project(":core")
+    implementation project(":ui-core")
+    implementation project(":common-ui")
+
+    implementation Hilt.library
+    kapt Hilt.compiler
+
+    implementation Compose.ui
+    implementation Compose.material
+    implementation Compose.material3
+
+    implementation Lifecycle.viewModel
+}

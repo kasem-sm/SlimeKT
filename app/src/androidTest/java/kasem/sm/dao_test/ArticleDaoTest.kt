@@ -1,0 +1,657 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
+package kasem.sm.dao_test
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
+import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
+import javax.inject.Named
+import kasem.sm.dao_test.utils.FakeData
+import kasem.sm.dao_test.utils.getOrAwaitValue
+import kasem.sm.feature_article.datasource.cache.dao.ArticleDao
+import kasem.sm.slime.db.SlimeDatabase
+import kotlin.random.Random
+import kotlinx.coroutines.test.runTest
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+
+@HiltAndroidTest
+@SmallTest
+class ArticleDaoTest {
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    /**
+     * Inject at [kasem.sm.dao_test.inject.TestCacheModule]
+     */
+    @Inject
+    @Named("slime_test_db")
+    lateinit var database: SlimeDatabase
+
+    private lateinit var articleDao: ArticleDao
+
+    private val sampleEntity = FakeData.sampleEntity
+
+    @Before
+    fun setup() {
+        hiltRule.inject()
+        articleDao = database.articleDao()
+    }
+
+    @After
+    fun tearDown() {
+        database.close()
+    }
+
+    @Test
+    fun testInsertArticle() = runTest {
+        articleDao.insert(sampleEntity)
+        val getAllArticles = articleDao.getAllArticles().getOrAwaitValue().first()
+        assertThat(getAllArticles).isEqualTo(sampleEntity)
+    }
+
+    @Test
+    fun testInsertArticles() = runTest {
+        val articles = listOf(sampleEntity.copy(id = 0), sampleEntity.copy(id = 1))
+        articleDao.insert(articles)
+
+        val getAllArticles = articleDao.getAllArticles().getOrAwaitValue()
+        assertThat(articles[Random.nextInt(0, 1)]).isIn(getAllArticles)
+    }
+
+    @Test
+    fun testInsertListAndFindOne() = runTest {
+        val articles = listOf(sampleEntity.copy(id = 0), sampleEntity.copy(id = 1))
+        articleDao.insert(articles)
+
+        val getArticleOfId1 = articleDao.getArticleById(1).getOrAwaitValue()
+        assertThat(getArticleOfId1).isEqualTo(articles[1])
+    }
+
+    @Test
+    fun testGetActiveArticleFromList() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                isActiveInDailyRead = true
+            ),
+            sampleEntity.copy(id = 1)
+        )
+        articleDao.insert(articles)
+
+        articleDao.updateIsActiveInDailyReadStatus(active = true, id = 0)
+
+        val getActiveArticle = articleDao.getAllActiveArticles().getOrAwaitValue()
+        assertThat(getActiveArticle[0].isActiveInDailyRead).isEqualTo(true)
+    }
+
+    @Test
+    fun testActiveArticleIsNotToBeShownAgain() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                isShownInDailyRead = true
+            ),
+            sampleEntity.copy(id = 1)
+        )
+        articleDao.insert(articles)
+
+        val getActiveArticle = articleDao.getAllArticlesShowInDailyRead().first()
+        assertThat(getActiveArticle).isEqualTo(articles[0])
+    }
+
+    @Test
+    fun testGetPagedArticleByCategory() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val pageSize = 3
+
+        val getPagedArticle = articleDao.getCategoryPagedArticles(
+            category = "first",
+            page = 0,
+            pageSize = pageSize
+        )
+
+        assertThat(getPagedArticle).doesNotContain(articles[2])
+        assertThat(getPagedArticle).contains(articles[0])
+        assertThat(getPagedArticle.size).isEqualTo(pageSize)
+    }
+
+    @Test
+    fun testGetPagedArticle() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val pageSize = 3
+
+        val getPagedArticle = articleDao.getPagedArticles(
+            page = 0,
+            pageSize = pageSize
+        )
+
+        assertThat(getPagedArticle).contains(articles[2])
+        // As the pageSize is of 3, the third article in the list (starting from index 0)
+        // should Not be in page number 0
+        assertThat(getPagedArticle).doesNotContain(articles[3])
+    }
+
+    @Test
+    fun testGetQueriedPagedArticle() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getQueriedPagedArticle = articleDao.getQueriedPagedArticle(
+            query = "third",
+            page = 0,
+            pageSize = 10
+        )
+
+        // Only 3 articles contains "third" in their title so the size
+        // should be of 3
+        assertThat(getQueriedPagedArticle.size).isEqualTo(3)
+    }
+
+    @Test
+    fun testGetQueriedPagedArticleFromSingleCategory1() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getQueriedPagedArticle = articleDao.getQueriedPagedArticles(
+            category = "first",
+            query = "third",
+            page = 0,
+            pageSize = 10
+        )
+
+        // No article has any of the parameter containing "third"
+        // where the article's category is "first"
+        assertThat(getQueriedPagedArticle.size).isEqualTo(0)
+    }
+
+    @Test
+    fun testGetQueriedPagedArticleFromSingleCategory2() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getQueriedPagedArticle = articleDao.getQueriedPagedArticles(
+            category = "first",
+            query = "1st",
+            page = 0,
+            pageSize = 10
+        )
+
+        // Articles with category "first" has a total
+        // and title containing "1st" is of size 2
+        assertThat(getQueriedPagedArticle.size).isEqualTo(2)
+    }
+
+    /**
+     * After process death, we need to restore articles
+     * till the last page number which was retrieved from
+     * savedStateHandle, so we will test if we requested
+     * Articles till page number 3 and page size is 3,
+     * total articles size should be 9
+     * (as we will retrieve all articles till page 3, so 3 (page number) x 3 (page size) = 9)
+     */
+    @Test
+    fun testGetArticlesTillPageProvidedCategoryAndSearchQueryIsEmpty() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 8,
+                category = "first",
+                title = "at first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getArticlesTillPage = articleDao.getArticlesTillPage(
+            3,
+            3
+        )
+
+        assertThat(getArticlesTillPage.size).isEqualTo(9)
+    }
+
+    /**
+     * Assuming that process death happens after user has
+     * filtered the list to show articles only from "second" category,
+     * so we will be restoring articles till the retrieved page number from savedState
+     * where the category should be "second" (retrieved from savedState as well)
+     */
+    @Test
+    fun testGetArticlesTillPageProvidedCategoryIsNotEmptyAndSearchQueryIs() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 8,
+                category = "first",
+                title = "at first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getArticlesTillPage = articleDao.getCategoryArticlesTillPage(
+            category = "second",
+            1,
+            3
+        )
+
+        assertThat(getArticlesTillPage.size).isEqualTo(1)
+    }
+
+    /**
+     * Assuming that process death happens after the search field
+     * contains query "1st" and user has filtered the list to show articles
+     * only from "first" category, so we will be restoring
+     * articles till the retrieved page number from savedState
+     * where the category should be "first" and the search query should be "1st"
+     * (retrieved from savedState as well)
+     */
+    @Test
+    fun testGetArticlesTillPageProvidedCategoryAndSearchQueryIsNotEmpty() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 8,
+                category = "first",
+                title = "at first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getArticlesTillPage = articleDao.getQueriedArticlesTillPage(
+            category = "first",
+            query = "1st",
+            1,
+            3
+        )
+
+        assertThat(getArticlesTillPage.size).isEqualTo(2)
+    }
+
+    /**
+     * Assuming that process death happens after the search field
+     * contains query "third", so we will be restoring
+     * articles till the retrieved page number from savedState
+     * where the search query should be "third"
+     * (retrieved from savedState as well)
+     */
+    @Test
+    fun testGetArticlesTillPageProvidedCategoryIsEmptyAndSearchQueryIsNot() = runTest {
+        val articles = listOf(
+            sampleEntity.copy(
+                id = 0,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 1,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 2,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 3,
+                category = "second",
+                title = "at second"
+            ),
+            sampleEntity.copy(
+                id = 4,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 5,
+                category = "first",
+                title = "at first"
+            ),
+            sampleEntity.copy(
+                id = 6,
+                category = "first",
+                title = "at 1st"
+            ),
+            sampleEntity.copy(
+                id = 7,
+                category = "third",
+                title = "at third"
+            ),
+            sampleEntity.copy(
+                id = 8,
+                category = "first",
+                title = "at first"
+            )
+        )
+
+        articleDao.insert(articles)
+
+        val getArticlesTillPage = articleDao.getQueriedArticlesTillPage(
+            query = "third",
+            1,
+            10
+        )
+
+        assertThat(getArticlesTillPage.size).isEqualTo(3)
+    }
+}

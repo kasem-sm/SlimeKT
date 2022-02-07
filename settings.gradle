@@ -1,0 +1,58 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Slime"
+include ':app'
+include ':core'
+include ':common-ui'
+include ':ui-core'
+
+// Feature Article
+include ':feature-article'
+include ':feature-article:datasource'
+include ':feature-article:domain'
+include ':feature-article:domain:model'
+include ':feature-article:domain:interactors'
+include ':feature-article:common-article-ui'
+include ':feature-article:markdown'
+include ':feature-article:worker'
+include ':feature-article:widget'
+include ':feature-article:datasource-impl'
+
+// Feature Category
+include ':feature-category'
+include ':feature-category:common-category-ui'
+include ':feature-category:domain'
+include ':feature-category:domain:model'
+include ':feature-category:datasource'
+include ':feature-category:domain:interactors'
+include ':feature-category:worker'
+include ':feature-category:datasource-impl'
+
+// UI Libraries
+include ':ui-article-detail'
+include ':ui-home'
+include ':ui-explore'
+include ':ui-subscribe-category'
+include ':ui-login'
+include ':ui-register'
+include ':ui-profile'
+include ':ui-article-list'
+
+// Feature Auth
+include ":feature-auth"
+include ':feature-auth:domain:model'
+include ':feature-auth:datasource'
+include ':feature-auth:domain:interactors'
+include ':feature-auth:datasource-impl'

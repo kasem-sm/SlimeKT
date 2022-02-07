@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_success_msg">Successful</string>
+    <string name="common_error_msg">Something went wrong, Please try again later!</string>
+    <string name="minimum_subscription_msg">Please subscribe to at least 3 topics</string>
+    <string name="err_empty_username">Please enter your username</string>
+    <string name="err_empty_password">Please enter your password</string>
+</resources>

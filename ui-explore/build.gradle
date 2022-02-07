@@ -1,0 +1,22 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/ui.gradle")
+}
+
+dependencies {
+	implementation(project(":feature-article:common-article-ui"))
+	// Article
+	implementation(project(":feature-article:domain:interactors"))
+	implementation(project(":feature-article:domain:model"))
+	implementation(project(":feature-category:common-category-ui"))
+
+	// Category
+	implementation(project(":feature-category:domain:interactors"))
+	implementation(project(":feature-category:domain:model"))
+
+	// Coil
+	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+}

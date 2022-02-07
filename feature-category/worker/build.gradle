@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+provideAndroidXWorkerDeps(this)
+provideHiltDeps(this)
+
+dependencies {
+	implementation(project(":core"))
+
+	implementation(project(":feature-category:datasource"))
+	implementation(project(":feature-category:domain:model"))
+}

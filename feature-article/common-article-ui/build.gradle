@@ -1,0 +1,18 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/common.gradle")
+}
+
+dependencies {
+	implementation(project(":common-ui"))
+	implementation(project(":feature-article:domain:model"))
+
+	// Coil
+	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+
+	// Material 3
+	implementation(Compose.material3)
+}

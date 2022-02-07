@@ -1,0 +1,16 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/common.gradle")
+}
+
+dependencies {
+	implementation(project(":common-ui"))
+	implementation(project(":feature-category:domain:model"))
+
+	implementation(Compose.ui)
+	// Material 3
+	implementation(Compose.material3)
+}

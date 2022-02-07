@@ -1,0 +1,22 @@
+plugins {
+	id("java-library")
+	id("org.jetbrains.kotlin.jvm")
+	id("kotlinx-serialization")
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+	api(Jetbrains.serializationCore)
+	api(Jetbrains.coroutinesCore)
+	testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+	kotlinOptions {
+		freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+	}
+}

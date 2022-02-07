@@ -1,0 +1,15 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/ui.gradle")
+}
+
+dependencies {
+	implementation(project(":feature-category:common-category-ui"))
+	// Category
+	implementation(project(":feature-category:domain:interactors"))
+	implementation(project(":feature-category:domain:model"))
+	implementation(project(":feature-category:worker"))
+}

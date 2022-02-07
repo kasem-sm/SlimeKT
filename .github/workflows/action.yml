@@ -1,0 +1,16 @@
+name: Slime Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Permission for Gradle Execution
+        run: chmod +x gradlew
+
+      - name: Slime Code Review
+        run: ./gradlew spotlessApply

@@ -1,0 +1,69 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath AndroidX.gradle
+        classpath Jetbrains.gradle
+        classpath Hilt.gradle
+        classpath Spotless.gradle
+        classpath Jetbrains.serializationGradle
+        classpath Extras.dependencyUpdates
+    }
+}
+
+plugins {
+    id "com.jraska.module.graph.assertion" version "2.2.0"
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10' apply false
+    id 'com.android.library' version '7.1.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+def provideAndroidXWorkerDeps(project) {
+    project.dependencies {
+        implementation "androidx.work:work-runtime-ktx:2.8.0-alpha01"
+        implementation "androidx.hilt:hilt-work:1.0.0"
+        kapt "androidx.hilt:hilt-compiler:1.0.0"
+    }
+}
+
+def provideHiltDeps(project) {
+    project.dependencies {
+        // Hilt
+        implementation Hilt.library
+        kapt Hilt.compiler
+    }
+}
+
+def provideKtorAndroidDeps(project) {
+    project.dependencies {
+        implementation "io.ktor:ktor-client-android:1.6.7"
+        implementation "io.ktor:ktor-client-serialization:1.6.7"
+    }
+}
+
+subprojects {
+    apply plugin: 'com.diffplug.spotless'
+    apply plugin: 'com.github.ben-manes.versions'
+    spotless {
+        kotlin {
+            licenseHeaderFile project.rootProject.file('spotless/copyright.kt')
+            target "**/*.kt"
+            ktlint().userData(['android': 'true', 'max_line_length': '200'])
+        }
+        format 'misc', {
+            target '**/*.gradle', '**/*.md', '**/.gitignore'
+            trimTrailingWhitespace()
+            indentWithTabs()
+        }
+    }
+}
