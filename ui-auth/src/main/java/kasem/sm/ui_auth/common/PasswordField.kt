@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Password
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.SlimeTextField
 import kasem.sm.common_ui.SlimeTypography
@@ -21,6 +22,7 @@ fun PasswordField(
     enabled: Boolean = true,
     passwordToggle: Boolean,
     onPasswordToggleClick: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     SlimeTextField(
         input = text,
@@ -36,6 +38,7 @@ fun PasswordField(
                 style = getFont(SlimeTypography.Medium(14.sp)),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-        }
+        },
+        modifier = modifier
     )
 }

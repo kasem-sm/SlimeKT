@@ -13,5 +13,5 @@ data class Article(
     val category: String,
     val timestamp: Long = System.currentTimeMillis(),
     @BsonId
-    val id: String = ObjectId().toString(),
+    val id: Int = ObjectId().timestamp,
 )

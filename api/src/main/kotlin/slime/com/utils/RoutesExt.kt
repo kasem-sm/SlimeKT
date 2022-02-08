@@ -18,6 +18,11 @@ suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.resp
     call.respond(HttpStatusCode.OK, SlimeResponse(success = true, data = data))
 }
 
+@JvmName("respondWithNullable")
+suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.respondWith(data: T?) {
+    call.respond(HttpStatusCode.OK, SlimeResponse(success = true, data = data))
+}
+
 suspend inline fun PipelineContext<Unit, ApplicationCall>.respondWithBadRequest() {
     call.respond(HttpStatusCode.BadRequest, SlimeResponse<Unit>(false, "Where's my body?"))
 }

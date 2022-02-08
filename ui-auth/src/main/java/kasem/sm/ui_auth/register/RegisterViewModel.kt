@@ -53,7 +53,7 @@ class RegisterViewModel @Inject constructor(
     private val passwordVisibilityToggle = SavedMutableState(
         savedStateHandle,
         "slime_reg_pass_vis_toggle",
-        defaultValue = false
+        defaultValue = true
     )
 
     private val loadingStatus = ObservableLoader()

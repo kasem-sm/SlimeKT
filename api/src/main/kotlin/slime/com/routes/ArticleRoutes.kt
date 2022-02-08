@@ -21,18 +21,18 @@ import kotlin.math.ceil
 fun Route.registerArticleRoutes(
     service: ArticleService
 ) {
-    authenticate {
-        get("/api/article/get/random") {
-            val userId = call.userId
-            val article = service.getRandomArticle(userId) ?: return@get
-            respondWith(article)
-        }
+    get("/api/article/get/random") {
+        val userId = call.userId
+        // Return an article from subscription if the user is authorized,
+        // if not return any random article
+        val article = service.getRandomArticleFromUsersSubscription(userId)
+        respondWith(article)
     }
 
     authenticate {
         get("/api/article/get") {
             val article = service.getArticleById(
-                articleId = call.parameters["id"] ?: return@get
+                articleId = call.parameters["id"]?.toInt() ?: return@get
             ) ?: return@get
             respondWith(article)
         }
@@ -84,7 +84,7 @@ fun Route.registerArticleRoutes(
     authenticate {
         delete("/api/article/delete") {
             val result = service.deleteArticleById(
-                articleId = call.parameters["id"] ?: return@delete
+                articleId = call.parameters["id"]?.toInt() ?: return@delete
             )
             when (result) {
                 true -> respondWith<Unit>(SlimeResponse(true, "Article deleted successfully"))
@@ -99,9 +99,10 @@ fun Route.registerArticleRoutes(
     }
 
     authenticate {
-        get("api/article/latest") {
+        get("/api/article/explore") {
             val userId = call.userId ?: return@get
-            respondWith(service.articlesOfSubscription(userId))
+            val articlesInExplore = service.getArticlesInExplore(userId)
+            respondWith(articlesInExplore)
         }
     }
 }

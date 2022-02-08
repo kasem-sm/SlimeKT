@@ -7,7 +7,15 @@ import org.bson.types.ObjectId
 @Serializable
 data class User(
     val username: String,
-    var password: String,
+    val password: String,
+    val isUserDiscoverable: Boolean = true,
+    @BsonId
+    val id: String = ObjectId().toString()
+)
+
+@Serializable
+data class UserResponse(
+    val username: String,
     @BsonId
     val id: String = ObjectId().toString()
 )

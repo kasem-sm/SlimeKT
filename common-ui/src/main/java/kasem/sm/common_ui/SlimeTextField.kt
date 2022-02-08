@@ -67,7 +67,7 @@ fun SlimeTextField(
             onValueChange = onTextChange,
             enabled = enabled,
             singleLine = singleLine,
-            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             textStyle = getFont(SlimeTypography.Medium(14.sp)),
             visualTransformation = if (isFieldTypePassword && passwordToggle) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions(
@@ -94,12 +94,12 @@ fun SlimeTextField(
                         }
                     ) {
                         Icon(
-                            imageVector = if (passwordToggle) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                            imageVector = if (passwordToggle) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(22.dp)
                                 .padding(bottom = 2.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = if (passwordToggle) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary,
                         )
                     }
                 } else {

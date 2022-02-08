@@ -1,17 +1,22 @@
 package slime.com.routes
 
 import io.ktor.application.call
+import io.ktor.auth.authenticate
+import io.ktor.http.HttpStatusCode
 import io.ktor.request.receiveOrNull
+import io.ktor.response.respond
 import io.ktor.routing.Route
+import io.ktor.routing.get
 import io.ktor.routing.post
-import slime.com.data.models.User
 import slime.com.data.request.CreateUserAccountRequest
 import slime.com.data.response.AuthResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.AuthService
 import slime.com.utils.ServiceResult
+import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
+import java.lang.NumberFormatException
 
 fun Route.registerAuthenticationRoutes(
     service: AuthService
@@ -22,7 +27,23 @@ fun Route.registerAuthenticationRoutes(
             return@post
         }
 
-        when (val result = service.validateCredentialsForRegistration(User(response.username, response.password))) {
+        val isUserDiscoverable = try {
+            call.parameters["discoverable"]?.toInt() ?: kotlin.run {
+                respondWithBadRequest()
+                return@post
+            }
+        } catch (exception: NumberFormatException) {
+            respondWith("Either 1 or 0 is allowed in discoverable parameter")
+            return@post
+        }
+
+        when (
+            val result = service.validateCredentialsForRegistration(
+                username = response.username,
+                password = response.password,
+                isUserDiscoverable = isUserDiscoverable != 0
+            )
+        ) {
             is ServiceResult.Success -> {
                 val user = service.run { response.username.getUser() }
                 val userId = user?.id ?: return@post
@@ -74,6 +95,21 @@ fun Route.registerAuthenticationRoutes(
             }
         } ?: kotlin.run {
             respondWith(SlimeResponse<AuthResponse>(false, "No user with the following username exists", null))
+        }
+    }
+
+    authenticate {
+        get("api/auth/randomUsers") {
+            getUserId(service) { id ->
+                val randomUser = service.getRandomUser(excludedUserId = id)
+                respondWith(randomUser)
+            }
+        }
+    }
+
+    authenticate {
+        get("/api/auth/authenticate") {
+            call.respond(HttpStatusCode.OK)
         }
     }
 }

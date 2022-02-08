@@ -25,9 +25,9 @@ fun Application.configureRouting() {
 
     val authService = AuthService(
         authRepository = authRepository,
-        jwtDomain = environment.config.property("jwt.domain").getString(),
-        jwtAudience = environment.config.property("jwt.audience").getString(),
-        jwtSecret = environment.config.property("jwt.secret").getString()
+        jwtDomain = System.getenv("JWT_DO"),
+        jwtAudience = System.getenv("JWT_AUD"),
+        jwtSecret = System.getenv("JWT_SEC")
     )
 
     val articleService = ArticleService(articleRepository)
@@ -38,7 +38,7 @@ fun Application.configureRouting() {
     routing {
         registerAuthenticationRoutes(authService)
         registerArticleRoutes(articleService)
-        registerCategoryRoutes(categoryRepository)
+        registerCategoryRoutes(categoryRepository, subscriptionService)
         registerSubscribeCategoriesRoute(subscriptionService, authService)
 
         static {

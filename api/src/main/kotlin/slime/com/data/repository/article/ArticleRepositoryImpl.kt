@@ -8,9 +8,11 @@ import org.litote.kmongo.regex
 import slime.com.data.models.Article
 import slime.com.data.models.Category
 import slime.com.data.models.SubscribedCategory
+import slime.com.service.SubscriptionService
 
 class ArticleRepositoryImpl(
-    db: CoroutineDatabase
+    db: CoroutineDatabase,
+    private val subscriptionService: SubscriptionService
 ) : ArticleRepository {
 
     private val articleDb = db.getCollection<Article>()
@@ -35,11 +37,11 @@ class ArticleRepositoryImpl(
         return articleDb.insertOne(article).wasAcknowledged()
     }
 
-    override suspend fun deleteArticle(articleId: String): Boolean {
+    override suspend fun deleteArticle(articleId: Int): Boolean {
         return articleDb.deleteOneById(articleId).wasAcknowledged()
     }
 
-    override suspend fun getArticleById(articleId: String): Article? {
+    override suspend fun getArticleById(articleId: Int): Article? {
         return articleDb.findOneById(articleId)
     }
 
@@ -49,7 +51,6 @@ class ArticleRepositoryImpl(
         page: Int,
         pageSize: Int
     ): Pair<List<Article>, Int> {
-
         val articles = when {
             category.isEmpty() && query.isNotEmpty() -> {
                 articleDb.find().filter(
@@ -136,16 +137,9 @@ class ArticleRepositoryImpl(
         }
     }
 
-    override suspend fun getArticlesFromSubscription(
-        userId: String,
-        page: Int,
-        pageSize: Int
-    ): List<Article> {
-        val userSubscribedCategory = subscribedCategories.find(SubscribedCategory::userId eq userId).toList().map {
-            categoryDb.findOneById(it.categoryId) ?: return listOf()
-        }
-
-        return emptyList()
+    override suspend fun getRecommendedArticles(userId: String, page: Int, pageSize: Int): List<Article> {
+        val categoriesInExplore = subscriptionService.getCategoriesNotSubscribed(userId).random()
+        return articleDb.find(Article::category eq categoriesInExplore.name).skipAndMap(0, 4)
     }
 
     private suspend fun CoroutineFindPublisher<Article>.skipAndMap(page: Int, pageSize: Int): List<Article> {
