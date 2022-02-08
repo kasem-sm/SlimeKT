@@ -5,7 +5,6 @@
 package kasem.sm.feature_article.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -18,6 +17,7 @@ import kasem.sm.feature_article.widget.DailyReadWidgetReceiver
 import kasem.sm.feature_article.worker.utils.NotificationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltWorker
 internal class DailyReadTask @AssistedInject constructor(
@@ -45,7 +45,7 @@ internal class DailyReadTask @AssistedInject constructor(
             it.toEntity(pair)
         } ?: return Result.retry()
 
-        Log.d("DailyReadTask", randomArticleFromApi.title)
+        Timber.d(randomArticleFromApi.title)
 
         try {
             if (!randomArticleFromApi.isShownInDailyRead) {
