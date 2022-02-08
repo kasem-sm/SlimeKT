@@ -1,0 +1,28 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/ui.gradle")
+}
+
+android {
+	buildFeatures {
+		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+	}
+}
+
+dependencies {
+	// Article
+	implementation(project(":feature-auth:domain:interactors"))
+	implementation(project(":feature-auth:domain:model"))
+
+	implementation(Compose.iconsExtended)
+
+	// Test Libs
+	testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+	testImplementation 'app.cash.turbine:turbine:0.7.0'
+	testImplementation "com.google.truth:truth:1.1.3"
+	testImplementation "io.mockk:mockk:1.12.2"
+	testImplementation 'junit:junit:4.13.2'
+}
