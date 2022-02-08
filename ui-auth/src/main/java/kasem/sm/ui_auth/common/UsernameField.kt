@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.SlimeTextField
 import kasem.sm.common_ui.SlimeTypography
@@ -20,6 +21,7 @@ fun UsernameField(
     modifier: Modifier = Modifier,
     text: String,
     onUsernameChanged: (String) -> Unit,
+    onNext: () -> Unit,
     enabled: Boolean = true,
 ) {
     SlimeTextField(
@@ -34,6 +36,8 @@ fun UsernameField(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
-        modifier = modifier
+        modifier = modifier,
+        imeAction = ImeAction.Next,
+        onNext = onNext
     )
 }

@@ -57,6 +57,7 @@ fun SlimeTextField(
     onTrailingIconClicked: () -> Unit = {},
     imeAction: ImeAction? = null,
     onSearch: () -> Unit = {},
+    onNext: () -> Unit = {},
     placeholderContent: @Composable () -> Unit = {},
 ) {
     Column {
@@ -123,11 +124,19 @@ fun SlimeTextField(
                 textColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 cursorColor = MaterialTheme.colorScheme.onSurfaceVariant
             ),
-            keyboardActions = if (imeAction == ImeAction.Search) {
-                KeyboardActions(onSearch = {
-                    onSearch()
-                })
-            } else KeyboardActions.Default
+            keyboardActions = when (imeAction) {
+                ImeAction.Search -> {
+                    KeyboardActions(onSearch = {
+                        onSearch()
+                    })
+                }
+                ImeAction.Next -> {
+                    KeyboardActions(onNext = {
+                        onNext()
+                    })
+                }
+                else -> KeyboardActions.Default
+            }
         )
         AnimatedVisibility(visible = errorMessage != null) {
             Text(

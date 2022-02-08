@@ -17,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,6 +56,7 @@ internal fun RegisterContent(
             .background(MaterialTheme.colorScheme.surface)
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
+        val focusManager = LocalFocusManager.current
 
         SlimeScreenColumn(
             verticalArrangement = Arrangement.Bottom,
@@ -80,6 +83,9 @@ internal fun RegisterContent(
                     enabled = !viewState.isLoading,
                     modifier = Modifier
                         .padding(vertical = 10.dp),
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
                 )
             }
 
