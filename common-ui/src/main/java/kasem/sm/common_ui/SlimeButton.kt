@@ -8,7 +8,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -103,8 +102,7 @@ fun SlimePrimaryButton(
     enabled: Boolean = true,
 ) {
     Button(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier,
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(24.dp),

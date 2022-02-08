@@ -14,6 +14,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.header
 import io.ktor.client.request.host
+import io.ktor.client.request.port
 import io.ktor.http.URLProtocol
 import javax.inject.Singleton
 import kasem.sm.core.interfaces.Session
@@ -47,7 +48,14 @@ object NetworkModule {
             }
             defaultRequest {
                 host = BASE_URL
-                url { protocol = URLProtocol.HTTPS }
+                when (host) {
+                    BASE_URL -> url { protocol = URLProtocol.HTTPS }
+                    else -> {
+                        url { protocol = URLProtocol.HTTP }
+                        port = 8000
+                    }
+                }
+
                 session.fetchToken()?.let { token ->
                     header("Authorization", "Bearer $token")
                 }
@@ -56,4 +64,5 @@ object NetworkModule {
     }
 
     private const val BASE_URL = "slime-kt.herokuapp.com"
+    private const val LOCAL_BASE_URL = "192.168.0.106"
 }

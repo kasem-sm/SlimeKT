@@ -74,7 +74,7 @@ internal class CategoryApiServiceImpl @Inject constructor(
     companion object EndPoints {
         const val GET_ALL_CATEGORIES_ROUTE = "/api/category/all"
         const val GET_CATEGORY_BY_ID = "/api/category/get"
-        const val GET_SUBSCRIBED_CATEGORIES_ROUTE = "/api/subscribedCategories/get"
+        const val GET_SUBSCRIBED_CATEGORIES_ROUTE = "/api/subscribedCategories/all"
         const val SUBSCRIBE_TO_CATEGORY_ROUTE = "/api/subscribedCategories/subscribe"
         const val UN_SUBSCRIBE_TO_CATEGORY_ROUTE = "/api/subscribedCategories/unsubscribe"
         const val VERIFY_IF_IS_SUBSCRIBED_ROUTE = "/api/subscribedCategories/verify"

@@ -15,4 +15,6 @@ dependencies {
 	implementation(project(":feature-article:datasource"))
 	implementation(project(":feature-article:widget"))
 	implementation(project(":feature-article:domain:model"))
+
+	implementation("com.jakewharton.timber:timber:5.0.1")
 }
