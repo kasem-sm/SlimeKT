@@ -67,7 +67,7 @@ class SubscriptionService(
         }
     }
 
-    suspend fun getCategoriesNotSubscribed(currentUserId: String): List<Category>? {
+    suspend fun getCategoriesNotSubscribed(currentUserId: String): List<Category> {
         return try {
             categoryRepository.getAllCategories().filter {
                 !subscribeRepository.checkAlreadySubscribed(currentUserId, it.id)
@@ -75,7 +75,7 @@ class SubscriptionService(
                 it.getExtras(currentUserId, it.id)
             }
         } catch (e: Exception) {
-            null
+            emptyList()
         }
     }
 

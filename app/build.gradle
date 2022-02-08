@@ -31,10 +31,10 @@ provideKtorAndroidDeps(this)
 dependencies {
 	implementation(project(":core"))
 	implementation(project(":common-ui"))
-	implementation implementation(project(':ui-auth',))
 
 	// Ui Dep
 	implementation(project(":ui-profile"))
+	implementation(project(":ui-auth"))
 	implementation(project(":ui-article-detail"))
 	implementation(project(":ui-article-list"))
 	implementation(project(":ui-explore"))

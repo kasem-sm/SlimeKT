@@ -9,6 +9,7 @@ plugins {
     kotlin("jvm") version "1.6.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "slime.com"
@@ -44,4 +45,12 @@ dependencies {
     // Test
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+}
+
+tasks {
+    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+        manifest {
+            attributes["Main-Class"] = application.mainClass
+        }
+    }
 }

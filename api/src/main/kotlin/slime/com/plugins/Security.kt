@@ -12,13 +12,14 @@ import io.ktor.auth.principal
 fun Application.configureSecurity() {
     authentication {
         jwt {
-            val jwtAudience = environment.config.property("jwt.audience").getString()
-            realm = environment.config.property("jwt.realm").getString()
+            val jwtAudience = System.getenv("JWT_AUD")
+            val jwtDomain = System.getenv("JWT_DO")
+            realm = System.getenv("JWT_RE")
             verifier(
                 JWT
                     .require(Algorithm.HMAC256("secret"))
                     .withAudience(jwtAudience)
-                    .withIssuer(environment.config.property("jwt.domain").getString())
+                    .withIssuer(jwtDomain)
                     .build()
             )
             validate { credential ->

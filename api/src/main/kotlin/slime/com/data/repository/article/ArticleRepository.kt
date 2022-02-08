@@ -6,9 +6,9 @@ interface ArticleRepository {
 
     suspend fun createArticle(article: Article): Boolean
 
-    suspend fun deleteArticle(articleId: String): Boolean
+    suspend fun deleteArticle(articleId: Int): Boolean
 
-    suspend fun getArticleById(articleId: String): Article?
+    suspend fun getArticleById(articleId: Int): Article?
 
     suspend fun getAllArticles(
         category: String = "",
@@ -17,11 +17,11 @@ interface ArticleRepository {
         pageSize: Int = 10
     ): Pair<List<Article>, Int>
 
-    suspend fun getArticlesFromSubscription(
+    suspend fun getRandomArticleFromSubscription(userId: String? = null): Article?
+
+    suspend fun getRecommendedArticles(
         userId: String,
         page: Int = 0,
         pageSize: Int = 10
     ): List<Article>
-
-    suspend fun getRandomArticleFromSubscription(userId: String? = null): Article?
 }

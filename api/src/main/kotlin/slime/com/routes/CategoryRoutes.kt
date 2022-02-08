@@ -10,20 +10,28 @@ import slime.com.data.models.Category
 import slime.com.data.repository.category.CategoryRepository
 import slime.com.data.request.CreateCategoryRequest
 import slime.com.data.response.SlimeResponse
+import slime.com.service.SubscriptionService
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
 
 fun Route.registerCategoryRoutes(
-    repository: CategoryRepository
+    repository: CategoryRepository,
+    subscriptionService: SubscriptionService
 ) {
     get("/api/category/all") {
-        val categories = repository.getAllCategories()
+        val categories = repository.getAllCategories().map {
+            val totalSubscribers = subscriptionService.getNumber(it.id)
+            it.copy(totalSubscribers = totalSubscribers)
+        }
         respondWith(categories)
     }
 
     get("/api/category/get") {
         val id = call.parameters["id"] ?: return@get
-        val category = repository.getCategoryById(id) ?: return@get
+        val category = repository.getCategoryById(id)?.let {
+            val totalSubscribers = subscriptionService.getNumber(it.id)
+            it.copy(totalSubscribers = totalSubscribers)
+        } ?: return@get
         respondWith(category)
     }
 

@@ -16,7 +16,6 @@ fun Route.registerSubscribeCategoriesRoute(
     service: SubscriptionService,
     authService: AuthService
 ) {
-
     authenticate {
         post("/api/subscribedCategories/subscribe") {
             getUserId(authService) { userId ->
@@ -28,7 +27,7 @@ fun Route.registerSubscribeCategoriesRoute(
     }
 
     authenticate {
-        get("api/subscribedCategories/get") {
+        get("api/subscribedCategories/all") {
             val userId = call.userId ?: return@get
             respondWith(service.getUserSubscribedCategories(userId))
         }
@@ -45,7 +44,7 @@ fun Route.registerSubscribeCategoriesRoute(
     }
 
     authenticate {
-        get("/api/subscribedCategories/check") {
+        get("/api/subscribedCategories/verify") {
             getUserId(authService) { userId ->
                 val data = service.checkIfUserSubscribes(userId, call.parameters["id"] ?: return@get)
                 respondWith(data)
@@ -56,7 +55,7 @@ fun Route.registerSubscribeCategoriesRoute(
     authenticate {
         get("api/subscribedCategories/explore") {
             val userId = call.userId ?: return@get
-            respondWith(service.getCategoriesNotSubscribed(userId) ?: listOf())
+            respondWith(service.getCategoriesNotSubscribed(userId))
         }
     }
 

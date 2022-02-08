@@ -11,18 +11,23 @@ import slime.com.data.repository.category.CategoryRepository
 import slime.com.data.repository.category.CategoryRepositoryImpl
 import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepository
 import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepositoryImpl
+import slime.com.service.SubscriptionService
 import slime.com.utils.DATABASE_NAME
 
 val mainModule = module(createdAtStart = true) {
     single {
-        val client = KMongo.createClient().coroutine
+        val url = System.getenv("CONNECTION_STRING")
+        val client = KMongo.createClient(url).coroutine
         client.getDatabase(DATABASE_NAME)
+    }
+    single {
+        SubscriptionService(get(), get())
     }
     single<AuthRepository> {
         AuthRepositoryImpl(get())
     }
     single<ArticleRepository> {
-        ArticleRepositoryImpl(get())
+        ArticleRepositoryImpl(get(), get())
     }
     single<CategoryRepository> {
         CategoryRepositoryImpl(get())

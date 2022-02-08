@@ -9,7 +9,9 @@ class ArticleService(
     private val articleRepository: ArticleRepository
 ) {
 
-    suspend fun getRandomArticle(userId: String? = null): Article? = articleRepository.getRandomArticleFromSubscription(userId)
+    suspend fun getArticlesInExplore(userId: String): List<Article> = articleRepository.getRecommendedArticles(userId)
+
+    suspend fun getRandomArticleFromUsersSubscription(userId: String? = null): Article? = articleRepository.getRandomArticleFromSubscription(userId)
 
     suspend fun getAllArticles(
         category: String = "",
@@ -20,9 +22,9 @@ class ArticleService(
         return articleRepository.getAllArticles(category, query, page, pageSize)
     }
 
-    suspend fun getArticleById(articleId: String) = articleRepository.getArticleById(articleId)
+    suspend fun getArticleById(articleId: Int) = articleRepository.getArticleById(articleId)
 
-    suspend fun deleteArticleById(articleId: String) = articleRepository.deleteArticle(articleId)
+    suspend fun deleteArticleById(articleId: Int) = articleRepository.deleteArticle(articleId)
 
     suspend fun validateAndCreateArticle(article: CreateArticleRequest): ServiceResult {
         article.apply {
@@ -41,6 +43,4 @@ class ArticleService(
             false -> ServiceResult.Error("Failed to create an article, please try again later")
         }
     }
-
-    suspend fun articlesOfSubscription(userId: String) = articleRepository.getArticlesFromSubscription(userId)
 }
