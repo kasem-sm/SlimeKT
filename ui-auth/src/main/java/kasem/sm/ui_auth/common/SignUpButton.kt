@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.SlimeTypography
 import kasem.sm.common_ui.getFont
 
@@ -23,7 +24,7 @@ internal fun SignUpButton(
     enabled: Boolean,
     onSignUpClicked: () -> Unit,
 ) {
-    val regularFont = getFont(SlimeTypography.Regular())
+    val regularFont = getFont(SlimeTypography.Medium())
     val boldFont = getFont(SlimeTypography.Bold())
     Column {
         TextButton(
@@ -39,7 +40,8 @@ internal fun SignUpButton(
                         style = SpanStyle(
                             fontStyle = regularFont.fontStyle,
                             color = MaterialTheme.colorScheme.onSurface,
-                            fontFamily = regularFont.fontFamily
+                            fontFamily = regularFont.fontFamily,
+                            letterSpacing = 1.sp
                         )
                     ) {
                         append("Don't have an account? ")
@@ -48,7 +50,8 @@ internal fun SignUpButton(
                         style = SpanStyle(
                             fontStyle = boldFont.fontStyle,
                             color = MaterialTheme.colorScheme.primary,
-                            fontFamily = boldFont.fontFamily
+                            fontFamily = boldFont.fontFamily,
+                            letterSpacing = 1.sp
                         )
                     ) {
                         append("Sign Up")

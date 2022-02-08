@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,7 +40,6 @@ import kasem.sm.ui_auth.common.UsernameField
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun RegisterContent(
-    modifier: Modifier = Modifier,
     viewState: AuthViewState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
@@ -51,29 +49,27 @@ internal fun RegisterContent(
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
 
         SlimeScreenColumn(
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+            verticalArrangement = Arrangement.Bottom,
         ) {
             item {
                 Text(
                     text = "Publish Your Passion",
                     color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .padding(8.dp),
                     style = getFont(SlimeTypography.SemiBold(24.sp, letterSpacing = 1.sp))
                 )
                 Text(
                     text = "Get Started",
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
-                        .padding(5.dp),
-                    style = getFont(SlimeTypography.Regular(16.sp))
+                        .padding(vertical = 15.dp),
+                    style = getFont(SlimeTypography.Medium(16.sp))
                 )
             }
 
@@ -82,6 +78,8 @@ internal fun RegisterContent(
                     text = viewState.username,
                     onUsernameChanged = onUsernameChanged,
                     enabled = !viewState.isLoading,
+                    modifier = Modifier
+                        .padding(vertical = 10.dp),
                 )
             }
 
@@ -91,19 +89,24 @@ internal fun RegisterContent(
                     onPasswordChanged = onPasswordChanged,
                     enabled = !viewState.isLoading,
                     passwordToggle = viewState.passwordVisibility,
-                    onPasswordToggleClick = togglePasswordVisibility
+                    onPasswordToggleClick = togglePasswordVisibility,
+                    modifier = Modifier
+                        .padding(vertical = 10.dp),
                 )
             }
 
             item {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
                     Checkbox(
                         checked = viewState.isAccountDiscoverable,
                         onCheckedChange = toggleAccountDiscoverability
                     )
                     Text(
                         text = "Discoverable to other users in explore section",
-                        style = getFont(SlimeTypography.Medium(14.sp)),
+                        style = getFont(SlimeTypography.Medium(14.sp, letterSpacing = 1.sp)),
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -117,9 +120,9 @@ internal fun RegisterContent(
                         keyboardController?.hide()
                     },
                     enabled = !viewState.isLoading,
+                    isLoading = viewState.isLoading,
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    isLoading = viewState.isLoading
+                        .padding(vertical = 15.dp)
                 )
             }
         }

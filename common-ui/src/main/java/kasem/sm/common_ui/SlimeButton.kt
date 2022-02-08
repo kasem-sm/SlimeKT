@@ -5,6 +5,7 @@
 package kasem.sm.common_ui
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -33,7 +34,7 @@ internal fun RowScope.loadingButtonContent(
     progressColor: Color = MaterialTheme.colorScheme.onPrimary,
     textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) = apply {
-    if (isLoading) {
+    AnimatedVisibility(visible = isLoading) {
         CircularProgressIndicator(
             modifier = Modifier
                 .size(20.dp),

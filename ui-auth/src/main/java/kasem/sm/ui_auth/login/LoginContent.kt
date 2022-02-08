@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.VerticalSpacer
 import kasem.sm.common_ui.getFont
 import kasem.sm.ui_auth.common.AuthViewState
 import kasem.sm.ui_auth.common.LoginButton
@@ -39,7 +37,6 @@ import kasem.sm.ui_auth.common.UsernameField
 
 @Composable
 internal fun LoginContent(
-    modifier: Modifier = Modifier,
     viewState: AuthViewState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
@@ -48,22 +45,21 @@ internal fun LoginContent(
     onSignUpClicked: () -> Unit,
 ) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
 
         SlimeScreenColumn(
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+            verticalArrangement = Arrangement.Bottom,
         ) {
             item {
                 Text(
                     text = "Welcome Back",
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
-                        .padding(10.dp),
+                        .padding(vertical = 15.dp),
                     style = getFont(SlimeTypography.SemiBold(24.sp, letterSpacing = 1.sp))
                 )
             }
@@ -73,6 +69,8 @@ internal fun LoginContent(
                     text = viewState.username,
                     onUsernameChanged = onUsernameChanged,
                     enabled = !viewState.isLoading,
+                    modifier = Modifier
+                        .padding(vertical = 10.dp),
                 )
             }
 
@@ -82,7 +80,9 @@ internal fun LoginContent(
                     onPasswordChanged = onPasswordChanged,
                     enabled = !viewState.isLoading,
                     passwordToggle = viewState.passwordVisibility,
-                    onPasswordToggleClick = onPasswordToggleClicked
+                    onPasswordToggleClick = onPasswordToggleClicked,
+                    modifier = Modifier
+                        .padding(vertical = 10.dp),
                 )
             }
 
@@ -93,17 +93,18 @@ internal fun LoginContent(
                         onLoginClicked.invoke()
                         keyboardController?.hide()
                     },
-                    isLoading = viewState.isLoading
+                    isLoading = viewState.isLoading,
+                    modifier = Modifier
+                        .padding(vertical = 15.dp)
                 )
             }
 
             item {
-                VerticalSpacer(value = 20.dp)
                 SignUpButton(
                     enabled = !viewState.isLoading,
                     onSignUpClicked = {
                         onSignUpClicked.invoke()
-                    }
+                    },
                 )
             }
         }
