@@ -84,6 +84,7 @@ internal fun RegisterContent(
                     modifier = Modifier
                         .padding(vertical = 10.dp),
                     onNext = {
+
                         focusManager.moveFocus(FocusDirection.Down)
                     }
                 )
