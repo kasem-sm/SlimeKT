@@ -57,7 +57,8 @@ fun Route.registerArticleRoutes(
                 totalPages = totalPages.toInt() - 1,
                 prevPage = if (page == 0) null else page - 1,
                 nextPage = if (page >= totalPages.toInt() - 1) null else page + 1,
-            ), articles = articlesAndSize.first
+            ),
+            articles = articlesAndSize.first
         )
         respondWith(pagedArticlesResponse)
     }
