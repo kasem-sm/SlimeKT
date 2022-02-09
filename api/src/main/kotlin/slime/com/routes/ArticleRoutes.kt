@@ -91,11 +91,9 @@ fun Route.registerArticleRoutes(
         }
     }
 
-    authenticate {
-        get("/api/article/explore") {
-            val userId = call.userId ?: return@get
-            val articlesInExplore = service.getArticlesInExplore(userId)
-            respondWith(articlesInExplore)
-        }
+    get("/api/article/explore") {
+        val userId = call.userId ?: return@get
+        val articlesInExplore = service.getArticlesInExplore(userId)
+        respondWith(articlesInExplore)
     }
 }
