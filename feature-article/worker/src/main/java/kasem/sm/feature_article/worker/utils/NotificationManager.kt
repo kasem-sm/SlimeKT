@@ -64,7 +64,7 @@ class NotificationManager @Inject constructor(
         val Int.openTaskIntent
             get() = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://slime.hk/article_detail_screen=$this")
+                Uri.parse("https://slime-kt.herokuapp.com/article_detail_screen=$this")
             )
 
         @RequiresApi(Build.VERSION_CODES.O)

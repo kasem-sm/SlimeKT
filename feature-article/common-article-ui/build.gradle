@@ -10,8 +10,7 @@ dependencies {
 	implementation(project(":common-ui"))
 	implementation(project(":feature-article:domain:model"))
 
-	// Coil
-	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+	implementation Coil.core
 
 	// Material 3
 	implementation(Compose.material3)

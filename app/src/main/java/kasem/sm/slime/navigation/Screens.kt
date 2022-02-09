@@ -21,7 +21,7 @@ import kasem.sm.ui_explore.ExploreScreen
 import kasem.sm.ui_profile.ProfileScreen
 import kasem.sm.ui_subscribe_category.SubscribeCategoryScreen
 
-internal fun NavGraphBuilder.attachSignUpScreen(
+internal fun NavGraphBuilder.attachRegistrationScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavController,
 ) {
@@ -69,7 +69,7 @@ internal fun NavGraphBuilder.attachHomeScreen(
             snackbarHostState = snackbarHostState,
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id.toString()).route)
+                navController.navigate(Routes.ArticleDetailScreen(id).route)
             },
             navigateTo = { route ->
                 navController.navigate(route)
@@ -89,7 +89,7 @@ internal fun NavGraphBuilder.attachExploreScreen(
             imageLoader = imageLoader,
             snackbarHostState = snackbarHostState,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id.toString()).route)
+                navController.navigate(Routes.ArticleDetailScreen(id).route)
             },
             onCategoryClick = { title, id ->
                 navController.navigate(Routes.ListScreen(title, id).route)
@@ -122,7 +122,7 @@ internal fun NavGraphBuilder.attachArticleDetailScreen(
         arguments = Routes.ArticleDetailScreen().arguments,
         deepLinks = listOf(
             navDeepLink {
-                uriPattern = "https://slime.hk/article_detail_screen={id}"
+                uriPattern = "https://slime-kt.herokuapp.com/article_detail_screen={id}"
             }
         )
     ) {
@@ -161,7 +161,7 @@ internal fun NavGraphBuilder.attachListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id.toString()).route)
+                navController.navigate(Routes.ArticleDetailScreen(id).route)
             },
             snackbarHostState = snackbarHostState
         )

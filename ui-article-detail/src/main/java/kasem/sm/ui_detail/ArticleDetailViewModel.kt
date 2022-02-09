@@ -32,7 +32,7 @@ class ArticleDetailViewModel @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers
 ) : ViewModel() {
 
-    private val articleId = savedStateHandle.get<String>("id")?.toInt() ?: -1
+    private val articleId = savedStateHandle.get<Int>("id") ?: -1
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()

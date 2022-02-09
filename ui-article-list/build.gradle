@@ -18,6 +18,5 @@ dependencies {
 	implementation(project(":feature-category:domain:model"))
 	implementation(project(":feature-category:worker"))
 
-	// Coil
-	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+	implementation Coil.core
 }

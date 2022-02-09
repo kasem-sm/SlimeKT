@@ -41,14 +41,12 @@ internal fun SlimeBottomBar(
                     selected = currentRoute == item.route,
                     onClick = {
                         if (navController.currentDestination?.route != item.route) {
-                            item.route?.let {
-                                navController.navigate(it) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
+                            navController.navigate(item.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
                                 }
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         }
                     }
