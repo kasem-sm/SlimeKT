@@ -38,34 +38,28 @@ fun Route.registerArticleRoutes(
         }
     }
 
-    authenticate {
-        get("/api/article/all") {
-            val category = call.parameters["category"] ?: ""
-            val query = call.parameters["query"] ?: ""
-            val page = call.parameters["page"]?.toIntOrNull() ?: 0
-            val pageSize = call.parameters["pageSize"]?.toIntOrNull() ?: 3
+    get("/api/article/all") {
+        val category = call.parameters["category"] ?: ""
+        val query = call.parameters["query"] ?: ""
+        val page = call.parameters["page"]?.toIntOrNull() ?: 0
+        val pageSize = call.parameters["pageSize"]?.toIntOrNull() ?: 3
 
-            val articlesAndSize = service.getAllArticles(
-                category = category,
-                query = query,
-                page = page,
-                pageSize = pageSize
-            )
+        val articlesAndSize = service.getAllArticles(
+            category = category, query = query, page = page, pageSize = pageSize
+        )
 
-            val totalArticlesCount = articlesAndSize.second
-            val totalPages = ceil((totalArticlesCount.toDouble() / pageSize.toDouble()))
+        val totalArticlesCount = articlesAndSize.second
+        val totalPages = ceil((totalArticlesCount.toDouble() / pageSize.toDouble()))
 
-            val pagedArticlesResponse = PagedArticlesResponse(
-                info = Info(
-                    articleSize = totalArticlesCount,
-                    totalPages = totalPages.toInt() - 1,
-                    prevPage = if (page == 0) null else page - 1,
-                    nextPage = if (page >= totalPages.toInt() - 1) null else page + 1,
-                ),
-                articles = articlesAndSize.first
-            )
-            respondWith(pagedArticlesResponse)
-        }
+        val pagedArticlesResponse = PagedArticlesResponse(
+            info = Info(
+                articleSize = totalArticlesCount,
+                totalPages = totalPages.toInt() - 1,
+                prevPage = if (page == 0) null else page - 1,
+                nextPage = if (page >= totalPages.toInt() - 1) null else page + 1,
+            ), articles = articlesAndSize.first
+        )
+        respondWith(pagedArticlesResponse)
     }
 
     authenticate {
@@ -90,8 +84,7 @@ fun Route.registerArticleRoutes(
                 true -> respondWith<Unit>(SlimeResponse(true, "Article deleted successfully"))
                 false -> respondWith<Unit>(
                     SlimeResponse(
-                        false,
-                        "Couldn't complete your request, Please try again later"
+                        false, "Couldn't complete your request, Please try again later"
                     )
                 )
             }
