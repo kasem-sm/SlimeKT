@@ -9,7 +9,7 @@ class ArticleService(
     private val articleRepository: ArticleRepository
 ) {
 
-    suspend fun getArticlesInExplore(userId: String): List<Article> = articleRepository.getRecommendedArticles(userId)
+    suspend fun getArticlesInExplore(userId: String?): List<Article> = articleRepository.getRecommendedArticles(userId)
 
     suspend fun getRandomArticleFromUsersSubscription(userId: String? = null): Article? = articleRepository.getRandomArticleFromSubscription(userId)
 

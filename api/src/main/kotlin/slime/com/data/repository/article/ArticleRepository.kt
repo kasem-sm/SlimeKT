@@ -20,7 +20,7 @@ interface ArticleRepository {
     suspend fun getRandomArticleFromSubscription(userId: String? = null): Article?
 
     suspend fun getRecommendedArticles(
-        userId: String,
+        userId: String? = null,
         page: Int = 0,
         pageSize: Int = 10
     ): List<Article>
