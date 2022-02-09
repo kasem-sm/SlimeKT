@@ -52,7 +52,6 @@ internal class DailyReadTask @AssistedInject constructor(
                 /**
                  * Remove previous article from daily read,
                  */
-                // Update in cache
                 applicationScope.launch(slimeDispatcher.defaultDispatcher) {
                     cache.run {
                         removePreviousActiveArticle()
@@ -61,7 +60,10 @@ internal class DailyReadTask @AssistedInject constructor(
                         updateIsActiveInDailyReadStatus(true, randomArticleFromApi.id)
                     }
                 }.join()
-                updateWidgetAndShowNotification(randomArticleFromApi.title)
+                updateWidgetAndShowNotification(
+                    randomArticleFromApi.id,
+                    randomArticleFromApi.title,
+                )
                 return Result.success()
             } else {
                 return Result.retry()
@@ -72,9 +74,12 @@ internal class DailyReadTask @AssistedInject constructor(
         }
     }
 
-    private suspend fun updateWidgetAndShowNotification(articleTitle: String) {
+    private suspend fun updateWidgetAndShowNotification(
+        articleId: Int,
+        articleTitle: String,
+    ) {
         notificationManager.showReminderNotificationFor(
-            articleId = 1,
+            articleId = articleId,
             description = articleTitle,
             title = "Your daily read is ready",
         )

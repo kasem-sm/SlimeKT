@@ -32,7 +32,7 @@ internal fun Navigation(
         route = MainRoute.route,
     ) {
         attachLoginScreen(snackbarHostState, navController)
-        attachSignUpScreen(snackbarHostState, navController)
+        attachRegistrationScreen(snackbarHostState, navController)
         attachHomeScreen(imageLoader, navController, snackbarHostState)
         attachExploreScreen(navController, imageLoader, snackbarHostState)
         attachProfileScreen(navController)

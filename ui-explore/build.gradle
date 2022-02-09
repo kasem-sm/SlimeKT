@@ -17,6 +17,5 @@ dependencies {
 	implementation(project(":feature-category:domain:interactors"))
 	implementation(project(":feature-category:domain:model"))
 
-	// Coil
-	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+	implementation Coil.core
 }

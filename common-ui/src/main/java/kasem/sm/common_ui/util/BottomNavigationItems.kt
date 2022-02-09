@@ -10,7 +10,7 @@ import kasem.sm.common_ui.R
 sealed class BottomNavigationItems(
     val title: String,
     @DrawableRes val icon: Int,
-    val route: String? = null,
+    val route: String,
 ) {
 
     object Home : BottomNavigationItems(

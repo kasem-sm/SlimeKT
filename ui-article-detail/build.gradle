@@ -12,8 +12,7 @@ dependencies {
 	implementation(project(":feature-article:domain:model"))
 	implementation(project(":feature-article:markdown"))
 
-	// Coil
-	implementation("io.coil-kt:coil-compose-base:2.0.0-alpha07")
+	implementation Coil.core
 
 	// Test libs
 	testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'

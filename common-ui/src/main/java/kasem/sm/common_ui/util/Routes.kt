@@ -42,11 +42,11 @@ sealed class Routes(
         route = "profile_screen"
     )
 
-    data class ArticleDetailScreen(val id: String = "{id}") : Routes(
+    data class ArticleDetailScreen(val id: Int = -1) : Routes(
         route = "article_detail_screen/$id",
         arguments = listOf(
             navArgument("id") {
-                type = NavType.StringType
+                type = NavType.IntType
             }
         )
     )

@@ -33,7 +33,6 @@ buildscript {
         versionProps["PATCH"] = _patch.toString()
         versionProps["VERSION_CODE"] = _versionCode.toString()
         versionProps.store(versionPropsFile.newWriter(), null)
-        def versionName = "${_major}.${_versionCode}.${_minor}.${_patch}"
     }
     repositories {
         google()
@@ -54,8 +53,6 @@ buildscript {
 
 plugins {
     id "com.jraska.module.graph.assertion" version "2.2.0"
-    id 'com.android.library' version '7.1.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
 task clean(type: Delete) {
