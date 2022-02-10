@@ -13,11 +13,13 @@ class SubscribeCategoriesRepositoryImpl(
     private val subscribedCategoryDb = db.getCollection<SubscribedCategory>()
     private val categoryDb = db.getCollection<Category>()
 
-    override suspend fun getAll(userId: String): List<Category> {
-        val list = subscribedCategoryDb.find(SubscribedCategory::userId eq userId).toList().map {
-            categoryDb.findOneById(it.categoryId) ?: return listOf()
+    override suspend fun getAll(userId: String?): List<Category> {
+        return if (userId != null) {
+            subscribedCategoryDb.find(SubscribedCategory::userId eq userId).toList().map {
+                categoryDb.findOneById(it.categoryId) ?: return listOf()
+            }
         }
-        return list
+       else emptyList()
     }
 
     override suspend fun subscribe(userId: String, categoryId: String): Boolean {

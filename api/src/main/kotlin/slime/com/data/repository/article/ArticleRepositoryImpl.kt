@@ -137,9 +137,14 @@ class ArticleRepositoryImpl(
         }
     }
 
-    override suspend fun getRecommendedArticles(userId: String, page: Int, pageSize: Int): List<Article> {
-        val categoriesInExplore = subscriptionService.getCategoriesNotSubscribed(userId).random()
-        return articleDb.find(Article::category eq categoriesInExplore.name).skipAndMap(0, 4)
+    override suspend fun getRecommendedArticles(userId: String?, page: Int, pageSize: Int): List<Article> {
+        return if (userId != null) {
+            val categoriesInExplore = subscriptionService.getCategoriesNotSubscribed(userId).random()
+            articleDb.find(Article::category eq categoriesInExplore.name).skipAndMap(0, 4)
+        } else {
+            val randomCategory = categoryDb.find().toList().random()
+            articleDb.find(Article::category eq randomCategory.name).skipAndMap(0, 4)
+        }
     }
 
     private suspend fun CoroutineFindPublisher<Article>.skipAndMap(page: Int, pageSize: Int): List<Article> {

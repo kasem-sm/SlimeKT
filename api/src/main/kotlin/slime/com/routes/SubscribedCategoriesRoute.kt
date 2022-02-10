@@ -26,11 +26,9 @@ fun Route.registerSubscribeCategoriesRoute(
         }
     }
 
-    authenticate {
-        get("api/subscribedCategories/all") {
-            val userId = call.userId ?: return@get
-            respondWith(service.getUserSubscribedCategories(userId))
-        }
+    get("api/subscribedCategories/all") {
+        val userId = call.userId
+        respondWith(service.getUserSubscribedCategories(userId))
     }
 
     authenticate {

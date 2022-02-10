@@ -52,7 +52,7 @@ class SubscriptionService(
         }
     }
 
-    suspend fun getUserSubscribedCategories(userId: String): List<Category> {
+    suspend fun getUserSubscribedCategories(userId: String?): List<Category> {
         return subscribeRepository.getAll(userId).map {
             it.getExtras(userId, it.id)
         }
@@ -83,9 +83,11 @@ class SubscriptionService(
         }
     }
 
-    private suspend fun Category.getExtras(userId: String, categoryId: String): Category {
-        val hasUserSubscribed = checkIfUserSubscribes(userId, categoryId)
-        val totalSubscribers = getNumber(categoryId)
-        return copy(hasUserSubscribed = hasUserSubscribed, totalSubscribers = totalSubscribers)
+    private suspend fun Category.getExtras(userId: String? = null, categoryId: String): Category {
+        return if (userId != null) {
+            val hasUserSubscribed = checkIfUserSubscribes(userId, categoryId)
+            val totalSubscribers = getNumber(categoryId)
+            copy(hasUserSubscribed = hasUserSubscribed, totalSubscribers = totalSubscribers)
+        } else this
     }
 }
