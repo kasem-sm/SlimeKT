@@ -18,8 +18,7 @@ class SubscribeCategoriesRepositoryImpl(
             subscribedCategoryDb.find(SubscribedCategory::userId eq userId).toList().map {
                 categoryDb.findOneById(it.categoryId) ?: return listOf()
             }
-        }
-       else emptyList()
+        } else emptyList()
     }
 
     override suspend fun subscribe(userId: String, categoryId: String): Boolean {
