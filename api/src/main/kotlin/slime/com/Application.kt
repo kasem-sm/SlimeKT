@@ -16,7 +16,6 @@ fun Application.module() {
     configureKoin()
     configureSecurity()
     configureRouting()
-    configureSockets()
     configureSerialization()
     configureMonitoring()
 }
