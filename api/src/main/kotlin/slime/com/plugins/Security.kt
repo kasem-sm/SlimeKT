@@ -8,19 +8,17 @@ import io.ktor.auth.authentication
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import io.ktor.auth.principal
+import slime.com.isDebugMode
 
 fun Application.configureSecurity() {
     authentication {
         jwt {
-            val jwtAudience = System.getenv("JWT_AUD")
-            val jwtDomain = System.getenv("JWT_DO")
-            realm = System.getenv("JWT_RE")
+            val jwtAudience = if (isDebugMode) "jwt_aud" else System.getenv("JWT_AUD")
+            val jwtDomain = if (isDebugMode) "jwt_dom" else System.getenv("JWT_DO")
+            val jwtSec = if (isDebugMode) "secret" else System.getenv("JWT_SEC")
+            realm = if (isDebugMode) "jwt_realm" else System.getenv("JWT_RE")
             verifier(
-                JWT
-                    .require(Algorithm.HMAC256("secret"))
-                    .withAudience(jwtAudience)
-                    .withIssuer(jwtDomain)
-                    .build()
+                JWT.require(Algorithm.HMAC256(jwtSec)).withAudience(jwtAudience).withIssuer(jwtDomain).build()
             )
             validate { credential ->
                 if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null

@@ -18,3 +18,5 @@ fun Application.module() {
     configureSerialization()
     configureMonitoring()
 }
+
+val isDebugMode = System.getenv("CONNECTION_STRING") == null

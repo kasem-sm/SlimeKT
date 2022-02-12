@@ -11,12 +11,13 @@ import slime.com.data.repository.category.CategoryRepository
 import slime.com.data.repository.category.CategoryRepositoryImpl
 import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepository
 import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepositoryImpl
+import slime.com.isDebugMode
 import slime.com.service.SubscriptionService
 import slime.com.utils.DATABASE_NAME
 
 val mainModule = module(createdAtStart = true) {
     single {
-        val url = System.getenv("CONNECTION_STRING")
+        val url = if (isDebugMode) "mongodb://localhost" else System.getenv("CONNECTION_STRING")
         val client = KMongo.createClient(url).coroutine
         client.getDatabase(DATABASE_NAME)
     }

@@ -9,6 +9,9 @@ package kasem.sm.core.interfaces
  * storing a user's authentication token.
  */
 interface Session {
-    suspend fun storeToken(token: String?,)
-    fun fetchToken(): String?
+    suspend fun storeUserToken(token: String?)
+    fun getUserToken(): String?
+    suspend fun storeUserId(id: String?)
+    fun getUserId(): String?
+    suspend fun clear()
 }

@@ -5,6 +5,8 @@ import io.ktor.auth.authenticate
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
+import slime.com.data.models.Category
+import slime.com.data.repository.category.CategoryRepository
 import slime.com.plugins.userId
 import slime.com.service.SubscriptionService
 import slime.com.service.UserService
@@ -14,7 +16,8 @@ import slime.com.utils.respondWithResult
 
 fun Route.registerSubscribeCategoriesRoute(
     service: SubscriptionService,
-    userService: UserService
+    userService: UserService,
+    categoryRepository: CategoryRepository
 ) {
     authenticate {
         post("/api/subscribedCategories/subscribe") {
@@ -27,8 +30,10 @@ fun Route.registerSubscribeCategoriesRoute(
     }
 
     get("api/subscribedCategories/all") {
-        val userId = call.userId
-        respondWith(service.getUserSubscribedCategories(userId))
+        val userId = call.parameters["userId"]
+        if (userId != null) {
+            respondWith(service.getUserSubscribedCategories(userId))
+        } else respondWith(emptyList<Category>())
     }
 
     authenticate {
@@ -51,8 +56,16 @@ fun Route.registerSubscribeCategoriesRoute(
     }
 
     get("api/subscribedCategories/explore") {
-        val userId = call.userId
-        respondWith(service.getCategoriesNotSubscribed(userId))
+        val userId = call.parameters["userId"]
+        if (userId != null) {
+            respondWith(service.getCategoriesNotSubscribed(userId))
+        } else {
+            categoryRepository.getAllCategories()
+        }
+    }
+
+    get("api/subscribedCategories/explore") {
+        respondWith(categoryRepository.getAllCategories())
     }
 
     get("api/subscribedCategories/totalSubscribers") {
