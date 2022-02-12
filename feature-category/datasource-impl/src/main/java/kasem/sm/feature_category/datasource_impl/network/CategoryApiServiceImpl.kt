@@ -11,13 +11,15 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import javax.inject.Inject
+import kasem.sm.core.interfaces.Session
 import kasem.sm.core.utils.withResult
 import kasem.sm.feature_category.datasource.network.CategoryApiService
 import kasem.sm.feature_category.datasource.network.response.CategoryResponse
 import kasem.sm.feature_category.datasource.network.response.SlimeResponse
 
 internal class CategoryApiServiceImpl @Inject constructor(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val session: Session
 ) : CategoryApiService {
     override suspend fun getAllCategories(): Result<SlimeResponse<List<CategoryResponse>>> {
         return withResult {
@@ -35,7 +37,9 @@ internal class CategoryApiServiceImpl @Inject constructor(
 
     override suspend fun getSubscribedCategories(): Result<SlimeResponse<List<CategoryResponse>>> {
         return withResult {
-            client.get(GET_SUBSCRIBED_CATEGORIES_ROUTE)
+            client.get(GET_SUBSCRIBED_CATEGORIES_ROUTE) {
+                parameter("userId", session.getUserId())
+            }
         }
     }
 
@@ -59,7 +63,9 @@ internal class CategoryApiServiceImpl @Inject constructor(
 
     override suspend fun getExploreCategories(): Result<SlimeResponse<List<CategoryResponse>>> {
         return withResult {
-            client.get(GET_EXPLORE_CATEGORIES_ROUTE)
+            client.get(GET_EXPLORE_CATEGORIES_ROUTE) {
+                parameter("userId", session.getUserId())
+            }
         }
     }
 

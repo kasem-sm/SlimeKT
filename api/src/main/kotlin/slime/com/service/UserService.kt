@@ -19,6 +19,10 @@ class UserService(
     private val jwtSecret: String
 ) {
 
+    init {
+        println("JwtAud $jwtAudience")
+    }
+
     private val encryptorService = EncryptorService(jwtSecret)
 
     suspend fun String.getUser() = authRepository.findUserByUsername(this)
