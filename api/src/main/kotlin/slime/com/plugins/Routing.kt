@@ -14,8 +14,8 @@ import slime.com.routes.registerAuthenticationRoutes
 import slime.com.routes.registerCategoryRoutes
 import slime.com.routes.registerSubscribeCategoriesRoute
 import slime.com.service.ArticleService
-import slime.com.service.UserService
 import slime.com.service.SubscriptionService
+import slime.com.service.UserService
 
 fun Application.configureRouting() {
     val authRepository by inject<AuthRepository>()
