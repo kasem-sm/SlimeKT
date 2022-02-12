@@ -16,9 +16,7 @@ class SubscriptionService(
         return when {
             categoryRepository.getCategoryById(categoryId) == null -> ServiceResult.Error("Doesn't Exists")
             // technically this should not happen but for a safer side
-            subscribeRepository.checkAlreadySubscribed(
-                userId, categoryId
-            ) -> ServiceResult.Error("Already Subscribed")
+            checkIfUserSubscribes(userId, categoryId) -> ServiceResult.Error("Already Subscribed")
             else -> subscribe(userId, categoryId)
         }
     }
@@ -36,9 +34,7 @@ class SubscriptionService(
         return when {
             categoryRepository.getCategoryById(categoryId) == null -> ServiceResult.Error("Doesn't Exists")
             // technically this should not happen but for a safer side
-            !subscribeRepository.checkAlreadySubscribed(
-                userId, categoryId
-            ) -> ServiceResult.Error("You are trying to unsubscribe from a category you don't subscribe")
+            checkIfUserSubscribes(userId, categoryId) -> ServiceResult.Error("You are trying to unsubscribe from a category you don't subscribe")
             else -> unsubscribe(userId, categoryId)
         }
     }
@@ -52,10 +48,10 @@ class SubscriptionService(
         }
     }
 
-    suspend fun getUserSubscribedCategories(userId: String?): List<Category> {
+    suspend fun getUserSubscribedCategories(userId: String): List<Category> {
         return subscribeRepository.getAll(userId).map {
             val totalSubscribers = getNumber(it.id)
-            it.copy(totalSubscribers = totalSubscribers)
+            it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = true)
         }
     }
 
@@ -68,16 +64,12 @@ class SubscriptionService(
         }
     }
 
-    suspend fun getCategoriesNotSubscribed(currentUserId: String? = null): List<Category> {
-        return if (currentUserId != null) {
-            categoryRepository.getAllCategories().filter {
-                !checkIfUserSubscribes(currentUserId, it.id)
-            }.toList().map {
-                val totalSubscribers = getNumber(it.id)
-                it.copy(totalSubscribers = totalSubscribers)
-            }
-        } else {
-            categoryRepository.getAllCategories().toList()
+    suspend fun getCategoriesNotSubscribed(currentUserId: String): List<Category> {
+        return categoryRepository.getAllCategories().filter {
+            !checkIfUserSubscribes(currentUserId, it.id)
+        }.toList().map {
+            val totalSubscribers = getNumber(it.id)
+            it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = false)
         }
     }
 }
