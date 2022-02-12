@@ -6,7 +6,7 @@ import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
 import slime.com.plugins.userId
-import slime.com.service.AuthService
+import slime.com.service.UserService
 import slime.com.service.SubscriptionService
 import slime.com.utils.getUserId
 import slime.com.utils.respondWith
@@ -14,11 +14,11 @@ import slime.com.utils.respondWithResult
 
 fun Route.registerSubscribeCategoriesRoute(
     service: SubscriptionService,
-    authService: AuthService
+    userService: UserService
 ) {
     authenticate {
         post("/api/subscribedCategories/subscribe") {
-            getUserId(authService) { userId ->
+            getUserId(userService) { userId ->
                 respondWithResult {
                     service.verifyAndSubscribe(userId, call.parameters["id"] ?: return@post)
                 }
@@ -33,7 +33,7 @@ fun Route.registerSubscribeCategoriesRoute(
 
     authenticate {
         post("/api/subscribedCategories/unsubscribe") {
-            getUserId(authService) { userId ->
+            getUserId(userService) { userId ->
                 respondWithResult {
                     service.verifyAndUnsubscribe(userId, call.parameters["id"] ?: return@post)
                 }
@@ -43,7 +43,7 @@ fun Route.registerSubscribeCategoriesRoute(
 
     authenticate {
         get("/api/subscribedCategories/verify") {
-            getUserId(authService) { userId ->
+            getUserId(userService) { userId ->
                 val data = service.checkIfUserSubscribes(userId, call.parameters["id"] ?: return@get)
                 respondWith(data)
             }

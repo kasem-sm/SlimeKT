@@ -8,7 +8,7 @@ import io.ktor.util.pipeline.PipelineContext
 import slime.com.data.response.AuthResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.plugins.userId
-import slime.com.service.AuthService
+import slime.com.service.UserService
 
 suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.respondWith(message: SlimeResponse<T>) {
     call.respond(HttpStatusCode.OK, message)
@@ -27,9 +27,9 @@ suspend inline fun PipelineContext<Unit, ApplicationCall>.respondWithBadRequest(
     call.respond(HttpStatusCode.BadRequest, SlimeResponse<Unit>(false, "Where's my body?"))
 }
 
-suspend inline fun PipelineContext<Unit, ApplicationCall>.getUserId(authService: AuthService, doWork: (String) -> Unit) {
+suspend inline fun PipelineContext<Unit, ApplicationCall>.getUserId(userService: UserService, doWork: (String) -> Unit) {
     val userId = call.userId ?: return
-    val currentUser = authService.run { userId.getUserById() }
+    val currentUser = userService.run { userId.getUserById() }
     currentUser?.let { user ->
         doWork(user.id)
     } ?: kotlin.run {

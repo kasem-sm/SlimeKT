@@ -54,7 +54,8 @@ class SubscriptionService(
 
     suspend fun getUserSubscribedCategories(userId: String?): List<Category> {
         return subscribeRepository.getAll(userId).map {
-            it.getExtras(userId, it.id)
+            val totalSubscribers = getNumber(it.id)
+            it.copy(totalSubscribers = totalSubscribers)
         }
     }
 
@@ -68,26 +69,15 @@ class SubscriptionService(
     }
 
     suspend fun getCategoriesNotSubscribed(currentUserId: String? = null): List<Category> {
-        return try {
-            if (currentUserId != null) {
-                categoryRepository.getAllCategories().filter {
-                    !subscribeRepository.checkAlreadySubscribed(currentUserId, it.id)
-                }.toList().map {
-                    it.getExtras(currentUserId, it.id)
-                }
-            } else {
-                categoryRepository.getAllCategories().toList()
+        return if (currentUserId != null) {
+            categoryRepository.getAllCategories().filter {
+                !checkIfUserSubscribes(currentUserId, it.id)
+            }.toList().map {
+                val totalSubscribers = getNumber(it.id)
+                it.copy(totalSubscribers = totalSubscribers)
             }
-        } catch (e: Exception) {
-            emptyList()
+        } else {
+            categoryRepository.getAllCategories().toList()
         }
-    }
-
-    private suspend fun Category.getExtras(userId: String? = null, categoryId: String): Category {
-        return if (userId != null) {
-            val hasUserSubscribed = checkIfUserSubscribes(userId, categoryId)
-            val totalSubscribers = getNumber(categoryId)
-            copy(hasUserSubscribed = hasUserSubscribed, totalSubscribers = totalSubscribers)
-        } else this
     }
 }
