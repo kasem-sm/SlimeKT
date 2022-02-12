@@ -6,7 +6,6 @@ import slime.com.plugins.configureMonitoring
 import slime.com.plugins.configureRouting
 import slime.com.plugins.configureSecurity
 import slime.com.plugins.configureSerialization
-import slime.com.plugins.configureSockets
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
