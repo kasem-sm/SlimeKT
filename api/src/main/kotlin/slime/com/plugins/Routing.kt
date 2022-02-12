@@ -14,7 +14,7 @@ import slime.com.routes.registerAuthenticationRoutes
 import slime.com.routes.registerCategoryRoutes
 import slime.com.routes.registerSubscribeCategoriesRoute
 import slime.com.service.ArticleService
-import slime.com.service.AuthService
+import slime.com.service.UserService
 import slime.com.service.SubscriptionService
 
 fun Application.configureRouting() {
@@ -23,7 +23,7 @@ fun Application.configureRouting() {
     val categoryRepository by inject<CategoryRepository>()
     val subscribersRepository by inject<SubscribeCategoriesRepository>()
 
-    val authService = AuthService(
+    val userService = UserService(
         authRepository = authRepository,
         jwtDomain = System.getenv("JWT_DO"),
         jwtAudience = System.getenv("JWT_AUD"),
@@ -36,10 +36,10 @@ fun Application.configureRouting() {
     )
 
     routing {
-        registerAuthenticationRoutes(authService)
+        registerAuthenticationRoutes(userService)
         registerArticleRoutes(articleService)
         registerCategoryRoutes(categoryRepository, subscriptionService)
-        registerSubscribeCategoriesRoute(subscriptionService, authService)
+        registerSubscribeCategoriesRoute(subscriptionService, userService)
 
         static {
             resources("static")
