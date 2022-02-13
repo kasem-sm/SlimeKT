@@ -44,8 +44,6 @@ fun Route.registerSubscribeCategoriesRoute(
         val userId = call.parameters["userId"]
         if (userId != null) {
             respondWith(service.getCategoriesNotSubscribed(userId))
-        } else {
-            categoryRepository.getAllCategories()
-        }
+        } else categoryRepository.getAllCategories()
     }
 }
