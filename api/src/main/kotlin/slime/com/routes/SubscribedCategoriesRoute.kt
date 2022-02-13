@@ -20,55 +20,30 @@ fun Route.registerSubscribeCategoriesRoute(
     categoryRepository: CategoryRepository
 ) {
     authenticate {
-        post("/api/subscribedCategories/subscribe") {
+        post("/api/subscriptionService/subscribeIfNot") {
+            val categoryId = call.parameters["categoryId"] ?: return@post
             getUserId(userService) { userId ->
+                val isSubscribed = service.checkIfUserSubscribes(userId, categoryId)
                 respondWithResult {
-                    service.verifyAndSubscribe(userId, call.parameters["id"] ?: return@post)
+                    if (isSubscribed) {
+                        service.verifyAndUnsubscribe(userId, categoryId)
+                    } else service.verifyAndSubscribe(userId, categoryId)
                 }
             }
         }
     }
 
-    get("api/subscribedCategories/all") {
+    get("api/subscriptionService/all") {
         val userId = call.parameters["userId"]
         if (userId != null) {
             respondWith(service.getUserSubscribedCategories(userId))
         } else respondWith(emptyList<Category>())
     }
 
-    authenticate {
-        post("/api/subscribedCategories/unsubscribe") {
-            getUserId(userService) { userId ->
-                respondWithResult {
-                    service.verifyAndUnsubscribe(userId, call.parameters["id"] ?: return@post)
-                }
-            }
-        }
-    }
-
-    authenticate {
-        get("/api/subscribedCategories/verify") {
-            getUserId(userService) { userId ->
-                val data = service.checkIfUserSubscribes(userId, call.parameters["id"] ?: return@get)
-                respondWith(data)
-            }
-        }
-    }
-
-    get("api/subscribedCategories/explore") {
+    get("api/subscriptionService/explore") {
         val userId = call.parameters["userId"]
         if (userId != null) {
             respondWith(service.getCategoriesNotSubscribed(userId))
-        } else {
-            categoryRepository.getAllCategories()
-        }
-    }
-
-    get("api/subscribedCategories/explore") {
-        respondWith(categoryRepository.getAllCategories())
-    }
-
-    get("api/subscribedCategories/totalSubscribers") {
-        respondWith(service.getNumber(call.parameters["id"] ?: return@get))
+        } else categoryRepository.getAllCategories()
     }
 }
