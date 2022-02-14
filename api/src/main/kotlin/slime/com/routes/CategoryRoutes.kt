@@ -27,11 +27,20 @@ fun Route.registerCategoryRoutes(
     }
 
     get("/api/category/get") {
-        val id = call.parameters["id"] ?: return@get
-        val category = repository.getCategoryById(id)?.let {
-            val totalSubscribers = subscriptionService.getNumber(it.id)
-            it.copy(totalSubscribers = totalSubscribers)
-        } ?: return@get
+        val categoryId = call.parameters["id"] ?: return@get
+        val userId = call.parameters["userId"]
+
+        val category = repository.getCategoryById(categoryId)?.let {
+            if (userId != null) {
+                val totalSubscribers = subscriptionService.getNumber(it.id)
+                val hasUserSubscribed = subscriptionService.checkIfUserSubscribes(userId, categoryId)
+                it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = hasUserSubscribed)
+            } else {
+                val totalSubscribers = subscriptionService.getNumber(it.id)
+                it.copy(totalSubscribers = totalSubscribers)
+            }
+        }
+
         respondWith(category)
     }
 
@@ -44,7 +53,12 @@ fun Route.registerCategoryRoutes(
 
             when (repository.insertCategory(Category(name = response.name.trim()))) {
                 true -> respondWith<Unit>(SlimeResponse(true, "Category created successfully"))
-                false -> respondWith<Unit>(SlimeResponse(false, "Failed to create new category, please try again later"))
+                false -> respondWith<Unit>(
+                    SlimeResponse(
+                        false,
+                        "Failed to create new category, please try again later"
+                    )
+                )
             }
         }
     }

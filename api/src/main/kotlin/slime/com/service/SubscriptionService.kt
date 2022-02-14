@@ -34,7 +34,7 @@ class SubscriptionService(
         return when {
             categoryRepository.getCategoryById(categoryId) == null -> ServiceResult.Error("Doesn't Exists")
             // technically this should not happen but for a safer side
-            checkIfUserSubscribes(userId, categoryId) -> ServiceResult.Error("You are trying to unsubscribe from a category you don't subscribe")
+            !checkIfUserSubscribes(userId, categoryId) -> ServiceResult.Error("You are trying to unsubscribe from a category you don't subscribe")
             else -> unsubscribe(userId, categoryId)
         }
     }

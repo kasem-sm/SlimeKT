@@ -43,3 +43,10 @@ suspend inline fun PipelineContext<Unit, ApplicationCall>.respondWithResult(doWo
         is ServiceResult.Error -> respondWith<Unit>(SlimeResponse(false, result.message))
     }
 }
+
+suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.respondWithResult(data: T? = null, doWork: () -> ServiceResult) {
+    when (val result = doWork()) {
+        is ServiceResult.Success -> respondWith<T>(SlimeResponse(true, result.message, data))
+        is ServiceResult.Error -> respondWith<T>(SlimeResponse(false, result.message, data))
+    }
+}
