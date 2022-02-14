@@ -7,7 +7,6 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import slime.com.data.models.Category
 import slime.com.data.repository.category.CategoryRepository
-import slime.com.plugins.userId
 import slime.com.service.SubscriptionService
 import slime.com.service.UserService
 import slime.com.utils.getUserId
@@ -24,7 +23,7 @@ fun Route.registerSubscribeCategoriesRoute(
             val categoryId = call.parameters["categoryId"] ?: return@post
             getUserId(userService) { userId ->
                 val isSubscribed = service.checkIfUserSubscribes(userId, categoryId)
-                respondWithResult {
+                respondWithResult(data = categoryId) {
                     if (isSubscribed) {
                         service.verifyAndUnsubscribe(userId, categoryId)
                     } else service.verifyAndSubscribe(userId, categoryId)
