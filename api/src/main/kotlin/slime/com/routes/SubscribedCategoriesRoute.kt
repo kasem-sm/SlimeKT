@@ -33,16 +33,16 @@ fun Route.registerSubscribeCategoriesRoute(
     }
 
     get("api/subscriptionService/all") {
-        val userId = call.parameters["userId"] ?: ""
-        if (userId.isNotBlank()) {
+        val userId = call.parameters["userId"]
+        if (userId != null) {
             respondWith(service.getUserSubscribedCategories(userId))
         } else respondWith(emptyList<Category>())
     }
 
     get("api/subscriptionService/explore") {
-        val userId = call.parameters["userId"] ?: ""
-        if (userId.isNotBlank()) {
+        val userId = call.parameters["userId"]
+        if (userId != null) {
             respondWith(service.getCategoriesNotSubscribed(userId))
-        } else categoryRepository.getAllCategories()
+        } else respondWith(categoryRepository.getAllCategories())
     }
 }
