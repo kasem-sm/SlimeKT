@@ -17,17 +17,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class SavedMutableState<T>(
     private val savedStateHandle: SavedStateHandle,
     private val key: String,
-    defaultValue: T,
+    defValue: T,
 ) {
     private val _state: MutableStateFlow<T> = MutableStateFlow(
-        savedStateHandle.get<T>(key) ?: defaultValue
+        savedStateHandle.get<T>(key) ?: defValue
     )
 
     var value: T
         get() = _state.value
         set(value) {
             _state.value = value
-            savedStateHandle.set(key, value)
+            savedStateHandle[key] = value
         }
 
     val flow get() = _state

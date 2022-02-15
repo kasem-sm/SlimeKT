@@ -2,7 +2,7 @@ object AndroidX {
     private const val gradleVersion = "7.1.0"
     const val gradle = "com.android.tools.build:gradle:$gradleVersion"
 
-    private const val coreVersion = "1.8.0-alpha03"
+    private const val coreVersion = "1.8.0-alpha04"
     const val core = "androidx.core:core-ktx:$coreVersion"
 
     private const val roomVersion = "2.4.1"
@@ -11,7 +11,7 @@ object AndroidX {
     const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
     const val roomCommon = "androidx.room:room-common:$roomVersion"
 
-    private const val navigation = "2.5.0-alpha01"
+    private const val navigation = "2.5.0-alpha02"
     const val navigationCommon = "androidx.navigation:navigation-common:$navigation"
 
     private const val glanceVersion = "1.0.0-alpha02"

@@ -13,32 +13,39 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import kasem.sm.common_ui.util.Routes.MainRoute
-import kasem.sm.common_ui.util.Routes.ProfileScreen
+import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Routes.Main
 
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 internal fun Navigation(
     navController: NavHostController,
+    bottomSheetNavigator: BottomSheetNavigator,
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
     InitSlimeSystemUI()
-    AnimatedNavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = ProfileScreen.route,
-        route = MainRoute.route,
-    ) {
-        attachLoginScreen(snackbarHostState, navController)
-        attachRegistrationScreen(snackbarHostState, navController)
-        attachHomeScreen(imageLoader, navController, snackbarHostState)
-        attachExploreScreen(navController, imageLoader, snackbarHostState)
-        attachProfileScreen(navController)
-        attachArticleDetailScreen(imageLoader, snackbarHostState)
-        attachSelectTopicsScreen(navController, snackbarHostState)
-        attachListScreen(imageLoader, snackbarHostState, navController)
+    ModalBottomSheetLayout(bottomSheetNavigator) {
+        AnimatedNavHost(
+            modifier = modifier,
+            navController = navController,
+            startDestination = Routes.HomeScreen.route,
+            route = Main.route,
+        ) {
+            attachLoginScreen(snackbarHostState, navController)
+            attachRegistrationScreen(snackbarHostState, navController)
+            attachHomeScreen(imageLoader, navController, snackbarHostState)
+            attachExploreScreen(navController, imageLoader, snackbarHostState)
+            attachProfileScreen(navController)
+            attachArticleDetailScreen(imageLoader, snackbarHostState)
+            attachSelectTopicsScreen(navController, snackbarHostState)
+            attachListScreen(imageLoader, snackbarHostState, navController)
+        }
     }
 }
 

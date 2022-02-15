@@ -24,14 +24,14 @@ import kasem.sm.ui_explore.components.ProfileCard
 
 @Composable
 internal fun ExploreContent(
-    viewState: ExploreViewState,
+    state: ExploreState,
     onRefresh: () -> Unit,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
     onCategoryClick: (title: String, id: String) -> Unit,
 ) {
     SlimeSwipeRefresh(
-        refreshing = viewState.isLoading,
+        refreshing = state.isLoading,
         onRefresh = onRefresh
     ) {
         Box(
@@ -44,7 +44,7 @@ internal fun ExploreContent(
                     SlimeHeader(text = "Recommended Articles")
                 }
 
-                itemsIndexed(viewState.articles) { index, article ->
+                itemsIndexed(state.articles) { index, article ->
                     ArticleCard(
                         article = article,
                         imageLoader = imageLoader,
@@ -53,7 +53,7 @@ internal fun ExploreContent(
                     )
                 }
 
-                if (viewState.categories.isNotEmpty()) {
+                if (state.categories.isNotEmpty()) {
                     item {
                         SlimeHeader(text = "Discover Categories")
                     }
@@ -62,7 +62,7 @@ internal fun ExploreContent(
                         SlimeFlowRow(
                             mainAxisSpacing = 20.dp, crossAxisSpacing = 15.dp
                         ) {
-                            viewState.categories.forEach { category ->
+                            state.categories.forEach { category ->
                                 CategoryView(category, onCategoryClick)
                             }
                         }

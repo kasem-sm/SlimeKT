@@ -4,6 +4,8 @@
  */
 package com.slime.ui_home
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,9 +25,10 @@ import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.feature_article.common_ui.ArticleCard
 import kasem.sm.feature_article.common_ui.emptyArticleView
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun HomeContent(
-    viewState: HomeViewState,
+    viewState: HomeState,
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onQueryChange: (String) -> Unit,
@@ -53,17 +56,18 @@ internal fun HomeContent(
                     SearchBar(
                         query = viewState.currentQuery,
                         onQueryChange = onQueryChange,
-                        onSearchActionClicked = onRefresh,
-                        onTrailingIconClicked = { onQueryChange(HomeViewState.DEFAULT_CATEGORY_QUERY) },
+                        onSearchActionClicked = { onRefresh() },
+                        onTrailingIconClicked = { onQueryChange(HomeState.DEFAULT_CATEGORY_QUERY) },
                         placeholders = listOf(
                             "Search with article's title",
                             "Search with author's name",
-                        )
+                        ),
                     )
                 }
 
                 item {
                     CategoriesRow(
+                        isLoading = viewState.isLoading,
                         categories = viewState.categories,
                         currentCategory = viewState.currentCategory,
                         onCategoryChange = onCategoryChange,
@@ -77,18 +81,18 @@ internal fun HomeContent(
                         viewState.endOfPagination &&
                         viewState.articles.isEmpty()
                     ) {
-                        emptyArticleView {
-                        }
+                        emptyArticleView {}
                     }
                 }
 
                 itemsIndexed(viewState.articles) { index, article ->
                     ArticleView(
+                        modifier = Modifier.animateItemPlacement(tween(500)),
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        viewState = viewState,
+                        state = viewState,
                         executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition
                     )

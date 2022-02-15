@@ -9,22 +9,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.common_ui.R.string
+import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.core.interfaces.Session
 import kasem.sm.feature_article.domain.interactors.ArticlePager
 import kasem.sm.feature_category.domain.interactors.GetCategoryById
 import kasem.sm.feature_category.domain.interactors.ObserveCategoryById
 import kasem.sm.feature_category.worker.SubscribeCategoryManager
-import kasem.sm.ui_article_list.ListViewState.Companion.DEFAULT_CATEGORY_QUERY
+import kasem.sm.ui_article_list.ListState.Companion.DEFAULT_CATEGORY_QUERY
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
+import kasem.sm.ui_core.navigate
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -32,9 +38,10 @@ class ListViewModel @Inject constructor(
     private val pager: ArticlePager,
     private val getCategory: GetCategoryById,
     private val subscribeCategoryManager: SubscribeCategoryManager,
-    observeCategory: ObserveCategoryById,
     private val savedStateHandle: SavedStateHandle,
-    private val slimeDispatchers: SlimeDispatchers
+    private val slimeDispatchers: SlimeDispatchers,
+    private val session: Session,
+    observeCategory: ObserveCategoryById,
 ) : ViewModel() {
 
     private val categoryId = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
@@ -42,45 +49,63 @@ class ListViewModel @Inject constructor(
     private val categoryQuery = SavedMutableState(
         savedStateHandle,
         CATEGORY_QUERY_KEY,
-        defaultValue = DEFAULT_CATEGORY_QUERY
+        defValue = DEFAULT_CATEGORY_QUERY
     )
 
     private val scrollPosition = SavedMutableState(
         savedStateHandle,
         LIST_POSITION_KEY,
-        defaultValue = 0
+        defValue = 0
     )
 
     private val currentPage = SavedMutableState(
         savedStateHandle,
         PAGE_KEY,
-        defaultValue = 0
+        defValue = 0
     )
 
-    private val loadingStatus = ObservableLoader()
+    private val isUserAuthenticated = SavedMutableState(
+        savedStateHandle,
+        "user_authenticated",
+        defValue = false
+    )
+
+    private val isSubscriptionInProgress = ObservableLoader()
+
+    private val categoryLoadingStatus = ObservableLoader()
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    val state: StateFlow<ListViewState> = combineFlows(
+    val state: StateFlow<ListState> = combineFlows(
         currentPage.flow,
         pager.loadingStatus.flow,
+        categoryLoadingStatus.flow,
         pager.endOfPagination,
         pager.articles,
         observeCategory.flow,
-        loadingStatus.flow
-    ) { currentPage, isLoading, endOfPagination, articles, category, isSubscriptionInProgress ->
-        ListViewState(
+        isSubscriptionInProgress.flow,
+        isUserAuthenticated.flow
+    ) { currentPage, paginationLoadStatus, categoryLoadStatus, endOfPagination,
+        articles, category, isSubscriptionInProgress, isUserAuthenticated ->
+        ListState(
             currentPage = currentPage,
-            isLoading = isLoading,
+            isLoading = paginationLoadStatus || categoryLoadStatus,
             endOfPagination = endOfPagination,
             articles = articles,
             category = category,
-            isSubscriptionInProgress = isSubscriptionInProgress
+            isSubscriptionInProgress = isSubscriptionInProgress,
+            isUserAuthenticated = isUserAuthenticated
         )
-    }.stateIn(viewModelScope, ListViewState.EMPTY)
+    }.stateIn(viewModelScope, ListState.EMPTY)
 
     init {
+        viewModelScope.launch(slimeDispatchers.main) {
+            session.observeAuthenticationState().collectLatest {
+                isUserAuthenticated.value = it
+            }
+        }
+
         initializePager()
 
         observeCategory.join(
@@ -93,7 +118,7 @@ class ListViewModel @Inject constructor(
     private fun initializePager(
         categoryQuery: String = this.categoryQuery.value,
     ) {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(
                 category = categoryQuery,
                 page = currentPage.value,
@@ -113,32 +138,47 @@ class ListViewModel @Inject constructor(
     }
 
     fun executeNextPage(updatedPage: Int? = null) {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             pager.executeNextPage(updatedPage)
         }
     }
 
+    fun checkAuthenticationStatus() {
+        viewModelScope.launch {
+            if (!isUserAuthenticated.value) {
+                _uiEvent.emit(navigate(Routes.RegisterScreen.route))
+            }
+        }
+    }
+
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             pager.refresh()
         }
 
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getCategory.execute(categoryId).collect(
-                loader = loadingStatus,
+                loader = categoryLoadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
     }
 
-    fun updateSubscription() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+    fun updateSubscription(
+        onSuccess: () -> Unit
+    ) {
+        isSubscriptionInProgress.invoke(Loader.START)
+        viewModelScope.launch(slimeDispatchers.main) {
             subscribeCategoryManager.updateSubscriptionStatus(
                 ids = listOf(categoryId)
             ).collect(
-                loader = loadingStatus,
+                loader = isSubscriptionInProgress,
                 onError = { _uiEvent.emit(showMessage(it)) },
-                onSuccess = { _uiEvent.emit(showMessage(kasem.sm.common_ui.R.string.common_success_msg)) },
+                onSuccess = {
+                    _uiEvent.emit(showMessage(string.common_success_msg))
+                    onSuccess()
+                    isSubscriptionInProgress.invoke(Loader.STOP)
+                },
             )
         }
     }
@@ -149,7 +189,7 @@ class ListViewModel @Inject constructor(
      * to scroll the list to the position for best user experience.
      */
     fun saveScrollPosition(updatedPosition: Int) {
-        savedStateHandle.set(LIST_POSITION_KEY, updatedPosition)
+        savedStateHandle[LIST_POSITION_KEY] = updatedPosition
     }
 
     companion object {

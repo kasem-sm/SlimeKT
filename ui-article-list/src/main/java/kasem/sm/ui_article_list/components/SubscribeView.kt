@@ -9,29 +9,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
-import kasem.sm.ui_article_list.ListViewState
+import kasem.sm.ui_article_list.ListState
 
 @Composable
 internal fun SubscribeView(
-    viewState: ListViewState,
-    updateSubscription: () -> Unit
+    state: ListState,
+    updateSubscription: (onSuccess: () -> Unit) -> Unit,
+    isUserAuthenticated: Boolean,
+    showAuthenticationSheet: () -> Unit
 ) {
     val haptic = LocalHapticFeedback.current
-
-    val isSubscribed = viewState.category?.hasUserSubscribed ?: false
-    val isButtonOfSubscription = remember {
-        mutableStateOf(isSubscribed)
+    val hasUserSubscribed = remember {
+        mutableStateOf(state.category?.hasUserSubscribed ?: false)
     }
 
-    viewState.category?.let { category ->
+    state.category?.let { category ->
         SubscribeButtonAndHeader(
             category = category,
             onClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                updateSubscription()
-                isButtonOfSubscription.value = !isButtonOfSubscription.value
+                if (isUserAuthenticated) {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    updateSubscription {
+                        hasUserSubscribed.value = !hasUserSubscribed.value
+                    }
+                } else showAuthenticationSheet()
             },
-            isSubscriptionButtonActive = isButtonOfSubscription.value
+            isSubscriptionButtonActive = hasUserSubscribed.value,
+            isSubscriptionInProgress = state.isSubscriptionInProgress
         )
     }
 }

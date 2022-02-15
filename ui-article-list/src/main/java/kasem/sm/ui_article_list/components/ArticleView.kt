@@ -9,7 +9,7 @@ import coil.ImageLoader
 import kasem.sm.feature_article.common_ui.ArticleCard
 import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
 import kasem.sm.feature_article.domain.model.Article
-import kasem.sm.ui_article_list.ListViewState
+import kasem.sm.ui_article_list.ListState
 
 @Composable
 internal fun ArticleView(
@@ -17,7 +17,7 @@ internal fun ArticleView(
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
     index: Int,
-    viewState: ListViewState,
+    state: ListState,
     executeNextPage: () -> Unit,
     saveScrollPosition: (Int) -> Unit
 ) {
@@ -27,9 +27,9 @@ internal fun ArticleView(
         onArticleClick = onArticleClick
     )
 
-    if ((index + 1) >= (viewState.currentPage * PAGE_SIZE) &&
-        !viewState.isLoading &&
-        !viewState.endOfPagination
+    if ((index + 1) >= (state.currentPage * PAGE_SIZE) &&
+        !state.isLoading &&
+        !state.endOfPagination
     ) {
         executeNextPage()
     }

@@ -65,6 +65,7 @@ dependencies {
 	implementation Compose.activity
 
 	implementation Coil.core
+	implementation Accompanist.navigationMaterial
 	implementation Accompanist.navigationAnimation
 	implementation Accompanist.sysUiController
 
@@ -76,7 +77,8 @@ dependencies {
 	implementation AndroidX.room
 	kapt AndroidX.roomCompiler
 
-	implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha01"
+	implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha02"
+
 
 	// Instrumentation Test
 	androidTestImplementation "com.google.truth:truth:1.1.3"

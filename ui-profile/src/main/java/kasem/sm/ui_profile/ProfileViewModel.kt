@@ -24,18 +24,9 @@ class ProfileViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    fun verifyAuthenticationStatus() {
-        viewModelScope.launch {
-            if (session.fetchToken() == null) {
-                _uiEvent.emit(navigate(Routes.LoginScreen.route))
-                return@launch
-            }
-        }
-    }
-
     fun clearUserSession() {
         viewModelScope.launch {
-            session.storeToken(null)
+            session.clear()
             _uiEvent.emit(navigate(Routes.LoginScreen.route))
         }
     }

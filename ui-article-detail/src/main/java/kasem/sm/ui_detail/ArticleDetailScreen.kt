@@ -27,7 +27,7 @@ fun ArticleDetailScreen(
 
     ArticleDetailContent(
         imageLoader = imageLoader,
-        viewState = viewState,
+        state = viewState,
         onRefresh = viewModel::refresh
     )
 }

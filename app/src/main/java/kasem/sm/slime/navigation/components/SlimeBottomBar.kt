@@ -10,12 +10,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import kasem.sm.common_ui.SlimeTypography
+import kasem.sm.common_ui.getFont
 import kasem.sm.common_ui.util.BottomNavigationItems
 
 @Composable
@@ -36,6 +39,12 @@ internal fun SlimeBottomBar(
                             modifier = Modifier.size(22.dp),
                             contentDescription = item.title,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = item.title,
+                            style = getFont(SlimeTypography.SecondaryMedium())
                         )
                     },
                     selected = currentRoute == item.route,

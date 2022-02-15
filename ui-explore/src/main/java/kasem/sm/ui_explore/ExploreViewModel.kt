@@ -40,17 +40,17 @@ class ExploreViewModel @Inject constructor(
 
     private val loadingStatus = ObservableLoader()
 
-    val state: StateFlow<ExploreViewState> = combine(
+    val state: StateFlow<ExploreState> = combine(
         loadingStatus.flow,
         observeLatestArticles.flow,
         observeInExploreCategories.flow
     ) { latestArticleLoading, latestArticles, categories ->
-        ExploreViewState(
+        ExploreState(
             isLoading = latestArticleLoading,
             articles = latestArticles,
             categories = categories
         )
-    }.stateIn(viewModelScope, ExploreViewState.EMPTY)
+    }.stateIn(viewModelScope, ExploreState.EMPTY)
 
     init {
         Timber.d("Init ExploreViewModel")
@@ -69,13 +69,13 @@ class ExploreViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getLatestArticles.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getInExploreCategories.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },

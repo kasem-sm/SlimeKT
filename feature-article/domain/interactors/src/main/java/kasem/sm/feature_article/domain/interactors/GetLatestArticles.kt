@@ -22,7 +22,7 @@ class GetLatestArticles @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers,
 ) {
     suspend fun execute(): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val articles = api.getAllArticles(0, 10)
                 .getOrThrow()?.data?.articles.getOrDefault()
 

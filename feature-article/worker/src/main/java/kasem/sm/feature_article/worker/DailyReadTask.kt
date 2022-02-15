@@ -15,8 +15,7 @@ import kasem.sm.feature_article.datasource.cache.ArticleDatabaseService
 import kasem.sm.feature_article.datasource.network.ArticleApiService
 import kasem.sm.feature_article.widget.DailyReadWidgetReceiver
 import kasem.sm.feature_article.worker.utils.NotificationManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 @HiltWorker
@@ -25,7 +24,6 @@ internal class DailyReadTask @AssistedInject constructor(
     @Assisted workParams: WorkerParameters,
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
-    private val applicationScope: CoroutineScope,
     private val slimeDispatcher: SlimeDispatchers,
     private val notificationManager: NotificationManager,
 ) : CoroutineWorker(context, workParams) {
@@ -52,14 +50,14 @@ internal class DailyReadTask @AssistedInject constructor(
                 /**
                  * Remove previous article from daily read,
                  */
-                applicationScope.launch(slimeDispatcher.defaultDispatcher) {
+                withContext(slimeDispatcher.default) {
                     cache.run {
                         removePreviousActiveArticle()
                         insert(randomArticleFromApi)
                         updateDailyReadStatus(true, randomArticleFromApi.id)
                         updateIsActiveInDailyReadStatus(true, randomArticleFromApi.id)
                     }
-                }.join()
+                }
                 updateWidgetAndShowNotification(
                     randomArticleFromApi.id,
                     randomArticleFromApi.title,
