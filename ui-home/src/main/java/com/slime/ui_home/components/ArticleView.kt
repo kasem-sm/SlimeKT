@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
-import com.slime.ui_home.HomeViewState
+import com.slime.ui_home.HomeState
 import kasem.sm.common_ui.SlimeElevatedButton
 import kasem.sm.feature_article.common_ui.ArticleCard
 import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
@@ -21,20 +21,22 @@ internal fun BoxScope.ArticleView(
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
     index: Int,
-    viewState: HomeViewState,
+    state: HomeState,
     executeNextPage: () -> Unit,
-    saveScrollPosition: (Int) -> Unit
+    saveScrollPosition: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ArticleCard(
+        modifier = modifier,
         article = article,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
         index = index
     )
 
-    if ((index + 1) >= (viewState.currentPage * PAGE_SIZE) &&
-        !viewState.isLoading &&
-        !viewState.endOfPagination
+    if ((index + 1) >= (state.currentPage * PAGE_SIZE) &&
+        !state.isLoading &&
+        !state.endOfPagination
     ) {
         SlimeElevatedButton(
             text = "See More",

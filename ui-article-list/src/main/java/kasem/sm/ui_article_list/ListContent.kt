@@ -21,12 +21,13 @@ import kasem.sm.ui_article_list.components.SubscribeView
 
 @Composable
 internal fun ListContent(
-    viewState: ListViewState,
+    viewState: ListState,
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onArticleClick: (Int) -> Unit,
     executeNextPage: () -> Unit,
-    updateSubscription: () -> Unit,
+    updateSubscription: (onSuccess: () -> Unit) -> Unit,
+    showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
     state: LazyListState,
 ) {
@@ -39,12 +40,14 @@ internal fun ListContent(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            SlimeScreenColumn(state) {
+            SlimeScreenColumn(state = state) {
                 item {
                     if (viewState.category != null) {
                         SubscribeView(
-                            viewState = viewState,
-                            updateSubscription = updateSubscription
+                            state = viewState,
+                            updateSubscription = updateSubscription,
+                            showAuthenticationSheet = showAuthenticationSheet,
+                            isUserAuthenticated = viewState.isUserAuthenticated
                         )
                     }
                 }
@@ -65,7 +68,7 @@ internal fun ListContent(
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        viewState = viewState,
+                        state = viewState,
                         executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition
                     )

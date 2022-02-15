@@ -30,7 +30,7 @@ class GetPagedArticles @Inject constructor(
         page: Int,
         pageSize: Int
     ): Flow<PaginationStage<List<Article>>> {
-        return slimeDispatchers.defaultDispatcher.pagingStage {
+        return slimeDispatchers.default.pagingStage {
             // Query API and cache Data
             queryAndCacheData(category, query, page, pageSize)
 

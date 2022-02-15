@@ -2,6 +2,7 @@
  * Copyright (C) 2021, Kasem S.M
  * All rights reserved.
  */
+@file:OptIn(ExperimentalMaterialNavigationApi::class)
 package kasem.sm.slime.navigation
 
 import androidx.compose.material.SnackbarHostState
@@ -11,6 +12,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navDeepLink
 import coil.ImageLoader
 import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.bottomSheet
 import com.slime.ui_home.HomeScreen
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.ui_article_list.ListScreen
@@ -25,13 +28,11 @@ internal fun NavGraphBuilder.attachRegistrationScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavController,
 ) {
-    composable(Routes.RegisterScreen.route) {
+    bottomSheet(Routes.RegisterScreen.route) {
         RegisterScreen(
             viewModel = hiltViewModel(),
-            onRegistrationSuccess = { route ->
-                navController.navigate(route) {
-                    popUpTo(Routes.MainRoute.route)
-                }
+            onRegistrationSuccess = {
+                navController.popBackStack()
             },
             snackbarHostState = snackbarHostState
         )
@@ -42,13 +43,11 @@ internal fun NavGraphBuilder.attachLoginScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavController,
 ) {
-    composable(route = Routes.LoginScreen.route) {
+    bottomSheet(route = Routes.LoginScreen.route) {
         LoginScreen(
             viewModel = hiltViewModel(),
-            onLoginSuccess = { route ->
-                navController.navigate(route) {
-                    popUpTo(Routes.MainRoute.route)
-                }
+            onLoginSuccess = {
+                navController.popBackStack()
             },
             onSignUpClicked = {
                 navController.navigate(Routes.RegisterScreen.route)
@@ -106,7 +105,7 @@ internal fun NavGraphBuilder.attachProfileScreen(
             viewModel = hiltViewModel(),
             navigateTo = { route ->
                 navController.navigate(route) {
-                    popUpTo(Routes.MainRoute.route)
+                    popUpTo(Routes.Main.route)
                 }
             }
         )
@@ -142,10 +141,11 @@ internal fun NavGraphBuilder.attachSelectTopicsScreen(
         SubscribeCategoryScreen(
             viewModel = hiltViewModel(),
             snackbarHostState = snackbarHostState,
-            navigateAfterSelection = { route ->
-                navController.navigate(route) {
-                    popUpTo(Routes.MainRoute.route)
-                }
+            onSubscriptionSaved = {
+                navController.popBackStack()
+            },
+            navigateTo = {
+                navController.navigate(it)
             }
         )
     }
@@ -163,7 +163,10 @@ internal fun NavGraphBuilder.attachListScreen(
             onArticleClick = { id ->
                 navController.navigate(Routes.ArticleDetailScreen(id).route)
             },
-            snackbarHostState = snackbarHostState
+            snackbarHostState = snackbarHostState,
+            navigateTo = {
+                navController.navigate(it)
+            }
         )
     }
 }

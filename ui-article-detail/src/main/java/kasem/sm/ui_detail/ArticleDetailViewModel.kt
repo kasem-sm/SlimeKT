@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
 class ArticleDetailViewModel @Inject constructor(
     private val getArticle: GetArticleById,
     private val observeArticle: ObserveArticle,
+    private val slimeDispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
-    private val slimeDispatchers: SlimeDispatchers
 ) : ViewModel() {
 
     private val articleId = savedStateHandle.get<Int>("id") ?: -1
@@ -55,7 +55,7 @@ class ArticleDetailViewModel @Inject constructor(
         refresh()
     }
 
-    fun observe(scope: CoroutineScope = viewModelScope) {
+    private fun observe(scope: CoroutineScope = viewModelScope) {
         observeArticle.join(
             coroutineScope = scope,
             onError = { _uiEvent.emit(showMessage(it)) },
@@ -64,7 +64,7 @@ class ArticleDetailViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getArticle.execute(articleId)
                 .collect(
                     loader = loadingStatus,

@@ -4,19 +4,22 @@
  */
 package kasem.sm.ui_article_list
 
+import androidx.compose.runtime.Immutable
 import kasem.sm.feature_article.domain.model.Article
 import kasem.sm.feature_category.domain.model.Category
 
-data class ListViewState(
+@Immutable
+data class ListState(
     val isLoading: Boolean = true,
     val isSubscriptionInProgress: Boolean = false,
     val currentPage: Int = 0,
     val endOfPagination: Boolean = false,
     val articles: List<Article> = emptyList(),
-    val category: Category? = null
+    val category: Category? = null,
+    val isUserAuthenticated: Boolean = false
 ) {
     companion object {
-        val EMPTY = ListViewState()
+        val EMPTY = ListState()
         const val DEFAULT_CATEGORY_QUERY = ""
     }
 }

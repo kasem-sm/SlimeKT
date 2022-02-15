@@ -4,7 +4,7 @@
  */
 package kasem.sm.ui_login.ui
 
-import kasem.sm.ui_auth.common.AuthViewState
+import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_login.utils.CoroutinesTestRule
 import kasem.sm.ui_login.utils.ThreadExceptionTestRule
 import kotlin.time.ExperimentalTime
@@ -38,7 +38,7 @@ class LoginViewModelTest {
                     enterPassword("pass")
                 },
                 flow = viewModelRobot.actual.state,
-                expectedResult = AuthViewState(
+                expectedResult = AuthState(
                     username = "usr", password = "pass",
                 ),
             )

@@ -21,7 +21,7 @@ class GetArticleById @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers,
 ) {
     fun execute(articleId: Int): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val articleFromApi = api.getArticleById(articleId)
                 .getOrThrow()
 

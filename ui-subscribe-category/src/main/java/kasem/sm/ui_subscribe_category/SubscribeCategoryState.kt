@@ -4,13 +4,16 @@
  */
 package kasem.sm.ui_subscribe_category
 
+import androidx.compose.runtime.Immutable
 import kasem.sm.feature_category.domain.model.Category
 
-data class SubscribeCategoryViewState(
-    val isLoading: Boolean = false,
+@Immutable
+data class SubscribeCategoryState(
+    val isLoading: Boolean = true,
     val categories: List<Category> = emptyList(),
+    val isUserAuthenticated: Boolean = false
 ) {
     companion object {
-        val EMPTY = SubscribeCategoryViewState()
+        val EMPTY = SubscribeCategoryState()
     }
 }

@@ -18,17 +18,16 @@ import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_category.domain.model.Category
 import kasem.sm.ui_subscribe_category.components.ContentHeader
 import kasem.sm.ui_subscribe_category.components.SelectableCategoryCard
 
 @Composable
 fun SubscribeCategoryContent(
-    isLoading: Boolean,
-    listOfCategories: List<Category>,
+    state: SubscribeCategoryState,
     onRefresh: () -> Unit,
     saveRecommendedValues: () -> Unit,
-    updateList: (Int) -> Unit
+    showAuthenticationSheet: () -> Unit,
+    updateList: (Int) -> Unit,
 ) {
     // TODO("Add Glow")
     // refreshing is explicitly false as we already are
@@ -50,7 +49,7 @@ fun SubscribeCategoryContent(
 
                 item {
                     SlimeFlowRow {
-                        listOfCategories.forEachIndexed { itemsIndex, category ->
+                        state.categories.forEachIndexed { itemsIndex, category ->
                             SelectableCategoryCard(
                                 category = category,
                                 onClick = {
@@ -63,12 +62,16 @@ fun SubscribeCategoryContent(
 
                 item {
                     SlimePrimaryButton(
-                        isLoading = isLoading,
+                        isLoading = state.isLoading,
                         text = stringResource(R.string.proceed),
-                        onClick = { saveRecommendedValues() },
+                        onClick = {
+                            if (!state.isUserAuthenticated) {
+                                showAuthenticationSheet()
+                            } else saveRecommendedValues()
+                        },
                         modifier = Modifier
                             .fillMaxWidth(),
-                        enabled = !isLoading
+                        enabled = !state.isLoading
                     )
                 }
             }

@@ -4,45 +4,80 @@
  */
 package kasem.sm.ui_subscribe_category
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.core.interfaces.Session
 import kasem.sm.feature_category.domain.interactors.GetAllCategories
 import kasem.sm.feature_category.domain.interactors.ObserveAllCategories
 import kasem.sm.feature_category.domain.model.Category
 import kasem.sm.feature_category.worker.SubscribeCategoryManager
+import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.navigate
 import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SubscribeCategoryViewModel @Inject constructor(
     private val getAllCategories: GetAllCategories,
     private val subscribeCategoryManager: SubscribeCategoryManager,
+    private val slimeDispatchers: SlimeDispatchers,
+    private val session: Session,
     observeAllCategories: ObserveAllCategories,
-    private val slimeDispatchers: SlimeDispatchers
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
-    val loadingStatus = ObservableLoader()
+    private val loadingStatus = ObservableLoader()
 
-    val listOfCategories = MutableStateFlow(emptyList<Category>())
+    private val listOfCategories = MutableStateFlow(emptyList<Category>())
+
+    private val isUserAuthenticated = SavedMutableState(
+        savedStateHandle,
+        "user_authenticated",
+        defValue = false
+    )
+
+    val state: StateFlow<SubscribeCategoryState> = combine(
+        loadingStatus.flow,
+        listOfCategories,
+        isUserAuthenticated.flow,
+    ) { loadStatus, categories, isUserAuthenticated ->
+        SubscribeCategoryState(
+            isLoading = loadStatus,
+            categories = categories,
+            isUserAuthenticated = isUserAuthenticated
+        )
+    }.stateIn(viewModelScope, SubscribeCategoryState.EMPTY)
 
     init {
-        viewModelScope.launch {
-            observeAllCategories.flow.collect {
+        viewModelScope.launch(slimeDispatchers.main) {
+            session.observeAuthenticationState().collectLatest {
+                isUserAuthenticated.value = it
+            }
+        }
+
+        viewModelScope.launch(slimeDispatchers.main) {
+            observeAllCategories.flow.collectLatest {
                 listOfCategories.value = it
             }
         }
@@ -55,19 +90,27 @@ class SubscribeCategoryViewModel @Inject constructor(
         refresh()
     }
 
+    fun checkAuthenticationStatus() {
+        viewModelScope.launch {
+            if (!isUserAuthenticated.value) {
+                _uiEvent.emit(navigate(Routes.RegisterScreen.route))
+            }
+        }
+    }
+
     fun updateList(itemsIndex: Int) {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
-            val isMoreThan3 = listOfCategories.value.count { it.isSelected } == 4
+        viewModelScope.launch(slimeDispatchers.main) {
+            val maxSelectableCategoryCount = listOfCategories.value.count { it.isSelected } == 5
 
             listOfCategories.value.mapIndexed { clickedItemIndex, item ->
                 if (clickedItemIndex == itemsIndex) {
                     when (item.isSelected) {
                         true -> item.copy(isSelected = !item.isSelected)
                         false -> {
-                            if (!isMoreThan3) {
+                            if (!maxSelectableCategoryCount) {
                                 item.copy(isSelected = !item.isSelected)
                             } else {
-                                _uiEvent.emit(showMessage("You can only select 4 topics for recommendation"))
+                                _uiEvent.emit(showMessage("You can only select 5 topics for recommendation"))
                                 item
                             }
                         }
@@ -83,16 +126,17 @@ class SubscribeCategoryViewModel @Inject constructor(
         val categoriesToSubscribe =
             listOfCategories.value.filter { it.isSelected }
 
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             when {
-//                categoriesToSubscribe.count() < 3 -> _uiEvent.emit(showMessage(string.minimum_subscription_msg))
+                categoriesToSubscribe.count() < 3 -> _uiEvent.emit(showMessage(string.minimum_subscription_msg))
                 else -> {
+                    loadingStatus(Loader.START)
                     subscribeCategoryManager.updateSubscriptionStatus(
                         ids = categoriesToSubscribe.map { it.id }
                     ).collect(
                         loader = loadingStatus,
                         onError = { _uiEvent.emit(showMessage(it)) },
-                        onSuccess = { _uiEvent.emit(navigate(Routes.HomeScreen.route)) },
+                        onSuccess = { _uiEvent.emit(UiEvent.Success) },
                     )
                 }
             }
@@ -100,7 +144,7 @@ class SubscribeCategoryViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getAllCategories.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },

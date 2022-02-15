@@ -47,7 +47,12 @@ class LoginUseCase @Inject constructor(
 
         when (apiResponse.success) {
             true -> {
-                session.storeToken(apiResponse.data?.token)
+                apiResponse.data?.let {
+                    session.run {
+                        storeUserToken(it.token)
+                        storeUserId(it.userId)
+                    }
+                } ?: return@flow
                 emit(AuthResult.Success)
             }
             false -> emit(loginResultForFailure(apiResponse.message))

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import kasem.sm.ui_auth.common.AuthViewState
+import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.rememberFlow
 import kasem.sm.ui_core.safeCollector
 
@@ -17,19 +17,19 @@ import kasem.sm.ui_core.safeCollector
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel,
-    onRegistrationSuccess: (String) -> Unit,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    onRegistrationSuccess: () -> Unit
 ) {
     val viewState by rememberFlow(viewModel.state)
-        .collectAsState(AuthViewState.EMPTY)
+        .collectAsState(AuthState.EMPTY)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,
-        onRouteReceived = onRegistrationSuccess
+        onSuccessCallback = onRegistrationSuccess
     )
 
     RegisterContent(
-        viewState = viewState,
+        state = viewState,
         onUsernameChanged = viewModel::onUsernameChange,
         onPasswordChanged = viewModel::onPasswordChange,
         togglePasswordVisibility = viewModel::togglePasswordVisibility,

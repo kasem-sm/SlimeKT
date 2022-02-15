@@ -15,11 +15,7 @@ interface CategoryApiService {
 
     suspend fun getSubscribedCategories(): Result<SlimeResponse<List<CategoryResponse>>>
 
-    suspend fun subscribeToCategory(id: String): Result<SlimeResponse<Unit>>
-
-    suspend fun unsubscribeToCategory(id: String): Result<SlimeResponse<Unit>>
+    suspend fun subscribeIfNot(id: String): Result<SlimeResponse<String>>
 
     suspend fun getExploreCategories(): Result<SlimeResponse<List<CategoryResponse>>>
-
-    suspend fun hasUserSubscribed(categoryId: String): Result<SlimeResponse<Boolean>>
 }

@@ -5,10 +5,9 @@
 package kasem.sm.ui_auth.login
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeTypography
 import kasem.sm.common_ui.getFont
-import kasem.sm.ui_auth.common.AuthViewState
+import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_auth.common.LoginButton
 import kasem.sm.ui_auth.common.PasswordField
 import kasem.sm.ui_auth.common.SignUpButton
@@ -30,7 +29,7 @@ import kasem.sm.ui_auth.common.UsernameField
 /**
  * This composable maintains the entire screen for handling user login.
  *
- * @param[viewState] The current state of the screen to render.
+ * @param[state] The current state of the screen to render.
  * @param[onUsernameChanged] A callback invoked when the user enters their username.
  * @param[onPasswordChanged] A callback invoked when the user enters their password.
  * @param[onLoginClicked] A callback invoked when the user clicks the login button.
@@ -39,7 +38,7 @@ import kasem.sm.ui_auth.common.UsernameField
 
 @Composable
 internal fun LoginContent(
-    viewState: AuthViewState,
+    state: AuthState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
@@ -48,14 +47,15 @@ internal fun LoginContent(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .wrapContentSize()
             .background(MaterialTheme.colorScheme.surface)
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
         val focusManager = LocalFocusManager.current
 
         SlimeScreenColumn(
-            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier
+                .wrapContentSize()
         ) {
             item {
                 Text(
@@ -69,37 +69,40 @@ internal fun LoginContent(
 
             item {
                 UsernameField(
-                    text = viewState.username,
+                    text = state.username,
                     onUsernameChanged = onUsernameChanged,
-                    enabled = !viewState.isLoading,
+                    enabled = !state.isLoading,
                     modifier = Modifier
                         .padding(vertical = 10.dp),
-                    onNext = {
+                    onNextClicked = {
                         focusManager.moveFocus(FocusDirection.Down)
-                    }
+                    },
                 )
             }
 
             item {
                 PasswordField(
-                    text = viewState.password,
+                    text = state.password,
                     onPasswordChanged = onPasswordChanged,
-                    enabled = !viewState.isLoading,
-                    passwordToggle = viewState.passwordVisibility,
+                    enabled = !state.isLoading,
+                    passwordToggle = state.passwordVisibility,
                     onPasswordToggleClick = onPasswordToggleClicked,
-                    modifier = Modifier
-                        .padding(vertical = 10.dp),
+                    modifier = Modifier.padding(vertical = 10.dp),
+                    onDoneClicked = {
+                        onLoginClicked.invoke()
+                        keyboardController?.hide()
+                    }
                 )
             }
 
             item {
                 LoginButton(
-                    enabled = !viewState.isLoading,
+                    enabled = !state.isLoading,
                     onContinueClicked = {
                         onLoginClicked.invoke()
                         keyboardController?.hide()
                     },
-                    isLoading = viewState.isLoading,
+                    isLoading = state.isLoading,
                     modifier = Modifier
                         .padding(vertical = 15.dp)
                 )
@@ -107,7 +110,7 @@ internal fun LoginContent(
 
             item {
                 SignUpButton(
-                    enabled = !viewState.isLoading,
+                    enabled = !state.isLoading,
                     onSignUpClicked = {
                         onSignUpClicked.invoke()
                     },

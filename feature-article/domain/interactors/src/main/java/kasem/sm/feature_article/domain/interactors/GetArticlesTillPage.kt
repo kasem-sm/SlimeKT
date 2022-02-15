@@ -18,7 +18,7 @@ class GetArticlesTillPage @Inject constructor(
     private val mapper: ArticleMapper
 ) {
     fun execute(params: Param): Flow<PaginationStage<List<Article>>> {
-        return slimeDispatchers.defaultDispatcher.pagingStage {
+        return slimeDispatchers.default.pagingStage {
             cache.getArticlesTillPage(
                 query = params.query,
                 category = params.category,

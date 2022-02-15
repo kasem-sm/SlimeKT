@@ -22,11 +22,11 @@ import kasem.sm.ui_detail.components.slimeMarkdownStyle
 @Composable
 internal fun ArticleDetailContent(
     imageLoader: ImageLoader,
-    viewState: ArticleDetailState,
+    state: ArticleDetailState,
     onRefresh: () -> Unit,
 ) {
     SlimeSwipeRefresh(
-        refreshing = viewState.isLoading,
+        refreshing = state.isLoading,
         onRefresh = onRefresh
     ) {
         Box(
@@ -35,7 +35,7 @@ internal fun ArticleDetailContent(
                 .background(MaterialTheme.colorScheme.surface)
         ) {
             SlimeScreenColumn {
-                viewState.article?.let { article ->
+                state.article?.let { article ->
                     item {
                         ArticleHeader(article)
                     }
