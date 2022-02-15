@@ -8,5 +8,5 @@ apply {
 
 dependencies {
 	implementation("org.commonmark:commonmark:0.18.1")
-	implementation("androidx.compose.material3:material3:1.0.0-alpha04")
+	implementation(Compose.material3)
 }

@@ -23,14 +23,14 @@ fun ExploreScreen(
     onCategoryClick: (title: String, id: String) -> Unit,
 ) {
     val viewState by rememberFlow(viewModel.state)
-        .collectAsState(ExploreViewState.EMPTY)
+        .collectAsState(ExploreState.EMPTY)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar
     )
 
     ExploreContent(
-        viewState = viewState,
+        state = viewState,
         onRefresh = viewModel::refresh,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,

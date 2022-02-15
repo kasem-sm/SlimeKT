@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
@@ -17,11 +16,10 @@ import kasem.sm.core.utils.toMessage
 import kasem.sm.feature_auth.domain.interactors.RegisterUseCase
 import kasem.sm.feature_auth.domain.model.AuthResult
 import kasem.sm.feature_auth.domain.model.Credentials
-import kasem.sm.ui_auth.common.AuthViewState
+import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
-import kasem.sm.ui_core.navigate
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,19 +39,19 @@ class RegisterViewModel @Inject constructor(
     private val username = SavedMutableState(
         savedStateHandle,
         "slime_reg_username",
-        defaultValue = ""
+        defValue = ""
     )
 
     private val password = SavedMutableState(
         savedStateHandle,
         "slime_reg_password",
-        defaultValue = ""
+        defValue = ""
     )
 
     private val passwordVisibilityToggle = SavedMutableState(
         savedStateHandle,
         "slime_reg_pass_vis_toggle",
-        defaultValue = true
+        defValue = true
     )
 
     private val loadingStatus = ObservableLoader()
@@ -61,7 +59,7 @@ class RegisterViewModel @Inject constructor(
     private val isAccountDiscoverable = SavedMutableState(
         savedStateHandle,
         "slime_usr_acc_dis_toggle",
-        defaultValue = true
+        defValue = true
     )
 
     val state = combineFlows(
@@ -71,14 +69,14 @@ class RegisterViewModel @Inject constructor(
         passwordVisibilityToggle.flow,
         isAccountDiscoverable.flow
     ) { username, password, isLoading, passwordVisibility, isAccountDiscoverable ->
-        AuthViewState(
+        AuthState(
             username = username,
             password = password,
             isLoading = isLoading,
             passwordVisibility = passwordVisibility,
             isAccountDiscoverable = isAccountDiscoverable
         )
-    }.stateIn(viewModelScope, AuthViewState.EMPTY)
+    }.stateIn(viewModelScope, AuthState.EMPTY)
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -100,7 +98,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     fun registerUser() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             val credentials = Credentials(
                 username = username.value,
                 password = password.value,
@@ -114,7 +112,7 @@ class RegisterViewModel @Inject constructor(
                         when (result) {
                             is AuthResult.Exception -> showMessage(result.throwable.toMessage)
                             is AuthResult.EmptyCredentials -> showMessage("Please enter your username and password")
-                            is AuthResult.Success -> navigate(Routes.SubscribeCategoryScreen.route)
+                            is AuthResult.Success -> UiEvent.Success
                         }
                     )
                 }

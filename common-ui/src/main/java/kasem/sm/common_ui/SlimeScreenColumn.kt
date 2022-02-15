@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun SlimeScreenColumn(
+    modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(12.dp),
     content: LazyListScope.() -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = horizontalAlignment,
         verticalArrangement = verticalArrangement,
         contentPadding = PaddingValues(20.dp),

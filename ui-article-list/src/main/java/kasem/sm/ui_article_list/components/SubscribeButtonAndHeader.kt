@@ -19,12 +19,14 @@ import kasem.sm.common_ui.SlimeTypography
 import kasem.sm.common_ui.VerticalSpacer
 import kasem.sm.common_ui.getFont
 import kasem.sm.feature_category.domain.model.Category
+import kasem.sm.ui_article_list.R
 
 @Composable
 internal fun SubscribeButtonAndHeader(
     category: Category,
     onClick: () -> Unit,
-    isSubscriptionButtonActive: Boolean
+    isSubscriptionButtonActive: Boolean,
+    isSubscriptionInProgress: Boolean,
 ) {
     Column {
         Text(
@@ -37,6 +39,9 @@ internal fun SubscribeButtonAndHeader(
 
         VerticalSpacer(value = 10.dp)
 
+        val text = if (isSubscriptionButtonActive) "Unsubscribe" else "Subscribe"
+        val icon = if (isSubscriptionButtonActive) R.drawable.ic_unsubscribe else R.drawable.ic_subscribe
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -44,6 +49,9 @@ internal fun SubscribeButtonAndHeader(
             SubscribeButton(
                 onClick = onClick,
                 isActive = isSubscriptionButtonActive,
+                text = text,
+                trailingIcon = icon,
+                isLoading = isSubscriptionInProgress
             )
 
             Text(

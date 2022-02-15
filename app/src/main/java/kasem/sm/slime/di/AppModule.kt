@@ -45,9 +45,9 @@ object AppModule {
     @Provides
     fun provideSlimeDispatchers(): SlimeDispatchers {
         return SlimeDispatchers(
-            defaultDispatcher = Dispatchers.Default,
-            mainDispatcher = Dispatchers.Main,
-            ioDispatcher = Dispatchers.IO
+            default = Dispatchers.Default,
+            main = Dispatchers.Main,
+            io = Dispatchers.IO
         )
     }
 }

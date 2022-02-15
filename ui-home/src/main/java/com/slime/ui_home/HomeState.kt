@@ -4,10 +4,12 @@
  */
 package com.slime.ui_home
 
+import androidx.compose.runtime.Immutable
 import kasem.sm.feature_article.domain.model.Article
 import kasem.sm.feature_category.domain.model.Category
 
-data class HomeViewState(
+@Immutable
+data class HomeState(
     val currentCategory: String = "",
     val currentQuery: String = "",
     val currentPage: Int = 0,
@@ -18,7 +20,7 @@ data class HomeViewState(
     val endOfPagination: Boolean = false,
 ) {
     companion object {
-        val EMPTY = HomeViewState()
+        val EMPTY = HomeState()
         const val DEFAULT_CATEGORY_QUERY = ""
         const val DEFAULT_SEARCH_QUERY = ""
     }

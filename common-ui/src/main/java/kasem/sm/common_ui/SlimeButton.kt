@@ -6,7 +6,6 @@ package kasem.sm.common_ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
@@ -28,22 +27,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-internal fun RowScope.loadingButtonContent(
+internal fun RowScope.buttonContent(
     isLoading: Boolean,
     text: String,
     progressColor: Color = MaterialTheme.colorScheme.onPrimary,
     textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    @DrawableRes trailingIcon: Int? = null,
+    trailingIconColor: Color? = null,
 ) = apply {
     AnimatedVisibility(visible = isLoading) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(20.dp),
-            color = progressColor,
-            strokeWidth = 2.5.dp
-        )
+        Row {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(20.dp),
+                color = progressColor,
+                strokeWidth = 2.5.dp
+            )
+
+            HorizontalSpacer(value = 10.dp)
+        }
     }
 
-    HorizontalSpacer(value = 10.dp)
+    trailingIcon?.let {
+        Icon(
+            painter = painterResource(id = it),
+            contentDescription = text,
+            tint = trailingIconColor ?: textColor,
+            modifier = Modifier.size(20.dp),
+        )
+
+        HorizontalSpacer(value = 10.dp)
+    }
 
     Text(
         text = if (isLoading) "Please wait" else text,
@@ -81,7 +95,7 @@ fun SlimeElevatedButton(
         colors = buttonColors(backgroundColor),
         elevation = buttonElevation(1.dp)
     ) {
-        loadingButtonContent(isLoading = isLoading, text = text)
+        buttonContent(isLoading = isLoading, text = text)
     }
 }
 
@@ -113,7 +127,7 @@ fun SlimePrimaryButton(
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(2.dp)
     ) {
-        loadingButtonContent(
+        buttonContent(
             isLoading = isLoading,
             text = text,
             textColor = textColor
@@ -147,38 +161,18 @@ fun SlimeDoubleRoleButton(
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(24.dp),
-        colors = buttonColors(backgroundColor, contentColor = contentColor),
+        colors = buttonColors(
+            containerColor = backgroundColor,
+            contentColor = contentColor,
+        ),
         elevation = ButtonDefaults.elevatedButtonElevation(2.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(20.dp),
-                    strokeWidth = 2.5.dp
-                )
-            }
-
-            trailingIcon?.let { icon ->
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = text,
-                    tint = contentColor,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-
-            Text(
-                text = text,
-                style = getFont(
-                    SlimeTypography.SecondaryMedium(
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp
-                    )
-                ),
-            )
-        }
+        buttonContent(
+            isLoading = isLoading,
+            text = text,
+            textColor = contentColor,
+            trailingIcon = trailingIcon,
+            trailingIconColor = contentColor
+        )
     }
 }

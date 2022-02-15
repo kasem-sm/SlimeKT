@@ -7,12 +7,11 @@ package com.slime.ui_home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.slime.ui_home.HomeViewState.Companion.DEFAULT_CATEGORY_QUERY
-import com.slime.ui_home.HomeViewState.Companion.DEFAULT_SEARCH_QUERY
+import com.slime.ui_home.HomeState.Companion.DEFAULT_CATEGORY_QUERY
+import com.slime.ui_home.HomeState.Companion.DEFAULT_SEARCH_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.core.domain.ObservableLoader
-import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.feature_article.domain.interactors.ArticlePager
@@ -24,13 +23,13 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -45,13 +44,13 @@ class HomeViewModel @Inject constructor(
     private val categoryQuery = SavedMutableState(
         savedStateHandle,
         CATEGORY_QUERY_KEY,
-        defaultValue = DEFAULT_CATEGORY_QUERY
+        defValue = DEFAULT_CATEGORY_QUERY
     )
 
     private val searchQuery = SavedMutableState(
         savedStateHandle,
         QUERY_KEY,
-        defaultValue = DEFAULT_SEARCH_QUERY
+        defValue = DEFAULT_SEARCH_QUERY
     )
 
     private val scrollPosition = SavedMutableState(savedStateHandle, LIST_POSITION_KEY, 0)
@@ -60,6 +59,8 @@ class HomeViewModel @Inject constructor(
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
+
+    private var job: Job? = null
 
     val state = combineFlows(
         categoryQuery.flow,
@@ -73,7 +74,7 @@ class HomeViewModel @Inject constructor(
         pager.articles,
     ) { currentCategory, currentQuery, currentPage, isLoading, categories, dailyReadArticle,
         pagingLoadingState, endOfPagination, articles ->
-        HomeViewState(
+        HomeState(
             currentCategory = currentCategory,
             currentQuery = currentQuery,
             currentPage = currentPage,
@@ -83,11 +84,9 @@ class HomeViewModel @Inject constructor(
             endOfPagination = endOfPagination,
             articles = articles,
         )
-    }.stateIn(viewModelScope, HomeViewState.EMPTY)
+    }.stateIn(viewModelScope, HomeState.EMPTY)
 
     init {
-        Timber.d("Init HomeViewModel")
-
         initializePager()
 
         observeSearchQuery()
@@ -108,7 +107,7 @@ class HomeViewModel @Inject constructor(
         searchQuery: String = this.searchQuery.value,
         forceRefresh: Boolean = false
     ) {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(
                 category = categoryQuery,
                 query = searchQuery,
@@ -129,12 +128,12 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun observeSearchQuery() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             searchQuery.flow
                 .debounce(500)
                 .distinctUntilChanged()
                 .collectLatest { query ->
-                    val job = launch {
+                    job = launch {
                         if (scrollPosition.value == 0) {
                             // Reinitialize and refresh pager with updated search query
                             initializePager(
@@ -143,17 +142,17 @@ class HomeViewModel @Inject constructor(
                             )
                         }
                     }
-                    job.join()
+                    job!!.join()
                 }
         }
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        job = viewModelScope.launch(slimeDispatchers.main) {
             pager.refresh()
         }
 
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        viewModelScope.launch(slimeDispatchers.main) {
             getSubscribedCategories.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
@@ -162,23 +161,22 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onQueryChange(newValue: String) {
+        job?.cancel()
         searchQuery.value = newValue
     }
 
     fun onCategoryChange(newValue: String) {
-        if (!loadingStatus.isLoading) {
-            loadingStatus(Loader.START)
-            categoryQuery.value = newValue
-            // Reinitialize and refresh pager with updated category query
-            initializePager(
-                categoryQuery = newValue,
-                forceRefresh = true
-            )
-        }
+        job?.cancel()
+        categoryQuery.value = newValue
+        // Reinitialize and refresh pager with updated category query
+        initializePager(
+            categoryQuery = newValue,
+            forceRefresh = true
+        )
     }
 
     fun executeNextPage(updatedPage: Int? = null) {
-        viewModelScope.launch(slimeDispatchers.mainDispatcher) {
+        job = viewModelScope.launch(slimeDispatchers.main) {
             pager.executeNextPage(updatedPage)
         }
     }
@@ -189,7 +187,7 @@ class HomeViewModel @Inject constructor(
      * to scroll the list to the position for best user experience.
      */
     fun saveScrollPosition(updatedPosition: Int) {
-        savedStateHandle.set(LIST_POSITION_KEY, updatedPosition)
+        savedStateHandle[LIST_POSITION_KEY] = updatedPosition
     }
 
     companion object {

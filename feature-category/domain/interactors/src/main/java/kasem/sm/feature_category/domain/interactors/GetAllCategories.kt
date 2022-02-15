@@ -22,17 +22,15 @@ class GetAllCategories @Inject constructor(
     private val applicationScope: CoroutineScope,
 ) {
     suspend fun execute(): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val categories = api.getAllCategories().getOrThrow()
                 .data.getOrDefault().map {
                     it.toEntity()
                 }
 
-            categories.let {
-                applicationScope.launch {
-                    cache.insert(categories)
-                }.join()
-            }
+            applicationScope.launch {
+                cache.insert(categories)
+            }.join()
         }
     }
 }

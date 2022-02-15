@@ -22,7 +22,7 @@ class GetInExploreCategories @Inject constructor(
     private val applicationScope: CoroutineScope,
 ) {
     suspend fun execute(): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val categories = api.getExploreCategories().getOrThrow()
                 .data.getOrDefault().map {
                     it.toEntity(isInExplore = true)

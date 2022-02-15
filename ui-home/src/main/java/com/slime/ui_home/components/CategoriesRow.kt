@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.slime.ui_home.HomeViewState
+import com.slime.ui_home.HomeState
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeTypography
@@ -31,12 +31,13 @@ import kasem.sm.ui_home.R
 
 @Composable
 internal fun CategoriesRow(
+    isLoading: Boolean,
     categories: List<Category>,
     currentCategory: String,
     onCategoryChange: (String) -> Unit,
     navigateToSubscriptionScreen: () -> Unit
 ) {
-    if (categories.isEmpty()) {
+    if (!isLoading && categories.isEmpty()) {
         SlimeCard(
             backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         ) {
@@ -84,7 +85,7 @@ internal fun CategoriesRow(
                         ) { value ->
                             when (value) {
                                 true -> onCategoryChange(category.title)
-                                false -> onCategoryChange(HomeViewState.DEFAULT_CATEGORY_QUERY)
+                                false -> onCategoryChange(HomeState.DEFAULT_CATEGORY_QUERY)
                             }
                         }
                 )
