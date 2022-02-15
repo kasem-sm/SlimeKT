@@ -47,7 +47,7 @@ object NetworkModule {
                 )
             }
             defaultRequest {
-                host = BASE_URL
+                host = LOCAL_BASE_URL
                 when (host) {
                     BASE_URL -> url { protocol = URLProtocol.HTTPS }
                     else -> {
