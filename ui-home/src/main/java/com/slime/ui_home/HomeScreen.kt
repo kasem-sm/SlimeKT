@@ -23,7 +23,7 @@ fun HomeScreen(
     navigateTo: (String) -> Unit
 ) {
     val viewState by rememberFlow(viewModel.state)
-        .collectAsState(HomeViewState.EMPTY)
+        .collectAsState(HomeState.EMPTY)
 
     val state = rememberLazyListState()
 
@@ -32,7 +32,7 @@ fun HomeScreen(
         onDataReceived = { position ->
             state.animateScrollToItem(position as Int)
         },
-        onRouteReceived = navigateTo
+        onRouteReceived = { navigateTo(it) }
     )
 
     HomeContent(

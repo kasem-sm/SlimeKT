@@ -13,7 +13,7 @@ sealed class Routes(
     val arguments: List<NamedNavArgument> = emptyList(),
 ) {
 
-    object MainRoute : Routes(
+    object Main : Routes(
         route = "main_route"
     )
 

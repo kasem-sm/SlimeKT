@@ -12,8 +12,8 @@ fun navigate(
 
 fun showMessage(
     value: String,
-) = UiEvent.ShowSnackbar(UiText.StringText(value))
+) = UiEvent.ShowMessage(UiText.StringText(value))
 
 fun showMessage(
     @StringRes res: Int
-) = UiEvent.ShowSnackbar(UiText.ResourceText(res))
+) = UiEvent.ShowMessage(UiText.ResourceText(res))

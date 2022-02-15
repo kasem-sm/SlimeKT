@@ -8,8 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,14 +26,14 @@ import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeTypography
 import kasem.sm.common_ui.getFont
-import kasem.sm.ui_auth.common.AuthViewState
+import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_auth.common.PasswordField
 import kasem.sm.ui_auth.common.UsernameField
 
 /**
  * This composable maintains the entire screen for handling user registration.
  *
- * @param[viewState] The current state of the screen to render.
+ * @param[state] The current state of the screen to render.
  * @param[onUsernameChanged] A callback invoked when the user enters their username.
  * @param[onPasswordChanged] A callback invoked when the user enters their password.
  * @param[onConfirmClicked] A callback invoked when the user clicks the register button.
@@ -42,7 +42,7 @@ import kasem.sm.ui_auth.common.UsernameField
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun RegisterContent(
-    viewState: AuthViewState,
+    state: AuthState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onConfirmClicked: () -> Unit,
@@ -50,16 +50,16 @@ internal fun RegisterContent(
     toggleAccountDiscoverability: (Boolean) -> Unit,
 ) {
     Box(
-        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .fillMaxSize()
+            .wrapContentSize()
             .background(MaterialTheme.colorScheme.surface)
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
         val focusManager = LocalFocusManager.current
 
         SlimeScreenColumn(
-            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier
+                .wrapContentSize()
         ) {
             item {
                 Text(
@@ -78,13 +78,12 @@ internal fun RegisterContent(
 
             item {
                 UsernameField(
-                    text = viewState.username,
+                    text = state.username,
                     onUsernameChanged = onUsernameChanged,
-                    enabled = !viewState.isLoading,
+                    enabled = !state.isLoading,
                     modifier = Modifier
                         .padding(vertical = 10.dp),
-                    onNext = {
-
+                    onNextClicked = {
                         focusManager.moveFocus(FocusDirection.Down)
                     }
                 )
@@ -92,13 +91,17 @@ internal fun RegisterContent(
 
             item {
                 PasswordField(
-                    text = viewState.password,
+                    text = state.password,
                     onPasswordChanged = onPasswordChanged,
-                    enabled = !viewState.isLoading,
-                    passwordToggle = viewState.passwordVisibility,
+                    enabled = !state.isLoading,
+                    passwordToggle = state.passwordVisibility,
                     onPasswordToggleClick = togglePasswordVisibility,
                     modifier = Modifier
                         .padding(vertical = 10.dp),
+                    onDoneClicked = {
+                        keyboardController?.hide()
+                        onConfirmClicked()
+                    }
                 )
             }
 
@@ -108,7 +111,7 @@ internal fun RegisterContent(
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Checkbox(
-                        checked = viewState.isAccountDiscoverable,
+                        checked = state.isAccountDiscoverable,
                         onCheckedChange = toggleAccountDiscoverability
                     )
                     Text(
@@ -123,11 +126,11 @@ internal fun RegisterContent(
                 SlimePrimaryButton(
                     text = "Confirm Registration",
                     onClick = {
-                        onConfirmClicked()
                         keyboardController?.hide()
+                        onConfirmClicked()
                     },
-                    enabled = !viewState.isLoading,
-                    isLoading = viewState.isLoading,
+                    enabled = !state.isLoading,
+                    isLoading = state.isLoading,
                     modifier = Modifier
                         .padding(vertical = 15.dp)
                 )

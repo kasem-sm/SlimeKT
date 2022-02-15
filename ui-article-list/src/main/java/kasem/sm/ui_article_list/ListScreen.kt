@@ -19,9 +19,10 @@ fun ListScreen(
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
+    navigateTo: (String) -> Unit,
 ) {
     val viewState by rememberFlow(viewModel.state)
-        .collectAsState(ListViewState.EMPTY)
+        .collectAsState(ListState.EMPTY)
 
     val state = rememberLazyListState()
 
@@ -29,7 +30,8 @@ fun ListScreen(
         onMessageReceived = snackbarHostState::showSnackbar,
         onDataReceived = { position ->
             state.animateScrollToItem(position as Int)
-        }
+        },
+        onRouteReceived = navigateTo
     )
 
     ListContent(
@@ -40,6 +42,9 @@ fun ListScreen(
         executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
         state = state,
-        updateSubscription = viewModel::updateSubscription
+        updateSubscription = viewModel::updateSubscription,
+        showAuthenticationSheet = {
+            viewModel.checkAuthenticationStatus()
+        }
     )
 }

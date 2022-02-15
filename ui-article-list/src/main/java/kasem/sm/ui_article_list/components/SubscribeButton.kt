@@ -4,22 +4,27 @@
  */
 package kasem.sm.ui_article_list.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kasem.sm.common_ui.SlimeDoubleRoleButton
-import kasem.sm.ui_article_list.R
 
 @Composable
 internal fun SubscribeButton(
     onClick: () -> Unit,
     isActive: Boolean,
+    text: String,
+    @DrawableRes trailingIcon: Int,
+    isLoading: Boolean
 ) {
     SlimeDoubleRoleButton(
         modifier = Modifier.wrapContentSize(),
         isActive = isActive,
         onClick = onClick,
-        text = if (isActive) "Unsubscribe" else "Subscribe",
-        trailingIcon = if (isActive) R.drawable.ic_unsubscribe else R.drawable.ic_subscribe
+        text = text,
+        trailingIcon = trailingIcon,
+        isLoading = isLoading,
+        enabled = !isLoading
     )
 }

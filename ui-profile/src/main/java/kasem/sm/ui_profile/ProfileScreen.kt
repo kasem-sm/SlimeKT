@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kasem.sm.common_ui.SlimeElevatedButton
@@ -21,13 +20,12 @@ fun ProfileScreen(
     viewModel: ProfileViewModel,
     navigateTo: (String) -> Unit
 ) {
-    viewModel.uiEvent.safeCollector(
-        onRouteReceived = navigateTo
-    )
 
-    LaunchedEffect(key1 = true) {
-        viewModel.verifyAuthenticationStatus()
-    }
+    viewModel.uiEvent.safeCollector(
+        onRouteReceived = {
+            navigateTo(it)
+        }
+    )
 
     Box(
         contentAlignment = Alignment.Center,

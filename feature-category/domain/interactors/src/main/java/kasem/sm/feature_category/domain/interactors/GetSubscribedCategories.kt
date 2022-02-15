@@ -22,10 +22,10 @@ class GetSubscribedCategories @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers,
 ) {
     suspend fun execute(): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val categories = api.getSubscribedCategories().getOrThrow()
                 .data.getOrDefault().map {
-                    it.toEntity()
+                    it.toEntity(isInExplore = false)
                 }
 
             categories.let {

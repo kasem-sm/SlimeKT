@@ -6,32 +6,37 @@ package kasem.sm.ui_subscribe_category
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import kasem.sm.ui_core.rememberFlow
 import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun SubscribeCategoryScreen(
     viewModel: SubscribeCategoryViewModel,
-    navigateAfterSelection: (String) -> Unit,
     snackbarHostState: SnackbarHostState,
+    onSubscriptionSaved: () -> Unit,
+    navigateTo: (String) -> Unit,
 ) {
-    val listOfCategories =
-        rememberFlow(flow = viewModel.listOfCategories).collectAsState(initial = emptyList()).value
-
-    val isLoading =
-        rememberFlow(flow = viewModel.loadingStatus.flow).collectAsState(initial = false).value
+    val viewState by rememberFlow(viewModel.state)
+        .collectAsState(SubscribeCategoryState.EMPTY)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,
-        onRouteReceived = navigateAfterSelection
+        onSuccessCallback = onSubscriptionSaved,
+        onRouteReceived = navigateTo
     )
 
+    LaunchedEffect(key1 = true) {
+        viewModel.checkAuthenticationStatus()
+    }
+
     SubscribeCategoryContent(
-        listOfCategories = listOfCategories,
+        state = viewState,
         onRefresh = viewModel::refresh,
         saveRecommendedValues = viewModel::saveUserSubscribedCategories,
-        isLoading = isLoading,
-        updateList = viewModel::updateList
+        updateList = viewModel::updateList,
+        showAuthenticationSheet = viewModel::checkAuthenticationStatus
     )
 }

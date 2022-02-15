@@ -4,7 +4,10 @@
  */
 package kasem.sm.ui_auth.common
 
-data class AuthViewState(
+import androidx.compose.runtime.Immutable
+
+@Immutable
+data class AuthState(
     val username: String = "",
     val password: String = "",
     val isLoading: Boolean = false,
@@ -12,6 +15,6 @@ data class AuthViewState(
     val isAccountDiscoverable: Boolean = true
 ) {
     companion object {
-        val EMPTY = AuthViewState()
+        val EMPTY = AuthState()
     }
 }

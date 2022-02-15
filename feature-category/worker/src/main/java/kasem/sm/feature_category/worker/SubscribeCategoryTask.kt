@@ -5,7 +5,6 @@
 package kasem.sm.feature_category.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
@@ -14,60 +13,52 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kasem.sm.feature_category.datasource.cache.CategoryDatabaseService
 import kasem.sm.feature_category.datasource.network.CategoryApiService
+import kasem.sm.feature_category.datasource.network.response.SlimeResponse
+import kasem.sm.feature_category.worker.utils.SubscriptionState
+import kasem.sm.feature_category.worker.utils.getSubscriptionState
+import kotlin.time.ExperimentalTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.withContext
 
 @HiltWorker
 internal class SubscribeCategoryTask @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workParams: WorkerParameters,
     private val api: CategoryApiService,
-    private val cache: CategoryDatabaseService
+    private val cache: CategoryDatabaseService,
 ) : CoroutineWorker(context, workParams) {
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun doWork(): Result {
         // starts from 0
         if (runAttemptCount >= MAXIMUM_RETRIES) return Result.failure()
 
         val ids = inputData.getStringArray(ID_KEY) ?: return Result.failure()
 
-        ids.forEach { id ->
-            val isUserSubscribed = api.hasUserSubscribed(id).getOrElse {
-                Log.d("SubscribeCategoryTask", it.message ?: "Something went wrong")
-                return Result.retry()
-            }
-
-            when {
-                isUserSubscribed.success && isUserSubscribed.data == true -> unsubscribe(id)
-                isUserSubscribed.success && isUserSubscribed.data == false -> subscribe(id)
-                else -> return Result.retry()
-            }
+        val listOfResult = withContext(Dispatchers.Default) {
+            ids.map { id ->
+                async { api.subscribeIfNot(id) }
+            }.awaitAll()
         }
+
+        listOfResult
+            .map { it.getOrThrow() }
+            .forEach { it.updateCache() }
+
         return Result.success()
     }
 
-    private suspend fun subscribe(id: String) {
-        val apiResponse = api.subscribeToCategory(id).getOrNull() ?: return
-
-        if (!apiResponse.success) {
-            Log.d("SubscribeCategoryTask", apiResponse.message ?: "Something went wrong!")
-        } else {
-            updateCache(true, listOf(id))
+    private suspend fun SlimeResponse<String>.updateCache(): Result {
+        data?.let { id ->
+            when (message?.getSubscriptionState()) {
+                SubscriptionState.SUBSCRIBED -> cache.updateSubscriptionStatus(true, id)
+                SubscriptionState.UNSUBSCRIBED -> cache.updateSubscriptionStatus(false, id)
+                else -> return@let Result.retry()
+            }
         }
-    }
-
-    private suspend fun unsubscribe(id: String) {
-        val apiResponse = api.unsubscribeToCategory(id).getOrNull() ?: return
-
-        if (!apiResponse.success) {
-            Log.d("SubscribeCategoryTask", apiResponse.message ?: "Something went wrong!")
-        } else {
-            updateCache(false, listOf(id))
-        }
-    }
-
-    private suspend fun updateCache(status: Boolean, id: List<String>) {
-        id.forEach {
-            cache.updateSubscriptionStatus(status, it)
-        }
+        return Result.success()
     }
 
     companion object {

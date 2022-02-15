@@ -7,7 +7,7 @@ package kasem.sm.core.domain
 import kotlinx.coroutines.CoroutineDispatcher
 
 data class SlimeDispatchers(
-    val defaultDispatcher: CoroutineDispatcher,
-    val mainDispatcher: CoroutineDispatcher,
-    val ioDispatcher: CoroutineDispatcher
+    val default: CoroutineDispatcher,
+    val main: CoroutineDispatcher,
+    val io: CoroutineDispatcher
 )

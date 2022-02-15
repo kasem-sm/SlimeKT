@@ -21,9 +21,11 @@ class GetCategoryById @Inject constructor(
     private val applicationScope: CoroutineScope,
 ) {
     fun execute(id: String): Flow<Stage> {
-        return slimeDispatchers.defaultDispatcher.start {
+        return slimeDispatchers.default.start {
             val category = api.getCategoryById(id).getOrThrow()
                 .data?.toEntity(cache.isInExplore(id))
+
+            println("GCB ${category?.isInSubscription}")
 
             category?.let {
                 applicationScope.launch {
