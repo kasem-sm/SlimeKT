@@ -6,6 +6,7 @@
 package kasem.sm.slime.navigation
 
 import androidx.compose.material.SnackbarHostState
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -68,7 +69,7 @@ internal fun NavGraphBuilder.attachHomeScreen(
             snackbarHostState = snackbarHostState,
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id).route)
+                navController.navigate(Routes.articleDetailLink(id))
             },
             navigateTo = { route ->
                 navController.navigate(route)
@@ -88,7 +89,7 @@ internal fun NavGraphBuilder.attachExploreScreen(
             imageLoader = imageLoader,
             snackbarHostState = snackbarHostState,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id).route)
+                navController.navigate(Routes.articleDetailLink(id))
             },
             onCategoryClick = { title, id ->
                 navController.navigate(Routes.ListScreen(title, id).route)
@@ -117,11 +118,10 @@ internal fun NavGraphBuilder.attachArticleDetailScreen(
     snackbarHostState: SnackbarHostState,
 ) {
     composable(
-        route = Routes.ArticleDetailScreen().route,
-        arguments = Routes.ArticleDetailScreen().arguments,
+        route = Routes.ArticleDetailScreen.route,
         deepLinks = listOf(
             navDeepLink {
-                uriPattern = "https://slime-kt.herokuapp.com/article_detail_screen={id}"
+                uriPattern = Routes.articleDetailDeepLink + "{id}"
             }
         )
     ) {
@@ -161,7 +161,7 @@ internal fun NavGraphBuilder.attachListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.ArticleDetailScreen(id).route)
+                navController.navigate("https://slime-kt.herokuapp.com/article_detail_screen=$id".toUri())
             },
             snackbarHostState = snackbarHostState,
             navigateTo = {

@@ -4,6 +4,8 @@
  */
 package kasem.sm.common_ui.util
 
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -42,20 +44,18 @@ sealed class Routes(
         route = "profile_screen"
     )
 
-    data class ArticleDetailScreen(val id: Int = -1) : Routes(
-        route = "article_detail_screen/$id",
-        arguments = listOf(
-            navArgument("id") {
-                type = NavType.IntType
-            }
-        )
+    object ArticleDetailScreen : Routes(
+        route = "article_detail_screen",
     )
 
     object SubscribeCategoryScreen : Routes(
         route = "select_topics_screen"
     )
 
-    data class ListScreen(val category: String = "{slime_category}", val categoryId: String = "{slime_category_id}") : Routes(
+    data class ListScreen(
+        val category: String = "{slime_category}",
+        val categoryId: String = "{slime_category_id}"
+    ) : Routes(
         route = "list_screen/$category/$categoryId",
         arguments = listOf(
             navArgument("slime_category") {
@@ -66,4 +66,9 @@ sealed class Routes(
             }
         )
     )
+
+    companion object {
+        const val articleDetailDeepLink = "https://slime-kt.herokuapp.com/article_detail_screen="
+        fun articleDetailLink(id: Int): Uri = (articleDetailDeepLink + "$id").toUri()
+    }
 }
