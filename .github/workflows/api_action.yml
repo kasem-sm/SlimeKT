@@ -1,0 +1,18 @@
+name: Slime Build (API)
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Permission for Gradle Execution
+        run: chmod +x gradlew
+        working-directory: api
+
+      - name: Slime Code Review
+        run: ./gradlew ktlintCheck
+        working-directory: api
