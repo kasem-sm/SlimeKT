@@ -16,8 +16,8 @@ import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.interfaces.Session
-import kasem.sm.feature_category.domain.interactors.GetAllCategories
-import kasem.sm.feature_category.domain.interactors.ObserveAllCategories
+import kasem.sm.feature_category.domain.interactors.GetInExploreCategories
+import kasem.sm.feature_category.domain.interactors.ObserveInExploreCategories
 import kasem.sm.feature_category.domain.model.Category
 import kasem.sm.feature_category.worker.SubscribeCategoryManager
 import kasem.sm.ui_core.SavedMutableState
@@ -36,11 +36,12 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SubscribeCategoryViewModel @Inject constructor(
-    private val getAllCategories: GetAllCategories,
+    /** Categories that are not subscribed can be requested through [getInExploreCategories] **/
+    private val getInExploreCategories: GetInExploreCategories,
     private val subscribeCategoryManager: SubscribeCategoryManager,
     private val slimeDispatchers: SlimeDispatchers,
     private val session: Session,
-    observeAllCategories: ObserveAllCategories,
+    observeInExploreCategories: ObserveInExploreCategories,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -77,12 +78,12 @@ class SubscribeCategoryViewModel @Inject constructor(
         }
 
         viewModelScope.launch(slimeDispatchers.main) {
-            observeAllCategories.flow.collectLatest {
+            observeInExploreCategories.flow.collectLatest {
                 listOfCategories.value = it
             }
         }
 
-        observeAllCategories.join(
+        observeInExploreCategories.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
@@ -91,7 +92,7 @@ class SubscribeCategoryViewModel @Inject constructor(
     }
 
     fun checkAuthenticationStatus() {
-        viewModelScope.launch {
+        viewModelScope.launch(slimeDispatchers.main) {
             if (!isUserAuthenticated.value) {
                 _uiEvent.emit(navigate(Routes.RegisterScreen.route))
             }
@@ -145,7 +146,7 @@ class SubscribeCategoryViewModel @Inject constructor(
 
     fun refresh() {
         viewModelScope.launch(slimeDispatchers.main) {
-            getAllCategories.execute().collect(
+            getInExploreCategories.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
