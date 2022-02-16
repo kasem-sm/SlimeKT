@@ -57,7 +57,7 @@ internal class SubscribeCategoryTask @AssistedInject constructor(
                 SubscriptionState.UNSUBSCRIBED -> cache.updateSubscriptionStatus(false, id)
                 else -> return@let Result.retry()
             }
-        }
+        } ?: return Result.retry()
         return Result.success()
     }
 

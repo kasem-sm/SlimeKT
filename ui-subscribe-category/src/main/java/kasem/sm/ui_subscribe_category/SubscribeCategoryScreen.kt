@@ -6,7 +6,6 @@ package kasem.sm.ui_subscribe_category
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import kasem.sm.ui_core.rememberFlow
@@ -27,10 +26,6 @@ fun SubscribeCategoryScreen(
         onSuccessCallback = onSubscriptionSaved,
         onRouteReceived = navigateTo
     )
-
-    LaunchedEffect(key1 = true) {
-        viewModel.checkAuthenticationStatus()
-    }
 
     SubscribeCategoryContent(
         state = viewState,

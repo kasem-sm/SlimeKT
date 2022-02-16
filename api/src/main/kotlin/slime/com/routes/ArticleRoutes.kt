@@ -29,13 +29,11 @@ fun Route.registerArticleRoutes(
         respondWith(article)
     }
 
-    authenticate {
-        get("/api/article/get") {
-            val article = service.getArticleById(
-                articleId = call.parameters["id"]?.toInt() ?: return@get
-            ) ?: return@get
-            respondWith(article)
-        }
+    get("/api/article/get") {
+        val article = service.getArticleById(
+            articleId = call.parameters["id"]?.toInt() ?: return@get
+        ) ?: return@get
+        respondWith(article)
     }
 
     get("/api/article/all") {
