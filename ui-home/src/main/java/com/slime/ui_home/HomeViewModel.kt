@@ -107,7 +107,8 @@ class HomeViewModel @Inject constructor(
         searchQuery: String = this.searchQuery.value,
         forceRefresh: Boolean = false
     ) {
-        viewModelScope.launch(slimeDispatchers.main) {
+        job?.cancel()
+        job = viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(
                 category = categoryQuery,
                 query = searchQuery,
@@ -148,6 +149,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refresh() {
+        job?.cancel()
         job = viewModelScope.launch(slimeDispatchers.main) {
             pager.refresh()
         }
