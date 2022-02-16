@@ -12,8 +12,9 @@ jobs:
       - name: Permission for Gradle Execution
         run: chmod +x gradlew
 
-      - name: Slime Code Format
-        run: ./gradlew spotlessApply
+      - name: Slime Code Review (API)
+        run: ./gradlew ktlintCheck
+        working-directory: api
 
-      - name: Slime Code Review
+      - name: Slime Code Review (Android)
         run: ./gradlew spotlessCheck
