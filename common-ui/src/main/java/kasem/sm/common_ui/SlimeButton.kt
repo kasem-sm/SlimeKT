@@ -62,12 +62,9 @@ internal fun RowScope.buttonContent(
     Text(
         text = if (isLoading) "Please wait" else text,
         color = textColor,
-        style = getFont(
-            SlimeTypography.SecondaryMedium(
-                fontSize = 14.sp,
-                letterSpacing = 1.sp
-            )
-        ),
+        fontSize = 14.sp,
+        letterSpacing = 1.sp,
+        fontFamily = LocalSlimeFont.current.secondaryMedium
     )
 }
 

@@ -16,8 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.feature_article.common_ui.SlimeGradientProfile
 import kasem.sm.feature_article.common_ui.toDate
 import kasem.sm.feature_article.common_ui.toEstimatedTime
@@ -59,7 +58,7 @@ internal fun ArticleAuthorAndEstimatedTimeBadge(
                 Text(
                     text = "Est time to read: ${article.description.length.toEstimatedTime()} min",
                     maxLines = 1,
-                    style = getFont(SlimeTypography.SecondaryMedium()),
+                    fontFamily = LocalSlimeFont.current.secondaryMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                     fontSize = 12.sp
                 )

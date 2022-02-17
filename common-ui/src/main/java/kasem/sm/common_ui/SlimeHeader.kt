@@ -24,8 +24,9 @@ fun SlimeHeader(
         text = text,
         color = color,
         modifier = modifier
-            .padding(10.dp)
-            .fillMaxWidth(),
-        style = getFont(SlimeTypography.SemiBold(22.sp, 1.5.sp)),
+            .fillMaxWidth()
+            .padding(vertical = 10.dp, horizontal = 5.dp),
+        fontFamily = LocalSlimeFont.current.semiBold,
+        fontSize = 22.sp
     )
 }

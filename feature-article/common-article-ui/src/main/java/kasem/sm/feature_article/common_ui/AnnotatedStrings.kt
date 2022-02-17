@@ -5,22 +5,22 @@
 package kasem.sm.feature_article.common_ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 fun withAuthorAndPostedTime(
     authorName: String,
     postedTime: String
-) = buildAnnotatedString {
-    withStyle(SpanStyle(fontFamily = getFont(SlimeTypography.SecondaryBold()).fontFamily)) {
+): AnnotatedString = buildAnnotatedString {
+    withStyle(SpanStyle(fontFamily = LocalSlimeFont.current.secondaryBold)) {
         append(authorName)
     }
-    withStyle(SpanStyle(fontFamily = getFont(SlimeTypography.SecondaryRegular()).copy(fontSize = 6.sp).fontFamily)) {
+    withStyle(SpanStyle(fontFamily = LocalSlimeFont.current.secondaryMedium, fontSize = 12.sp)) {
         append(" on ")
         append(postedTime)
     }

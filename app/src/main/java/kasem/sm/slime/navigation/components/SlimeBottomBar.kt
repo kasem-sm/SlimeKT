@@ -17,8 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.util.BottomNavigationItems
 
 @Composable
@@ -44,7 +43,7 @@ internal fun SlimeBottomBar(
                     label = {
                         Text(
                             text = item.title,
-                            style = getFont(SlimeTypography.SecondaryMedium())
+                            fontFamily = LocalSlimeFont.current.secondaryMedium
                         )
                     },
                     selected = currentRoute == item.route,

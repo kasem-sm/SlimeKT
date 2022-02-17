@@ -13,19 +13,19 @@ import kasem.sm.ui_core.rememberFlow
 import kasem.sm.ui_core.safeCollector
 
 @Composable
-fun ArticleDetailScreen(
-    viewModel: ArticleDetailViewModel,
+fun DetailScreen(
+    viewModel: DetailViewModel,
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState
 ) {
     val viewState by rememberFlow(viewModel.state)
-        .collectAsState(ArticleDetailState.EMPTY)
+        .collectAsState(DetailState.EMPTY)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar
     )
 
-    ArticleDetailContent(
+    DetailContent(
         imageLoader = imageLoader,
         state = viewState,
         onRefresh = viewModel::refresh

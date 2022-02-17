@@ -8,12 +8,10 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.rememberFlow
 import kasem.sm.ui_core.safeCollector
 
-@ExperimentalComposeUiApi
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel,

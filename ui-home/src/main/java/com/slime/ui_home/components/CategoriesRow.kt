@@ -20,10 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.slime.ui_home.HomeState
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.SlimePrimaryButton
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 import kasem.sm.common_ui.util.toggleWithRipple
 import kasem.sm.feature_category.common_ui.CategoryChip
 import kasem.sm.feature_category.domain.model.Category
@@ -48,7 +47,8 @@ internal fun CategoriesRow(
             ) {
                 Text(
                     text = stringResource(R.string.subscribe_to_category_header),
-                    style = getFont(SlimeTypography.SecondaryMedium(14.sp)),
+                    fontFamily = LocalSlimeFont.current.secondaryMedium,
+                    fontSize = 14.sp,
                     modifier = Modifier
                         .wrapContentSize(),
                     textAlign = TextAlign.Center

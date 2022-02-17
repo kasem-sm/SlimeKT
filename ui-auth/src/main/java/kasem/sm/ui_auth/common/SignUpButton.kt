@@ -16,8 +16,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 internal fun SignUpButton(
@@ -25,8 +24,6 @@ internal fun SignUpButton(
     enabled: Boolean,
     onSignUpClicked: () -> Unit,
 ) {
-    val regularFont = getFont(SlimeTypography.Medium())
-    val boldFont = getFont(SlimeTypography.Bold())
     Column(modifier) {
         TextButton(
             onClick = {
@@ -39,9 +36,8 @@ internal fun SignUpButton(
                 text = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
-                            fontStyle = regularFont.fontStyle,
                             color = MaterialTheme.colorScheme.onSurface,
-                            fontFamily = regularFont.fontFamily,
+                            fontFamily = LocalSlimeFont.current.regular,
                             letterSpacing = 1.sp
                         )
                     ) {
@@ -49,9 +45,8 @@ internal fun SignUpButton(
                     }
                     withStyle(
                         style = SpanStyle(
-                            fontStyle = boldFont.fontStyle,
                             color = MaterialTheme.colorScheme.primary,
-                            fontFamily = boldFont.fontFamily,
+                            fontFamily = LocalSlimeFont.current.bold,
                             letterSpacing = 1.sp
                         )
                     ) {

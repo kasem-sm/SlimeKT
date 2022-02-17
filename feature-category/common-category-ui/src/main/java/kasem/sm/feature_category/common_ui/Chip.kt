@@ -15,8 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.feature_category.domain.model.Category
 
 @Composable
@@ -35,9 +34,9 @@ fun CategoryChip(
         Text(
             text = category.title,
             color = chipTextColor,
-            style = getFont(SlimeTypography.SemiBold(fontSize = 14.sp)),
-            modifier = Modifier
-                .padding(10.dp)
+            modifier = Modifier.padding(10.dp),
+            fontSize = 14.sp,
+            fontFamily = LocalSlimeFont.current.semiBold,
         )
     }
 }

@@ -19,7 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -27,8 +27,8 @@ import kotlinx.coroutines.delay
 @Composable
 fun AnimatedPlaceholder(
     hintList: List<String>,
-    textStyle: TextStyle = getFont(SlimeTypography.Medium(14.sp)),
-    textColor: Color = MaterialTheme.colorScheme.onSurfaceVariant
+    textStyle: FontFamily = LocalSlimeFont.current.medium,
+    textColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
     val listOfPlaceholders = rememberSaveable { mutableStateOf(hintList) }
     val currentPlaceholder = rememberSaveable { mutableStateOf(listOfPlaceholders.value.first()) }
@@ -39,8 +39,9 @@ fun AnimatedPlaceholder(
     ) { text ->
         Text(
             text = text,
-            style = textStyle,
-            color = textColor
+            fontFamily = textStyle,
+            color = textColor,
+            fontSize = 14.sp
         )
     }
 
