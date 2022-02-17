@@ -20,9 +20,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeTextField
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 
 @Composable
 fun UsernameField(
@@ -50,8 +49,9 @@ fun UsernameField(
         placeholderContent = {
             Text(
                 text = "Username",
-                style = getFont(SlimeTypography.Medium(14.sp)),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                fontFamily = LocalSlimeFont.current.medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 14.sp
             )
         },
         keyboardOptions = KeyboardOptions(

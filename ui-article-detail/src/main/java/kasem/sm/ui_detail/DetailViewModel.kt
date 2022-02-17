@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class ArticleDetailViewModel @Inject constructor(
+class DetailViewModel @Inject constructor(
     private val getArticle: GetArticleById,
     private val observeArticle: ObserveArticle,
     private val slimeDispatchers: SlimeDispatchers,
@@ -39,15 +39,15 @@ class ArticleDetailViewModel @Inject constructor(
 
     private val loadingStatus = ObservableLoader()
 
-    val state: StateFlow<ArticleDetailState> = combine(
+    val state: StateFlow<DetailState> = combine(
         loadingStatus.flow,
         observeArticle.flow
     ) { loading, article ->
-        ArticleDetailState(
+        DetailState(
             isLoading = loading,
             article = article
         )
-    }.stateIn(viewModelScope, ArticleDetailState.EMPTY)
+    }.stateIn(viewModelScope, DetailState.EMPTY)
 
     init {
         observe()

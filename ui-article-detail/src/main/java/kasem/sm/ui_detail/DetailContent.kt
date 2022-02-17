@@ -20,9 +20,9 @@ import kasem.sm.ui_detail.components.ArticleHeader
 import kasem.sm.ui_detail.components.slimeMarkdownStyle
 
 @Composable
-internal fun ArticleDetailContent(
+internal fun DetailContent(
     imageLoader: ImageLoader,
-    state: ArticleDetailState,
+    state: DetailState,
     onRefresh: () -> Unit,
 ) {
     SlimeSwipeRefresh(

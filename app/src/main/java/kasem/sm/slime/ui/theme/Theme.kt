@@ -13,7 +13,10 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
+import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.SlimeFontFamily
 
 private val LightThemeColors = lightColorScheme(
 
@@ -86,10 +89,12 @@ fun SlimeTheme(
         else -> LightThemeColors
     }
 
-    MaterialTheme(
-        colorScheme = colors,
-        content = content
-    )
+    CompositionLocalProvider(LocalSlimeFont provides SlimeFontFamily()) {
+        MaterialTheme(
+            colorScheme = colors,
+            content = content
+        )
+    }
 }
 
 val isAtLeastS get() = Build.VERSION.SDK_INT >= 31.0

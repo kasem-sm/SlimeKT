@@ -8,11 +8,11 @@ import androidx.compose.runtime.Immutable
 import kasem.sm.feature_article.domain.model.Article
 
 @Immutable
-data class ArticleDetailState(
+data class DetailState(
     val isLoading: Boolean = true,
     val article: Article? = null,
 ) {
     companion object {
-        val EMPTY = ArticleDetailState()
+        val EMPTY = DetailState()
     }
 }

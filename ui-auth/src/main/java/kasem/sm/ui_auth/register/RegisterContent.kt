@@ -22,10 +22,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeScreenColumn
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_auth.common.PasswordField
 import kasem.sm.ui_auth.common.UsernameField
@@ -65,14 +64,17 @@ internal fun RegisterContent(
                 Text(
                     text = "Publish Your Passion",
                     color = MaterialTheme.colorScheme.primary,
-                    style = getFont(SlimeTypography.SemiBold(24.sp, letterSpacing = 1.sp))
+                    letterSpacing = 1.sp,
+                    fontSize = 24.sp,
+                    fontFamily = LocalSlimeFont.current.semiBold
                 )
                 Text(
                     text = "Get Started",
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(vertical = 15.dp),
-                    style = getFont(SlimeTypography.Medium(16.sp))
+                    fontSize = 16.sp,
+                    fontFamily = LocalSlimeFont.current.medium
                 )
             }
 
@@ -116,8 +118,10 @@ internal fun RegisterContent(
                     )
                     Text(
                         text = "Discoverable to other users in explore section",
-                        style = getFont(SlimeTypography.Medium(14.sp, letterSpacing = 1.sp)),
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
+                        letterSpacing = 1.sp,
+                        fontSize = 14.sp,
+                        fontFamily = LocalSlimeFont.current.medium
                     )
                 }
             }

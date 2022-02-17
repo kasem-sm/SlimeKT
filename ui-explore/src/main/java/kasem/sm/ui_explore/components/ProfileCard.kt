@@ -19,10 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
-import kasem.sm.common_ui.SlimeTypography
 import kasem.sm.common_ui.VerticalSpacer
-import kasem.sm.common_ui.getFont
 import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.feature_article.common_ui.SlimeGradientProfile
 
@@ -55,22 +54,17 @@ internal fun ProfileCard(
             ) {
                 Text(
                     text = username,
-                    style = getFont(
-                        typography = SlimeTypography.SemiBold(
-                            letterSpacing = 1.5.sp
-                        )
-                    ),
                     fontSize = 18.sp,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    letterSpacing = 1.5.sp,
+                    fontFamily = LocalSlimeFont.current.semiBold
                 )
 
                 VerticalSpacer(value = 10.dp)
 
                 Text(
                     text = bio,
-                    style = getFont(
-                        typography = SlimeTypography.SecondaryRegular()
-                    ),
+                    fontFamily = LocalSlimeFont.current.secondaryRegular,
                     fontSize = 14.sp,
                     maxLines = 2,
                     color = MaterialTheme.colorScheme.onSurface

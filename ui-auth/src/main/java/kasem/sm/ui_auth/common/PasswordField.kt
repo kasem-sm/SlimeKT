@@ -27,9 +27,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeTextField
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 
 @Composable
 fun PasswordField(
@@ -75,8 +74,9 @@ fun PasswordField(
         placeholderContent = {
             Text(
                 text = "Password",
-                style = getFont(SlimeTypography.Medium(14.sp)),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 14.sp,
+                fontFamily = LocalSlimeFont.current.medium
             )
         },
         keyboardOptions = KeyboardOptions(

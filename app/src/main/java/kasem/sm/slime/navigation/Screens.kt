@@ -6,7 +6,6 @@
 package kasem.sm.slime.navigation
 
 import androidx.compose.material.SnackbarHostState
-import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,7 +19,7 @@ import kasem.sm.common_ui.util.Routes
 import kasem.sm.ui_article_list.ListScreen
 import kasem.sm.ui_auth.login.LoginScreen
 import kasem.sm.ui_auth.register.RegisterScreen
-import kasem.sm.ui_detail.ArticleDetailScreen
+import kasem.sm.ui_detail.DetailScreen
 import kasem.sm.ui_explore.ExploreScreen
 import kasem.sm.ui_profile.ProfileScreen
 import kasem.sm.ui_subscribe_category.SubscribeCategoryScreen
@@ -127,7 +126,7 @@ internal fun NavGraphBuilder.attachArticleDetailScreen(
             }
         )
     ) {
-        ArticleDetailScreen(
+        DetailScreen(
             imageLoader = imageLoader,
             viewModel = hiltViewModel(),
             snackbarHostState = snackbarHostState
@@ -163,7 +162,7 @@ internal fun NavGraphBuilder.attachListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate("https://slime-kt.herokuapp.com/article_detail_screen=$id".toUri())
+                navController.navigate(Routes.articleDetailLink(id))
             },
             snackbarHostState = snackbarHostState,
             navigateTo = {

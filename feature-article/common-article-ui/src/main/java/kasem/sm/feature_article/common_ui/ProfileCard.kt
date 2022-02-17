@@ -19,8 +19,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
+import kasem.sm.common_ui.LocalSlimeFont
 
 val listOfRandomColor = listOf(
     Color(0xFF2B2BD6),
@@ -51,7 +50,7 @@ fun SlimeGradientProfile(
                 .align(Alignment.Center),
             fontSize = textSize,
             color = Color.White,
-            style = getFont(SlimeTypography.SemiBold())
+            fontFamily = LocalSlimeFont.current.semiBold
         )
     }
 }

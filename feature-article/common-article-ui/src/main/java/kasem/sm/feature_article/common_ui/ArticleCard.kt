@@ -25,9 +25,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.feature_article.domain.model.Article
 
@@ -43,7 +42,7 @@ fun ArticleCard(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(vertical = if (index == 0) 0.dp else 5.dp)
+            .padding(if (index == 0) 0.dp else 5.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickWithRipple {
                 onArticleClick(article.id)
@@ -68,8 +67,9 @@ fun ArticleCard(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Start,
                     overflow = TextOverflow.Ellipsis,
-                    style = getFont(SlimeTypography.SemiBold()).copy(lineHeight = 26.sp),
-                    fontSize = 14.sp
+                    fontFamily = LocalSlimeFont.current.semiBold,
+                    fontSize = 14.sp,
+                    lineHeight = 26.sp
                 )
 
                 Row(

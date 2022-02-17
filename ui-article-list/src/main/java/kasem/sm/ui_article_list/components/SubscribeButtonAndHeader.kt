@@ -15,9 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.SlimeTypography
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.VerticalSpacer
-import kasem.sm.common_ui.getFont
 import kasem.sm.feature_category.domain.model.Category
 import kasem.sm.ui_article_list.R
 
@@ -35,13 +34,16 @@ internal fun SubscribeButtonAndHeader(
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .fillMaxWidth(),
-            style = getFont(SlimeTypography.Medium(25.sp, 1.5.sp)),
+            fontSize = 25.sp,
+            letterSpacing = 1.5.sp,
+            fontFamily = LocalSlimeFont.current.semiBold
         )
 
         VerticalSpacer(value = 10.dp)
 
         val text = if (isSubscriptionButtonActive) "Unsubscribe" else "Subscribe"
-        val icon = if (isSubscriptionButtonActive) R.drawable.ic_unsubscribe else R.drawable.ic_subscribe
+        val icon =
+            if (isSubscriptionButtonActive) R.drawable.ic_unsubscribe else R.drawable.ic_subscribe
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -57,8 +59,9 @@ internal fun SubscribeButtonAndHeader(
 
             Text(
                 text = "• ${category.totalSubscribers} Users",
-                style = getFont(SlimeTypography.SecondaryMedium(15.sp)),
-                color = MaterialTheme.colorScheme.onSurface
+                fontFamily = LocalSlimeFont.current.secondaryMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 15.sp
             )
         }
     }

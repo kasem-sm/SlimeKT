@@ -17,9 +17,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeScreenColumn
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_auth.common.LoginButton
 import kasem.sm.ui_auth.common.PasswordField
@@ -63,7 +62,9 @@ internal fun LoginContent(
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(vertical = 15.dp),
-                    style = getFont(SlimeTypography.SemiBold(24.sp, letterSpacing = 1.sp))
+                    letterSpacing = 1.sp,
+                    fontSize = 24.sp,
+                    fontFamily = LocalSlimeFont.current.semiBold
                 )
             }
 

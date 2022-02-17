@@ -13,6 +13,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ fun SlimeTextField(
         enabled = enabled,
         singleLine = true,
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        textStyle = getFont(SlimeTypography.Medium(14.sp)),
+        textStyle = TextStyle(fontFamily = LocalSlimeFont.current.medium, fontSize = 14.sp),
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,

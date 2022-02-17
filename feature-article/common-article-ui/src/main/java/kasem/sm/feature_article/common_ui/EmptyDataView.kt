@@ -16,9 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeElevatedButton
-import kasem.sm.common_ui.SlimeTypography
-import kasem.sm.common_ui.getFont
 
 @Composable
 fun BoxScope.emptyArticleView(onContributeClick: () -> Unit) = apply {
@@ -33,14 +32,14 @@ fun BoxScope.emptyArticleView(onContributeClick: () -> Unit) = apply {
             text = "\uD83D\uDE25",
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
-            fontFamily = getFont(SlimeTypography.SecondaryMedium()).fontFamily
+            fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         Text(
             text = "Nothing found!",
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
             fontSize = 20.sp,
-            fontFamily = getFont(SlimeTypography.SecondaryMedium()).fontFamily
+            fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         SlimeElevatedButton(text = "Contribute", onClick = onContributeClick)
     }
