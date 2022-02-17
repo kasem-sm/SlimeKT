@@ -26,12 +26,13 @@ import kasem.sm.feature_article.domain.model.Article
 
 @Composable
 internal fun ArticleAuthorAndEstimatedTimeBadge(
+    modifier: Modifier = Modifier,
     article: Article
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(50.dp)
     ) {

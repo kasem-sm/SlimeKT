@@ -33,6 +33,7 @@ fun UsernameField(
     enabled: Boolean = true,
 ) {
     SlimeTextField(
+        modifier = modifier,
         input = text,
         onTextChange = onUsernameChanged,
         enabled = enabled,
@@ -53,7 +54,6 @@ fun UsernameField(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
-        modifier = modifier,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Next

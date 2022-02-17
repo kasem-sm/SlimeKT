@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import kasem.sm.common_ui.SlimeCard
+import kasem.sm.common_ui.SlimeTypography
+import kasem.sm.common_ui.getFont
 import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.feature_article.domain.model.Article
 
@@ -61,11 +63,13 @@ fun ArticleCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = titleWithDot(article.title, article.hasUserSeen),
+                    text = article.title,
                     maxLines = 2,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Start,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    style = getFont(SlimeTypography.SemiBold()).copy(lineHeight = 26.sp),
+                    fontSize = 14.sp
                 )
 
                 Row(

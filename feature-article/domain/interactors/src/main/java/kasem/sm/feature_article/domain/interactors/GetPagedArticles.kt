@@ -41,15 +41,22 @@ class GetPagedArticles @Inject constructor(
              * paginating data from cache starting
              * from page 1.
              */
-            cache.getPagedArticles(
-                category = category,
-                page = page + 1,
-                pageSize = pageSize,
-                query = query
-            ).map {
-                mapper.map(it)
-            }
+            getFromCache(category, page + 2, pageSize, query)
         }
+    }
+
+    private suspend fun getFromCache(
+        category: String,
+        page: Int,
+        pageSize: Int,
+        query: String
+    ): List<Article> = cache.getPagedArticles(
+        category = category,
+        page = page,
+        pageSize = pageSize,
+        query = query
+    ).map { e ->
+        mapper.map(e)
     }
 
     private suspend fun queryAndCacheData(

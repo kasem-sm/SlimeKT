@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
@@ -53,8 +52,6 @@ class ExploreViewModel @Inject constructor(
     }.stateIn(viewModelScope, ExploreState.EMPTY)
 
     init {
-        Timber.d("Init ExploreViewModel")
-
         observeLatestArticles.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },

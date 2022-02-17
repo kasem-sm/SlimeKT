@@ -13,6 +13,7 @@ import kasem.sm.feature_category.domain.model.Category
 
 @Composable
 internal fun SelectableCategoryCard(
+    modifier: Modifier = Modifier,
     category: Category,
     onClick: () -> Unit
 ) {
@@ -28,7 +29,7 @@ internal fun SelectableCategoryCard(
 
     CategoryChip(
         category = category,
-        modifier = Modifier
+        modifier = modifier
             .clickWithRipple { onClick() },
         chipBackgroundColor = backgroundColor,
         chipTextColor = textColor

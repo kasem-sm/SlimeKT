@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        def versionCode = 1
         def versionPropsFile = file("version.properties")
 
         Properties versionProps = new Properties()

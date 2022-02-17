@@ -4,6 +4,8 @@
  */
 package kasem.sm.ui_article_list
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,10 +17,12 @@ import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
+import kasem.sm.feature_article.common_ui.ArticleView
 import kasem.sm.feature_article.common_ui.emptyArticleView
-import kasem.sm.ui_article_list.components.ArticleView
+import kasem.sm.feature_article.domain.interactors.ArticlePager
 import kasem.sm.ui_article_list.components.SubscribeView
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ListContent(
     viewState: ListState,
@@ -64,13 +68,17 @@ internal fun ListContent(
 
                 itemsIndexed(viewState.articles) { index, article ->
                     ArticleView(
+                        modifier = Modifier.animateItemPlacement(tween(500)),
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        state = viewState,
                         executeNextPage = executeNextPage,
-                        saveScrollPosition = saveScrollPosition
+                        saveScrollPosition = saveScrollPosition,
+                        currentPage = viewState.currentPage,
+                        pageSize = ArticlePager.PAGE_SIZE,
+                        isLoading = viewState.isLoading,
+                        endOfPagination = viewState.endOfPagination
                     )
                 }
             }

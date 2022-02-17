@@ -21,12 +21,13 @@ import kasem.sm.common_ui.getFont
 
 @Composable
 internal fun SignUpButton(
+    modifier: Modifier = Modifier,
     enabled: Boolean,
     onSignUpClicked: () -> Unit,
 ) {
     val regularFont = getFont(SlimeTypography.Medium())
     val boldFont = getFont(SlimeTypography.Bold())
-    Column {
+    Column(modifier) {
         TextButton(
             onClick = {
                 if (enabled) {

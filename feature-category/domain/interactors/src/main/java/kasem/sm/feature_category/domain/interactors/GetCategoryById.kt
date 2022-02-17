@@ -25,8 +25,6 @@ class GetCategoryById @Inject constructor(
             val category = api.getCategoryById(id).getOrThrow()
                 .data?.toEntity(cache.isInExplore(id))
 
-            println("GCB ${category?.isInSubscription}")
-
             category?.let {
                 applicationScope.launch {
                     cache.insert(it)

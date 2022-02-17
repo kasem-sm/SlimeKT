@@ -16,14 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
-import com.slime.ui_home.components.ArticleView
 import com.slime.ui_home.components.CategoriesRow
 import com.slime.ui_home.components.SearchBar
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.feature_article.common_ui.ArticleCard
+import kasem.sm.feature_article.common_ui.ArticleView
 import kasem.sm.feature_article.common_ui.emptyArticleView
+import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -92,9 +93,12 @@ internal fun HomeContent(
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        state = viewState,
                         executeNextPage = executeNextPage,
-                        saveScrollPosition = saveScrollPosition
+                        saveScrollPosition = saveScrollPosition,
+                        currentPage = viewState.currentPage,
+                        pageSize = PAGE_SIZE,
+                        isLoading = viewState.isLoading,
+                        endOfPagination = viewState.endOfPagination
                     )
                 }
 

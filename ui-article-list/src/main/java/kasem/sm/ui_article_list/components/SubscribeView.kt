@@ -7,12 +7,14 @@ package kasem.sm.ui_article_list.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import kasem.sm.ui_article_list.ListState
 
 @Composable
 internal fun SubscribeView(
+    modifier: Modifier = Modifier,
     state: ListState,
     updateSubscription: (onSuccess: () -> Unit) -> Unit,
     isUserAuthenticated: Boolean,
@@ -25,6 +27,7 @@ internal fun SubscribeView(
 
     state.category?.let { category ->
         SubscribeButtonAndHeader(
+            modifier = modifier,
             category = category,
             onClick = {
                 if (isUserAuthenticated) {

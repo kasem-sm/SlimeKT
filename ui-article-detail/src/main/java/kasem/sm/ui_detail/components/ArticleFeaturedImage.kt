@@ -17,11 +17,12 @@ import kasem.sm.feature_article.common_ui.Image
 
 @Composable
 internal fun ImageLoader.ArticleFeaturedImage(
+    modifier: Modifier = Modifier,
     featuredImage: String
 ) {
     Image(
         data = featuredImage,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(120.dp)
             .clip(RoundedCornerShape(12.dp)),

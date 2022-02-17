@@ -43,12 +43,12 @@ inline fun <T> CoroutineDispatcher.start(
  * TODO: Add documentation
  */
 inline fun <T> CoroutineDispatcher.pagingStage(
-    crossinline doWork: suspend (FlowCollector<PaginationStage<T>>) -> T,
+    crossinline doWork: suspend FlowCollector<PaginationStage<T>>.() -> T,
 ): Flow<PaginationStage<T>> {
     return flow {
         try {
             withTimeout(TimeUnit.MINUTES.toMillis(5)) {
-                val data = doWork(this@flow)
+                val data = doWork()
                 emit(PaginationStage.Success(data))
             }
         } catch (e: TimeoutCancellationException) {

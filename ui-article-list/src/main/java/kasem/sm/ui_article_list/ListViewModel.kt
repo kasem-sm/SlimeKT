@@ -20,7 +20,6 @@ import kasem.sm.feature_article.domain.interactors.ArticlePager
 import kasem.sm.feature_category.domain.interactors.GetCategoryById
 import kasem.sm.feature_category.domain.interactors.ObserveCategoryById
 import kasem.sm.feature_category.worker.SubscribeCategoryManager
-import kasem.sm.ui_article_list.ListState.Companion.DEFAULT_CATEGORY_QUERY
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
@@ -46,11 +45,7 @@ class ListViewModel @Inject constructor(
 
     private val categoryId = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
 
-    private val categoryQuery = SavedMutableState(
-        savedStateHandle,
-        CATEGORY_QUERY_KEY,
-        defValue = DEFAULT_CATEGORY_QUERY
-    )
+    private val categoryQuery = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
 
     private val scrollPosition = SavedMutableState(
         savedStateHandle,
@@ -116,7 +111,7 @@ class ListViewModel @Inject constructor(
     }
 
     private fun initializePager(
-        categoryQuery: String = this.categoryQuery.value,
+        categoryQuery: String = this.categoryQuery,
     ) {
         viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(

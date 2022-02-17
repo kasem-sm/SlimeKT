@@ -12,6 +12,7 @@ import kasem.sm.common_ui.SlimeDoubleRoleButton
 
 @Composable
 internal fun SubscribeButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     isActive: Boolean,
     text: String,
@@ -19,7 +20,7 @@ internal fun SubscribeButton(
     isLoading: Boolean
 ) {
     SlimeDoubleRoleButton(
-        modifier = Modifier.wrapContentSize(),
+        modifier = modifier.wrapContentSize(),
         isActive = isActive,
         onClick = onClick,
         text = text,

@@ -2,29 +2,29 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package com.slime.ui_home.components
+package kasem.sm.feature_article.common_ui
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
-import com.slime.ui_home.HomeState
 import kasem.sm.common_ui.SlimeElevatedButton
-import kasem.sm.feature_article.common_ui.ArticleCard
-import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
 import kasem.sm.feature_article.domain.model.Article
 
 @Composable
-internal fun BoxScope.ArticleView(
+fun BoxScope.ArticleView(
     article: Article,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
     index: Int,
-    state: HomeState,
     executeNextPage: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    currentPage: Int,
+    pageSize: Int,
+    isLoading: Boolean,
+    endOfPagination: Boolean
 ) {
     ArticleCard(
         modifier = modifier,
@@ -34,9 +34,9 @@ internal fun BoxScope.ArticleView(
         index = index
     )
 
-    if ((index + 1) >= (state.currentPage * PAGE_SIZE) &&
-        !state.isLoading &&
-        !state.endOfPagination
+    if ((index + 1) >= (currentPage * pageSize) &&
+        !isLoading &&
+        !endOfPagination
     ) {
         SlimeElevatedButton(
             text = "See More",

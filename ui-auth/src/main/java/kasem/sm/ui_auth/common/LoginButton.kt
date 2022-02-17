@@ -10,10 +10,10 @@ import kasem.sm.common_ui.SlimePrimaryButton
 
 @Composable
 internal fun LoginButton(
+    modifier: Modifier = Modifier,
     enabled: Boolean,
     isLoading: Boolean,
     onContinueClicked: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     SlimePrimaryButton(
         isLoading = isLoading,

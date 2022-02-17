@@ -23,12 +23,13 @@ import kasem.sm.ui_article_list.R
 
 @Composable
 internal fun SubscribeButtonAndHeader(
+    modifier: Modifier = Modifier,
     category: Category,
     onClick: () -> Unit,
     isSubscriptionButtonActive: Boolean,
     isSubscriptionInProgress: Boolean,
 ) {
-    Column {
+    Column(modifier) {
         Text(
             text = category.title,
             color = MaterialTheme.colorScheme.primary,

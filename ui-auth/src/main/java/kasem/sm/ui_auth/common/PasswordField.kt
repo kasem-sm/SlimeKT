@@ -86,8 +86,9 @@ fun PasswordField(
         keyboardActions = KeyboardActions(
             onDone = onDoneClicked
         ),
-        visualTransformation = if (passwordToggle) PasswordVisualTransformation()
-        else VisualTransformation.None
+        visualTransformation = if (passwordToggle) {
+            PasswordVisualTransformation()
+        } else VisualTransformation.None
     )
 }
 
