@@ -46,4 +46,7 @@ interface CategoryDao {
         inExplore: Boolean,
         id: String
     )
+
+    @Query("UPDATE table_category SET is_in_subscription = 0, is_in_explore = 1")
+    suspend fun clearSubscription()
 }

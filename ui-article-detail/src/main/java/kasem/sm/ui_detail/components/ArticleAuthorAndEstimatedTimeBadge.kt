@@ -26,8 +26,8 @@ import kasem.sm.feature_article.domain.model.Article
 
 @Composable
 internal fun ArticleAuthorAndEstimatedTimeBadge(
+    article: Article,
     modifier: Modifier = Modifier,
-    article: Article
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

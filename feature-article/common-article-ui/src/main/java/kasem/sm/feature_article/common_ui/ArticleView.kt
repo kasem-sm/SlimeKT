@@ -39,11 +39,11 @@ fun BoxScope.ArticleView(
         !endOfPagination
     ) {
         SlimeElevatedButton(
+            modifier = Modifier.align(Alignment.Center),
             text = "See More",
             onClick = {
                 executeNextPage()
-            },
-            modifier = Modifier.align(Alignment.Center)
+            }
         )
     }
 

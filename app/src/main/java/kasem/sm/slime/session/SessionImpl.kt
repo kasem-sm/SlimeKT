@@ -7,13 +7,20 @@ package kasem.sm.slime.session
 import android.content.SharedPreferences
 import javax.inject.Inject
 import kasem.sm.common_ui.util.observeKey
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.interfaces.Session
+import kasem.sm.feature_article.worker.DailyReadManager
+import kasem.sm.slime.db.SlimeDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 
 class SessionImpl @Inject constructor(
-    private val pref: SharedPreferences
+    private val pref: SharedPreferences,
+    private val db: SlimeDatabase,
+    private val slimeDispatchers: SlimeDispatchers,
+    private val dailyReadManager: DailyReadManager,
 ) : Session {
     override suspend fun storeUserToken(token: String?) {
         pref.edit()
@@ -44,6 +51,9 @@ class SessionImpl @Inject constructor(
     override suspend fun clear() {
         storeUserId(null)
         storeUserToken(null)
+        withContext(slimeDispatchers.io) {
+            db.categoryDao().clearSubscription()
+        }
     }
 
     companion object {

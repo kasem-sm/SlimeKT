@@ -45,7 +45,7 @@ class ListViewModel @Inject constructor(
 
     private val categoryId = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
 
-    private val categoryQuery = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
+    private val categoryQuery = savedStateHandle.get<String>(CATEGORY_QUERY_KEY)!!
 
     private val scrollPosition = SavedMutableState(
         savedStateHandle,

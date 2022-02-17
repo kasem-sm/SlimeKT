@@ -45,7 +45,7 @@ internal class DailyReadTask @AssistedInject constructor(
 
         Timber.d(randomArticleFromApi.title)
 
-        try {
+        return try {
             if (!randomArticleFromApi.isShownInDailyRead) {
                 /**
                  * Remove previous article from daily read,
@@ -62,13 +62,13 @@ internal class DailyReadTask @AssistedInject constructor(
                     randomArticleFromApi.id,
                     randomArticleFromApi.title,
                 )
-                return Result.success()
+                Result.success()
             } else {
-                return Result.retry()
+                Result.retry()
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            return Result.retry()
+            Result.retry()
         }
     }
 

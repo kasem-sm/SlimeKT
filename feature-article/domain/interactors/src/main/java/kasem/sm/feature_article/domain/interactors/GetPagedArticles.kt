@@ -41,7 +41,7 @@ class GetPagedArticles @Inject constructor(
              * paginating data from cache starting
              * from page 1.
              */
-            getFromCache(category, page + 2, pageSize, query)
+            getFromCache(category, page + 1, pageSize, query)
         }
     }
 

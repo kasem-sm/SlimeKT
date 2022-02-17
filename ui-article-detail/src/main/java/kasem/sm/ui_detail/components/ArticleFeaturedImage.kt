@@ -17,8 +17,8 @@ import kasem.sm.feature_article.common_ui.Image
 
 @Composable
 internal fun ImageLoader.ArticleFeaturedImage(
+    featuredImage: String,
     modifier: Modifier = Modifier,
-    featuredImage: String
 ) {
     Image(
         data = featuredImage,

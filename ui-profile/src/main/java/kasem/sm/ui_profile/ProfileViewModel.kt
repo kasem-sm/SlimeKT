@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.interfaces.Session
 import kasem.sm.ui_core.UiEvent
-import kasem.sm.ui_core.navigate
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -24,10 +24,20 @@ class ProfileViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
+    val isUserAuthenticated = MutableStateFlow(false)
+
+    init {
+        viewModelScope.launch {
+            session.observeAuthenticationState().collectLatest {
+                isUserAuthenticated.value = it
+            }
+        }
+    }
+
     fun clearUserSession() {
         viewModelScope.launch {
             session.clear()
-            _uiEvent.emit(navigate(Routes.LoginScreen.route))
+            _uiEvent.emit(UiEvent.Success)
         }
     }
 }

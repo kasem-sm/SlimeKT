@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import kasem.sm.common_ui.SlimeScreenColumn
@@ -25,7 +26,7 @@ import kasem.sm.ui_article_list.components.SubscribeView
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ListContent(
-    viewState: ListState,
+    state: ListState,
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onArticleClick: (Int) -> Unit,
@@ -33,10 +34,10 @@ internal fun ListContent(
     updateSubscription: (onSuccess: () -> Unit) -> Unit,
     showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
-    state: LazyListState,
+    listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
-        refreshing = viewState.isLoading,
+        refreshing = state.isLoading,
         onRefresh = onRefresh
     ) {
         Box(
@@ -44,29 +45,32 @@ internal fun ListContent(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            SlimeScreenColumn(state = state) {
+            SlimeScreenColumn(
+                state = listState,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 item {
-                    if (viewState.category != null) {
+                    if (state.category != null) {
                         SubscribeView(
-                            state = viewState,
+                            state = state,
                             updateSubscription = updateSubscription,
                             showAuthenticationSheet = showAuthenticationSheet,
-                            isUserAuthenticated = viewState.isUserAuthenticated
+                            isUserAuthenticated = state.isUserAuthenticated
                         )
                     }
                 }
 
                 item {
                     if (
-                        !viewState.isLoading &&
-                        viewState.endOfPagination &&
-                        viewState.articles.isEmpty()
+                        !state.isLoading &&
+                        state.endOfPagination &&
+                        state.articles.isEmpty()
                     ) {
                         emptyArticleView { }
                     }
                 }
 
-                itemsIndexed(viewState.articles) { index, article ->
+                itemsIndexed(state.articles) { index, article ->
                     ArticleView(
                         modifier = Modifier.animateItemPlacement(tween(500)),
                         article = article,
@@ -75,10 +79,10 @@ internal fun ListContent(
                         index = index,
                         executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition,
-                        currentPage = viewState.currentPage,
+                        currentPage = state.currentPage,
                         pageSize = ArticlePager.PAGE_SIZE,
-                        isLoading = viewState.isLoading,
-                        endOfPagination = viewState.endOfPagination
+                        isLoading = state.isLoading,
+                        endOfPagination = state.endOfPagination
                     )
                 }
             }

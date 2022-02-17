@@ -12,9 +12,9 @@ import kasem.sm.feature_category.domain.model.Category
 
 @Composable
 internal fun CategoryView(
-    modifier: Modifier = Modifier,
     category: Category,
-    onCategoryClick: (title: String, id: String) -> Unit
+    onCategoryClick: (title: String, id: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     CategoryChip(
         category = category,

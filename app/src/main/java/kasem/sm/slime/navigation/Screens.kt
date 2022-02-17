@@ -51,6 +51,7 @@ internal fun NavGraphBuilder.attachLoginScreen(
                 navController.popBackStack()
             },
             onSignUpClicked = {
+                navController.popBackStack()
                 navController.navigate(Routes.RegisterScreen.route)
             },
             snackbarHostState = snackbarHostState
@@ -104,10 +105,11 @@ internal fun NavGraphBuilder.attachProfileScreen(
     composable(Routes.ProfileScreen.route) {
         ProfileScreen(
             viewModel = hiltViewModel(),
+            onLogOutSuccess = {
+                navController.popBackStack()
+            },
             navigateTo = { route ->
-                navController.navigate(route) {
-                    popUpTo(Routes.Main.route)
-                }
+                navController.navigate(route)
             }
         )
     }

@@ -29,7 +29,7 @@ import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_S
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun HomeContent(
-    viewState: HomeState,
+    state: HomeState,
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onQueryChange: (String) -> Unit,
@@ -38,10 +38,10 @@ internal fun HomeContent(
     executeNextPage: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
     navigateToSubscriptionScreen: () -> Unit,
-    state: LazyListState,
+    listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
-        refreshing = viewState.isLoading,
+        refreshing = state.paginationLoadStatus,
         onRefresh = onRefresh
     ) {
         Box(
@@ -50,12 +50,12 @@ internal fun HomeContent(
                 .background(MaterialTheme.colorScheme.surface)
         ) {
             SlimeScreenColumn(
-                state = state,
+                state = listState,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
                     SearchBar(
-                        query = viewState.currentQuery,
+                        query = state.currentQuery,
                         onQueryChange = onQueryChange,
                         onSearchActionClicked = { onRefresh() },
                         onTrailingIconClicked = { onQueryChange(HomeState.DEFAULT_CATEGORY_QUERY) },
@@ -68,9 +68,9 @@ internal fun HomeContent(
 
                 item {
                     CategoriesRow(
-                        isLoading = viewState.isLoading,
-                        categories = viewState.categories,
-                        currentCategory = viewState.currentCategory,
+                        isLoading = state.isLoading,
+                        categories = state.categories,
+                        currentCategory = state.currentCategory,
                         onCategoryChange = onCategoryChange,
                         navigateToSubscriptionScreen = navigateToSubscriptionScreen
                     )
@@ -78,15 +78,15 @@ internal fun HomeContent(
 
                 item {
                     if (
-                        !viewState.isLoading &&
-                        viewState.endOfPagination &&
-                        viewState.articles.isEmpty()
+                        !state.paginationLoadStatus &&
+                        state.endOfPagination &&
+                        state.articles.isEmpty()
                     ) {
                         emptyArticleView {}
                     }
                 }
 
-                itemsIndexed(viewState.articles) { index, article ->
+                itemsIndexed(state.articles) { index, article ->
                     ArticleView(
                         modifier = Modifier.animateItemPlacement(tween(500)),
                         article = article,
@@ -95,10 +95,10 @@ internal fun HomeContent(
                         index = index,
                         executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition,
-                        currentPage = viewState.currentPage,
+                        currentPage = state.currentPage,
                         pageSize = PAGE_SIZE,
-                        isLoading = viewState.isLoading,
-                        endOfPagination = viewState.endOfPagination
+                        isLoading = state.paginationLoadStatus,
+                        endOfPagination = state.endOfPagination
                     )
                 }
 
@@ -107,7 +107,7 @@ internal fun HomeContent(
                 }
 
                 item {
-                    viewState.dailyReadArticle?.let {
+                    state.dailyReadArticle?.let {
                         ArticleCard(
                             article = it,
                             imageLoader = imageLoader,

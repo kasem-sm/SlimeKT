@@ -17,6 +17,7 @@ data class HomeState(
     val categories: List<Category> = emptyList(),
     val dailyReadArticle: Article? = null,
     val articles: List<Article> = emptyList(),
+    val paginationLoadStatus: Boolean = true,
     val endOfPagination: Boolean = false,
 ) {
     companion object {

@@ -36,7 +36,7 @@ fun HomeScreen(
     )
 
     HomeContent(
-        viewState = viewState,
+        state = viewState,
         imageLoader = imageLoader,
         onRefresh = viewModel::refresh,
         onQueryChange = viewModel::onQueryChange,
@@ -44,7 +44,7 @@ fun HomeScreen(
         onArticleClick = onArticleClick,
         executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
-        state = state,
+        listState = state,
         navigateToSubscriptionScreen = {
             navigateTo(Routes.SubscribeCategoryScreen.route)
         }

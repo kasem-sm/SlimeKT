@@ -35,13 +35,13 @@ fun ListScreen(
     )
 
     ListContent(
-        viewState = viewState,
+        state = viewState,
         onRefresh = viewModel::refresh,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
         executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
-        state = state,
+        listState = state,
         updateSubscription = viewModel::updateSubscription,
         showAuthenticationSheet = {
             viewModel.checkAuthenticationStatus()
