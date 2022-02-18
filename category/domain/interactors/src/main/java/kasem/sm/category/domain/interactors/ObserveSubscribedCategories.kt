@@ -5,9 +5,9 @@
 package kasem.sm.category.domain.interactors
 
 import javax.inject.Inject
-import kasem.sm.core.domain.ObserverInteractor
 import kasem.sm.category.datasource.cache.CategoryDatabaseService
 import kasem.sm.category.domain.model.Category
+import kasem.sm.core.domain.ObserverInteractor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

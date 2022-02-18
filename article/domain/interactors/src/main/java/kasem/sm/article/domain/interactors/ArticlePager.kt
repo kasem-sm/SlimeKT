@@ -5,12 +5,12 @@
 package kasem.sm.article.domain.interactors
 
 import javax.inject.Inject
+import kasem.sm.article.domain.model.Article
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.PaginationStage
 import kasem.sm.core.domain.SlimePaginationStatus
 import kasem.sm.core.domain.SlimePaginator
 import kasem.sm.core.utils.toMessage
-import kasem.sm.article.domain.model.Article
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onCompletion

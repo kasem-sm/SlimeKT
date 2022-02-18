@@ -10,11 +10,11 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import javax.inject.Inject
-import kasem.sm.core.utils.withResult
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
+import kasem.sm.core.utils.withResult
 
 internal class AuthApiServiceImpl @Inject constructor(private val client: HttpClient) : AuthApiService {
     override suspend fun loginUser(request: AuthRequest): Result<SlimeResponse<AuthResponse>> {

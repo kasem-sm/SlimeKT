@@ -11,11 +11,11 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import javax.inject.Inject
-import kasem.sm.core.interfaces.Session
-import kasem.sm.core.utils.withResult
 import kasem.sm.category.datasource.network.CategoryApiService
 import kasem.sm.category.datasource.network.response.CategoryResponse
 import kasem.sm.category.datasource.network.response.SlimeResponse
+import kasem.sm.core.interfaces.Session
+import kasem.sm.core.utils.withResult
 
 internal class CategoryApiServiceImpl @Inject constructor(
     private val client: HttpClient,

@@ -6,9 +6,9 @@ package kasem.sm.category.domain.interactors
 
 import javax.inject.Inject
 import javax.inject.Singleton
-import kasem.sm.core.utils.IMapper
 import kasem.sm.category.datasource.cache.entity.CategoryEntity
 import kasem.sm.category.domain.model.Category
+import kasem.sm.core.utils.IMapper
 
 @Singleton
 class CategoryMapper @Inject constructor() : IMapper<CategoryEntity, Category> {

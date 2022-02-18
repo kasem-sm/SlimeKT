@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
-import kasem.sm.common_ui.SlimeElevatedButton
 import kasem.sm.article.domain.model.Article
+import kasem.sm.common_ui.SlimeElevatedButton
 
 @Composable
 fun BoxScope.ArticleView(

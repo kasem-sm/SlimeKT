@@ -20,12 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.slime.ui_home.HomeState
+import kasem.sm.category.common_ui.CategoryChip
+import kasem.sm.category.domain.model.Category
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.util.toggleWithRipple
-import kasem.sm.category.common_ui.CategoryChip
-import kasem.sm.category.domain.model.Category
 import kasem.sm.ui_home.R
 
 @Composable

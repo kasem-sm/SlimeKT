@@ -5,8 +5,6 @@
 package kasem.sm.authentication.domain.interactors
 
 import javax.inject.Inject
-import kasem.sm.core.interfaces.Session
-import kasem.sm.core.utils.toMessage
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.domain.model.ApiResponseConstants.LOGIN_FAILED_INVALID_CREDENTIALS
@@ -14,6 +12,8 @@ import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.authentication.domain.model.InvalidCredentialsException
 import kasem.sm.authentication.domain.model.ServerException
+import kasem.sm.core.interfaces.Session
+import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

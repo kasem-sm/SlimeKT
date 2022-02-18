@@ -5,11 +5,11 @@
 package kasem.sm.article.domain.interactors
 
 import javax.inject.Inject
+import kasem.sm.article.datasource.cache.ArticleDatabaseService
+import kasem.sm.article.domain.model.Article
 import kasem.sm.core.domain.PaginationStage
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.pagingStage
-import kasem.sm.article.datasource.cache.ArticleDatabaseService
-import kasem.sm.article.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
 class GetArticlesTillPage @Inject constructor(

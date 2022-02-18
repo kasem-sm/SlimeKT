@@ -5,8 +5,6 @@
 package kasem.sm.authentication.domain.interactors
 
 import javax.inject.Inject
-import kasem.sm.core.interfaces.Session
-import kasem.sm.core.utils.toMessage
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.domain.model.AuthResult
@@ -15,6 +13,8 @@ import kasem.sm.authentication.domain.model.InvalidCredentialsException
 import kasem.sm.authentication.domain.model.ServerException
 import kasem.sm.authentication.domain.model.containsOnlyNumbers
 import kasem.sm.authentication.domain.model.containsSpecialCharacters
+import kasem.sm.core.interfaces.Session
+import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

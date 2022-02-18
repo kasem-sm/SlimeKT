@@ -7,9 +7,9 @@ package kasem.sm.ui_subscribe_category.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.category.common_ui.CategoryChip
 import kasem.sm.category.domain.model.Category
+import kasem.sm.common_ui.util.clickWithRipple
 
 @Composable
 internal fun SelectableCategoryCard(

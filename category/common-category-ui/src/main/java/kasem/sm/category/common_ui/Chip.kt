@@ -15,8 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.category.domain.model.Category
+import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 fun CategoryChip(

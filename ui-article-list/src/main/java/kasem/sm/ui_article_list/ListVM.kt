@@ -9,6 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.article.domain.interactors.ArticlePager
+import kasem.sm.category.domain.interactors.GetCategoryById
+import kasem.sm.category.domain.interactors.ObserveCategoryById
+import kasem.sm.category.worker.SubscribeCategoryManager
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
@@ -16,10 +20,6 @@ import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.interfaces.Session
-import kasem.sm.article.domain.interactors.ArticlePager
-import kasem.sm.category.domain.interactors.GetCategoryById
-import kasem.sm.category.domain.interactors.ObserveCategoryById
-import kasem.sm.category.worker.SubscribeCategoryManager
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows

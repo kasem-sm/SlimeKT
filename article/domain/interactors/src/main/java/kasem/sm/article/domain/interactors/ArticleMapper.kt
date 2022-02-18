@@ -6,9 +6,9 @@ package kasem.sm.article.domain.interactors
 
 import javax.inject.Inject
 import javax.inject.Singleton
-import kasem.sm.core.utils.IMapper
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.domain.model.Article
+import kasem.sm.core.utils.IMapper
 
 @Singleton
 class ArticleMapper @Inject constructor() : IMapper<ArticleEntity, Article> {

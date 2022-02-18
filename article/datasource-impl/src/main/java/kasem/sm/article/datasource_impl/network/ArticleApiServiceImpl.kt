@@ -8,11 +8,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import javax.inject.Inject
-import kasem.sm.core.utils.withResult
 import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.datasource.network.response.ArticleDto
 import kasem.sm.article.datasource.network.response.ArticleResponse
 import kasem.sm.article.datasource.network.response.SlimeResponse
+import kasem.sm.core.utils.withResult
 
 internal class ArticleApiServiceImpl @Inject constructor(
     private val client: HttpClient,

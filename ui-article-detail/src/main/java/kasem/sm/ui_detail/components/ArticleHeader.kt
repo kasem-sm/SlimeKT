@@ -8,8 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.article.domain.model.Article
+import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 internal fun ArticleHeader(article: Article) {

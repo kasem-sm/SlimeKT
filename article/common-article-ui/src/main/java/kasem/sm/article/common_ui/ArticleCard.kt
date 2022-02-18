@@ -25,10 +25,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
+import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.util.clickWithRipple
-import kasem.sm.article.domain.model.Article
 
 @Composable
 fun ArticleCard(
