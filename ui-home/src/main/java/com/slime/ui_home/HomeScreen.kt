@@ -16,7 +16,7 @@ import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
+    viewModel: HomeVM,
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,

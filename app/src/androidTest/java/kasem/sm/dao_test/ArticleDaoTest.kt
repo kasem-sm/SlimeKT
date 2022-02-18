@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import kasem.sm.dao_test.utils.FakeData
 import kasem.sm.dao_test.utils.getOrAwaitValue
-import kasem.sm.feature_article.datasource.cache.dao.ArticleDao
+import kasem.sm.article.datasource.cache.dao.ArticleDao
 import kasem.sm.slime.db.SlimeDatabase
 import kotlin.random.Random
 import kotlinx.coroutines.test.runTest

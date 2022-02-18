@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_article.common_ui.ArticleView
-import kasem.sm.feature_article.common_ui.emptyArticleView
-import kasem.sm.feature_article.domain.interactors.ArticlePager
+import kasem.sm.article.common_ui.ArticleView
+import kasem.sm.article.common_ui.emptyArticleView
+import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.ui_article_list.components.SubscribeView
 
 @OptIn(ExperimentalFoundationApi::class)

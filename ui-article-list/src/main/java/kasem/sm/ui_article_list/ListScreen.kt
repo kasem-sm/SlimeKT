@@ -15,7 +15,7 @@ import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun ListScreen(
-    viewModel: ListViewModel,
+    viewModel: ListVM,
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,

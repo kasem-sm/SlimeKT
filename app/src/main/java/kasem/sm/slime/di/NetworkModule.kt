@@ -18,9 +18,9 @@ import io.ktor.client.request.port
 import io.ktor.http.URLProtocol
 import javax.inject.Singleton
 import kasem.sm.core.interfaces.Session
-import kasem.sm.feature_article.datasource_impl.inject.ArticleModule
-import kasem.sm.feature_auth.datasource_impl.inject.AuthModule
-import kasem.sm.feature_category.datasource_impl.inject.CategoryModule
+import kasem.sm.article.datasource_impl.inject.ArticleModule
+import kasem.sm.authentication.datasource_impl.inject.AuthModule
+import kasem.sm.category.datasource_impl.inject.CategoryModule
 import kotlinx.serialization.json.Json
 
 @Module(

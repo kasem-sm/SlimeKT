@@ -13,7 +13,7 @@ import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun SubscribeCategoryScreen(
-    viewModel: SubscribeCategoryViewModel,
+    viewModel: SubscribeCategoryVM,
     snackbarHostState: SnackbarHostState,
     onSubscriptionSaved: () -> Unit,
     navigateTo: (String) -> Unit,

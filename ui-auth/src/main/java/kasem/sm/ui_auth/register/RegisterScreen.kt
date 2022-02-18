@@ -14,7 +14,7 @@ import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun RegisterScreen(
-    viewModel: RegisterViewModel,
+    viewModel: RegisterVM,
     snackbarHostState: SnackbarHostState,
     onRegistrationSuccess: () -> Unit
 ) {

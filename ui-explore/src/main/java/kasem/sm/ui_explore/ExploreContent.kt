@@ -14,11 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
+import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_article.common_ui.ArticleCard
 import kasem.sm.ui_explore.components.CategoryView
 import kasem.sm.ui_explore.components.ProfileCard
 

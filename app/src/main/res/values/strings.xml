@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Slime</string>
+    <string name="title_feature_article_detail">Article Detail</string>
 </resources>

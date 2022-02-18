@@ -9,7 +9,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
-import kasem.sm.feature_article.worker.DailyReadManager
+import kasem.sm.article.worker.DailyReadManager
 import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
 

@@ -4,7 +4,7 @@
  */
 package kasem.sm.dao_test.utils
 
-import kasem.sm.feature_article.datasource.cache.entity.ArticleEntity
+import kasem.sm.article.datasource.cache.entity.ArticleEntity
 
 object FakeData {
     val sampleEntity: ArticleEntity

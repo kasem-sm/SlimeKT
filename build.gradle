@@ -52,6 +52,8 @@ buildscript {
 
 plugins {
     id "com.jraska.module.graph.assertion" version "2.2.0"
+    id 'com.android.dynamic-feature' version '7.1.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
 task clean(type: Delete) {
@@ -95,5 +97,12 @@ subprojects {
             trimTrailingWhitespace()
             indentWithTabs()
         }
+    }
+}
+
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
     }
 }

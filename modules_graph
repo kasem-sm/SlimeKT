@@ -20,7 +20,6 @@ digraph G {
 ":ui-auth" -> ":ui-core"
 ":ui-auth" -> ":common-ui"
 ":ui-auth" -> ":feature-auth:domain:interactors" [color=red style=bold]
-":ui-auth" -> ":feature-auth:domain:model"
 ":ui-article-detail" -> ":core"
 ":ui-article-detail" -> ":ui-core"
 ":ui-article-detail" -> ":common-ui"
@@ -86,7 +85,7 @@ digraph G {
 ":feature-category:worker" -> ":core"
 ":feature-category:worker" -> ":feature-category:datasource"
 ":feature-category:worker" -> ":feature-category:domain:model"
-":feature-auth:domain:interactors" -> ":core" [color=red style=bold]
+":feature-auth:domain:interactors" -> ":feature-auth:domain:model" [color=red style=bold]
+":feature-auth:domain:interactors" -> ":core"
 ":feature-auth:domain:interactors" -> ":feature-auth:datasource"
-":feature-auth:domain:interactors" -> ":feature-auth:domain:model"
 }

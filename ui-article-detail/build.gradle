@@ -7,10 +7,10 @@ apply {
 }
 
 dependencies {
-	implementation(project(":feature-article:common-article-ui"))
-	implementation(project(":feature-article:domain:interactors"))
-	implementation(project(":feature-article:domain:model"))
-	implementation(project(":feature-article:markdown"))
+	implementation(project(":article:common-article-ui"))
+	implementation(project(":article:domain:interactors"))
+	implementation(project(":article:domain:model"))
+	implementation(project(":article:markdown"))
 
 	implementation Coil.core
 

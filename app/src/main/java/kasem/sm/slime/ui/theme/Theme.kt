@@ -19,7 +19,6 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeFontFamily
 
 private val LightThemeColors = lightColorScheme(
-
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -46,8 +45,8 @@ private val LightThemeColors = lightColorScheme(
     inverseOnSurface = md_theme_light_inverseOnSurface,
     inverseSurface = md_theme_light_inverseSurface,
 )
-private val DarkThemeColors = darkColorScheme(
 
+private val DarkThemeColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,

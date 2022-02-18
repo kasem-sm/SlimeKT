@@ -10,7 +10,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
-import kasem.sm.feature_article.markdown.handler.MarkdownStyle
+import kasem.sm.article.markdown.handler.MarkdownStyle
 
 @Composable
 internal fun paragraphSpanStyle(): SpanStyle {

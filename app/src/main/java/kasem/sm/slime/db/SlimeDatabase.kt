@@ -6,10 +6,10 @@ package kasem.sm.slime.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import kasem.sm.feature_article.datasource.cache.dao.ArticleDao
-import kasem.sm.feature_article.datasource.cache.entity.ArticleEntity
-import kasem.sm.feature_category.datasource.cache.dao.CategoryDao
-import kasem.sm.feature_category.datasource.cache.entity.CategoryEntity
+import kasem.sm.article.datasource.cache.dao.ArticleDao
+import kasem.sm.article.datasource.cache.entity.ArticleEntity
+import kasem.sm.category.datasource.cache.dao.CategoryDao
+import kasem.sm.category.datasource.cache.entity.CategoryEntity
 
 @Database(
     entities = [

@@ -14,7 +14,7 @@ import kasem.sm.ui_core.safeCollector
 
 @Composable
 fun DetailScreen(
-    viewModel: DetailViewModel,
+    viewModel: DetailVM,
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState
 ) {

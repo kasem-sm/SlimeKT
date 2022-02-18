@@ -5,8 +5,8 @@
 package kasem.sm.ui_explore
 
 import androidx.compose.runtime.Immutable
-import kasem.sm.feature_article.domain.model.Article
-import kasem.sm.feature_category.domain.model.Category
+import kasem.sm.article.domain.model.Article
+import kasem.sm.category.domain.model.Category
 
 @Immutable
 data class ExploreState(

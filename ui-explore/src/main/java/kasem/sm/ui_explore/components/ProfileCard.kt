@@ -23,7 +23,7 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.VerticalSpacer
 import kasem.sm.common_ui.util.clickWithRipple
-import kasem.sm.feature_article.common_ui.SlimeGradientProfile
+import kasem.sm.article.common_ui.SlimeGradientProfile
 
 @Composable
 internal fun ProfileCard(
