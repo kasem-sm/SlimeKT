@@ -16,7 +16,6 @@ dependencies {
 	// Category
 	implementation(project(":category:domain:interactors"))
 	implementation(project(":category:domain:model"))
-	implementation(project(":category:worker"))
 
 	implementation Coil.core
 }

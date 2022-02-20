@@ -12,7 +12,6 @@ import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.category.domain.interactors.GetCategoryById
 import kasem.sm.category.domain.interactors.ObserveCategoryById
-import kasem.sm.category.worker.SubscribeCategoryManager
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
@@ -20,6 +19,7 @@ import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.interfaces.Session
+import kasem.sm.core.interfaces.Tasks
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
@@ -36,10 +36,10 @@ import kotlinx.coroutines.launch
 class ListVM @Inject constructor(
     private val pager: ArticlePager,
     private val getCategory: GetCategoryById,
-    private val subscribeCategoryManager: SubscribeCategoryManager,
     private val savedStateHandle: SavedStateHandle,
     private val slimeDispatchers: SlimeDispatchers,
     private val session: Session,
+    private val tasks: Tasks,
     observeCategory: ObserveCategoryById,
 ) : ViewModel() {
 
@@ -164,7 +164,7 @@ class ListVM @Inject constructor(
     ) {
         isSubscriptionInProgress.invoke(Loader.START)
         viewModelScope.launch(slimeDispatchers.main) {
-            subscribeCategoryManager.updateSubscriptionStatus(
+            tasks.updateSubscriptionStatus(
                 ids = listOf(categoryId)
             ).collect(
                 loader = isSubscriptionInProgress,

@@ -16,3 +16,4 @@ local.properties
 /api/.gradle
 /api/.idea
 /api/build
+/app/release/
