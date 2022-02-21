@@ -5,7 +5,7 @@
 package kasem.sm.ui_detail
 
 import androidx.compose.runtime.Immutable
-import kasem.sm.feature_article.domain.model.Article
+import kasem.sm.article.domain.model.Article
 
 @Immutable
 data class DetailState(

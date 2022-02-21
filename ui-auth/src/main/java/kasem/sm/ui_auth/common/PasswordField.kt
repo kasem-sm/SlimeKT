@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
@@ -73,7 +75,7 @@ fun PasswordField(
         },
         placeholderContent = {
             Text(
-                text = "Password",
+                text = stringResource(id = string.password),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp,
                 fontFamily = LocalSlimeFont.current.medium

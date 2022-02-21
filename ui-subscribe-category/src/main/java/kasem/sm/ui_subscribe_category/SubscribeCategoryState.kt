@@ -5,7 +5,7 @@
 package kasem.sm.ui_subscribe_category
 
 import androidx.compose.runtime.Immutable
-import kasem.sm.feature_category.domain.model.Category
+import kasem.sm.category.domain.model.Category
 
 @Immutable
 data class SubscribeCategoryState(

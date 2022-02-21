@@ -14,8 +14,8 @@ android {
 
 dependencies {
 	// Article
-	implementation(project(":feature-auth:domain:interactors"))
-	implementation(project(":feature-auth:domain:model"))
+	implementation(project(":authentication:domain:interactors"))
+	implementation(project(":authentication:domain:model"))
 
 	implementation(Compose.iconsExtended)
 

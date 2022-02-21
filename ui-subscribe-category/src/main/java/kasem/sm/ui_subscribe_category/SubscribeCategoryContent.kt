@@ -63,7 +63,7 @@ fun SubscribeCategoryContent(
                 item {
                     SlimePrimaryButton(
                         isLoading = state.isLoading,
-                        text = stringResource(R.string.proceed),
+                        text = stringResource(kasem.sm.common_ui.R.string.continue_btn),
                         onClick = {
                             if (!state.isUserAuthenticated) {
                                 showAuthenticationSheet()

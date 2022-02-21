@@ -6,14 +6,13 @@ apply {
 
 apply plugin: 'kotlin-kapt'
 
+provideHiltDeps(this)
+
 dependencies {
     // WHY
     implementation project(":core")
     implementation project(":ui-core")
     implementation project(":common-ui")
-
-    implementation Hilt.library
-    kapt Hilt.compiler
 
     implementation Compose.ui
     implementation Compose.material

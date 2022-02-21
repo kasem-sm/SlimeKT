@@ -4,54 +4,27 @@
  */
 package kasem.sm.slime
 
+import android.os.Build.VERSION_CODES.S
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.ui.Modifier
+import androidx.annotation.RequiresApi
 import coil.ImageLoader
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kasem.sm.common_ui.util.BottomNavigationItems
-import kasem.sm.slime.navigation.Navigation
-import kasem.sm.slime.navigation.components.SlimeScaffold
-import kasem.sm.slime.ui.theme.SlimeTheme
+import kasem.sm.navigation.SlimeNavigation
 
-@ExperimentalMaterialNavigationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    @RequiresApi(S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SlimeTheme {
-                val bottomSheetNavigator = rememberBottomSheetNavigator()
-                val navController = rememberAnimatedNavController(bottomSheetNavigator)
-
-                val scaffoldState = rememberScaffoldState()
-
-                SlimeScaffold(
-                    navController = navController,
-                    bottomNavigationItems = BottomNavigationItems.toList,
-                    state = scaffoldState
-                ) { padding ->
-                    Navigation(
-                        navController = navController,
-                        bottomSheetNavigator = bottomSheetNavigator,
-                        imageLoader = imageLoader,
-                        snackbarHostState = scaffoldState.snackbarHostState,
-                        modifier = Modifier
-                            .padding(padding)
-                    )
-                }
-            }
+            SlimeNavigation(imageLoader = imageLoader)
         }
     }
 }

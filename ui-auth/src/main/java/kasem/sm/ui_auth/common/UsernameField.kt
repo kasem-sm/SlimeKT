@@ -16,11 +16,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
@@ -48,7 +50,7 @@ fun UsernameField(
         },
         placeholderContent = {
             Text(
-                text = "Username",
+                text = stringResource(id = R.string.username),
                 fontFamily = LocalSlimeFont.current.medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp

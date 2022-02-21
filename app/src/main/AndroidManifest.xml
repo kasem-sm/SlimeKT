@@ -51,7 +51,7 @@
         </provider>
 
         <receiver
-            android:name="kasem.sm.feature_article.widget.DailyReadWidgetReceiver"
+            android:name="kasem.sm.article.widget.DailyReadWidgetReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

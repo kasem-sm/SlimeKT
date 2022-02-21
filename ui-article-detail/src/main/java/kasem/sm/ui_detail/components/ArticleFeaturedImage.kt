@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import kasem.sm.feature_article.common_ui.Image
+import kasem.sm.article.common_ui.Image
 
 @Composable
 internal fun ImageLoader.ArticleFeaturedImage(

@@ -15,16 +15,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import coil.ImageLoader
 import com.slime.ui_home.components.CategoriesRow
 import com.slime.ui_home.components.SearchBar
+import kasem.sm.article.common_ui.ArticleCard
+import kasem.sm.article.common_ui.ArticleView
+import kasem.sm.article.common_ui.emptyArticleView
+import kasem.sm.article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_article.common_ui.ArticleCard
-import kasem.sm.feature_article.common_ui.ArticleView
-import kasem.sm.feature_article.common_ui.emptyArticleView
-import kasem.sm.feature_article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -60,8 +62,8 @@ internal fun HomeContent(
                         onSearchActionClicked = { onRefresh() },
                         onTrailingIconClicked = { onQueryChange(HomeState.DEFAULT_CATEGORY_QUERY) },
                         placeholders = listOf(
-                            "Search with article's title",
-                            "Search with author's name",
+                            stringResource(id = R.string.article_search_txt_1),
+                            stringResource(id = R.string.article_search_txt_2),
                         ),
                     )
                 }
@@ -103,7 +105,7 @@ internal fun HomeContent(
                 }
 
                 item {
-                    SlimeHeader(text = "Daily Read")
+                    SlimeHeader(text = stringResource(id = R.string.daily_read_header))
                 }
 
                 item {

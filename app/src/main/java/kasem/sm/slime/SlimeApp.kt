@@ -9,7 +9,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
-import kasem.sm.feature_article.worker.DailyReadManager
+import kasem.sm.core.interfaces.Tasks
 import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
 
@@ -20,7 +20,7 @@ class SlimeApp : Application(), Configuration.Provider {
     lateinit var workerFactory: HiltWorkerFactory
 
     @Inject
-    lateinit var dailyReadManager: DailyReadManager
+    lateinit var task: Tasks
 
     override fun getWorkManagerConfiguration() =
         Configuration.Builder()
@@ -32,6 +32,6 @@ class SlimeApp : Application(), Configuration.Provider {
         if (BuildConfig.DEBUG) {
             plant(DebugTree())
         }
-        dailyReadManager.executeDailyReader()
+        task.executeDailyReader()
     }
 }
