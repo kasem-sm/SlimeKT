@@ -12,6 +12,7 @@ import javax.inject.Inject
 import kasem.sm.authentication.domain.interactors.RegisterUseCase
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
+import kasem.sm.common_ui.R
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
@@ -38,19 +39,19 @@ class RegisterVM @Inject constructor(
 
     private val username = SavedMutableState(
         savedStateHandle,
-        "slime_reg_username",
+        USERNAME_KEY,
         defValue = ""
     )
 
     private val password = SavedMutableState(
         savedStateHandle,
-        "slime_reg_password",
+        PASSWORD_KEY,
         defValue = ""
     )
 
     private val passwordVisibilityToggle = SavedMutableState(
         savedStateHandle,
-        "slime_reg_pass_vis_toggle",
+        PASSWORD_VIS_KEY,
         defValue = true
     )
 
@@ -58,7 +59,7 @@ class RegisterVM @Inject constructor(
 
     private val isAccountDiscoverable = SavedMutableState(
         savedStateHandle,
-        "slime_usr_acc_dis_toggle",
+        DISCOVERABLE_TOGGLE_KEY,
         defValue = true
     )
 
@@ -111,11 +112,18 @@ class RegisterVM @Inject constructor(
                     _uiEvent.emit(
                         when (result) {
                             is AuthResult.Exception -> showMessage(result.throwable.toMessage)
-                            is AuthResult.EmptyCredentials -> showMessage("Please enter your username and password")
+                            is AuthResult.EmptyCredentials -> showMessage(R.string.err_both_fields_empty)
                             is AuthResult.Success -> UiEvent.Success
                         }
                     )
                 }
         }
+    }
+
+    companion object {
+        const val USERNAME_KEY = "slime_reg_username"
+        const val PASSWORD_KEY = "slime_reg_password"
+        const val PASSWORD_VIS_KEY = "slime_reg_pass_vis_toggle"
+        const val DISCOVERABLE_TOGGLE_KEY = "slime_dis_toggle"
     }
 }

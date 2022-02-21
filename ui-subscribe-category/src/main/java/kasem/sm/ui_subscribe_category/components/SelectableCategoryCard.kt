@@ -28,7 +28,7 @@ internal fun SelectableCategoryCard(
     }
 
     CategoryChip(
-        category = category,
+        category = category.title,
         modifier = modifier
             .clickWithRipple { onClick() },
         chipBackgroundColor = backgroundColor,

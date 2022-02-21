@@ -54,7 +54,7 @@ class SubscribeCategoryVM @Inject constructor(
 
     private val isUserAuthenticated = SavedMutableState(
         savedStateHandle,
-        "user_authenticated",
+        USER_AUTH_KEY,
         defValue = false
     )
 
@@ -111,7 +111,7 @@ class SubscribeCategoryVM @Inject constructor(
                             if (!maxSelectableCategoryCount) {
                                 item.copy(isSelected = !item.isSelected)
                             } else {
-                                _uiEvent.emit(showMessage("You can only select 5 topics for recommendation"))
+                                _uiEvent.emit(showMessage(string.subscribe_category_max_sel))
                                 item
                             }
                         }
@@ -129,7 +129,7 @@ class SubscribeCategoryVM @Inject constructor(
 
         viewModelScope.launch(slimeDispatchers.main) {
             when {
-                categoriesToSubscribe.count() < 3 -> _uiEvent.emit(showMessage(string.minimum_subscription_msg))
+                categoriesToSubscribe.count() < 3 -> _uiEvent.emit(showMessage(string.subscribe_category_min_sel))
                 else -> {
                     loadingStatus(Loader.START)
                     subscribeCategoryManager.updateSubscriptionStatus(
@@ -151,5 +151,9 @@ class SubscribeCategoryVM @Inject constructor(
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
+    }
+
+    companion object {
+        const val USER_AUTH_KEY = "slime_is_user_authenticated"
     }
 }

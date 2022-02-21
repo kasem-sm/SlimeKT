@@ -6,6 +6,8 @@ package kasem.sm.ui_auth.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimePrimaryButton
 
 @Composable
@@ -19,7 +21,7 @@ internal fun LoginButton(
         isLoading = isLoading,
         onClick = onContinueClicked,
         enabled = enabled,
-        text = "Continue",
+        text = stringResource(id = string.login_dont_have_account),
         modifier = modifier
     )
 }

@@ -15,13 +15,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.category.domain.model.Category
 import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 fun CategoryChip(
     modifier: Modifier = Modifier,
-    category: Category,
+    category: String,
     chipBackgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
     chipTextColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
@@ -32,7 +31,7 @@ fun CategoryChip(
         color = chipBackgroundColor
     ) {
         Text(
-            text = category.title,
+            text = category,
             color = chipTextColor,
             modifier = Modifier.padding(10.dp),
             fontSize = 14.sp,

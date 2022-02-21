@@ -17,7 +17,7 @@ internal fun CategoryView(
     modifier: Modifier = Modifier,
 ) {
     CategoryChip(
-        category = category,
+        category = category.title,
         modifier = modifier
             .clickWithRipple {
                 onCategoryClick(

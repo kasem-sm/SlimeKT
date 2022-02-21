@@ -8,7 +8,6 @@ apply {
 
 dependencies {
 	implementation(project(":common-ui"))
-	implementation(project(":category:domain:model"))
 
 	implementation(Compose.ui)
 	// Material 3

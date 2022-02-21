@@ -15,9 +15,7 @@ class TaskImpl @Inject constructor(
     private val dailyReadManager: DailyReadManager,
     private val subscribeCategoryManager: SubscribeCategoryManager,
 ) : Tasks {
-    override fun executeDailyReader() {
-        dailyReadManager.executeDailyReader()
-    }
+    override fun executeDailyReader() = dailyReadManager.execute()
 
     override suspend fun updateSubscriptionStatus(ids: List<String>): Flow<Stage> {
         return subscribeCategoryManager.updateSubscriptionStatus(ids)

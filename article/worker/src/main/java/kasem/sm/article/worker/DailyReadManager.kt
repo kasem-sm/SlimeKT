@@ -16,7 +16,7 @@ class DailyReadManager @Inject constructor(
     private val workManager: WorkManager,
     private val constraints: Constraints
 ) {
-    fun executeDailyReader() = enqueueWorker()
+    fun execute() = enqueueWorker()
 
     private fun enqueueWorker() {
         workManager.enqueueUniquePeriodicWork(

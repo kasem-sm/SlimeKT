@@ -15,6 +15,8 @@ import coil.ImageLoader
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 
+// TODO: Modifier for Image ?
+
 @Composable
 fun ImageLoader.Image(
     modifier: Modifier = Modifier,
