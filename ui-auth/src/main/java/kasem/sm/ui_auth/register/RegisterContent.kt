@@ -20,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.ui_auth.common.AuthState
@@ -62,14 +64,14 @@ internal fun RegisterContent(
         ) {
             item {
                 Text(
-                    text = "Publish Your Passion",
+                    text = stringResource(id = R.string.publish_your_passion),
                     color = MaterialTheme.colorScheme.primary,
                     letterSpacing = 1.sp,
                     fontSize = 24.sp,
                     fontFamily = LocalSlimeFont.current.semiBold
                 )
                 Text(
-                    text = "Get Started",
+                    text = stringResource(id = R.string.get_started),
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(vertical = 15.dp),
@@ -117,7 +119,7 @@ internal fun RegisterContent(
                         onCheckedChange = toggleAccountDiscoverability
                     )
                     Text(
-                        text = "Discoverable to other users in explore section",
+                        text = stringResource(id = R.string.auth_usr_msg),
                         color = MaterialTheme.colorScheme.onBackground,
                         letterSpacing = 1.sp,
                         fontSize = 14.sp,
@@ -128,7 +130,7 @@ internal fun RegisterContent(
 
             item {
                 SlimePrimaryButton(
-                    text = "Confirm Registration",
+                    text = stringResource(id = R.string.confirm_reg),
                     onClick = {
                         keyboardController?.hide()
                         onConfirmClicked()

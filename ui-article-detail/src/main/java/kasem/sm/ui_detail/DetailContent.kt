@@ -11,9 +11,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
+import kasem.sm.article.markdown.markdown.SlimeMarkdown
+import kasem.sm.category.common_ui.CategoryChip
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_article.markdown.markdown.SlimeMarkdown
 import kasem.sm.ui_detail.components.ArticleAuthorAndEstimatedTimeBadge
 import kasem.sm.ui_detail.components.ArticleFeaturedImage
 import kasem.sm.ui_detail.components.ArticleHeader
@@ -38,6 +39,10 @@ internal fun DetailContent(
                 state.article?.let { article ->
                     item {
                         ArticleHeader(article)
+                    }
+
+                    item {
+                        CategoryChip(category = article.category)
                     }
 
                     item {

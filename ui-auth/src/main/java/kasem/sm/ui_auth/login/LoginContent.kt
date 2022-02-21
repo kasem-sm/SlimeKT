@@ -15,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_auth.common.LoginButton
@@ -58,7 +60,7 @@ internal fun LoginContent(
         ) {
             item {
                 Text(
-                    text = "Welcome Back",
+                    text = stringResource(id = string.welcome_back),
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(vertical = 15.dp),

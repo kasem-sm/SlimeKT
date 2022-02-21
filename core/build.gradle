@@ -13,7 +13,6 @@ dependencies {
 	api(Jetbrains.serializationCore)
 	api(Jetbrains.coroutinesCore)
 	implementation(JavaX.inject)
-	testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

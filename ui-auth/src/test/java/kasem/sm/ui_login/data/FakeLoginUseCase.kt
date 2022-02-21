@@ -6,9 +6,9 @@ package kasem.sm.ui_login.data
 
 import io.mockk.coEvery
 import io.mockk.mockk
-import kasem.sm.feature_auth.domain.interactors.LoginUseCase
-import kasem.sm.feature_auth.domain.model.AuthResult
-import kasem.sm.feature_auth.domain.model.Credentials
+import kasem.sm.authentication.domain.interactors.LoginUseCase
+import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.Credentials
 import kotlinx.coroutines.flow.flowOf
 
 class FakeLoginUseCase {

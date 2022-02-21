@@ -16,3 +16,6 @@ local.properties
 /api/.gradle
 /api/.idea
 /api/build
+app/release/output-metadata.json
+*.apk
+*.json

@@ -20,7 +20,7 @@ import kasem.sm.ui_core.safeCollector
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel,
+    viewModel: ProfileVM,
     onLogOutSuccess: () -> Unit,
     navigateTo: (String) -> Unit
 ) {

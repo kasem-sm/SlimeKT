@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="header_title">Select your favourite topics</string>
-    <string name="header_description">Select some of your favourite topics to let us suggest better articles for you.</string>
-    <string name="proceed">Proceed</string>
-</resources>

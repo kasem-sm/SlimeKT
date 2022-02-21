@@ -16,7 +16,7 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @Composable
 fun ExploreScreen(
-    viewModel: ExploreViewModel,
+    viewModel: ExploreVM,
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,

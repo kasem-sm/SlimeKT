@@ -12,13 +12,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
+import kasem.sm.article.common_ui.ArticleCard
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.feature_article.common_ui.ArticleCard
 import kasem.sm.ui_explore.components.CategoryView
 import kasem.sm.ui_explore.components.ProfileCard
 
@@ -41,7 +43,7 @@ internal fun ExploreContent(
         ) {
             SlimeScreenColumn {
                 item {
-                    SlimeHeader(text = "Recommended Articles")
+                    SlimeHeader(text = stringResource(id = R.string.recommend_article_header))
                 }
 
                 itemsIndexed(state.articles) { index, article ->
@@ -55,7 +57,7 @@ internal fun ExploreContent(
 
                 if (state.categories.isNotEmpty()) {
                     item {
-                        SlimeHeader(text = "Discover Categories")
+                        SlimeHeader(text = stringResource(id = R.string.discover_categories_header))
                     }
 
                     item {
@@ -71,7 +73,7 @@ internal fun ExploreContent(
 
                 item {
                     SlimeHeader(
-                        text = "Find Authors",
+                        text = stringResource(id = R.string.find_authors_header),
                         modifier = Modifier
                             .align(Alignment.TopStart)
                     )

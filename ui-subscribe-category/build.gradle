@@ -7,9 +7,9 @@ apply {
 }
 
 dependencies {
-	implementation(project(":feature-category:common-category-ui"))
+	implementation(project(":category:common-category-ui"))
 	// Category
-	implementation(project(":feature-category:domain:interactors"))
-	implementation(project(":feature-category:domain:model"))
-	implementation(project(":feature-category:worker"))
+	implementation(project(":category:domain:interactors"))
+	implementation(project(":category:domain:model"))
+	implementation(project(":category:worker"))
 }

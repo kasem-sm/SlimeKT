@@ -13,14 +13,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.VerticalSpacer
-import kasem.sm.ui_subscribe_category.R
 
 @Composable
 internal fun ContentHeader(modifier: Modifier = Modifier) {
     Column(modifier) {
         Text(
-            text = stringResource(R.string.header_title),
+            text = stringResource(R.string.subscribe_category_header),
             color = MaterialTheme.colorScheme.primary,
             letterSpacing = 1.5.sp,
             fontSize = 24.sp,
@@ -28,7 +28,7 @@ internal fun ContentHeader(modifier: Modifier = Modifier) {
         )
         VerticalSpacer(value = 15.dp)
         Text(
-            text = stringResource(R.string.header_description),
+            text = stringResource(R.string.subscribe_category_header_desc),
             color = MaterialTheme.colorScheme.primary,
             fontSize = 16.sp,
             fontFamily = LocalSlimeFont.current.secondaryMedium

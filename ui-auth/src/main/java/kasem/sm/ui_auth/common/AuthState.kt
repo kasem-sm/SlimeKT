@@ -11,7 +11,7 @@ data class AuthState(
     val username: String = "",
     val password: String = "",
     val isLoading: Boolean = false,
-    val passwordVisibility: Boolean = false,
+    val passwordVisibility: Boolean = true,
     val isAccountDiscoverable: Boolean = true
 ) {
     companion object {
