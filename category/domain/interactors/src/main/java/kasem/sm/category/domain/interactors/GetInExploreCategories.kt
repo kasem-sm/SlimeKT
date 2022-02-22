@@ -21,7 +21,7 @@ class GetInExploreCategories @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers,
     private val applicationScope: CoroutineScope,
 ) {
-    suspend fun execute(): Flow<Stage> {
+    fun execute(): Flow<Stage> {
         return slimeDispatchers.default.start {
             val categories = api.getExploreCategories().getOrThrow()
                 .data.getOrDefault().map {
