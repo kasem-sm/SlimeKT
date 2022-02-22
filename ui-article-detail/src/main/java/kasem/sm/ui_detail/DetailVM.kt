@@ -17,7 +17,6 @@ import kasem.sm.core.domain.collect
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -55,9 +54,9 @@ class DetailVM @Inject constructor(
         refresh()
     }
 
-    private fun observe(scope: CoroutineScope = viewModelScope) {
+    private fun observe() {
         observeArticle.join(
-            coroutineScope = scope,
+            coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
             params = articleId,
         )

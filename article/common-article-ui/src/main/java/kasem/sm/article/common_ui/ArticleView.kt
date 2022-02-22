@@ -24,7 +24,8 @@ fun BoxScope.ArticleView(
     currentPage: Int,
     pageSize: Int,
     isLoading: Boolean,
-    endOfPagination: Boolean
+    endOfPagination: Boolean,
+    onUserDemandPagination: Boolean
 ) {
     ArticleCard(
         modifier = modifier,
@@ -38,13 +39,15 @@ fun BoxScope.ArticleView(
         !isLoading &&
         !endOfPagination
     ) {
-        SlimeElevatedButton(
-            modifier = Modifier.align(Alignment.Center),
-            text = "See More",
-            onClick = {
-                executeNextPage()
-            }
-        )
+        if (onUserDemandPagination) {
+            SlimeElevatedButton(
+                modifier = Modifier.align(Alignment.Center),
+                text = "See More",
+                onClick = {
+                    executeNextPage()
+                }
+            )
+        } else executeNextPage()
     }
 
     saveScrollPosition(index)
