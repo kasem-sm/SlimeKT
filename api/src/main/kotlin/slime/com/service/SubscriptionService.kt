@@ -69,7 +69,12 @@ class SubscriptionService(
             !checkIfUserSubscribes(currentUserId, it.id)
         }.toList().map {
             val totalSubscribers = getNumber(it.id)
-            it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = false)
+            // This should always be false except when a user sign in into our app
+            // and then directly visits Explore section where explore topics should be filtered
+            // with any previously subscribed topics and the rest (unsubscribed) topics should be returned
+            // as a response.
+            val hasUserSubscribed = checkIfUserSubscribes(userId = currentUserId, it.id)
+            it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = hasUserSubscribed)
         }
     }
 }
