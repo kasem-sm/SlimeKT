@@ -33,20 +33,18 @@ import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
-fun PasswordField(
+internal fun PasswordField(
     modifier: Modifier = Modifier,
-    text: String,
+    state: AuthState,
     onPasswordChanged: (String) -> Unit,
-    enabled: Boolean = true,
-    passwordToggle: Boolean,
     onPasswordToggleClick: (Boolean) -> Unit,
     onDoneClicked: KeyboardActionScope.() -> Unit,
 ) {
     SlimeTextField(
         modifier = modifier,
-        input = text,
+        input = state.password,
         onTextChange = onPasswordChanged,
-        enabled = enabled,
+        enabled = !state.isLoading,
         leadingIconContent = {
             Icon(
                 imageVector = Icons.Default.Password,
@@ -60,16 +58,16 @@ fun PasswordField(
         trailingIconContent = {
             IconButton(
                 onClick = {
-                    if (enabled) onPasswordToggleClick(!passwordToggle)
+                    if (!state.isLoading) onPasswordToggleClick(!state.passwordVisibility)
                 }
             ) {
                 Icon(
-                    imageVector = passwordToggle.getTrailingIconAccordingly(),
+                    imageVector = state.passwordVisibility.getTrailingIconAccordingly(),
                     contentDescription = null,
                     modifier = Modifier
                         .size(22.dp)
                         .padding(bottom = 2.dp),
-                    tint = passwordToggle.getTintAccordingly()
+                    tint = MaterialTheme.getIconTintAccordingly(boolean = state.passwordVisibility)
                 )
             }
         },
@@ -88,16 +86,15 @@ fun PasswordField(
         keyboardActions = KeyboardActions(
             onDone = onDoneClicked
         ),
-        visualTransformation = if (passwordToggle) {
+        visualTransformation = if (state.passwordVisibility) {
             PasswordVisualTransformation()
         } else VisualTransformation.None
     )
 }
 
 @Composable
-fun Boolean.getTintAccordingly(): Color {
-    return if (this) MaterialTheme.colorScheme.onSurfaceVariant else
-        MaterialTheme.colorScheme.primary
+fun MaterialTheme.getIconTintAccordingly(boolean: Boolean): Color {
+    return if (boolean) colorScheme.onSurfaceVariant else colorScheme.primary
 }
 
 @Composable

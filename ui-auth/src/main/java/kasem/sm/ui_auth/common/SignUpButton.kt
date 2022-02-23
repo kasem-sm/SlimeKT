@@ -5,12 +5,10 @@
 package kasem.sm.ui_auth.common
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -27,9 +25,7 @@ internal fun SignUpButton(
     Column(modifier) {
         TextButton(
             onClick = {
-                if (enabled) {
-                    onSignUpClicked()
-                }
+                if (enabled) onSignUpClicked()
             }
         ) {
             Text(
@@ -37,7 +33,7 @@ internal fun SignUpButton(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colorScheme.onSurface,
-                            fontFamily = LocalSlimeFont.current.regular,
+                            fontFamily = LocalSlimeFont.current.medium,
                             letterSpacing = 1.sp
                         )
                     ) {
@@ -53,8 +49,6 @@ internal fun SignUpButton(
                         append("Sign Up")
                     }
                 },
-                modifier = Modifier
-                    .wrapContentWidth(Alignment.CenterHorizontally)
             )
         }
     }

@@ -9,23 +9,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import kasem.sm.common_ui.LocalSlimeFont
-import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.ui_auth.common.AuthState
+import kasem.sm.ui_auth.common.BottomSheetHandle
 import kasem.sm.ui_auth.common.LoginButton
 import kasem.sm.ui_auth.common.PasswordField
 import kasem.sm.ui_auth.common.SignUpButton
 import kasem.sm.ui_auth.common.UsernameField
+import kasem.sm.ui_auth.register.components.Header
 
 /**
  * This composable maintains the entire screen for handling user login.
@@ -56,27 +54,20 @@ internal fun LoginContent(
 
         SlimeScreenColumn(
             modifier = Modifier
-                .wrapContentSize()
+                .wrapContentSize(),
+            horizontalAlignment = Alignment.Start,
         ) {
             item {
-                Text(
-                    text = stringResource(id = string.welcome_back),
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .padding(vertical = 15.dp),
-                    letterSpacing = 1.sp,
-                    fontSize = 24.sp,
-                    fontFamily = LocalSlimeFont.current.semiBold
-                )
+                BottomSheetHandle()
             }
-
+            item {
+                Header("Login", "Welcome back")
+            }
             item {
                 UsernameField(
-                    text = state.username,
+                    state = state,
                     onUsernameChanged = onUsernameChanged,
-                    enabled = !state.isLoading,
-                    modifier = Modifier
-                        .padding(vertical = 10.dp),
+                    modifier = Modifier.padding(vertical = 5.dp),
                     onNextClicked = {
                         focusManager.moveFocus(FocusDirection.Down)
                     },
@@ -85,12 +76,10 @@ internal fun LoginContent(
 
             item {
                 PasswordField(
-                    text = state.password,
+                    modifier = Modifier.padding(vertical = 5.dp),
+                    state = state,
                     onPasswordChanged = onPasswordChanged,
-                    enabled = !state.isLoading,
-                    passwordToggle = state.passwordVisibility,
                     onPasswordToggleClick = onPasswordToggleClicked,
-                    modifier = Modifier.padding(vertical = 10.dp),
                     onDoneClicked = {
                         onLoginClicked.invoke()
                         keyboardController?.hide()
@@ -100,23 +89,18 @@ internal fun LoginContent(
 
             item {
                 LoginButton(
-                    enabled = !state.isLoading,
                     onContinueClicked = {
                         onLoginClicked.invoke()
                         keyboardController?.hide()
                     },
-                    isLoading = state.isLoading,
-                    modifier = Modifier
-                        .padding(vertical = 15.dp)
+                    state = state
                 )
             }
 
             item {
                 SignUpButton(
                     enabled = !state.isLoading,
-                    onSignUpClicked = {
-                        onSignUpClicked.invoke()
-                    },
+                    onSignUpClicked = onSignUpClicked,
                 )
             }
         }
