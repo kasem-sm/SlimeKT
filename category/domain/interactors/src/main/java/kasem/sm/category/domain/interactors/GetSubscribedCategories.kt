@@ -21,7 +21,7 @@ class GetSubscribedCategories @Inject constructor(
     private val applicationScope: CoroutineScope,
     private val slimeDispatchers: SlimeDispatchers,
 ) {
-    suspend fun execute(): Flow<Stage> {
+    fun execute(): Flow<Stage> {
         return slimeDispatchers.default.start {
             val categories = api.getSubscribedCategories().getOrThrow()
                 .data.getOrDefault().map {

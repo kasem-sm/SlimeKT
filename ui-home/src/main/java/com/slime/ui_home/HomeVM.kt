@@ -37,8 +37,8 @@ class HomeVM @Inject constructor(
     private val pager: ArticlePager,
     private val savedStateHandle: SavedStateHandle,
     private val slimeDispatchers: SlimeDispatchers,
-    observeDailyReadArticle: ObserveDailyReadArticle,
-    observeSubscribedCategories: ObserveSubscribedCategories,
+    private val observeDailyReadArticle: ObserveDailyReadArticle,
+    private val observeSubscribedCategories: ObserveSubscribedCategories,
 ) : ViewModel() {
 
     private val categoryQuery = SavedMutableState(
@@ -90,17 +90,9 @@ class HomeVM @Inject constructor(
     init {
         initializePager()
 
-        observeSearchQuery()
+        observeData()
 
-        observeSubscribedCategories.join(
-            coroutineScope = viewModelScope,
-            onError = { _uiEvent.emit(showMessage(it)) },
-        )
-
-        observeDailyReadArticle.join(
-            coroutineScope = viewModelScope,
-            onError = { _uiEvent.emit(showMessage(it)) },
-        )
+        getSubscribedCategories()
     }
 
     private fun initializePager(
@@ -124,29 +116,40 @@ class HomeVM @Inject constructor(
                 }
             )
             if (forceRefresh) {
-                refresh()
+                job?.cancel()
+                job = viewModelScope.launch(slimeDispatchers.main) {
+                    pager.refresh()
+                }
             }
         }
     }
 
-    private fun observeSearchQuery() {
+    private fun observeData() {
         viewModelScope.launch(slimeDispatchers.main) {
             searchQuery.flow
-                .debounce(500)
+                .debounce(800)
                 .distinctUntilChanged()
                 .collectLatest { query ->
+                    job?.cancel()
                     job = launch {
                         if (scrollPosition.value == 0) {
                             // Reinitialize and refresh pager with updated search query
-                            initializePager(
-                                searchQuery = query,
-                                forceRefresh = true
-                            )
+                            onQueryChange(query)
                         }
                     }
                     job!!.join()
                 }
         }
+
+        observeSubscribedCategories.join(
+            coroutineScope = viewModelScope,
+            onError = { _uiEvent.emit(showMessage(it)) },
+        )
+
+        observeDailyReadArticle.join(
+            coroutineScope = viewModelScope,
+            onError = { _uiEvent.emit(showMessage(it)) },
+        )
     }
 
     fun refresh() {
@@ -155,6 +158,11 @@ class HomeVM @Inject constructor(
             pager.refresh()
         }
 
+        // Refresh
+        getSubscribedCategories()
+    }
+
+    private fun getSubscribedCategories() {
         viewModelScope.launch(slimeDispatchers.main) {
             getSubscribedCategories.execute().collect(
                 loader = loadingStatus,
@@ -166,6 +174,11 @@ class HomeVM @Inject constructor(
     fun onQueryChange(newValue: String) {
         job?.cancel()
         searchQuery.value = newValue
+        // Reinitialize and refresh pager with updated search query
+        initializePager(
+            searchQuery = newValue,
+            forceRefresh = true
+        )
     }
 
     fun onCategoryChange(newValue: String) {

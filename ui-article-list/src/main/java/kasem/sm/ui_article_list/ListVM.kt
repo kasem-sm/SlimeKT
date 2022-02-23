@@ -40,7 +40,7 @@ class ListVM @Inject constructor(
     private val slimeDispatchers: SlimeDispatchers,
     private val session: Session,
     private val tasks: Tasks,
-    observeCategory: ObserveCategoryById,
+    private val observeCategory: ObserveCategoryById,
 ) : ViewModel() {
 
     private val categoryId = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
@@ -95,19 +95,21 @@ class ListVM @Inject constructor(
     }.stateIn(viewModelScope, ListState.EMPTY)
 
     init {
+        observeAuthenticationState()
+
+        initializePager()
+
+        observeCategory()
+
+        getCategory()
+    }
+
+    private fun observeAuthenticationState() {
         viewModelScope.launch(slimeDispatchers.main) {
             session.observeAuthenticationState().collectLatest {
                 isUserAuthenticated.value = it
             }
         }
-
-        initializePager()
-
-        observeCategory.join(
-            params = categoryId,
-            coroutineScope = viewModelScope,
-            onError = { _uiEvent.emit(showMessage(it)) },
-        )
     }
 
     private fun initializePager(
@@ -127,7 +129,9 @@ class ListVM @Inject constructor(
                 }
             )
             if (scrollPosition.value == 0) {
-                refresh()
+                viewModelScope.launch(slimeDispatchers.main) {
+                    pager.refresh()
+                }
             }
         }
     }
@@ -151,6 +155,19 @@ class ListVM @Inject constructor(
             pager.refresh()
         }
 
+        // Refresh
+        getCategory()
+    }
+
+    private fun observeCategory() {
+        observeCategory.join(
+            params = categoryId,
+            coroutineScope = viewModelScope,
+            onError = { _uiEvent.emit(showMessage(it)) },
+        )
+    }
+
+    private fun getCategory() {
         viewModelScope.launch(slimeDispatchers.main) {
             getCategory.execute(categoryId).collect(
                 loader = categoryLoadingStatus,

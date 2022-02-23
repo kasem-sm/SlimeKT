@@ -100,7 +100,8 @@ internal fun HomeContent(
                         currentPage = state.currentPage,
                         pageSize = PAGE_SIZE,
                         isLoading = state.paginationLoadStatus,
-                        endOfPagination = state.endOfPagination
+                        endOfPagination = state.endOfPagination,
+                        onUserDemandPagination = true
                     )
                 }
 

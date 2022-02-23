@@ -21,5 +21,5 @@ dependencies {
 	implementation AndroidX.roomCommon
 
 	// Hilt core
-	implementation "com.google.dagger:hilt-core:2.40.5"
+	implementation Hilt.core
 }

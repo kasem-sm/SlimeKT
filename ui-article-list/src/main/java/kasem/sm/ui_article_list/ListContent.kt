@@ -82,7 +82,8 @@ internal fun ListContent(
                         currentPage = state.currentPage,
                         pageSize = ArticlePager.PAGE_SIZE,
                         isLoading = state.isLoading,
-                        endOfPagination = state.endOfPagination
+                        endOfPagination = state.endOfPagination,
+                        onUserDemandPagination = false
                     )
                 }
             }

@@ -10,7 +10,7 @@ data class Category(
     val timestamp: Long,
     val isSelected: Boolean = false,
     val totalSubscribers: Int,
-    val hasUserSubscribed: Boolean
+    val hasUserSubscribed: Boolean,
 ) {
     companion object {
         val dummy
@@ -19,7 +19,7 @@ data class Category(
                 title = "dummy_category",
                 timestamp = 1L,
                 totalSubscribers = 0,
-                hasUserSubscribed = false
+                hasUserSubscribed = false,
             )
     }
 }
