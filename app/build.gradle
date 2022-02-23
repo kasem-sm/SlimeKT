@@ -39,9 +39,6 @@ dependencies {
 	implementation(project(":article:widget"))
 
 	implementation AndroidX.core
-	implementation Compose.ui
-	implementation Compose.material
-	implementation Compose.material3
 	implementation Compose.activity
 
 	implementation Coil.core

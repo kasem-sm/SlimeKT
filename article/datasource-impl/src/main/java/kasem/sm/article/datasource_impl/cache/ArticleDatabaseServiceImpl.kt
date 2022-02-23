@@ -48,33 +48,33 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     override suspend fun getPagedArticles(
         page: Int,
         pageSize: Int,
-        category: String,
+        topic: String,
         query: String,
     ): List<ArticleEntity> {
         return slimeSuspendTry {
             when {
-                category.isEmpty() && query.isNotEmpty() -> {
+                topic.isEmpty() && query.isNotEmpty() -> {
                     dao.getQueriedPagedArticle(
                         query,
                         page,
                         pageSize
                     )
                 }
-                category.isNotEmpty() && query.isEmpty() -> {
-                    dao.getCategoryPagedArticles(
-                        category,
+                topic.isNotEmpty() && query.isEmpty() -> {
+                    dao.getTopicPagedArticles(
+                        topic,
                         page,
                         pageSize
                     )
                 }
-                category.isEmpty() -> {
+                topic.isEmpty() -> {
                     dao.getPagedArticles(page, pageSize)
                 }
                 query.isEmpty() -> {
-                    dao.getCategoryPagedArticles(category, page, pageSize)
+                    dao.getTopicPagedArticles(topic, page, pageSize)
                 }
                 else -> {
-                    dao.getQueriedPagedArticles(category, query, page, pageSize)
+                    dao.getQueriedPagedArticles(topic, query, page, pageSize)
                 }
             }
         }
@@ -84,33 +84,33 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     override suspend fun getArticlesTillPage(
         page: Int,
         pageSize: Int,
-        category: String,
+        topic: String,
         query: String,
     ): List<ArticleEntity> {
         return slimeSuspendTry {
             when {
-                category.isEmpty() && query.isNotEmpty() -> {
+                topic.isEmpty() && query.isNotEmpty() -> {
                     dao.getQueriedArticlesTillPage(
                         query,
                         page,
                         pageSize
                     )
                 }
-                category.isNotEmpty() && query.isEmpty() -> {
-                    dao.getCategoryArticlesTillPage(
-                        category,
+                topic.isNotEmpty() && query.isEmpty() -> {
+                    dao.getTopicArticlesTillPage(
+                        topic,
                         page,
                         pageSize
                     )
                 }
-                category.isEmpty() -> {
+                topic.isEmpty() -> {
                     dao.getArticlesTillPage(page, pageSize)
                 }
                 query.isEmpty() -> {
-                    dao.getCategoryArticlesTillPage(category, page, pageSize)
+                    dao.getTopicArticlesTillPage(topic, page, pageSize)
                 }
                 else -> {
-                    dao.getQueriedArticlesTillPage(category, query, page, pageSize)
+                    dao.getQueriedArticlesTillPage(topic, query, page, pageSize)
                 }
             }
         }

@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import kasem.sm.article.markdown.markdown.SlimeMarkdown
-import kasem.sm.category.common_ui.CategoryChip
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
+import kasem.sm.topic.common_ui.TopicChip
 import kasem.sm.ui_detail.components.ArticleAuthorAndEstimatedTimeBadge
 import kasem.sm.ui_detail.components.ArticleFeaturedImage
 import kasem.sm.ui_detail.components.ArticleHeader
@@ -42,7 +42,7 @@ internal fun DetailContent(
                     }
 
                     item {
-                        CategoryChip(category = article.category)
+                        TopicChip(topic = article.topic)
                     }
 
                     item {

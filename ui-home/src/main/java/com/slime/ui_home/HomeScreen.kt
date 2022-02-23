@@ -40,13 +40,13 @@ fun HomeScreen(
         imageLoader = imageLoader,
         onRefresh = viewModel::refresh,
         onQueryChange = viewModel::onQueryChange,
-        onCategoryChange = viewModel::onCategoryChange,
+        onTopicChange = viewModel::onTopicChange,
         onArticleClick = onArticleClick,
         executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
         listState = state,
         navigateToSubscriptionScreen = {
-            navigateTo(Routes.SubscribeCategoryScreen.route)
+            navigateTo(Routes.SubscribeTopicScreen.route)
         }
     )
 }

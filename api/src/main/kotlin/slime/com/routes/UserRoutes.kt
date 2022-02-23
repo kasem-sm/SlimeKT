@@ -1,14 +1,14 @@
 package slime.com.routes
 
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.http.HttpStatusCode
-import io.ktor.request.receiveOrNull
 import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
-import slime.com.data.request.CreateUserAccountRequest
+import io.ktor.util.pipeline.PipelineContext
 import slime.com.data.response.AuthResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.UserService
@@ -22,10 +22,8 @@ fun Route.registerAuthenticationRoutes(
     service: UserService
 ) {
     post("api/auth/register") {
-        val response = call.receiveOrNull<CreateUserAccountRequest>() ?: kotlin.run {
-            respondWithBadRequest()
-            return@post
-        }
+        val username = call.parameters["username"] ?: return@post
+        val password = call.parameters["password"] ?: return@post
 
         val isUserDiscoverable = try {
             call.parameters["discoverable"]?.toInt() ?: kotlin.run {
@@ -39,62 +37,51 @@ fun Route.registerAuthenticationRoutes(
 
         when (
             val result = service.validateCredentialsForRegistration(
-                username = response.username,
-                password = response.password,
+                username = username,
+                password = password,
                 isUserDiscoverable = isUserDiscoverable != 0
             )
         ) {
             is ServiceResult.Success -> {
-                val user = service.run { response.username.getUser() }
-                val userId = user?.id ?: return@post
-                val username = user.username
-
-                when (val loginResult = service.validateCredentialsForLogin(response.username, response.password)) {
-                    is ServiceResult.Success -> {
-                        respondWith(
-                            SlimeResponse(
-                                true,
-                                data = AuthResponse(
-                                    userId,
-                                    username,
-                                    // token
-                                    loginResult.message
-                                )
-                            )
-                        )
-                    }
-                    is ServiceResult.Error -> respondWith(SlimeResponse<Unit>(success = false, additionalMessage = loginResult.message))
-                }
+                val user = service.run { username.getUser() }
+                user?.let {
+                    loginUser(
+                        validateLogin = service::validateCredentialsForLogin,
+                        username = username,
+                        password = password,
+                        userId = it.id,
+                    )
+                } ?: kotlin.run { return@post }
             }
-            is ServiceResult.Error -> respondWith<Unit>(SlimeResponse(false, result.message))
+            is ServiceResult.Error -> respondWith(
+                SlimeResponse<AuthResponse>(
+                    success = false,
+                    additionalMessage = result.message
+                )
+            )
         }
     }
 
     post("api/auth/login") {
-        val response = call.receiveOrNull<CreateUserAccountRequest>() ?: kotlin.run {
-            respondWithBadRequest()
-            return@post
-        }
+        val username = call.parameters["username"] ?: return@post
+        val password = call.parameters["password"] ?: return@post
 
-        val user = service.run { response.username.getUser() }
+        val user = service.run { username.getUser() }
         user?.let {
-            val userId = user.id
-            val username = user.username
-
-            when (val result = service.validateCredentialsForLogin(response.username, response.password)) {
-                is ServiceResult.Success -> {
-                    respondWith(
-                        AuthResponse(
-                            userId,
-                            username,
-                            result.message
-                        )
-                    )
-                }
-                is ServiceResult.Error -> respondWith(SlimeResponse<AuthResponse>(false, result.message, null))
-            }
+            loginUser(
+                validateLogin = service::validateCredentialsForLogin,
+                username = username,
+                password = password,
+                userId = it.id,
+            )
         } ?: kotlin.run {
-            respondWith(SlimeResponse<AuthResponse>(false, "No user with the following username exists", null))
+            respondWith(
+                SlimeResponse<AuthResponse>(
+                    success = false,
+                    additionalMessage = "No user with the following username exists",
+                    data = null
+                )
+            )
         }
     }
 
@@ -111,5 +98,25 @@ fun Route.registerAuthenticationRoutes(
         get("/api/auth/authenticate") {
             call.respond(HttpStatusCode.OK)
         }
+    }
+}
+
+private suspend fun PipelineContext<Unit, ApplicationCall>.loginUser(
+    validateLogin: suspend (username: String, password: String) -> ServiceResult,
+    username: String,
+    password: String,
+    userId: String,
+) {
+    when (val result = validateLogin(username, password)) {
+        is ServiceResult.Success -> {
+            respondWith(
+                AuthResponse(
+                    userId,
+                    username,
+                    result.message
+                )
+            )
+        }
+        is ServiceResult.Error -> respondWith(SlimeResponse<AuthResponse>(false, result.message, null))
     }
 }

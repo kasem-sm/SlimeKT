@@ -55,14 +55,14 @@ interface ArticleDao {
     @Query(
         """
         SELECT * FROM table_article 
-        WHERE category = :category
+        WHERE topic = :topic
         ORDER BY timestamp DESC
         LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
     """
     )
     // 1
-    suspend fun getCategoryPagedArticles(
-        category: String,
+    suspend fun getTopicPagedArticles(
+        topic: String,
         page: Int,
         pageSize: Int,
     ): List<ArticleEntity>
@@ -83,7 +83,7 @@ interface ArticleDao {
     @Query(
         """
         SELECT * FROM table_article 
-        WHERE category = :category
+        WHERE topic = :topic
         AND title LIKE '%' || :query || '%'
         OR author LIKE '%' || :query || '%'
         ORDER BY timestamp DESC
@@ -92,7 +92,7 @@ interface ArticleDao {
     )
     // 3
     suspend fun getQueriedPagedArticles(
-        category: String,
+        topic: String,
         query: String,
         page: Int,
         pageSize: Int,
@@ -133,14 +133,14 @@ interface ArticleDao {
     @Query(
         """
         SELECT * FROM table_article 
-        WHERE category = :category
+        WHERE topic = :topic
         ORDER BY timestamp DESC
         LIMIT (:page * :pageSize)
     """
     )
     // 1
-    suspend fun getCategoryArticlesTillPage(
-        category: String,
+    suspend fun getTopicArticlesTillPage(
+        topic: String,
         page: Int,
         pageSize: Int,
     ): List<ArticleEntity>
@@ -148,7 +148,7 @@ interface ArticleDao {
     @Query(
         """
         SELECT * FROM table_article 
-        WHERE category = :category
+        WHERE topic = :topic
         AND title LIKE '%' || :query || '%'
         OR author LIKE '%' || :query || '%'
         ORDER BY timestamp DESC
@@ -157,7 +157,7 @@ interface ArticleDao {
     )
     // 2
     suspend fun getQueriedArticlesTillPage(
-        category: String,
+        topic: String,
         query: String,
         page: Int,
         pageSize: Int,

@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import coil.ImageLoader
-import com.slime.ui_home.components.CategoriesRow
 import com.slime.ui_home.components.SearchBar
+import com.slime.ui_home.components.TopicsRow
 import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.article.common_ui.ArticleView
 import kasem.sm.article.common_ui.emptyArticleView
@@ -35,7 +35,7 @@ internal fun HomeContent(
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onQueryChange: (String) -> Unit,
-    onCategoryChange: (String) -> Unit,
+    onTopicChange: (String) -> Unit,
     onArticleClick: (Int) -> Unit,
     executeNextPage: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
@@ -60,7 +60,7 @@ internal fun HomeContent(
                         query = state.currentQuery,
                         onQueryChange = onQueryChange,
                         onSearchActionClicked = { onRefresh() },
-                        onTrailingIconClicked = { onQueryChange(HomeState.DEFAULT_CATEGORY_QUERY) },
+                        onTrailingIconClicked = { onQueryChange(HomeState.DEFAULT_TOPIC_QUERY) },
                         placeholders = listOf(
                             stringResource(id = R.string.article_search_txt_1),
                             stringResource(id = R.string.article_search_txt_2),
@@ -69,11 +69,11 @@ internal fun HomeContent(
                 }
 
                 item {
-                    CategoriesRow(
+                    TopicsRow(
                         isLoading = state.isLoading,
-                        categories = state.categories,
-                        currentCategory = state.currentCategory,
-                        onCategoryChange = onCategoryChange,
+                        topics = state.topics,
+                        currentTopic = state.currentTopic,
+                        onTopicChange = onTopicChange,
                         navigateToSubscriptionScreen = navigateToSubscriptionScreen
                     )
                 }

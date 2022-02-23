@@ -8,13 +8,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import kasem.sm.article.datasource.cache.dao.ArticleDao
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
-import kasem.sm.category.datasource.cache.dao.CategoryDao
-import kasem.sm.category.datasource.cache.entity.CategoryEntity
+import kasem.sm.topic.datasource.cache.dao.TopicDao
+import kasem.sm.topic.datasource.cache.entity.TopicEntity
 
 @Database(
     entities = [
         ArticleEntity::class,
-        CategoryEntity::class,
+        TopicEntity::class,
     ],
     version = 1,
     // TODO: Add schema path
@@ -22,7 +22,7 @@ import kasem.sm.category.datasource.cache.entity.CategoryEntity
 )
 abstract class SlimeDatabase : RoomDatabase() {
 
-    abstract fun categoryDao(): CategoryDao
+    abstract fun topicDao(): TopicDao
 
     abstract fun articleDao(): ArticleDao
 }

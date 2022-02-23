@@ -31,10 +31,10 @@ sealed class Routes(
         route = "home_screen"
     )
 
-    data class ExploreScreen(val query: String = "{slime_category}") : Routes(
+    data class ExploreScreen(val query: String = "{slime_topic}") : Routes(
         route = "explore_screen/$query",
         arguments = listOf(
-            navArgument("slime_category") {
+            navArgument("slime_topic") {
                 type = NavType.StringType
             }
         )
@@ -48,20 +48,20 @@ sealed class Routes(
         route = "article_detail_screen",
     )
 
-    object SubscribeCategoryScreen : Routes(
+    object SubscribeTopicScreen : Routes(
         route = "select_topics_screen"
     )
 
     data class ListScreen(
-        val category: String = "{slime_category}",
-        val categoryId: String = "{slime_category_id}"
+        val topic: String = "{slime_topic}",
+        val topicId: String = "{slime_topic_id}"
     ) : Routes(
-        route = "list_screen/$category/$categoryId",
+        route = "list_screen/$topic/$topicId",
         arguments = listOf(
-            navArgument("slime_category") {
+            navArgument("slime_topic") {
                 type = NavType.StringType
             },
-            navArgument("slime_category_id") {
+            navArgument("slime_topic_id") {
                 type = NavType.StringType
             }
         )

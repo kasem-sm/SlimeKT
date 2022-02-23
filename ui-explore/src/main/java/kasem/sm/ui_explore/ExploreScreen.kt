@@ -20,7 +20,7 @@ fun ExploreScreen(
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
-    onCategoryClick: (title: String, id: String) -> Unit,
+    onTopicClick: (title: String, id: String) -> Unit,
 ) {
     val viewState by rememberFlow(viewModel.state)
         .collectAsState(ExploreState.EMPTY)
@@ -34,6 +34,6 @@ fun ExploreScreen(
         onRefresh = viewModel::refresh,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
-        onCategoryClick = onCategoryClick,
+        onTopicClick = onTopicClick,
     )
 }

@@ -50,7 +50,7 @@ class SessionImpl @Inject constructor(
     override suspend fun clear() {
         pref.edit { clear().commit() }
         withContext(slimeDispatchers.io) {
-            db.categoryDao().clearSubscription()
+            db.topicDao().clearSubscription()
         }
     }
 

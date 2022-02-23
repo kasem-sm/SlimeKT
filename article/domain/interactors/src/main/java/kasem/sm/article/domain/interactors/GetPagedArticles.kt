@@ -25,14 +25,14 @@ class GetPagedArticles @Inject constructor(
     private val mapper: ArticleMapper
 ) {
     fun execute(
-        category: String,
+        topic: String,
         query: String,
         page: Int,
         pageSize: Int
     ): Flow<PaginationStage<List<Article>>> {
         return slimeDispatchers.default.pagingStage {
             // Query API and cache Data
-            queryAndCacheData(category, query, page, pageSize)
+            queryAndCacheData(topic, query, page, pageSize)
 
             /**
              * Pagination on our server starts from 0 and when requesting data
@@ -41,17 +41,17 @@ class GetPagedArticles @Inject constructor(
              * paginating data from cache starting
              * from page 1.
              */
-            getFromCache(category, page + 1, pageSize, query)
+            getFromCache(topic, page + 1, pageSize, query)
         }
     }
 
     private suspend fun getFromCache(
-        category: String,
+        topic: String,
         page: Int,
         pageSize: Int,
         query: String
     ): List<Article> = cache.getPagedArticles(
-        category = category,
+        topic = topic,
         page = page,
         pageSize = pageSize,
         query = query
@@ -60,12 +60,12 @@ class GetPagedArticles @Inject constructor(
     }
 
     private suspend fun queryAndCacheData(
-        category: String,
+        topic: String,
         query: String,
         page: Int,
         pageSize: Int,
     ) {
-        val apiResponse = api.getAllArticles(page, pageSize, category, query).getOrThrow()
+        val apiResponse = api.getAllArticles(page, pageSize, topic, query).getOrThrow()
 
         apiResponse?.data?.articles?.cacheData()
 

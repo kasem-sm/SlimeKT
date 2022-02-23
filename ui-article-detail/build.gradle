@@ -12,7 +12,7 @@ dependencies {
 	implementation(project(":article:domain:model"))
 	implementation(project(":article:markdown"))
 
-	implementation(project(":category:common-category-ui"))
+	implementation(project(":topic:common-topic-ui"))
 
 	implementation Coil.core
 }

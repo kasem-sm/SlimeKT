@@ -21,8 +21,8 @@ import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.ui_explore.components.CategoryView
 import kasem.sm.ui_explore.components.ProfileCard
+import kasem.sm.ui_explore.components.TopicView
 
 @Composable
 internal fun ExploreContent(
@@ -30,7 +30,7 @@ internal fun ExploreContent(
     onRefresh: () -> Unit,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
-    onCategoryClick: (title: String, id: String) -> Unit,
+    onTopicClick: (title: String, id: String) -> Unit,
 ) {
     SlimeSwipeRefresh(
         refreshing = state.isLoading,
@@ -55,17 +55,17 @@ internal fun ExploreContent(
                     )
                 }
 
-                if (state.categories.isNotEmpty()) {
+                if (state.topics.isNotEmpty()) {
                     item {
-                        SlimeHeader(text = stringResource(id = R.string.discover_categories_header))
+                        SlimeHeader(text = stringResource(id = R.string.discover_topics_header))
                     }
 
                     item {
                         SlimeFlowRow(
                             mainAxisSpacing = 20.dp, crossAxisSpacing = 15.dp
                         ) {
-                            state.categories.forEach { category ->
-                                CategoryView(category, onCategoryClick)
+                            state.topics.forEach { topic ->
+                                TopicView(topic, onTopicClick)
                             }
                         }
                     }

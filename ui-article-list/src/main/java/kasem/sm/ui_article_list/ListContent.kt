@@ -50,7 +50,7 @@ internal fun ListContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 item {
-                    if (state.category != null) {
+                    if (state.topic != null) {
                         SubscribeView(
                             state = state,
                             updateSubscription = updateSubscription,

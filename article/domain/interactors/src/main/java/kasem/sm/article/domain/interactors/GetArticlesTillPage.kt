@@ -21,7 +21,7 @@ class GetArticlesTillPage @Inject constructor(
         return slimeDispatchers.default.pagingStage {
             cache.getArticlesTillPage(
                 query = params.query,
-                category = params.category,
+                topic = params.topic,
                 page = params.page,
                 pageSize = params.pageSize
             ).map {

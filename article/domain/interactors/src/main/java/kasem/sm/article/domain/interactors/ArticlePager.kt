@@ -36,7 +36,7 @@ class ArticlePager @Inject constructor(
     val loadingStatus = ObservableLoader()
 
     /**
-     * @param category the current category query of the article shown
+     * @param topic the current topic query of the article shown
      * @param query the current search query of the article shown
      * @param page 0 at the time of initialization
      * @param scrollPosition Used to determine if process death has occurred or not
@@ -45,7 +45,7 @@ class ArticlePager @Inject constructor(
      * @param onRestorationComplete lambda gets triggered after articles restoration has completed
      */
     suspend fun initialize(
-        category: String = "",
+        topic: String = "",
         query: String = "",
         page: Int,
         scrollPosition: Int,
@@ -55,7 +55,7 @@ class ArticlePager @Inject constructor(
     ) {
         slimePaginator = SlimePaginator(
             requestForNextPage = { nextPage ->
-                getPagedArticles.execute(category, query, nextPage, PAGE_SIZE)
+                getPagedArticles.execute(topic, query, nextPage, PAGE_SIZE)
             },
             currentStatus = { status ->
                 when (status) {
@@ -76,7 +76,7 @@ class ArticlePager @Inject constructor(
         )
 
         if (scrollPosition != 0) {
-            restore(page, category, query, onRestorationComplete, onError)
+            restore(page, topic, query, onRestorationComplete, onError)
         }
     }
 
@@ -95,13 +95,13 @@ class ArticlePager @Inject constructor(
      */
     private suspend fun restore(
         page: Int,
-        category: String = "",
+        topic: String = "",
         query: String = "",
         onRestorationComplete: suspend () -> Unit,
         onError: suspend (String) -> Unit,
     ) {
         getArticlesTillPage.execute(
-            Param(category, query, page, PAGE_SIZE)
+            Param(topic, query, page, PAGE_SIZE)
         ).onCompletion {
             onRestorationComplete()
         }.collect { stage ->

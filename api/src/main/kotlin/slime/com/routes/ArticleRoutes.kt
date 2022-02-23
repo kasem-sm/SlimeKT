@@ -37,13 +37,13 @@ fun Route.registerArticleRoutes(
     }
 
     get("/api/article/all") {
-        val category = call.parameters["category"] ?: ""
+        val topic = call.parameters["topic"] ?: ""
         val query = call.parameters["query"] ?: ""
         val page = call.parameters["page"]?.toIntOrNull() ?: 0
         val pageSize = call.parameters["pageSize"]?.toIntOrNull() ?: 3
 
         val articlesAndSize = service.getAllArticles(
-            category = category, query = query, page = page, pageSize = pageSize
+            topic = topic, query = query, page = page, pageSize = pageSize
         )
 
         val totalArticlesCount = articlesAndSize.second

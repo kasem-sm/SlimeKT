@@ -10,11 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetLatestArticles
 import kasem.sm.article.domain.interactors.ObserveLatestArticles
-import kasem.sm.category.domain.interactors.GetInExploreCategories
-import kasem.sm.category.domain.interactors.ObserveInExploreCategories
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.topic.domain.interactors.GetInExploreTopics
+import kasem.sm.topic.domain.interactors.ObserveInExploreTopics
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
@@ -28,9 +28,9 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ExploreVM @Inject constructor(
     private val getLatestArticles: GetLatestArticles,
-    private val getInExploreCategories: GetInExploreCategories,
+    private val getInExploreTopics: GetInExploreTopics,
     observeLatestArticles: ObserveLatestArticles,
-    observeInExploreCategories: ObserveInExploreCategories,
+    observeInExploreTopics: ObserveInExploreTopics,
     private val slimeDispatchers: SlimeDispatchers
 ) : ViewModel() {
 
@@ -42,12 +42,12 @@ class ExploreVM @Inject constructor(
     val state: StateFlow<ExploreState> = combine(
         loadingStatus.flow,
         observeLatestArticles.flow,
-        observeInExploreCategories.flow
-    ) { latestArticleLoading, latestArticles, categories ->
+        observeInExploreTopics.flow
+    ) { latestArticleLoading, latestArticles, topics ->
         ExploreState(
             isLoading = latestArticleLoading,
             articles = latestArticles,
-            categories = categories
+            topics = topics
         )
     }.stateIn(viewModelScope, ExploreState.EMPTY)
 
@@ -57,7 +57,7 @@ class ExploreVM @Inject constructor(
             onError = { _uiEvent.emit(showMessage(it)) },
         )
 
-        observeInExploreCategories.join(
+        observeInExploreTopics.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
@@ -73,7 +73,7 @@ class ExploreVM @Inject constructor(
             )
         }
         viewModelScope.launch(slimeDispatchers.main) {
-            getInExploreCategories.execute().collect(
+            getInExploreTopics.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )

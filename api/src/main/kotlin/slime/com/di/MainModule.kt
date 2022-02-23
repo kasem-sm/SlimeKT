@@ -7,10 +7,10 @@ import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.article.ArticleRepositoryImpl
 import slime.com.data.repository.auth.AuthRepository
 import slime.com.data.repository.auth.AuthRepositoryImpl
-import slime.com.data.repository.category.CategoryRepository
-import slime.com.data.repository.category.CategoryRepositoryImpl
-import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepository
-import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepositoryImpl
+import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
+import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepositoryImpl
+import slime.com.data.repository.topic.TopicRepository
+import slime.com.data.repository.topic.TopicRepositoryImpl
 import slime.com.isDebugMode
 import slime.com.service.SubscriptionService
 import slime.com.utils.DATABASE_NAME
@@ -30,10 +30,10 @@ val mainModule = module(createdAtStart = true) {
     single<ArticleRepository> {
         ArticleRepositoryImpl(get(), get())
     }
-    single<CategoryRepository> {
-        CategoryRepositoryImpl(get())
+    single<TopicRepository> {
+        TopicRepositoryImpl(get())
     }
-    single<SubscribeCategoriesRepository> {
-        SubscribeCategoriesRepositoryImpl(get())
+    single<SubscribeTopicsRepository> {
+        SubscribeTopicsRepositoryImpl(get())
     }
 }

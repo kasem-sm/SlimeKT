@@ -23,11 +23,11 @@ dependencies {
 	// Article
 	implementation(project(":article:datasource-impl"))
 
-	implementation(project(":category:worker"))
+	implementation(project(":topic:worker"))
 	implementation(project(":article:worker"))
 
-	// Category
-	implementation(project(":category:datasource-impl"))
+	// Topic
+	implementation(project(":topic:datasource-impl"))
 
 	// Auth
 	implementation(project(":authentication:datasource-impl"))

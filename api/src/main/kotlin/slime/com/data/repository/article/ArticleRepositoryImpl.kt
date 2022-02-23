@@ -6,8 +6,8 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.or
 import org.litote.kmongo.regex
 import slime.com.data.models.Article
-import slime.com.data.models.Category
-import slime.com.data.models.SubscribedCategory
+import slime.com.data.models.SubscribedTopic
+import slime.com.data.models.Topic
 import slime.com.service.SubscriptionService
 
 class ArticleRepositoryImpl(
@@ -17,23 +17,23 @@ class ArticleRepositoryImpl(
 
     private val articleDb = db.getCollection<Article>()
 
-    private val categoryDb = db.getCollection<Category>()
+    private val topicDb = db.getCollection<Topic>()
 
-    private val subscribedCategories = db.getCollection<SubscribedCategory>()
+    private val subscribedTopics = db.getCollection<SubscribedTopic>()
 
-    private suspend fun insertIfNotAlready(category: Category): Boolean {
-        val ifFound = categoryDb.find().toList().find {
-            it.name == category.name
+    private suspend fun insertIfNotAlready(topic: Topic): Boolean {
+        val ifFound = topicDb.find().toList().find {
+            it.name == topic.name
         } != null
         return if (ifFound) {
             false
         } else {
-            categoryDb.insertOne(category).wasAcknowledged()
+            topicDb.insertOne(topic).wasAcknowledged()
         }
     }
 
     override suspend fun createArticle(article: Article): Boolean {
-        insertIfNotAlready(Category(article.category))
+        insertIfNotAlready(Topic(article.topic))
         return articleDb.insertOne(article).wasAcknowledged()
     }
 
@@ -46,13 +46,13 @@ class ArticleRepositoryImpl(
     }
 
     override suspend fun getAllArticles(
-        category: String,
+        topic: String,
         query: String,
         page: Int,
         pageSize: Int
     ): Pair<List<Article>, Int> {
         val articles = when {
-            category.isEmpty() && query.isNotEmpty() -> {
+            topic.isEmpty() && query.isNotEmpty() -> {
                 articleDb.find().filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
@@ -60,22 +60,22 @@ class ArticleRepositoryImpl(
                     )
                 ).skipAndMap(page, pageSize)
             }
-            category.isNotEmpty() && query.isEmpty() -> {
+            topic.isNotEmpty() && query.isEmpty() -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).skipAndMap(page, pageSize)
             }
-            category.isEmpty() -> {
+            topic.isEmpty() -> {
                 articleDb.find().skipAndMap(page, pageSize)
             }
             query.isEmpty() -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).skipAndMap(page, pageSize)
             }
             else -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
@@ -86,7 +86,7 @@ class ArticleRepositoryImpl(
         }
 
         val size = when {
-            category.isEmpty() && query.isNotEmpty() -> {
+            topic.isEmpty() && query.isNotEmpty() -> {
                 articleDb.find().filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
@@ -94,22 +94,22 @@ class ArticleRepositoryImpl(
                     )
                 ).toList().count()
             }
-            category.isNotEmpty() && query.isEmpty() -> {
+            topic.isNotEmpty() && query.isEmpty() -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).toList().count()
             }
-            category.isEmpty() -> {
+            topic.isEmpty() -> {
                 articleDb.find().toList().count()
             }
             query.isEmpty() -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).toList().count()
             }
             else -> {
                 articleDb.find(
-                    or(Article::category eq category)
+                    or(Article::topic eq topic)
                 ).filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
@@ -124,13 +124,13 @@ class ArticleRepositoryImpl(
 
     override suspend fun getRandomArticleFromSubscription(userId: String?): Article? {
         return if (userId != null) {
-            val userSubscribedCategory = subscribedCategories.find(SubscribedCategory::userId eq userId).toList().map {
-                categoryDb.findOneById(it.categoryId) ?: return null
+            val userSubscribedTopic = subscribedTopics.find(SubscribedTopic::userId eq userId).toList().map {
+                topicDb.findOneById(it.topicId) ?: return null
             }
 
-            val randomCategory = userSubscribedCategory.random()
+            val randomTopic = userSubscribedTopic.random()
             articleDb.find(
-                or(Article::category eq randomCategory.name)
+                or(Article::topic eq randomTopic.name)
             ).toList().randomOrNull()
         } else {
             articleDb.find().toList().randomOrNull()
@@ -139,11 +139,11 @@ class ArticleRepositoryImpl(
 
     override suspend fun getRecommendedArticles(userId: String?, page: Int, pageSize: Int): List<Article> {
         return if (userId != null) {
-            val categoriesInExplore = subscriptionService.getCategoriesNotSubscribed(userId).random()
-            articleDb.find(Article::category eq categoriesInExplore.name).skipAndMap(0, 4)
+            val topicsInExplore = subscriptionService.getTopicsNotSubscribed(userId).random()
+            articleDb.find(Article::topic eq topicsInExplore.name).skipAndMap(0, 4)
         } else {
-            val randomCategory = categoryDb.find().toList().random()
-            articleDb.find(Article::category eq randomCategory.name).skipAndMap(0, 4)
+            val randomTopic = topicDb.find().toList().random()
+            articleDb.find(Article::topic eq randomTopic.name).skipAndMap(0, 4)
         }
     }
 
@@ -156,7 +156,7 @@ class ArticleRepositoryImpl(
                 featuredImage = it.featuredImage,
                 author = it.author,
                 timestamp = it.timestamp,
-                category = it.category
+                topic = it.topic
             )
         }
     }

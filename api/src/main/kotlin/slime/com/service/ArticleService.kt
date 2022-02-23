@@ -14,12 +14,12 @@ class ArticleService(
     suspend fun getRandomArticleFromUsersSubscription(userId: String? = null): Article? = articleRepository.getRandomArticleFromSubscription(userId)
 
     suspend fun getAllArticles(
-        category: String = "",
+        topic: String = "",
         query: String = "",
         page: Int = 0,
         pageSize: Int = 10
     ): Pair<List<Article>, Int> {
-        return articleRepository.getAllArticles(category, query, page, pageSize)
+        return articleRepository.getAllArticles(topic, query, page, pageSize)
     }
 
     suspend fun getArticleById(articleId: Int) = articleRepository.getArticleById(articleId)
