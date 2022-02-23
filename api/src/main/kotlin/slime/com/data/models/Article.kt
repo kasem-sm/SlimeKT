@@ -10,7 +10,7 @@ data class Article(
     val description: String,
     val featuredImage: String,
     val author: String,
-    val category: String,
+    val topic: String,
     val timestamp: Long = System.currentTimeMillis(),
     @BsonId
     val id: Int = ObjectId().timestamp,

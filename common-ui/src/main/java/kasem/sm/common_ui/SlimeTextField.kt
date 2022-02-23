@@ -38,7 +38,11 @@ fun SlimeTextField(
         enabled = enabled,
         singleLine = true,
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        textStyle = TextStyle(fontFamily = LocalSlimeFont.current.medium, fontSize = 14.sp),
+        textStyle = TextStyle(
+            fontFamily = LocalSlimeFont.current.semiBold,
+            fontSize = 14.sp,
+            letterSpacing = 1.sp
+        ),
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,

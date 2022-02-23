@@ -11,7 +11,7 @@ object FakeData {
         get() = ArticleEntity(
             id = -1, title = "title",
             description = "description",
-            category = "category",
+            topic = "topic",
             featuredImage = "featured_img",
             author = "author",
             timestamp = 1L, isShownInDailyRead = false, isActiveInDailyRead = true

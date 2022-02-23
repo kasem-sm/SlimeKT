@@ -7,13 +7,13 @@ import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.auth.AuthRepository
-import slime.com.data.repository.category.CategoryRepository
-import slime.com.data.repository.subscribed_category.SubscribeCategoriesRepository
+import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
+import slime.com.data.repository.topic.TopicRepository
 import slime.com.isDebugMode
 import slime.com.routes.registerArticleRoutes
 import slime.com.routes.registerAuthenticationRoutes
-import slime.com.routes.registerCategoryRoutes
-import slime.com.routes.registerSubscribeCategoriesRoute
+import slime.com.routes.registerSubscribeTopicsRoute
+import slime.com.routes.registerTopicRoutes
 import slime.com.service.ArticleService
 import slime.com.service.SubscriptionService
 import slime.com.service.UserService
@@ -21,8 +21,8 @@ import slime.com.service.UserService
 fun Application.configureRouting() {
     val authRepository by inject<AuthRepository>()
     val articleRepository by inject<ArticleRepository>()
-    val categoryRepository by inject<CategoryRepository>()
-    val subscribersRepository by inject<SubscribeCategoriesRepository>()
+    val topicRepository by inject<TopicRepository>()
+    val subscribersRepository by inject<SubscribeTopicsRepository>()
 
     val jwtAudience = if (isDebugMode) "jwt_aud" else System.getenv("JWT_AUD")
     val jwtDomain = if (isDebugMode) "jwt_dom" else System.getenv("JWT_DO")
@@ -37,14 +37,14 @@ fun Application.configureRouting() {
 
     val articleService = ArticleService(articleRepository)
     val subscriptionService = SubscriptionService(
-        subscribersRepository, categoryRepository
+        subscribersRepository, topicRepository
     )
 
     routing {
         registerAuthenticationRoutes(userService)
         registerArticleRoutes(articleService)
-        registerCategoryRoutes(categoryRepository, subscriptionService)
-        registerSubscribeCategoriesRoute(subscriptionService, userService, categoryRepository)
+        registerTopicRoutes(topicRepository, subscriptionService)
+        registerSubscribeTopicsRoute(subscriptionService, userService, topicRepository)
 
         static {
             resources("static")

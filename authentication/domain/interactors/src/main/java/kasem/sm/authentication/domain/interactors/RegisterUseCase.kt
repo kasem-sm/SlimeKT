@@ -6,7 +6,6 @@ package kasem.sm.authentication.domain.interactors
 
 import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
-import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.authentication.domain.model.InvalidCredentialsException
@@ -30,10 +29,8 @@ class RegisterUseCase @Inject constructor(
         }
 
         val apiResponse = api.registerUser(
-            request = AuthRequest(
-                username = credentials.username,
-                password = credentials.password,
-            ),
+            username = credentials.username,
+            password = credentials.password,
             isUserDiscoverable = if (credentials.isAccountDiscoverable) "1" else "0"
         ).getOrElse {
             emit(AuthResult.Exception(ServerException(it.toMessage)))

@@ -13,7 +13,7 @@ interface ArticleApiService {
     suspend fun getAllArticles(
         page: Int,
         pageSize: Int,
-        category: String = "",
+        topic: String = "",
         query: String = "",
     ): Result<SlimeResponse<ArticleResponse>?>
 

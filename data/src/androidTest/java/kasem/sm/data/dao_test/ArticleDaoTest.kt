@@ -111,35 +111,35 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun testGetPagedArticleByCategory() = runTest {
+    fun testGetPagedArticleByTopic() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third"
+                topic = "third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second"
+                topic = "second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third"
+                topic = "third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first"
+                topic = "first"
             )
         )
 
@@ -147,8 +147,8 @@ class ArticleDaoTest {
 
         val pageSize = 3
 
-        val getPagedArticle = articleDao.getCategoryPagedArticles(
-            category = "first",
+        val getPagedArticle = articleDao.getTopicPagedArticles(
+            topic = "first",
             page = 0,
             pageSize = pageSize
         )
@@ -163,31 +163,31 @@ class ArticleDaoTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third"
+                topic = "third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second"
+                topic = "second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third"
+                topic = "third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first"
+                topic = "first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first"
+                topic = "first"
             )
         )
 
@@ -211,42 +211,42 @@ class ArticleDaoTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             )
         )
@@ -265,46 +265,46 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun testGetQueriedPagedArticleFromSingleCategory1() = runTest {
+    fun testGetQueriedPagedArticleFromSingleTopic1() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             )
         )
@@ -312,58 +312,58 @@ class ArticleDaoTest {
         articleDao.insert(articles)
 
         val getQueriedPagedArticle = articleDao.getQueriedPagedArticles(
-            category = "first",
+            topic = "first",
             query = "third",
             page = 0,
             pageSize = 10
         )
 
         // No article has any of the parameter containing "third"
-        // where the article's category is "first"
+        // where the article's topic is "first"
         assertThat(getQueriedPagedArticle.size).isEqualTo(0)
     }
 
     @Test
-    fun testGetQueriedPagedArticleFromSingleCategory2() = runTest {
+    fun testGetQueriedPagedArticleFromSingleTopic2() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             )
         )
@@ -371,13 +371,13 @@ class ArticleDaoTest {
         articleDao.insert(articles)
 
         val getQueriedPagedArticle = articleDao.getQueriedPagedArticles(
-            category = "first",
+            topic = "first",
             query = "1st",
             page = 0,
             pageSize = 10
         )
 
-        // Articles with category "first" has a total
+        // Articles with topic "first" has a total
         // and title containing "1st" is of size 2
         assertThat(getQueriedPagedArticle.size).isEqualTo(2)
     }
@@ -391,51 +391,51 @@ class ArticleDaoTest {
      * (as we will retrieve all articles till page 3, so 3 (page number) x 3 (page size) = 9)
      */
     @Test
-    fun testGetArticlesTillPageProvidedCategoryAndSearchQueryIsEmpty() = runTest {
+    fun testGetArticlesTillPageProvidedTopicAndSearchQueryIsEmpty() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 8,
-                category = "first",
+                topic = "first",
                 title = "at first"
             )
         )
@@ -452,64 +452,64 @@ class ArticleDaoTest {
 
     /**
      * Assuming that process death happens after user has
-     * filtered the list to show articles only from "second" category,
+     * filtered the list to show articles only from "second" topic,
      * so we will be restoring articles till the retrieved page number from savedState
-     * where the category should be "second" (retrieved from savedState as well)
+     * where the topic should be "second" (retrieved from savedState as well)
      */
     @Test
-    fun testGetArticlesTillPageProvidedCategoryIsNotEmptyAndSearchQueryIs() = runTest {
+    fun testGetArticlesTillPageProvidedTopicIsNotEmptyAndSearchQueryIs() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 8,
-                category = "first",
+                topic = "first",
                 title = "at first"
             )
         )
 
         articleDao.insert(articles)
 
-        val getArticlesTillPage = articleDao.getCategoryArticlesTillPage(
-            category = "second",
+        val getArticlesTillPage = articleDao.getTopicArticlesTillPage(
+            topic = "second",
             1,
             3
         )
@@ -520,57 +520,57 @@ class ArticleDaoTest {
     /**
      * Assuming that process death happens after the search field
      * contains query "1st" and user has filtered the list to show articles
-     * only from "first" category, so we will be restoring
+     * only from "first" topic, so we will be restoring
      * articles till the retrieved page number from savedState
-     * where the category should be "first" and the search query should be "1st"
+     * where the topic should be "first" and the search query should be "1st"
      * (retrieved from savedState as well)
      */
     @Test
-    fun testGetArticlesTillPageProvidedCategoryAndSearchQueryIsNotEmpty() = runTest {
+    fun testGetArticlesTillPageProvidedTopicAndSearchQueryIsNotEmpty() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 8,
-                category = "first",
+                topic = "first",
                 title = "at first"
             )
         )
@@ -578,7 +578,7 @@ class ArticleDaoTest {
         articleDao.insert(articles)
 
         val getArticlesTillPage = articleDao.getQueriedArticlesTillPage(
-            category = "first",
+            topic = "first",
             query = "1st",
             1,
             3
@@ -595,51 +595,51 @@ class ArticleDaoTest {
      * (retrieved from savedState as well)
      */
     @Test
-    fun testGetArticlesTillPageProvidedCategoryIsEmptyAndSearchQueryIsNot() = runTest {
+    fun testGetArticlesTillPageProvidedTopicIsEmptyAndSearchQueryIsNot() = runTest {
         val articles = listOf(
             sampleEntity.copy(
                 id = 0,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 1,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 2,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 3,
-                category = "second",
+                topic = "second",
                 title = "at second"
             ),
             sampleEntity.copy(
                 id = 4,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 5,
-                category = "first",
+                topic = "first",
                 title = "at first"
             ),
             sampleEntity.copy(
                 id = 6,
-                category = "first",
+                topic = "first",
                 title = "at 1st"
             ),
             sampleEntity.copy(
                 id = 7,
-                category = "third",
+                topic = "third",
                 title = "at third"
             ),
             sampleEntity.copy(
                 id = 8,
-                category = "first",
+                topic = "first",
                 title = "at first"
             )
         )

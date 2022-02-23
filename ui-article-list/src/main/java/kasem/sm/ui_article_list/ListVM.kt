@@ -10,8 +10,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
-import kasem.sm.category.domain.interactors.GetCategoryById
-import kasem.sm.category.domain.interactors.ObserveCategoryById
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
@@ -20,6 +18,8 @@ import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.interfaces.Session
 import kasem.sm.core.interfaces.Tasks
+import kasem.sm.topic.domain.interactors.GetTopicById
+import kasem.sm.topic.domain.interactors.ObserveTopicById
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
@@ -35,17 +35,17 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ListVM @Inject constructor(
     private val pager: ArticlePager,
-    private val getCategory: GetCategoryById,
+    private val getTopic: GetTopicById,
     private val savedStateHandle: SavedStateHandle,
     private val slimeDispatchers: SlimeDispatchers,
     private val session: Session,
     private val tasks: Tasks,
-    private val observeCategory: ObserveCategoryById,
+    private val observeTopic: ObserveTopicById,
 ) : ViewModel() {
 
-    private val categoryId = savedStateHandle.get<String>(CATEGORY_ID_KEY)!!
+    private val topicId = savedStateHandle.get<String>(TOPIC_ID_KEY)!!
 
-    private val categoryQuery = savedStateHandle.get<String>(CATEGORY_QUERY_KEY)!!
+    private val topicQuery = savedStateHandle.get<String>(TOPIC_QUERY_KEY)!!
 
     private val scrollPosition = SavedMutableState(
         savedStateHandle,
@@ -67,7 +67,7 @@ class ListVM @Inject constructor(
 
     private val isSubscriptionInProgress = ObservableLoader()
 
-    private val categoryLoadingStatus = ObservableLoader()
+    private val topicLoadingStatus = ObservableLoader()
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -75,20 +75,20 @@ class ListVM @Inject constructor(
     val state: StateFlow<ListState> = combineFlows(
         currentPage.flow,
         pager.loadingStatus.flow,
-        categoryLoadingStatus.flow,
+        topicLoadingStatus.flow,
         pager.endOfPagination,
         pager.articles,
-        observeCategory.flow,
+        observeTopic.flow,
         isSubscriptionInProgress.flow,
         isUserAuthenticated.flow
-    ) { currentPage, paginationLoadStatus, categoryLoadStatus, endOfPagination,
-        articles, category, isSubscriptionInProgress, isUserAuthenticated ->
+    ) { currentPage, paginationLoadStatus, topicLoadStatus, endOfPagination,
+        articles, topic, isSubscriptionInProgress, isUserAuthenticated ->
         ListState(
             currentPage = currentPage,
-            isLoading = paginationLoadStatus || categoryLoadStatus,
+            isLoading = paginationLoadStatus || topicLoadStatus,
             endOfPagination = endOfPagination,
             articles = articles,
-            category = category,
+            topic = topic,
             isSubscriptionInProgress = isSubscriptionInProgress,
             isUserAuthenticated = isUserAuthenticated
         )
@@ -99,9 +99,9 @@ class ListVM @Inject constructor(
 
         initializePager()
 
-        observeCategory()
+        observeTopic()
 
-        getCategory()
+        getTopic()
     }
 
     private fun observeAuthenticationState() {
@@ -113,11 +113,11 @@ class ListVM @Inject constructor(
     }
 
     private fun initializePager(
-        categoryQuery: String = this.categoryQuery,
+        topicQuery: String = this.topicQuery,
     ) {
         viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(
-                category = categoryQuery,
+                topic = topicQuery,
                 page = currentPage.value,
                 saveLoadedPage = { currentPage.value = it },
                 onError = { _uiEvent.emit(showMessage(it)) },
@@ -156,21 +156,21 @@ class ListVM @Inject constructor(
         }
 
         // Refresh
-        getCategory()
+        getTopic()
     }
 
-    private fun observeCategory() {
-        observeCategory.join(
-            params = categoryId,
+    private fun observeTopic() {
+        observeTopic.join(
+            params = topicId,
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
     }
 
-    private fun getCategory() {
+    private fun getTopic() {
         viewModelScope.launch(slimeDispatchers.main) {
-            getCategory.execute(categoryId).collect(
-                loader = categoryLoadingStatus,
+            getTopic.execute(topicId).collect(
+                loader = topicLoadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
@@ -182,7 +182,7 @@ class ListVM @Inject constructor(
         isSubscriptionInProgress.invoke(Loader.START)
         viewModelScope.launch(slimeDispatchers.main) {
             tasks.updateSubscriptionStatus(
-                ids = listOf(categoryId)
+                ids = listOf(topicId)
             ).collect(
                 loader = isSubscriptionInProgress,
                 onError = { _uiEvent.emit(showMessage(it)) },
@@ -207,7 +207,7 @@ class ListVM @Inject constructor(
     companion object {
         const val LIST_POSITION_KEY = "slime_list_position"
         const val PAGE_KEY = "slime_page"
-        const val CATEGORY_QUERY_KEY = "slime_category"
-        const val CATEGORY_ID_KEY = "slime_category_id"
+        const val TOPIC_QUERY_KEY = "slime_topic"
+        const val TOPIC_ID_KEY = "slime_topic_id"
     }
 }

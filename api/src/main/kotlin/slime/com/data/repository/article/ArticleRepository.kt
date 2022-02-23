@@ -7,7 +7,7 @@ interface ArticleRepository {
     suspend fun deleteArticle(articleId: Int): Boolean
     suspend fun getArticleById(articleId: Int): Article?
     suspend fun getAllArticles(
-        category: String = "",
+        topic: String = "",
         query: String,
         page: Int = 0,
         pageSize: Int = 10

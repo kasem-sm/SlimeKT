@@ -1,0 +1,15 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/ui.gradle")
+}
+
+dependencies {
+	implementation(project(":topic:common-topic-ui"))
+	// Topic
+	implementation(project(":topic:domain:interactors"))
+	implementation(project(":topic:domain:model"))
+	implementation(project(":topic:worker"))
+}

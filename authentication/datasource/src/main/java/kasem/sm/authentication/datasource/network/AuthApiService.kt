@@ -4,7 +4,6 @@
  */
 package kasem.sm.authentication.datasource.network
 
-import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
 
@@ -16,7 +15,8 @@ interface AuthApiService {
      */
 
     suspend fun loginUser(
-        request: AuthRequest
+        username: String,
+        password: String,
     ): Result<SlimeResponse<AuthResponse>>
 
     /**
@@ -24,7 +24,8 @@ interface AuthApiService {
      * @return [AuthResponse] wrapped in of [SlimeResponse]
      */
     suspend fun registerUser(
-        request: AuthRequest,
+        username: String,
+        password: String,
         isUserDiscoverable: String
     ): Result<SlimeResponse<AuthResponse>>
 }

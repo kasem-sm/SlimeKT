@@ -11,11 +11,11 @@ dependencies {
 	// Article
 	implementation(project(":article:domain:interactors"))
 	implementation(project(":article:domain:model"))
-	implementation(project(":category:common-category-ui"))
+	implementation(project(":topic:common-topic-ui"))
 
-	// Category
-	implementation(project(":category:domain:interactors"))
-	implementation(project(":category:domain:model"))
+	// Topic
+	implementation(project(":topic:domain:interactors"))
+	implementation(project(":topic:domain:model"))
 
 	implementation Coil.core
 }

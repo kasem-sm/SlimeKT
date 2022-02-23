@@ -26,18 +26,17 @@ import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
-fun UsernameField(
+internal fun UsernameField(
     modifier: Modifier = Modifier,
-    text: String,
+    state: AuthState,
     onUsernameChanged: (String) -> Unit,
     onNextClicked: KeyboardActionScope.() -> Unit,
-    enabled: Boolean = true,
 ) {
     SlimeTextField(
         modifier = modifier,
-        input = text,
+        input = state.username,
         onTextChange = onUsernameChanged,
-        enabled = enabled,
+        enabled = !state.isLoading,
         leadingIconContent = {
             Icon(
                 imageVector = Icons.Default.AccountCircle,

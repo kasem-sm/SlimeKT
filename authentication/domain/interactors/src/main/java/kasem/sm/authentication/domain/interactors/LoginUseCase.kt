@@ -6,7 +6,6 @@ package kasem.sm.authentication.domain.interactors
 
 import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
-import kasem.sm.authentication.datasource.network.request.AuthRequest
 import kasem.sm.authentication.domain.model.ApiResponseConstants.LOGIN_FAILED_INVALID_CREDENTIALS
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
@@ -36,10 +35,8 @@ class LoginUseCase @Inject constructor(
         }
 
         val apiResponse = api.loginUser(
-            AuthRequest(
-                username = credentials.username,
-                password = credentials.password
-            )
+            username = credentials.username,
+            password = credentials.password
         ).getOrElse {
             emit(AuthResult.Exception(ServerException(it.toMessage)))
             return@flow

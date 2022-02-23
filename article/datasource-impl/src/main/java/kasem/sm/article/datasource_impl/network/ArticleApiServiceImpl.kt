@@ -20,12 +20,12 @@ internal class ArticleApiServiceImpl @Inject constructor(
     override suspend fun getAllArticles(
         page: Int,
         pageSize: Int,
-        category: String,
+        topic: String,
         query: String,
     ): Result<SlimeResponse<ArticleResponse>?> {
         return withResult {
             client.get(GET_ALL_ARTICLE_ROUTE) {
-                parameter("category", category)
+                parameter("topic", topic)
                 parameter("query", query)
                 parameter("page", page)
                 parameter("pageSize", pageSize)

@@ -6,13 +6,13 @@ package kasem.sm.ui_explore
 
 import androidx.compose.runtime.Immutable
 import kasem.sm.article.domain.model.Article
-import kasem.sm.category.domain.model.Category
+import kasem.sm.topic.domain.model.Topic
 
 @Immutable
 data class ExploreState(
     val isLoading: Boolean = true,
     val articles: List<Article> = emptyList(),
-    val categories: List<Category> = emptyList()
+    val topics: List<Topic> = emptyList()
 ) {
 
     companion object {

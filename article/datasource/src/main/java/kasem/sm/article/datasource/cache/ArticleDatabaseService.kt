@@ -21,14 +21,14 @@ interface ArticleDatabaseService {
     suspend fun getPagedArticles(
         page: Int,
         pageSize: Int,
-        category: String = "",
+        topic: String = "",
         query: String = "",
     ): List<ArticleEntity>
 
     suspend fun getArticlesTillPage(
         page: Int,
         pageSize: Int,
-        category: String = "",
+        topic: String = "",
         query: String = "",
     ): List<ArticleEntity>
 

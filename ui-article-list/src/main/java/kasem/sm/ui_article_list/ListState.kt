@@ -6,7 +6,7 @@ package kasem.sm.ui_article_list
 
 import androidx.compose.runtime.Immutable
 import kasem.sm.article.domain.model.Article
-import kasem.sm.category.domain.model.Category
+import kasem.sm.topic.domain.model.Topic
 
 @Immutable
 data class ListState(
@@ -15,11 +15,11 @@ data class ListState(
     val currentPage: Int = 0,
     val endOfPagination: Boolean = false,
     val articles: List<Article> = emptyList(),
-    val category: Category? = null,
+    val topic: Topic? = null,
     val isUserAuthenticated: Boolean = false
 ) {
     companion object {
         val EMPTY = ListState()
-        const val DEFAULT_CATEGORY_QUERY = ""
+        const val DEFAULT_TOPIC_QUERY = ""
     }
 }

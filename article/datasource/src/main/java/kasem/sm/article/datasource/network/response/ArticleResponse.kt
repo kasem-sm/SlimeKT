@@ -44,8 +44,8 @@ data class ArticleDto(
     val timestamp: Long,
     @SerialName("author")
     val author: String,
-    @SerialName("category")
-    val category: String
+    @SerialName("topic")
+    val topic: String
 ) {
     fun toEntity(pair: Pair<DailyReadStatus, IsActiveInDailyRead>): ArticleEntity {
         return ArticleEntity(
@@ -57,7 +57,7 @@ data class ArticleDto(
             timestamp = timestamp,
             isShownInDailyRead = pair.first.isShown,
             isActiveInDailyRead = pair.second.isActive,
-            category = category
+            topic = topic
         )
     }
 }

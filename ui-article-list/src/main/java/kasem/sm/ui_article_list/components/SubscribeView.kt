@@ -22,13 +22,13 @@ internal fun SubscribeView(
 ) {
     val haptic = LocalHapticFeedback.current
     val hasUserSubscribed = remember {
-        mutableStateOf(state.category?.hasUserSubscribed ?: false)
+        mutableStateOf(state.topic?.hasUserSubscribed ?: false)
     }
 
-    state.category?.let { category ->
+    state.topic?.let { topic ->
         SubscribeButtonAndHeader(
             modifier = modifier,
-            category = category,
+            topic = topic,
             onClick = {
                 if (isUserAuthenticated) {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)

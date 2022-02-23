@@ -7,17 +7,17 @@ package com.slime.ui_home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.slime.ui_home.HomeState.Companion.DEFAULT_CATEGORY_QUERY
 import com.slime.ui_home.HomeState.Companion.DEFAULT_SEARCH_QUERY
+import com.slime.ui_home.HomeState.Companion.DEFAULT_TOPIC_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.article.domain.interactors.ObserveDailyReadArticle
-import kasem.sm.category.domain.interactors.GetSubscribedCategories
-import kasem.sm.category.domain.interactors.ObserveSubscribedCategories
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.topic.domain.interactors.GetSubscribedTopics
+import kasem.sm.topic.domain.interactors.ObserveSubscribedTopics
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
@@ -33,18 +33,18 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeVM @Inject constructor(
-    private val getSubscribedCategories: GetSubscribedCategories,
+    private val getSubscribedTopics: GetSubscribedTopics,
     private val pager: ArticlePager,
     private val savedStateHandle: SavedStateHandle,
     private val slimeDispatchers: SlimeDispatchers,
     private val observeDailyReadArticle: ObserveDailyReadArticle,
-    private val observeSubscribedCategories: ObserveSubscribedCategories,
+    private val observeSubscribedTopics: ObserveSubscribedTopics,
 ) : ViewModel() {
 
-    private val categoryQuery = SavedMutableState(
+    private val topicQuery = SavedMutableState(
         savedStateHandle,
-        CATEGORY_QUERY_KEY,
-        defValue = DEFAULT_CATEGORY_QUERY
+        TOPIC_QUERY_KEY,
+        defValue = DEFAULT_TOPIC_QUERY
     )
 
     private val searchQuery = SavedMutableState(
@@ -63,24 +63,24 @@ class HomeVM @Inject constructor(
     private var job: Job? = null
 
     val state = combineFlows(
-        categoryQuery.flow,
+        topicQuery.flow,
         searchQuery.flow,
         currentPage.flow,
         loadingStatus.flow,
-        observeSubscribedCategories.flow,
+        observeSubscribedTopics.flow,
         observeDailyReadArticle.flow,
         pager.loadingStatus.flow,
         pager.endOfPagination,
         pager.articles,
-    ) { currentCategory, currentQuery, currentPage, isLoading, categories, dailyReadArticle,
+    ) { currentTopic, currentQuery, currentPage, isLoading, topics, dailyReadArticle,
         pagingLoadingState, endOfPagination, articles ->
         HomeState(
-            currentCategory = currentCategory,
+            currentTopic = currentTopic,
             currentQuery = currentQuery,
             currentPage = currentPage,
             paginationLoadStatus = pagingLoadingState,
             isLoading = isLoading,
-            categories = categories,
+            topics = topics,
             dailyReadArticle = dailyReadArticle,
             endOfPagination = endOfPagination,
             articles = articles,
@@ -92,18 +92,18 @@ class HomeVM @Inject constructor(
 
         observeData()
 
-        getSubscribedCategories()
+        getSubscribedTopics()
     }
 
     private fun initializePager(
-        categoryQuery: String = this.categoryQuery.value,
+        topicQuery: String = this.topicQuery.value,
         searchQuery: String = this.searchQuery.value,
         forceRefresh: Boolean = false
     ) {
         job?.cancel()
         job = viewModelScope.launch(slimeDispatchers.main) {
             pager.initialize(
-                category = categoryQuery,
+                topic = topicQuery,
                 query = searchQuery,
                 page = currentPage.value,
                 saveLoadedPage = { currentPage.value = it },
@@ -141,7 +141,7 @@ class HomeVM @Inject constructor(
                 }
         }
 
-        observeSubscribedCategories.join(
+        observeSubscribedTopics.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
@@ -159,12 +159,12 @@ class HomeVM @Inject constructor(
         }
 
         // Refresh
-        getSubscribedCategories()
+        getSubscribedTopics()
     }
 
-    private fun getSubscribedCategories() {
+    private fun getSubscribedTopics() {
         viewModelScope.launch(slimeDispatchers.main) {
-            getSubscribedCategories.execute().collect(
+            getSubscribedTopics.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
@@ -181,12 +181,12 @@ class HomeVM @Inject constructor(
         )
     }
 
-    fun onCategoryChange(newValue: String) {
+    fun onTopicChange(newValue: String) {
         job?.cancel()
-        categoryQuery.value = newValue
-        // Reinitialize and refresh pager with updated category query
+        topicQuery.value = newValue
+        // Reinitialize and refresh pager with updated topic query
         initializePager(
-            categoryQuery = newValue,
+            topicQuery = newValue,
             forceRefresh = true
         )
     }
@@ -210,6 +210,6 @@ class HomeVM @Inject constructor(
         const val LIST_POSITION_KEY = "slime_list_position"
         const val PAGE_KEY = "slime_page"
         const val QUERY_KEY = "slime_query"
-        const val CATEGORY_QUERY_KEY = "slime_category"
+        const val TOPIC_QUERY_KEY = "slime_topic"
     }
 }

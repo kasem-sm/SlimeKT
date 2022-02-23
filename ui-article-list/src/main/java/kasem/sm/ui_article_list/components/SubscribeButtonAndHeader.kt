@@ -15,22 +15,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.category.domain.model.Category
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.VerticalSpacer
+import kasem.sm.topic.domain.model.Topic
 import kasem.sm.ui_article_list.R
 
 @Composable
 internal fun SubscribeButtonAndHeader(
     modifier: Modifier = Modifier,
-    category: Category,
+    topic: Topic,
     onClick: () -> Unit,
     isSubscriptionButtonActive: Boolean,
     isSubscriptionInProgress: Boolean,
 ) {
     Column(modifier) {
         Text(
-            text = category.title,
+            text = topic.title,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .fillMaxWidth(),
@@ -58,7 +58,7 @@ internal fun SubscribeButtonAndHeader(
             )
 
             Text(
-                text = "• ${category.totalSubscribers} Users",
+                text = "• ${topic.totalSubscribers} Users",
                 fontFamily = LocalSlimeFont.current.secondaryMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 15.sp

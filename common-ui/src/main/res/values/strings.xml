@@ -2,7 +2,7 @@
 <resources>
     <string name="common_success_msg">Successful</string>
     <string name="common_error_msg">Something went wrong, Please try again later!</string>
-    <string name="subscribe_category_min_sel">Please subscribe to at least 3 topics</string>
+    <string name="subscribe_topic_min_sel">Please subscribe to at least 3 topics</string>
     <string name="err_empty_username">Please enter your username</string>
     <string name="err_empty_password">Please enter your password</string>
     <string name="err_both_fields_empty">Please enter your username and password</string>
@@ -10,19 +10,18 @@
     <string name="password">Password</string>
     <string name="login_dont_have_account">Don\'t have an account? </string>
     <string name="username">Username</string>
-    <string name="welcome_back">Welcome Back</string>
     <string name="publish_your_passion">Publish Your Passion</string>
     <string name="get_started">Get Started</string>
-    <string name="auth_usr_msg">Discoverable to other users in explore section</string>
+    <string name="auth_usr_msg">Discoverable to other users in explore</string>
     <string name="confirm_reg">Confirm Registration</string>
     <string name="recommend_article_header">Recommended Articles</string>
-    <string name="discover_categories_header">Discover Categories</string>
+    <string name="discover_topics_header">Discover Topics</string>
     <string name="find_authors_header">Find Authors</string>
-    <string name="subscribe_to_category_header">Select some of your favourite topics to let us suggest better articles for you.</string>
+    <string name="subscribe_to_topic_header">Select some of your favourite topics to let us suggest better articles for you.</string>
     <string name="article_search_txt_1">Search with article\'s title</string>
     <string name="article_search_txt_2">Search with author\'s name</string>
     <string name="daily_read_header">Daily Read</string>
-    <string name="subscribe_category_header">Select your favourite topics</string>
-    <string name="subscribe_category_header_desc">Select some of your favourite topics to let us suggest better articles for you</string>
-    <string name="subscribe_category_max_sel">You can only select 5 topics for recommendation</string>
+    <string name="subscribe_topic_header">Select your favourite topics</string>
+    <string name="subscribe_topic_header_desc">Select some of your favourite topics to let us suggest better articles for you</string>
+    <string name="subscribe_topic_max_sel">You can only select 5 topics for recommendation</string>
 </resources>

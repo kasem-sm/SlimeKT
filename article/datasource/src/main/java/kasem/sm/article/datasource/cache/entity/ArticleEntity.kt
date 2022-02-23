@@ -14,7 +14,7 @@ data class ArticleEntity(
     val id: Int,
     val title: String,
     val description: String,
-    val category: String,
+    val topic: String,
     @ColumnInfo(name = "featured_image")
     val featuredImage: String,
     val author: String,

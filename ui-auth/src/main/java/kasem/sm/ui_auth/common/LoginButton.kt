@@ -13,15 +13,14 @@ import kasem.sm.common_ui.SlimePrimaryButton
 @Composable
 internal fun LoginButton(
     modifier: Modifier = Modifier,
-    enabled: Boolean,
-    isLoading: Boolean,
+    state: AuthState,
     onContinueClicked: () -> Unit,
 ) {
     SlimePrimaryButton(
-        isLoading = isLoading,
+        isLoading = state.isLoading,
         onClick = onContinueClicked,
-        enabled = enabled,
-        text = stringResource(id = string.login_dont_have_account),
+        enabled = !state.isLoading,
+        text = stringResource(id = string.continue_btn),
         modifier = modifier
     )
 }

@@ -20,16 +20,16 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import kasem.sm.article.datasource_impl.inject.ArticleModule
 import kasem.sm.authentication.datasource_impl.inject.AuthModule
-import kasem.sm.category.datasource_impl.inject.CategoryModule
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.data.db.SlimeDatabase
+import kasem.sm.topic.datasource_impl.inject.TopicModule
 import kotlinx.coroutines.Dispatchers
 
 @Module(
     includes = [
         AuthModule::class,
         ArticleModule::class,
-        CategoryModule::class
+        TopicModule::class
     ]
 )
 @InstallIn(SingletonComponent::class)
@@ -41,7 +41,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    internal fun provideCategoryDao(db: SlimeDatabase) = db.categoryDao()
+    internal fun provideTopicDao(db: SlimeDatabase) = db.topicDao()
 
     @Provides
     @Singleton

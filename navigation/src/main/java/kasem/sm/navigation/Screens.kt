@@ -22,7 +22,7 @@ import kasem.sm.ui_auth.register.RegisterScreen
 import kasem.sm.ui_detail.DetailScreen
 import kasem.sm.ui_explore.ExploreScreen
 import kasem.sm.ui_profile.ProfileScreen
-import kasem.sm.ui_subscribe_category.SubscribeCategoryScreen
+import kasem.sm.ui_subscribe_topic.SubscribeTopicScreen
 
 internal fun NavGraphBuilder.attachRegistrationScreen(
     snackbarHostState: SnackbarHostState,
@@ -50,7 +50,6 @@ internal fun NavGraphBuilder.attachLoginScreen(
                 navController.popBackStack()
             },
             onSignUpClicked = {
-                navController.popBackStack()
                 navController.navigate(Routes.RegisterScreen.route)
             },
             snackbarHostState = snackbarHostState
@@ -91,7 +90,7 @@ internal fun NavGraphBuilder.attachExploreScreen(
             onArticleClick = { id ->
                 navController.navigate(Routes.articleDetailLink(id))
             },
-            onCategoryClick = { title, id ->
+            onTopicClick = { title, id ->
                 navController.navigate(Routes.ListScreen(title, id).route)
             }
         )
@@ -138,8 +137,8 @@ internal fun NavGraphBuilder.attachSelectTopicsScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
-    composable(Routes.SubscribeCategoryScreen.route) {
-        SubscribeCategoryScreen(
+    composable(Routes.SubscribeTopicScreen.route) {
+        SubscribeTopicScreen(
             viewModel = hiltViewModel(),
             snackbarHostState = snackbarHostState,
             onSubscriptionSaved = {

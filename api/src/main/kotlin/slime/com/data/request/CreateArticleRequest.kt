@@ -9,16 +9,15 @@ data class CreateArticleRequest(
     val description: String,
     val featuredImage: String,
     val author: String,
-    val category: String
+    val topic: String
 ) {
-
     fun toArticle(): Article {
         return Article(
             title = title,
             description = description,
             featuredImage = featuredImage,
             author = author,
-            category = category
+            topic = topic
         )
     }
 }
