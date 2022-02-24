@@ -4,6 +4,4 @@
  */
 package kasem.sm.core.utils
 
-fun <T> List<T>?.getOrDefault(): List<T> {
-    return this ?: listOf()
-}
+fun <T> List<T>?.getOrDefault(): List<T> = this ?: listOf()

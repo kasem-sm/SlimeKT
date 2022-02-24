@@ -31,7 +31,7 @@ internal fun ListContent(
     onRefresh: () -> Unit,
     onArticleClick: (Int) -> Unit,
     executeNextPage: () -> Unit,
-    updateSubscription: (onSuccess: () -> Unit) -> Unit,
+    updateSubscription: () -> Unit,
     showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
     listState: LazyListState,
@@ -55,7 +55,6 @@ internal fun ListContent(
                             state = state,
                             updateSubscription = updateSubscription,
                             showAuthenticationSheet = showAuthenticationSheet,
-                            isUserAuthenticated = state.isUserAuthenticated
                         )
                     }
                 }

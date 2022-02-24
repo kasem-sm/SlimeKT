@@ -18,9 +18,9 @@ data class TopicEntity(
     @ColumnInfo(name = "topic_timestamp")
     val timestamp: Long,
     @ColumnInfo(name = "is_in_subscription")
-    val isInSubscription: Boolean = false,
+    val isInSubscription: Boolean,
     @ColumnInfo(name = "is_in_explore")
-    val isInExplore: Boolean = false,
+    val isInExplore: Boolean,
     @ColumnInfo(name = "total_subscribers")
     val totalSubscribers: Int,
 )

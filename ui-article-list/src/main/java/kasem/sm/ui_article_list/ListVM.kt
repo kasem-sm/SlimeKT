@@ -95,11 +95,11 @@ class ListVM @Inject constructor(
     }.stateIn(viewModelScope, ListState.EMPTY)
 
     init {
+        observeTopic()
+
         observeAuthenticationState()
 
         initializePager()
-
-        observeTopic()
 
         getTopic()
     }
@@ -176,10 +176,9 @@ class ListVM @Inject constructor(
         }
     }
 
-    fun updateSubscription(
-        onSuccess: () -> Unit
-    ) {
+    fun updateSubscription() {
         isSubscriptionInProgress.invoke(Loader.START)
+
         viewModelScope.launch(slimeDispatchers.main) {
             tasks.updateSubscriptionStatus(
                 ids = listOf(topicId)
@@ -188,7 +187,6 @@ class ListVM @Inject constructor(
                 onError = { _uiEvent.emit(showMessage(it)) },
                 onSuccess = {
                     _uiEvent.emit(showMessage(string.common_success_msg))
-                    onSuccess()
                     isSubscriptionInProgress.invoke(Loader.STOP)
                 },
             )

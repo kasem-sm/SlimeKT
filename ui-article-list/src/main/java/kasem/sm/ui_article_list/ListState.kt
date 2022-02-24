@@ -20,6 +20,5 @@ data class ListState(
 ) {
     companion object {
         val EMPTY = ListState()
-        const val DEFAULT_TOPIC_QUERY = ""
     }
 }
