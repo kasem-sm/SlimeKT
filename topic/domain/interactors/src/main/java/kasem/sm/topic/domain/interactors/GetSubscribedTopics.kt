@@ -25,14 +25,12 @@ class GetSubscribedTopics @Inject constructor(
         return slimeDispatchers.default.start {
             val topics = api.getSubscribedTopics().getOrThrow()
                 .data.getOrDefault().map {
-                    it.toEntity(isInExplore = false)
+                    it.toEntity()
                 }
 
-            topics.let {
-                applicationScope.launch {
-                    cache.insert(topics)
-                }.join()
-            }
+            applicationScope.launch {
+                cache.insert(topics)
+            }.join()
         }
     }
 }

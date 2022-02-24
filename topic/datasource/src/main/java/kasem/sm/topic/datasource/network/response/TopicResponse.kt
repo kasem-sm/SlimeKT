@@ -21,13 +21,13 @@ data class TopicResponse(
     @SerialName("hasUserSubscribed")
     val hasUserSubscribed: Boolean
 ) {
-    fun toEntity(isInExplore: Boolean = false): TopicEntity {
+    fun toEntity(): TopicEntity {
         return TopicEntity(
             id = id,
             title = title,
             timestamp = timestamp,
+            isInExplore = !hasUserSubscribed,
             isInSubscription = hasUserSubscribed,
-            isInExplore = isInExplore,
             totalSubscribers = totalSubscribers,
         )
     }

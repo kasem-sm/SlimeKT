@@ -24,6 +24,9 @@ interface TopicDao {
     @Query("SELECT * FROM table_topic ORDER BY topic_timestamp DESC")
     fun getAllTopics(): Flow<List<TopicEntity>>
 
+    @Query("SELECT * FROM table_topic ORDER BY topic_timestamp DESC")
+    suspend fun getAllTopicsNonFlow(): List<TopicEntity>
+
     @Query("SELECT * FROM table_topic WHERE is_in_subscription = 1")
     fun getSubscribedTopics(): Flow<List<TopicEntity>>
 

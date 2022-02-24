@@ -22,8 +22,9 @@ class GetTopicById @Inject constructor(
 ) {
     fun execute(id: String): Flow<Stage> {
         return slimeDispatchers.default.start {
-            val topic = api.getTopicById(id).getOrThrow()
-                .data?.toEntity(cache.isInExplore(id))
+            val topic = api.getTopicById(id)
+                .getOrThrow()
+                .data?.toEntity()
 
             topic?.let {
                 applicationScope.launch {

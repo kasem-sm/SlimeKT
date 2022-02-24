@@ -14,22 +14,54 @@ import kasem.sm.topic.datasource.network.TopicApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GetInExploreTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
     private val slimeDispatchers: SlimeDispatchers,
-    private val applicationScope: CoroutineScope,
+    private val applicationScope: CoroutineScope
 ) {
     fun execute(): Flow<Stage> {
         return slimeDispatchers.default.start {
-            val topics = api.getExploreTopics().getOrThrow()
+            val apiTopics = api.getExploreTopics()
+                .getOrThrow()
                 .data.getOrDefault().map {
-                    it.toEntity(isInExplore = true)
+                    it.toEntity()
                 }
 
+            /**
+             * 1. Any topics that are not subscribed by the user will be displayed in explore section.
+             *
+             * 2. Imagine a scenario where the user log's out
+             * & therefore all the topics will be pushed into explore section.
+             *
+             * 3. The user then log's in.
+             * 4. Visits the Explore section and tries to fetch his explore topics (unsubscribed topics),
+             *
+             * 5. our API call will do the work and get the unsubscribed topics.
+             *
+             * 6. but remember that all topics were moved into Explore section when the user previously signed out,
+             * so we will have to filter the actual Explore topics of API from the cache explore topics
+             * and move the rest to the subscription section.
+             * (as topics that aren't subscribed are in explore section and vice versa)
+             */
+
+            withContext(slimeDispatchers.io) {
+                cache.getAllTopicsNonFlow()
+                    .filter { ent ->
+                        apiTopics.any { api ->
+                            api.id != ent.id
+                        }
+                    }.map {
+                        applicationScope.launch {
+                            cache.updateSubscriptionStatus(true, it.id)
+                        }
+                    }
+            }
+
             applicationScope.launch {
-                cache.insert(topics)
+                cache.insert(apiTopics)
             }.join()
         }
     }

@@ -45,6 +45,6 @@ fun ListScreen(
         updateSubscription = viewModel::updateSubscription,
         showAuthenticationSheet = {
             viewModel.checkAuthenticationStatus()
-        }
+        },
     )
 }

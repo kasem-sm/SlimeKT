@@ -34,6 +34,12 @@ internal class TopicDatabaseServiceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAllTopicsNonFlow(): List<TopicEntity> {
+        return slimeSuspendTry {
+            dao.getAllTopicsNonFlow()
+        }
+    }
+
     override fun getSubscribedTopics(): Flow<List<TopicEntity>> {
         return slimeTry {
             dao.getSubscribedTopics()

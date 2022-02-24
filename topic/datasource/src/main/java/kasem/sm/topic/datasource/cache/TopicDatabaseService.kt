@@ -14,6 +14,8 @@ interface TopicDatabaseService {
 
     fun getAllTopics(): Flow<List<TopicEntity>>
 
+    suspend fun getAllTopicsNonFlow(): List<TopicEntity>
+
     fun getSubscribedTopics(): Flow<List<TopicEntity>>
 
     fun getTopicsInExplore(): Flow<List<TopicEntity>>

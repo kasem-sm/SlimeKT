@@ -30,6 +30,7 @@ internal class TopicApiServiceImpl @Inject constructor(
     override suspend fun getTopicById(id: String): Result<SlimeResponse<TopicResponse>> {
         return withResult {
             client.get(GET_TOPIC_BY_ID) {
+                parameter("userId", session.getUserId())
                 parameter("id", id)
             }
         }
