@@ -15,27 +15,47 @@ import androidx.compose.animation.with
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
+
+suspend fun <T> ListIterator<T>.doWhenHasNextOrPrevious(
+    delayMills: Long = 3000,
+    doWork: suspend (T) -> Unit
+) {
+    while (hasNext() || hasPrevious()) {
+        while (hasNext()) {
+            delay(delayMills)
+            doWork(next())
+        }
+        while (hasPrevious()) {
+            delay(delayMills)
+            doWork(previous())
+        }
+    }
+}
+
 @Composable
 fun AnimatedPlaceholder(
-    hintList: List<String>,
+    hints: List<String>,
     textStyle: FontFamily = LocalSlimeFont.current.medium,
     textColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
-    val listOfPlaceholders = rememberSaveable { mutableStateOf(hintList) }
-    val currentPlaceholder = rememberSaveable { mutableStateOf(listOfPlaceholders.value.first()) }
+    val iterator = hints.listIterator()
+
+    val target by produceState(initialValue = hints.first()) {
+        iterator.doWhenHasNextOrPrevious {
+            value = it
+        }
+    }
 
     AnimatedContent(
-        targetState = currentPlaceholder.value,
-        transitionSpec = { ScrollAnimation.scrollTransitionSpec }
+        targetState = target,
+        transitionSpec = { ScrollAnimation() }
     ) { text ->
         Text(
             text = text,
@@ -44,29 +64,16 @@ fun AnimatedPlaceholder(
             fontSize = 14.sp
         )
     }
-
-    LaunchedEffect(key1 = currentPlaceholder.value) {
-        val iterator = listOfPlaceholders.value.listIterator()
-        while (iterator.hasNext()) {
-            delay(3000)
-            currentPlaceholder.value = iterator.next()
-        }
-        while (iterator.hasPrevious()) {
-            delay(3000)
-            currentPlaceholder.value = iterator.previous()
-        }
-    }
 }
 
 object ScrollAnimation {
-    val scrollTransitionSpec: ContentTransform
-        get() = slideInVertically(
+    operator fun invoke(): ContentTransform {
+        return slideInVertically(
             initialOffsetY = { 50 },
-            animationSpec = tweenSpec
+            animationSpec = tween()
         ) + fadeIn() with slideOutVertically(
             targetOffsetY = { -50 },
-            animationSpec = tweenSpec
+            animationSpec = tween()
         ) + fadeOut()
-
-    private val tweenSpec = tween<IntOffset>()
+    }
 }

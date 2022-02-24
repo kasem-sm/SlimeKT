@@ -3,12 +3,15 @@
  * All rights reserved.
  */
 @file:OptIn(ExperimentalMaterialNavigationApi::class)
+
 package kasem.sm.navigation
 
 import androidx.compose.material.SnackbarHostState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import coil.ImageLoader
 import com.google.accompanist.navigation.animation.composable
@@ -82,7 +85,14 @@ internal fun NavGraphBuilder.attachExploreScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
 ) {
-    composable(Routes.ExploreScreen().route) {
+    composable(
+        route = Routes.ExploreScreen().route,
+        arguments = listOf(
+            navArgument("slime_topic") {
+                type = NavType.StringType
+            }
+        )
+    ) {
         ExploreScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
@@ -156,7 +166,17 @@ internal fun NavGraphBuilder.attachListScreen(
     snackbarHostState: SnackbarHostState,
     navController: NavController
 ) {
-    composable(Routes.ListScreen().route) {
+    composable(
+        route = Routes.ListScreen().route,
+        arguments = listOf(
+            navArgument("slime_topic") {
+                type = NavType.StringType
+            },
+            navArgument("slime_topic_id") {
+                type = NavType.StringType
+            }
+        )
+    ) {
         ListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
