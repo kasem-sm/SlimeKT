@@ -67,6 +67,6 @@ fun SearchBar(
         keyboardActions = KeyboardActions(
             onDone = onSearchActionClicked
         ),
-        placeholderContent = { AnimatedPlaceholder(hintList = placeholders) },
+        placeholderContent = { AnimatedPlaceholder(hints = placeholders) },
     )
 }
