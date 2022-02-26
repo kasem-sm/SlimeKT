@@ -1,0 +1,90 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
+package kasem.sm.data.session
+
+import android.content.SharedPreferences
+import androidx.core.content.edit
+import javax.inject.Inject
+import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.interfaces.AuthManager
+import kasem.sm.core.interfaces.Tasks
+import kasem.sm.core.session.AuthState
+import kasem.sm.data.util.observe
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+@OptIn(DelicateCoroutinesApi::class)
+class AuthManagerImpl @Inject constructor(
+    private val dispatchers: Dispatchers,
+    private val tasks: Tasks,
+    private val preferences: SharedPreferences,
+    private val applicationScope: CoroutineScope
+) : AuthManager {
+
+    private val _state: MutableStateFlow<AuthState> = MutableStateFlow(AuthState.LOGGED_OUT)
+    override val state: StateFlow<AuthState> = _state.asStateFlow()
+
+    init {
+        applicationScope.launch(dispatchers.io) {
+            preferences.observe(AUTH_TOKEN_KEY, defValue = null).collectLatest {
+                updateState(!it.isNullOrEmpty())
+            }
+        }
+    }
+
+    override fun onNewSession(session: AuthManager.SlimeSession) {
+        applicationScope.launch(dispatchers.io) {
+            saveAuthState(session)
+            tasks.executeDailyReader()
+
+            withContext(dispatchers.main) {
+                _state.value = AuthState.LOGGED_IN
+            }
+        }
+    }
+
+    override fun clearSession() {
+        preferences.edit(commit = true) {
+            putString(AUTH_TOKEN_KEY, null)
+            putString(AUTH_ID_KEY, null)
+        }
+        applicationScope.launch(dispatchers.io) {
+            tasks.clearUserSubscriptionLocally()
+        }
+    }
+
+    override fun getUserId(): String? {
+        return preferences.getString(AUTH_ID_KEY, null)
+    }
+
+    override fun getUserToken(): String? {
+        return preferences.getString(AUTH_TOKEN_KEY, null)
+    }
+
+    private fun saveAuthState(session: AuthManager.SlimeSession) {
+        preferences.edit(commit = true) {
+            putString(AUTH_TOKEN_KEY, session.token)
+            putString(AUTH_ID_KEY, session.userId)
+        }
+    }
+
+    private fun updateState(value: Boolean) {
+        when (value) {
+            true -> _state.value = AuthState.LOGGED_IN
+            false -> _state.value = AuthState.LOGGED_OUT
+        }
+    }
+
+    companion object {
+        const val AUTH_TOKEN_KEY = "kasem.sm.slime.user_auth_token"
+        const val AUTH_ID_KEY = "kasem.sm.slime.user_id"
+    }
+}

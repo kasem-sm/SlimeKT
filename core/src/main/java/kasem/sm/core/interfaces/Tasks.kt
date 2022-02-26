@@ -14,4 +14,5 @@ import kotlinx.coroutines.flow.Flow
 interface Tasks {
     fun executeDailyReader()
     suspend fun updateSubscriptionStatus(ids: List<String>): Flow<Stage>
+    suspend fun clearUserSubscriptionLocally()
 }

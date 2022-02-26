@@ -30,10 +30,8 @@ fun SubscribeTopicContent(
     updateList: (Int) -> Unit,
 ) {
     // TODO("Add Glow")
-    // refreshing is explicitly false as we already are
-    // showing a progress indicator on our Proceed button.
     SlimeSwipeRefresh(
-        refreshing = false,
+        refreshing = state.isLoading,
         onRefresh = onRefresh
     ) {
         Box(
@@ -62,7 +60,7 @@ fun SubscribeTopicContent(
 
                 item {
                     SlimePrimaryButton(
-                        isLoading = state.isLoading,
+                        isLoading = state.isSubscriptionInProgress,
                         text = stringResource(kasem.sm.common_ui.R.string.continue_btn),
                         onClick = {
                             if (!state.isUserAuthenticated) {

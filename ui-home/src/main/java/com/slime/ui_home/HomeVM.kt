@@ -13,8 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.article.domain.interactors.ObserveDailyReadArticle
+import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
-import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.topic.domain.interactors.GetSubscribedTopics
 import kasem.sm.topic.domain.interactors.ObserveSubscribedTopics
@@ -36,7 +36,7 @@ class HomeVM @Inject constructor(
     private val getSubscribedTopics: GetSubscribedTopics,
     private val pager: ArticlePager,
     private val savedStateHandle: SavedStateHandle,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: Dispatchers,
     private val observeDailyReadArticle: ObserveDailyReadArticle,
     private val observeSubscribedTopics: ObserveSubscribedTopics,
 ) : ViewModel() {
@@ -101,7 +101,7 @@ class HomeVM @Inject constructor(
         forceRefresh: Boolean = false
     ) {
         job?.cancel()
-        job = viewModelScope.launch(slimeDispatchers.main) {
+        job = viewModelScope.launch(dispatchers.main) {
             pager.initialize(
                 topic = topicQuery,
                 query = searchQuery,
@@ -117,7 +117,7 @@ class HomeVM @Inject constructor(
             )
             if (forceRefresh) {
                 job?.cancel()
-                job = viewModelScope.launch(slimeDispatchers.main) {
+                job = viewModelScope.launch(dispatchers.main) {
                     pager.refresh()
                 }
             }
@@ -125,7 +125,7 @@ class HomeVM @Inject constructor(
     }
 
     private fun observeData() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             searchQuery.flow
                 .debounce(800)
                 .distinctUntilChanged()
@@ -137,7 +137,7 @@ class HomeVM @Inject constructor(
                             onQueryChange(query)
                         }
                     }
-                    job!!.join()
+                    job?.join()
                 }
         }
 
@@ -154,7 +154,7 @@ class HomeVM @Inject constructor(
 
     fun refresh() {
         job?.cancel()
-        job = viewModelScope.launch(slimeDispatchers.main) {
+        job = viewModelScope.launch(dispatchers.main) {
             pager.refresh()
         }
 
@@ -163,7 +163,7 @@ class HomeVM @Inject constructor(
     }
 
     private fun getSubscribedTopics() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             getSubscribedTopics.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
@@ -192,7 +192,8 @@ class HomeVM @Inject constructor(
     }
 
     fun executeNextPage(updatedPage: Int? = null) {
-        job = viewModelScope.launch(slimeDispatchers.main) {
+        job?.cancel()
+        job = viewModelScope.launch(dispatchers.main) {
             pager.executeNextPage(updatedPage)
         }
     }
@@ -204,6 +205,13 @@ class HomeVM @Inject constructor(
      */
     fun saveScrollPosition(updatedPosition: Int) {
         savedStateHandle[LIST_POSITION_KEY] = updatedPosition
+    }
+
+    fun resetToDefaults() {
+        when {
+            searchQuery.value.isNotEmpty() -> onQueryChange(DEFAULT_SEARCH_QUERY)
+            topicQuery.value.isNotEmpty() -> onTopicChange(DEFAULT_TOPIC_QUERY)
+        }
     }
 
     companion object {

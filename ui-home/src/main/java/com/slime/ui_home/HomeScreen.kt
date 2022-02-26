@@ -20,23 +20,33 @@ fun HomeScreen(
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
-    navigateTo: (String) -> Unit
+    navigateTo: (String) -> Unit,
+    backHandler: @Composable (enabled: Boolean, onBack: () -> Unit) -> Unit
 ) {
-    val viewState by rememberFlow(viewModel.state)
+    val state by rememberFlow(viewModel.state)
         .collectAsState(HomeState.EMPTY)
 
-    val state = rememberLazyListState()
+    val listState = rememberLazyListState()
+
+    val handlerEnabledWhen = state.run {
+        currentQuery.isNotEmpty() || currentTopic.isNotEmpty()
+    }
+
+    backHandler(
+        enabled = handlerEnabledWhen,
+        onBack = viewModel::resetToDefaults
+    )
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,
         onDataReceived = { position ->
-            state.animateScrollToItem(position as Int)
+            listState.animateScrollToItem(position as Int)
         },
         onRouteReceived = { navigateTo(it) }
     )
 
     HomeContent(
-        state = viewState,
+        state = state,
         imageLoader = imageLoader,
         onRefresh = viewModel::refresh,
         onQueryChange = viewModel::onQueryChange,
@@ -44,7 +54,7 @@ fun HomeScreen(
         onArticleClick = onArticleClick,
         executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
-        listState = state,
+        listState = listState,
         navigateToSubscriptionScreen = {
             navigateTo(Routes.SubscribeTopicScreen.route)
         }

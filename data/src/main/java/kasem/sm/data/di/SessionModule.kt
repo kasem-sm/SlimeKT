@@ -18,9 +18,9 @@ import io.ktor.client.request.host
 import io.ktor.client.request.port
 import io.ktor.http.URLProtocol
 import javax.inject.Singleton
-import kasem.sm.core.interfaces.Session
+import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.interfaces.Tasks
-import kasem.sm.data.session.SessionImpl
+import kasem.sm.data.session.AuthManagerImpl
 import kasem.sm.data.tasks.TaskImpl
 import kotlinx.serialization.json.Json
 
@@ -29,7 +29,7 @@ import kotlinx.serialization.json.Json
 abstract class SessionModule {
 
     @Binds
-    internal abstract fun bindSession(bind: SessionImpl): Session
+    internal abstract fun bindAuthState(bind: AuthManagerImpl): AuthManager
 
     @Binds
     internal abstract fun bindTask(bind: TaskImpl): Tasks
@@ -38,7 +38,7 @@ abstract class SessionModule {
         @Provides
         @Singleton
         fun provideHttpClient(
-            session: Session,
+            authManager: AuthManager,
         ): HttpClient {
             return HttpClient {
                 install(JsonFeature) {
@@ -58,7 +58,7 @@ abstract class SessionModule {
                         }
                     }
 
-                    session.getUserToken()?.let { token ->
+                    authManager.getUserToken()?.let { token ->
                         header("Authorization", "Bearer $token")
                     }
                 }

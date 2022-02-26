@@ -10,9 +10,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetLatestArticles
 import kasem.sm.article.domain.interactors.ObserveLatestArticles
+import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
-import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.interactors.ObserveInExploreTopics
 import kasem.sm.ui_core.UiEvent
@@ -31,7 +32,8 @@ class ExploreVM @Inject constructor(
     private val getInExploreTopics: GetInExploreTopics,
     observeLatestArticles: ObserveLatestArticles,
     observeInExploreTopics: ObserveInExploreTopics,
-    private val slimeDispatchers: SlimeDispatchers
+    private val dispatchers: Dispatchers,
+    private val observeAuthState: ObserveAuthState,
 ) : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
@@ -52,6 +54,14 @@ class ExploreVM @Inject constructor(
     }.stateIn(viewModelScope, ExploreState.EMPTY)
 
     init {
+        observeAuthState.join(viewModelScope)
+
+        viewModelScope.launch(dispatchers.main) {
+            observeAuthState.flow.collect {
+                refresh()
+            }
+        }
+
         observeLatestArticles.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
@@ -61,18 +71,17 @@ class ExploreVM @Inject constructor(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
-
-        refresh()
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             getLatestArticles.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
-        viewModelScope.launch(slimeDispatchers.main) {
+
+        viewModelScope.launch(dispatchers.main) {
             getInExploreTopics.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },

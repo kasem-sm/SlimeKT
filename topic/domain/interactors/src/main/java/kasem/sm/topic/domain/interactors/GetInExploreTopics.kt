@@ -5,7 +5,7 @@
 package kasem.sm.topic.domain.interactors
 
 import javax.inject.Inject
-import kasem.sm.core.domain.SlimeDispatchers
+import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
@@ -19,11 +19,11 @@ import kotlinx.coroutines.withContext
 class GetInExploreTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: Dispatchers,
     private val applicationScope: CoroutineScope
 ) {
     fun execute(): Flow<Stage> {
-        return slimeDispatchers.default.start {
+        return dispatchers.default.start {
             val apiTopics = api.getExploreTopics()
                 .getOrThrow()
                 .data.getOrDefault().map {
@@ -47,7 +47,7 @@ class GetInExploreTopics @Inject constructor(
              * (as topics that aren't subscribed are in explore section and vice versa)
              */
 
-            withContext(slimeDispatchers.io) {
+            withContext(dispatchers.default) {
                 cache.getAllTopicsNonFlow()
                     .filter { ent ->
                         apiTopics.any { api ->

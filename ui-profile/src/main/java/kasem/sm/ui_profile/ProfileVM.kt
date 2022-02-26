@@ -8,17 +8,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.core.interfaces.Session
+import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.interfaces.AuthManager
+import kasem.sm.core.session.AuthState
+import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.ui_core.UiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileVM @Inject constructor(
-    private val session: Session,
+    private val dispatchers: Dispatchers,
+    private val observeAuthState: ObserveAuthState,
+    private val authManager: AuthManager
 ) : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
@@ -27,16 +31,18 @@ class ProfileVM @Inject constructor(
     val isUserAuthenticated = MutableStateFlow(false)
 
     init {
-        viewModelScope.launch {
-            session.observeAuthenticationState().collectLatest {
-                isUserAuthenticated.value = it
+        observeAuthState.join(viewModelScope)
+
+        viewModelScope.launch(dispatchers.main) {
+            observeAuthState.flow.collect {
+                isUserAuthenticated.value = it == AuthState.LOGGED_IN
             }
         }
     }
 
     fun clearUserSession() {
-        viewModelScope.launch {
-            session.clear()
+        viewModelScope.launch(dispatchers.main) {
+            authManager.clearSession()
             _uiEvent.emit(UiEvent.Success)
         }
     }
