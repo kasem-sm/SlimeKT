@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 class DetailVM @Inject constructor(
     private val getArticle: GetArticleById,
     private val observeArticle: ObserveArticle,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -63,7 +63,7 @@ class DetailVM @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             getArticle.execute(articleId)
                 .collect(
                     loader = loadingStatus,

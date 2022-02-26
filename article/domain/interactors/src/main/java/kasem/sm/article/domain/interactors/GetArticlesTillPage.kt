@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.Flow
 
 class GetArticlesTillPage @Inject constructor(
     private val cache: ArticleDatabaseService,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val mapper: ArticleMapper
 ) {
     fun execute(params: Param): Flow<PaginationStage<List<Article>>> {
-        return slimeDispatchers.default.pagingStage {
+        return dispatchers.default.pagingStage {
             cache.getArticlesTillPage(
                 query = params.query,
                 topic = params.topic,

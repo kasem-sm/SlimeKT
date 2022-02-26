@@ -6,6 +6,7 @@
 
 package kasem.sm.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.SnackbarHostState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -75,6 +76,9 @@ internal fun NavGraphBuilder.attachHomeScreen(
             },
             navigateTo = { route ->
                 navController.navigate(route)
+            },
+            backHandler = { boolean, callback ->
+                BackHandler(boolean, callback)
             }
         )
     }

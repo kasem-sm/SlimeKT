@@ -11,7 +11,8 @@ import kasem.sm.topic.domain.model.Topic
 data class SubscribeTopicState(
     val isLoading: Boolean = true,
     val topics: List<Topic> = emptyList(),
-    val isUserAuthenticated: Boolean = false
+    val isUserAuthenticated: Boolean = false,
+    val isSubscriptionInProgress: Boolean = false
 ) {
     companion object {
         val EMPTY = SubscribeTopicState()

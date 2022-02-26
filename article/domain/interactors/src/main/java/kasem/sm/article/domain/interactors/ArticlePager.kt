@@ -63,7 +63,7 @@ class ArticlePager @Inject constructor(
                         _endOfPagination.value =
                             status.value
                     is SlimePaginationStatus.OnError -> onError(status.error.toMessage)
-                    is SlimePaginationStatus.OnLoadingStatus -> loadingStatus(status.value)
+                    is SlimePaginationStatus.OnLoadingStatus -> loadingStatus.startWhen(status.value)
                     is SlimePaginationStatus.OnPageLoaded -> {
                         if (scrollPosition == 0) {
                             saveLoadedPage(status.page)

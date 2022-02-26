@@ -21,6 +21,7 @@ dependencies {
 	implementation(project(":core"))
 
 	// Article
+	implementation(project(":article:datasource"))
 	implementation(project(":article:datasource-impl"))
 
 	implementation(project(":topic:worker"))

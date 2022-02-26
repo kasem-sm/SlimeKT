@@ -13,11 +13,11 @@ import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
-import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
-import kasem.sm.core.interfaces.Session
 import kasem.sm.core.interfaces.Tasks
+import kasem.sm.core.session.AuthState
+import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetTopicById
 import kasem.sm.topic.domain.interactors.ObserveTopicById
 import kasem.sm.ui_core.SavedMutableState
@@ -29,7 +29,6 @@ import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -37,8 +36,8 @@ class ListVM @Inject constructor(
     private val pager: ArticlePager,
     private val getTopic: GetTopicById,
     private val savedStateHandle: SavedStateHandle,
-    private val slimeDispatchers: SlimeDispatchers,
-    private val session: Session,
+    private val dispatchers: SlimeDispatchers,
+    private val observeAuthState: ObserveAuthState,
     private val tasks: Tasks,
     private val observeTopic: ObserveTopicById,
 ) : ViewModel() {
@@ -65,7 +64,7 @@ class ListVM @Inject constructor(
         defValue = false
     )
 
-    private val isSubscriptionInProgress = ObservableLoader()
+    private val subscriptionProgress = ObservableLoader()
 
     private val topicLoadingStatus = ObservableLoader()
 
@@ -79,7 +78,7 @@ class ListVM @Inject constructor(
         pager.endOfPagination,
         pager.articles,
         observeTopic.flow,
-        isSubscriptionInProgress.flow,
+        subscriptionProgress.flow,
         isUserAuthenticated.flow
     ) { currentPage, paginationLoadStatus, topicLoadStatus, endOfPagination,
         articles, topic, isSubscriptionInProgress, isUserAuthenticated ->
@@ -95,7 +94,7 @@ class ListVM @Inject constructor(
     }.stateIn(viewModelScope, ListState.EMPTY)
 
     init {
-        observeTopic()
+        observe()
 
         observeAuthenticationState()
 
@@ -105,9 +104,9 @@ class ListVM @Inject constructor(
     }
 
     private fun observeAuthenticationState() {
-        viewModelScope.launch(slimeDispatchers.main) {
-            session.observeAuthenticationState().collectLatest {
-                isUserAuthenticated.value = it
+        viewModelScope.launch(dispatchers.main) {
+            observeAuthState.flow.collect {
+                isUserAuthenticated.value = it == AuthState.LOGGED_IN
             }
         }
     }
@@ -115,7 +114,7 @@ class ListVM @Inject constructor(
     private fun initializePager(
         topicQuery: String = this.topicQuery,
     ) {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             pager.initialize(
                 topic = topicQuery,
                 page = currentPage.value,
@@ -129,7 +128,7 @@ class ListVM @Inject constructor(
                 }
             )
             if (scrollPosition.value == 0) {
-                viewModelScope.launch(slimeDispatchers.main) {
+                viewModelScope.launch(dispatchers.main) {
                     pager.refresh()
                 }
             }
@@ -137,7 +136,7 @@ class ListVM @Inject constructor(
     }
 
     fun executeNextPage(updatedPage: Int? = null) {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             pager.executeNextPage(updatedPage)
         }
     }
@@ -151,7 +150,7 @@ class ListVM @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             pager.refresh()
         }
 
@@ -159,7 +158,9 @@ class ListVM @Inject constructor(
         getTopic()
     }
 
-    private fun observeTopic() {
+    private fun observe() {
+        observeAuthState.join(viewModelScope)
+
         observeTopic.join(
             params = topicId,
             coroutineScope = viewModelScope,
@@ -168,7 +169,7 @@ class ListVM @Inject constructor(
     }
 
     private fun getTopic() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             getTopic.execute(topicId).collect(
                 loader = topicLoadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
@@ -177,17 +178,14 @@ class ListVM @Inject constructor(
     }
 
     fun updateSubscription() {
-        isSubscriptionInProgress.invoke(Loader.START)
-
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             tasks.updateSubscriptionStatus(
                 ids = listOf(topicId)
             ).collect(
-                loader = isSubscriptionInProgress,
+                loader = subscriptionProgress,
                 onError = { _uiEvent.emit(showMessage(it)) },
                 onSuccess = {
                     _uiEvent.emit(showMessage(string.common_success_msg))
-                    isSubscriptionInProgress.invoke(Loader.STOP)
                 },
             )
         }

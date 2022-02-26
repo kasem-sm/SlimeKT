@@ -14,7 +14,6 @@ import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.common_ui.R
 import kasem.sm.core.domain.ObservableLoader
-import kasem.sm.core.domain.ObservableLoader.Companion.Loader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.utils.toMessage
 import kasem.sm.ui_auth.common.AuthState
@@ -33,7 +32,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginVM @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -87,14 +86,14 @@ class LoginVM @Inject constructor(
     }
 
     fun loginUser() {
-        viewModelScope.launch(slimeDispatchers.main) {
+        viewModelScope.launch(dispatchers.main) {
             val credentials = Credentials(
                 username = username.value,
                 password = password.value
             )
             loginUseCase.execute(credentials)
-                .onStart { loadingStatus(Loader.START) }
-                .onCompletion { loadingStatus(Loader.STOP) }
+                .onStart { loadingStatus.start() }
+                .onCompletion { loadingStatus.stop() }
                 .collectLatest { result ->
                     _uiEvent.emit(
                         when (result) {

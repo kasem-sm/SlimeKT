@@ -47,7 +47,7 @@ abstract class ObserverInteractor<P : Any, T> {
     @Suppress("Unchecked_Cast")
     fun join(
         coroutineScope: CoroutineScope,
-        onError: suspend (String) -> Unit,
+        onError: suspend (String) -> Unit = { },
         params: P? = null,
     ) {
         paramState.tryEmit(params ?: Unit as P)
@@ -56,6 +56,21 @@ abstract class ObserverInteractor<P : Any, T> {
                 onError(message)
             }
         }
+    }
+
+    @Suppress("Unchecked_Cast")
+    suspend fun joinAndCollect(
+        coroutineScope: CoroutineScope,
+        onError: suspend (String) -> Unit,
+        params: P? = null,
+    ): Flow<T> {
+        paramState.emit(params ?: Unit as P)
+        coroutineScope.launch {
+            flowOfError.collectLatest { message ->
+                onError(message)
+            }
+        }
+        return flow
     }
 
     protected abstract suspend fun execute(params: P): Flow<T>

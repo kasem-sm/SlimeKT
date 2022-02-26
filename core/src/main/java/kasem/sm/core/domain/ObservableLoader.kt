@@ -24,20 +24,15 @@ class ObservableLoader {
 
     val isLoading get() = count.get() > 0
 
-    operator fun invoke(loader: Loader) {
-        loadingState.value = when (loader) {
-            Loader.START -> count.incrementAndGet()
-            Loader.STOP -> count.decrementAndGet()
-        }
+    fun start() {
+        loadingState.value = count.incrementAndGet()
     }
 
-    operator fun invoke(status: Boolean) {
+    fun stop() {
+        loadingState.value = count.decrementAndGet()
+    }
+
+    fun startWhen(status: Boolean) {
         loadingState.value = if (status) count.incrementAndGet() else count.decrementAndGet()
-    }
-
-    companion object {
-        enum class Loader {
-            START, STOP
-        }
     }
 }

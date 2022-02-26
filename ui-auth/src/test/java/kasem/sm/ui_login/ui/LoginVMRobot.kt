@@ -7,11 +7,9 @@ package kasem.sm.ui_login.ui
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import io.mockk.mockk
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.core.domain.SlimeDispatchers
-import kasem.sm.core.interfaces.Session
 import kasem.sm.ui_auth.login.LoginVM
 import kasem.sm.ui_login.data.FakeLoginUseCase
 import kotlin.time.ExperimentalTime
@@ -21,13 +19,12 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 @ExperimentalTime
 class LoginVMRobot {
     private val fakeCredentialsLoginUseCase = FakeLoginUseCase()
-    private val fakeSessionRepository: Session = mockk(relaxed = true)
     private lateinit var viewModel: LoginVM
 
     fun buildViewModel() = apply {
         viewModel = LoginVM(
             loginUseCase = fakeCredentialsLoginUseCase.mock,
-            slimeDispatchers = testDispatchers,
+            dispatchers = testDispatchers,
             savedStateHandle = SavedStateHandle()
         )
     }

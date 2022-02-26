@@ -11,7 +11,7 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import javax.inject.Inject
-import kasem.sm.core.interfaces.Session
+import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.withResult
 import kasem.sm.topic.datasource.network.TopicApiService
 import kasem.sm.topic.datasource.network.response.SlimeResponse
@@ -19,7 +19,7 @@ import kasem.sm.topic.datasource.network.response.TopicResponse
 
 internal class TopicApiServiceImpl @Inject constructor(
     private val client: HttpClient,
-    private val session: Session
+    private val authManager: AuthManager
 ) : TopicApiService {
     override suspend fun getAllTopics(): Result<SlimeResponse<List<TopicResponse>>> {
         return withResult {
@@ -30,7 +30,7 @@ internal class TopicApiServiceImpl @Inject constructor(
     override suspend fun getTopicById(id: String): Result<SlimeResponse<TopicResponse>> {
         return withResult {
             client.get(GET_TOPIC_BY_ID) {
-                parameter("userId", session.getUserId())
+                parameter("userId", authManager.getUserId())
                 parameter("id", id)
             }
         }
@@ -39,7 +39,7 @@ internal class TopicApiServiceImpl @Inject constructor(
     override suspend fun getSubscribedTopics(): Result<SlimeResponse<List<TopicResponse>>> {
         return withResult {
             client.get(GET_SUBSCRIBED_TOPICS_ROUTE) {
-                parameter("userId", session.getUserId())
+                parameter("userId", authManager.getUserId())
             }
         }
     }
@@ -47,7 +47,7 @@ internal class TopicApiServiceImpl @Inject constructor(
     override suspend fun getExploreTopics(): Result<SlimeResponse<List<TopicResponse>>> {
         return withResult {
             client.get(GET_EXPLORE_TOPICS_ROUTE) {
-                parameter("userId", session.getUserId())
+                parameter("userId", authManager.getUserId())
             }
         }
     }

@@ -12,14 +12,14 @@ import kasem.sm.authentication.domain.model.InvalidCredentialsException
 import kasem.sm.authentication.domain.model.ServerException
 import kasem.sm.authentication.domain.model.containsOnlyNumbers
 import kasem.sm.authentication.domain.model.containsSpecialCharacters
-import kasem.sm.core.interfaces.Session
+import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class RegisterUseCase @Inject constructor(
     private val api: AuthApiService,
-    private val session: Session,
+    private val authManager: AuthManager,
 ) {
     suspend fun execute(credentials: Credentials): Flow<AuthResult> = flow {
         val validationResult = validateCredentials(credentials.username, credentials.password)
@@ -40,10 +40,12 @@ class RegisterUseCase @Inject constructor(
         when (apiResponse.success) {
             true -> {
                 apiResponse.data?.let {
-                    session.run {
-                        storeUserToken(it.token)
-                        storeUserId(it.userId)
-                    }
+                    authManager.onNewSession(
+                        AuthManager.SlimeSession(
+                            token = it.token,
+                            userId = it.userId
+                        )
+                    )
                 } ?: return@flow
                 emit(AuthResult.Success)
             }
