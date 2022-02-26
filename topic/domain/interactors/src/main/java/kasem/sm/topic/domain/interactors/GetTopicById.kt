@@ -17,11 +17,11 @@ import kotlinx.coroutines.launch
 class GetTopicById @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val applicationScope: CoroutineScope,
 ) {
     fun execute(id: String): Flow<Stage> {
-        return slimeDispatchers.default.start {
+        return dispatchers.default.start {
             val topic = api.getTopicById(id)
                 .getOrThrow()
                 .data?.toEntity()

@@ -24,7 +24,7 @@ internal class DailyReadTask @AssistedInject constructor(
     @Assisted workParams: WorkerParameters,
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
-    private val slimeDispatcher: SlimeDispatchers,
+    private val dispatcher: SlimeDispatchers,
     private val notificationManager: NotificationManager,
 ) : CoroutineWorker(context, workParams) {
 
@@ -50,7 +50,7 @@ internal class DailyReadTask @AssistedInject constructor(
                 /**
                  * Remove previous article from daily read,
                  */
-                withContext(slimeDispatcher.default) {
+                withContext(dispatcher.default) {
                     cache.run {
                         removePreviousActiveArticle()
                         insert(randomArticleFromApi)

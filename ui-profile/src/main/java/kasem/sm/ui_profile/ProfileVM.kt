@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.session.AuthState
 import kasem.sm.core.session.ObserveAuthState
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileVM @Inject constructor(
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val observeAuthState: ObserveAuthState,
     private val authManager: AuthManager
 ) : ViewModel() {

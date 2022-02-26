@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
-
 suspend fun <T> ListIterator<T>.doWhenHasNextOrPrevious(
     delayMills: Long = 3000,
     doWork: suspend (T) -> Unit

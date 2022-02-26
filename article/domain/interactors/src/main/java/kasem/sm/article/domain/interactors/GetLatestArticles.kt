@@ -19,10 +19,10 @@ class GetLatestArticles @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
     private val applicationScope: CoroutineScope,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(): Flow<Stage> {
-        return slimeDispatchers.default.start {
+        return dispatchers.default.start {
             val articles = api.getAllArticles(0, 10)
                 .getOrThrow()?.data?.articles.getOrDefault()
 

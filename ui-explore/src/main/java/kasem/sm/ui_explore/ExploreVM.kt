@@ -10,8 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetLatestArticles
 import kasem.sm.article.domain.interactors.ObserveLatestArticles
-import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
@@ -32,7 +32,7 @@ class ExploreVM @Inject constructor(
     private val getInExploreTopics: GetInExploreTopics,
     observeLatestArticles: ObserveLatestArticles,
     observeInExploreTopics: ObserveInExploreTopics,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val observeAuthState: ObserveAuthState,
 ) : ViewModel() {
 

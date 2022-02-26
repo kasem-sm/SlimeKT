@@ -13,8 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.article.domain.interactors.ObserveDailyReadArticle
-import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.topic.domain.interactors.GetSubscribedTopics
 import kasem.sm.topic.domain.interactors.ObserveSubscribedTopics
@@ -36,7 +36,7 @@ class HomeVM @Inject constructor(
     private val getSubscribedTopics: GetSubscribedTopics,
     private val pager: ArticlePager,
     private val savedStateHandle: SavedStateHandle,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val observeDailyReadArticle: ObserveDailyReadArticle,
     private val observeSubscribedTopics: ObserveSubscribedTopics,
 ) : ViewModel() {

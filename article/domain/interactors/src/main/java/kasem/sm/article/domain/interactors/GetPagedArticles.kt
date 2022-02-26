@@ -21,7 +21,7 @@ class GetPagedArticles @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
     private val applicationScope: CoroutineScope,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val mapper: ArticleMapper
 ) {
     fun execute(
@@ -30,7 +30,7 @@ class GetPagedArticles @Inject constructor(
         page: Int,
         pageSize: Int
     ): Flow<PaginationStage<List<Article>>> {
-        return slimeDispatchers.default.pagingStage {
+        return dispatchers.default.pagingStage {
             // Query API and cache Data
             queryAndCacheData(topic, query, page, pageSize)
 

@@ -7,7 +7,7 @@ package kasem.sm.data.session
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import javax.inject.Inject
-import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 
 @OptIn(DelicateCoroutinesApi::class)
 class AuthManagerImpl @Inject constructor(
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val tasks: Tasks,
     private val preferences: SharedPreferences,
     private val applicationScope: CoroutineScope

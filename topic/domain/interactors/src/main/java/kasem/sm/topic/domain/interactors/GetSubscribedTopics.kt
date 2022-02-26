@@ -19,10 +19,10 @@ class GetSubscribedTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
     private val applicationScope: CoroutineScope,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(): Flow<Stage> {
-        return slimeDispatchers.default.start {
+        return dispatchers.default.start {
             val topics = api.getSubscribedTopics().getOrThrow()
                 .data.getOrDefault().map {
                     it.toEntity()

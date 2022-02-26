@@ -6,7 +6,7 @@ package kasem.sm.data.tasks
 
 import javax.inject.Inject
 import kasem.sm.article.worker.DailyReadManager
-import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.interfaces.Tasks
 import kasem.sm.topic.datasource.cache.dao.TopicDao
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 class TaskImpl @Inject constructor(
     private val dailyReadManager: DailyReadManager,
     private val subscribeTopicManager: SubscribeTopicManager,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val topicDao: TopicDao
 ) : Tasks {
     override fun executeDailyReader() = dailyReadManager.execute()

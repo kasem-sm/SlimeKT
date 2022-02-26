@@ -9,7 +9,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
-import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.ui_auth.login.LoginVM
 import kasem.sm.ui_login.data.FakeLoginUseCase
 import kotlin.time.ExperimentalTime
@@ -72,7 +72,7 @@ class LoginVMRobot {
 
     companion object {
         val testDispatchers get() = StandardTestDispatcher().run {
-            Dispatchers(this, this, this)
+            SlimeDispatchers(this, this, this)
         }
     }
 }

@@ -18,10 +18,10 @@ class GetArticleById @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
     private val applicationScope: CoroutineScope,
-    private val slimeDispatchers: SlimeDispatchers,
+    private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(articleId: Int): Flow<Stage> {
-        return slimeDispatchers.default.start {
+        return dispatchers.default.start {
             val articleFromApi = api.getArticleById(articleId)
                 .getOrThrow()
 

@@ -11,8 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
-import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.session.AuthState
 import kasem.sm.core.session.ObserveAuthState
@@ -39,7 +39,7 @@ class SubscribeTopicVM @Inject constructor(
     /** Topics that are not subscribed can be requested through [getInExploreTopics] **/
     private val getInExploreTopics: GetInExploreTopics,
     private val subscribeTopicManager: SubscribeTopicManager,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val observeAuthState: ObserveAuthState,
     private val observeInExploreTopics: ObserveInExploreTopics,
     savedStateHandle: SavedStateHandle,

@@ -5,7 +5,7 @@
 package kasem.sm.topic.domain.interactors
 
 import javax.inject.Inject
-import kasem.sm.core.domain.Dispatchers
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 class GetInExploreTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val applicationScope: CoroutineScope
 ) {
     fun execute(): Flow<Stage> {

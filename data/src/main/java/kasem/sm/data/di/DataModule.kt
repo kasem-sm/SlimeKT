@@ -23,7 +23,9 @@ import kasem.sm.authentication.datasource_impl.inject.AuthModule
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.data.db.SlimeDatabase
 import kasem.sm.topic.datasource_impl.inject.TopicModule
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 
 @Module(
     includes = [
@@ -83,9 +85,9 @@ object DataModule {
     @Provides
     fun provideSlimeDispatchers(): SlimeDispatchers {
         return SlimeDispatchers(
-            default = Dispatchers.Default,
-            main = Dispatchers.Main,
-            io = Dispatchers.IO
+            default = Default,
+            main = Main,
+            io = IO
         )
     }
 }

@@ -13,8 +13,8 @@ import kasem.sm.authentication.domain.interactors.RegisterUseCase
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.common_ui.R
-import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.utils.toMessage
 import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.SavedMutableState
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class RegisterVM @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

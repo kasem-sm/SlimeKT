@@ -12,8 +12,8 @@ import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
-import kasem.sm.core.domain.Dispatchers
 import kasem.sm.core.domain.ObservableLoader
+import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
@@ -36,7 +36,7 @@ class ListVM @Inject constructor(
     private val pager: ArticlePager,
     private val getTopic: GetTopicById,
     private val savedStateHandle: SavedStateHandle,
-    private val dispatchers: Dispatchers,
+    private val dispatchers: SlimeDispatchers,
     private val observeAuthState: ObserveAuthState,
     private val tasks: Tasks,
     private val observeTopic: ObserveTopicById,
