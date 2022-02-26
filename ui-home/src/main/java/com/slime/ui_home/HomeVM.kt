@@ -16,6 +16,7 @@ import kasem.sm.article.domain.interactors.ObserveDailyReadArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetSubscribedTopics
 import kasem.sm.topic.domain.interactors.ObserveSubscribedTopics
 import kasem.sm.ui_core.SavedMutableState
@@ -39,6 +40,7 @@ class HomeVM @Inject constructor(
     private val dispatchers: SlimeDispatchers,
     private val observeDailyReadArticle: ObserveDailyReadArticle,
     private val observeSubscribedTopics: ObserveSubscribedTopics,
+    private val observeAuthState: ObserveAuthState,
 ) : ViewModel() {
 
     private val topicQuery = SavedMutableState(
@@ -126,6 +128,12 @@ class HomeVM @Inject constructor(
 
     private fun observeData() {
         viewModelScope.launch(dispatchers.main) {
+            observeAuthState.flow.collect {
+                refresh()
+            }
+        }
+
+        viewModelScope.launch(dispatchers.main) {
             searchQuery.flow
                 .debounce(800)
                 .distinctUntilChanged()
@@ -140,6 +148,8 @@ class HomeVM @Inject constructor(
                     job?.join()
                 }
         }
+
+        observeAuthState.join(viewModelScope)
 
         observeSubscribedTopics.join(
             coroutineScope = viewModelScope,
