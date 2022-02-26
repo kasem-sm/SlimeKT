@@ -45,9 +45,11 @@ class LoginUseCase @Inject constructor(
         when (apiResponse.success) {
             true -> {
                 apiResponse.data?.let {
-                    AuthManager.SlimeSession(
-                        token = it.token,
-                        userId = it.userId
+                    authManager.onNewSession(
+                        AuthManager.SlimeSession(
+                            token = it.token,
+                            userId = it.userId
+                        )
                     )
                 } ?: return@flow
                 emit(AuthResult.Success)
