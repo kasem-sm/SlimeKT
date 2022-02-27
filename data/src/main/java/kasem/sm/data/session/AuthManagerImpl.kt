@@ -13,7 +13,6 @@ import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
 import kasem.sm.data.util.observe
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(DelicateCoroutinesApi::class)
 class AuthManagerImpl @Inject constructor(
     private val dispatchers: SlimeDispatchers,
     private val tasks: Tasks,

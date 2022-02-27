@@ -1,5 +1,5 @@
 object Compose {
-    private const val compostActivity = "1.5.0-alpha02"
+    private const val compostActivity = "1.5.0-alpha03"
     private const val compostNavigation = "2.5.0-alpha01"
     private const val composeVersion = "1.2.0-alpha04"
     private const val composeMaterial3Version = "1.0.0-alpha06"

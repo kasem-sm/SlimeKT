@@ -100,7 +100,7 @@ class SubscribeTopicVM @Inject constructor(
 
     fun checkAuthenticationStatus() {
         viewModelScope.launch(dispatchers.main) {
-            if (isUserAuthenticated.value) {
+            if (!isUserAuthenticated.value) {
                 _uiEvent.emit(navigate(Routes.LoginScreen.route))
             }
         }
