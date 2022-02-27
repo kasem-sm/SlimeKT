@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(DelicateCoroutinesApi::class)
 class AuthManagerImpl @Inject constructor(
     private val dispatchers: SlimeDispatchers,
     private val tasks: Tasks,
