@@ -13,7 +13,6 @@ import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
 import kasem.sm.data.util.observe
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
