@@ -75,14 +75,14 @@ class SubscribeTopicVM @Inject constructor(
     }.stateIn(viewModelScope, SubscribeTopicState.EMPTY)
 
     init {
-        observeData()
-
         viewModelScope.launch(dispatchers.main) {
             observeAuthState.flow.collect {
                 refresh()
                 isUserAuthenticated.value = it == AuthState.LOGGED_IN
             }
         }
+
+        observeData()
     }
 
     private fun observeData() {
@@ -90,7 +90,7 @@ class SubscribeTopicVM @Inject constructor(
 
         viewModelScope.launch(dispatchers.main) {
             observeInExploreTopics.joinAndCollect(
-                coroutineScope = this,
+                coroutineScope = viewModelScope,
                 onError = { _uiEvent.emit(showMessage(it)) },
             ).collectLatest {
                 listOfTopics.value = it

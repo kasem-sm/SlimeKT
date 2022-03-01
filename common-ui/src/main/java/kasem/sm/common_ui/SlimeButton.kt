@@ -119,14 +119,14 @@ fun SlimePrimaryButton(
         enabled = enabled,
         shape = RoundedCornerShape(24.dp),
         colors = buttonColors(
-            backgroundColor,
+            if (isLoading) MaterialTheme.colorScheme.secondary else backgroundColor,
             disabledContainerColor = MaterialTheme.colorScheme.secondary
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(2.dp)
     ) {
         buttonContent(
             isLoading = isLoading,
-            text = text,
+            text = if (isLoading) "Please Wait" else text,
             textColor = textColor
         )
     }
