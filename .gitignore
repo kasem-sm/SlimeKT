@@ -9,6 +9,8 @@
 .cxx
 local.properties
 
+/app/.idea
+
 # Project exclude paths
 /buildSrc/build/
 
