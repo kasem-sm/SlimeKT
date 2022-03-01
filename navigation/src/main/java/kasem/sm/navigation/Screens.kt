@@ -54,6 +54,8 @@ internal fun NavGraphBuilder.attachLoginScreen(
                 navController.popBackStack()
             },
             onSignUpClicked = {
+                // Remove the login sheet from stack
+                navController.popBackStack()
                 navController.navigate(Routes.RegisterScreen.route)
             },
             snackbarHostState = snackbarHostState

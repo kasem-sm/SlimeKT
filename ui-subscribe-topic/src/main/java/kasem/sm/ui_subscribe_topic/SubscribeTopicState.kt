@@ -15,6 +15,7 @@ data class SubscribeTopicState(
     val isSubscriptionInProgress: Boolean = false
 ) {
     companion object {
+        val SubscribeTopicState.loadingStatus get() = isLoading || isSubscriptionInProgress
         val EMPTY = SubscribeTopicState()
     }
 }

@@ -86,7 +86,7 @@ fun Route.registerAuthenticationRoutes(
     }
 
     authenticate {
-        get("api/auth/randomUsers") {
+        get("api/auth/randomAuthor") {
             getUserId(service) { id ->
                 val randomUser = service.getRandomUser(excludedUserId = id)
                 respondWith(randomUser)

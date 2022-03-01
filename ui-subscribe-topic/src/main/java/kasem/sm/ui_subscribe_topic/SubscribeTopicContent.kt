@@ -14,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
+import kasem.sm.ui_subscribe_topic.SubscribeTopicState.Companion.loadingStatus
 import kasem.sm.ui_subscribe_topic.components.ContentHeader
 import kasem.sm.ui_subscribe_topic.components.SelectableTopicCard
 
@@ -60,16 +62,18 @@ fun SubscribeTopicContent(
 
                 item {
                     SlimePrimaryButton(
-                        isLoading = state.isSubscriptionInProgress,
-                        text = stringResource(kasem.sm.common_ui.R.string.continue_btn),
+                        isLoading = state.loadingStatus,
+                        text = if (!state.isUserAuthenticated) {
+                            "Please Sign In to continue"
+                        } else stringResource(string.continue_btn),
                         onClick = {
                             if (!state.isUserAuthenticated) {
                                 showAuthenticationSheet()
                             } else saveRecommendedValues()
                         },
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        enabled = !state.isLoading
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !state.loadingStatus,
+                        backgroundColor = MaterialTheme.colorScheme.primary
                     )
                 }
             }
