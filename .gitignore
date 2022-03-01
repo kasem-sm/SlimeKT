@@ -19,3 +19,4 @@ local.properties
 app/release/output-metadata.json
 *.apk
 *.json
+/docs/env
