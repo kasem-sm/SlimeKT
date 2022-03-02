@@ -36,7 +36,7 @@ dependencies {
 	implementation(project(":navigation"))
 
 	// Article
-	implementation(project(":article:widget"))
+	implementation(project(":features:article:widget"))
 
 	implementation AndroidX.core
 	implementation Compose.activity

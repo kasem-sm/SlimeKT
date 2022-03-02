@@ -7,9 +7,9 @@ apply {
 }
 
 dependencies {
-	implementation(project(":topic:common-topic-ui"))
+	implementation(project(":features:topic:common-topic-ui"))
 	// Topic
-	implementation(project(":topic:domain:interactors"))
-	implementation(project(":topic:domain:model"))
-	implementation(project(":topic:worker"))
+	implementation(project(":features:topic:domain:interactors"))
+	implementation(project(":features:topic:domain:model"))
+	implementation(project(":features:topic:worker"))
 }
