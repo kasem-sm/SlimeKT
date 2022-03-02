@@ -10,20 +10,20 @@
 ## Introduction 🙋‍♂️
 
 Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
-daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
+daily-read reminders, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
 ## Documentation 📚
 
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
 
-We have prepared a detailed guide on every features, API routes, project structure and documentation
+We have prepared a detailed guide on every feature, API routes, project structure and documentation
 of each module, Please visit [here]() to know more about the same. Additionally every major folder such as [`/api`](/api)
-and [`/features`](/features), contains short documentation in Github repository itself.
+and [`/features`](/features), contains short documentation in the Github repository itself.
 
 ## Repository overview 📂
 
-SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists of our
+SlimeKT has its own backend built with Ktor. The folder [`/api`](/api) consists of our
 backend deployed on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
 ## Sample, Screenshots and Demo 📱
@@ -94,7 +94,7 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 ## Tech stack / Miscellaneous Features 🚀
 
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
-- **WorkManager:** App uses WorkManager API to update user's subscription and to fetch Daily Read article.
+- **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
 - **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
 - **Material You:** The most exciting one.
 
@@ -102,7 +102,7 @@ Please visit [the documentation of this project]() for detailed information.
 
 ## Contributions and Contributors 👷‍♂️
 
-There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
 * Special thanks to our contributors:
   - The first one gets featured here 😎
