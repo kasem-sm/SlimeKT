@@ -78,11 +78,14 @@ For more screenshots and screen-recording demo, [please visit our documentation]
 
 ## What's next
 
-SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us by contributing. Please don't forget to create a issue/feature request or pick any one you like.
+SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us in our journey by contributing your skills. Please don't forget to create a issue/feature request first or pick any existing one.
 
-## Contribution
+## Contributions and Contributors
 
 There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+
+* Special thanks to our contributors
+  - Be the first one here 😎
 
 ## Articles related to this project
 
