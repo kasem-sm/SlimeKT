@@ -4,6 +4,7 @@
  */
 package com.slime.ui_home
 
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -88,6 +89,7 @@ internal fun HomeContent(
 
                 itemsIndexed(state.articles) { index, article ->
                     ArticleView(
+                        modifier = Modifier.animateItemPlacement(tween(200)),
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
