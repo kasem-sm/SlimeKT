@@ -1,10 +1,20 @@
-![Asset 1](https://user-images.githubusercontent.com/83884225/155851992-afd58940-0535-4099-a096-cb97fff56819.svg)
+![Asset 1](header.png)
 
-## Introduction
+[![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
 
-Robust Article sharing platform where you can personalize, subscribe to your favourite topics, get daily-read reminder, explore new authors and learn new things. It uses the most cutting edge techonology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
+## Introduction 🙋‍♂️
 
-## Screenshots
+Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
+daily-read reminders, explore new authors and share your articles**_. It uses the most cutting edge
+technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
+
+## Repository overview 📂
+
+SlimeKT has its own backend built with Ktor. The folder [`/api`](https://github.com/kasem-sm/SlimeKT/tree/dev/api) consists of our
+backend deployed on Heroku. SlimeKT Android application resides inside of the [`/app`](https://github.com/kasem-sm/SlimeKT/tree/dev/app) folder.
+
+## Screenshots 📱
 
 <table>
     <tr>
@@ -116,3 +126,21 @@ Robust Article sharing platform where you can personalize, subscribe to your fav
         </td>
     </tr>
 </table>
+
+## Medium Articles 🖋
+
+1. When Jetpack's Glance met his fellow worker, WorkManager (draft)
+2. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
+3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
+
+More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
+
+## Contact 🤙
+
+Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. If you have any questions related to SlimeKT or Android development, ping me anytime!
+
+## Credits 💎
+
+- [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
+- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
+- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.

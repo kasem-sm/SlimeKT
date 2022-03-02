@@ -123,7 +123,7 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 ## Credits 💎
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
-- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my dumb questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
+- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
 - [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.
 
 ## License
