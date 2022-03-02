@@ -108,7 +108,7 @@ There is no special rules for contributing your expertise and making the open so
   - The first one gets featured here 😎
   - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
 
-## Medium Articles related to this project features 🖋
+## Medium Articles related to this project 🖋
 
 1. When Jetpack's Glance met his fellow worker, WorkManager (draft)
 2. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
