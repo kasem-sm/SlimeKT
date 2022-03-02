@@ -17,7 +17,7 @@ and [`/features`](/features), contains short documentation in Github repository 
 SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists of our
 backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
 
-## Screenshots
+## Screenshots and Demo
 
 <table>
     <tr>
@@ -74,9 +74,15 @@ backend deployed on Heroku. SlimeKT Android application resides inside of [`/app
     </tr>    
 </table>
 
+For more screenshots and screen-recording demo, [please visit our documentation]().
+
+## What's next
+
+SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us by contributing. Please don't forget to create a issue/feature request or pick any one you like.
+
 ## Contribution
 
-There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a Pull request would be <b><i>cherry on the cake</b></i>.
+There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
 ## Articles related to this project
 
