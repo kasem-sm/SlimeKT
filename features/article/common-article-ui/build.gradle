@@ -8,7 +8,7 @@ apply {
 
 dependencies {
 	implementation(project(":common-ui"))
-	implementation(project(":article:domain:model"))
+	implementation(project(":features:article:domain:model"))
 
 	implementation Coil.core
 

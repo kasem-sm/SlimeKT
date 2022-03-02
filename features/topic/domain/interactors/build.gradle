@@ -10,8 +10,8 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":article:datasource"))
-	implementation(project(":article:domain:model"))
+	implementation(project(":features:topic:datasource"))
+	implementation(project(":features:topic:domain:model"))
 
 	implementation(JavaX.inject)
 }

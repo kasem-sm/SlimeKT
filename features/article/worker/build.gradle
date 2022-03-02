@@ -12,9 +12,9 @@ provideHiltDeps(this)
 dependencies {
 	implementation(project(":core"))
 
-	implementation(project(":article:datasource"))
-	implementation(project(":article:widget"))
-	implementation(project(":article:domain:model"))
+	implementation(project(":features:article:datasource"))
+	implementation(project(":features:article:widget"))
+	implementation(project(":features:article:domain:model"))
 
 	implementation("com.jakewharton.timber:timber:5.0.1")
 }

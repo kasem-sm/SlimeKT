@@ -10,8 +10,8 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":authentication:datasource"))
-	implementation(project(":authentication:domain:model"))
+	implementation(project(":features:article:datasource"))
+	implementation(project(":features:article:domain:model"))
 
 	implementation(JavaX.inject)
 }

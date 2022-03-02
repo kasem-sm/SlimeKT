@@ -10,16 +10,8 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":authentication:datasource"))
+	implementation(project(":features:authentication:datasource"))
+	implementation(project(":features:authentication:domain:model"))
 
-	// Ktor (with)
-	implementation(Jetbrains.ktorJvm)
-	implementation(Jetbrains.ktorUtils)
-	implementation(Jetbrains.ktorClientCore)
-
-	// Inject
 	implementation(JavaX.inject)
-
-	// Hilt
-	implementation Hilt.core
 }

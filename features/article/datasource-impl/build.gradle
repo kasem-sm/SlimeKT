@@ -10,7 +10,7 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	api(project(":topic:datasource"))
+	implementation(project(":features:article:datasource"))
 
 	// Ktor (with)
 	implementation(Jetbrains.ktorJvm)

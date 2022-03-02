@@ -9,7 +9,8 @@ technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack
 ## Documentation
 
 We have prepared a detailed guide on every features, API routes, project structure and documentation
-about each module. Please visit [here]().
+of each module. Please visit [here](). Additionally every major folder such as [`/api`](/api
+and [`/features`](/features), contains short documentation in Github repository itself.
 
 ## Repository overview
 

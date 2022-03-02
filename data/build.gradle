@@ -21,17 +21,17 @@ dependencies {
 	implementation(project(":core"))
 
 	// Article
-	implementation(project(":article:datasource"))
-	implementation(project(":article:datasource-impl"))
+	implementation(project(":features:article:datasource"))
+	implementation(project(":features:article:datasource-impl"))
 
-	implementation(project(":topic:worker"))
-	implementation(project(":article:worker"))
+	implementation(project(":features:topic:worker"))
+	implementation(project(":features:article:worker"))
 
 	// Topic
-	implementation(project(":topic:datasource-impl"))
+	implementation(project(":features:topic:datasource-impl"))
 
 	// Auth
-	implementation(project(":authentication:datasource-impl"))
+	implementation(project(":features:authentication:datasource-impl"))
 
 	implementation AndroidX.core
 
