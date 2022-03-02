@@ -1,23 +1,23 @@
 ![Asset 1](https://user-images.githubusercontent.com/83884225/155851992-afd58940-0535-4099-a096-cb97fff56819.svg)
 
-## Introduction
+## Introduction 🙋‍♂️
 
 Robust Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
 daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
-## Documentation
+## Documentation 📚
 
 We have prepared a detailed guide on every features, API routes, project structure and documentation
 of each module. Please visit [here](). Additionally every major folder such as [`/api`](/api)
 and [`/features`](/features), contains short documentation in Github repository itself.
 
-## Repository overview
+## Repository overview 📂
 
 SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists of our
 backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
 
-## Screenshots and Demo
+## Screenshots and Demo 📱
 
 <table>
     <tr>
@@ -76,30 +76,11 @@ backend deployed on Heroku. SlimeKT Android application resides inside of [`/app
 
 For more screenshots and screen-recording demo, [please visit our documentation]().
 
-## What's next
+## What's next ✨
 
 SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us in our journey by contributing your skills. Please don't forget to create a issue/feature request first or pick any existing one.
 
-## Contributions and Contributors
-
-There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
-
-* Special thanks to our contributors:
-  - Be the first one here 😎
-
-## Articles related to this project
-
-1. When Jetpack's Glance met his fellow worker, WorkManager (unreleased)
-2. Create Animated PlaceHolder for your Jetpack Compose text fields (unreleased)
-3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
-
-More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
-
-## Contact
-
-My DMs on [Twitter](https://twitter.com/KasemSM_) are always open. If you have any questions related to SlimeKT or Android development, ping me anytime!
-
-## Tech stack / Miscellaneous Features
+## Tech stack / Miscellaneous Features 🚀
 
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached (Hot Flow).
 - **WorkManager:** App uses WorkManager API to update user's subscription and to fetch Daily Read article.
@@ -107,7 +88,26 @@ My DMs on [Twitter](https://twitter.com/KasemSM_) are always open. If you have a
 
 Please visit [the documentation of this project]() for detailed information.
 
-## Credits
+## Contributions and Contributors 👷‍♂️
+
+There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+
+* Special thanks to our contributors:
+  - Be the first one here 😎
+
+## Articles related to this project 🖋
+
+1. When Jetpack's Glance met his fellow worker, WorkManager (unreleased)
+2. Create Animated PlaceHolder for your Jetpack Compose text fields (unreleased)
+3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
+
+More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
+
+## Contact 🤙
+
+My DMs on [Twitter](https://twitter.com/KasemSM_) are always open. If you have any questions related to SlimeKT or Android development, ping me anytime!
+
+## Credits 💎
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as `Gold`.
 - [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my dumb questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
