@@ -1,7 +1,5 @@
 ![Asset 1](/docs/header.png)
 
-## Introduction 🙋‍♂️
-
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
 ![Slime Heroku Deployment](https://img.shields.io/github/deployments/kasem-sm/SlimeKT/slime-kt?logo=Heroku)
@@ -9,6 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
 
+## Introduction 🙋‍♂️
 
 Robust Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
 daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
@@ -16,7 +15,7 @@ technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack
 
 ## Documentation 📚
 
-[![Documentation](https://img.shields.io/badge/Documentation-Read-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
+[![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
 
 We have prepared a detailed guide on every features, API routes, project structure and documentation
 of each module, Please visit [here]() to know more about the same. Additionally every major folder such as [`/api`](/api)
