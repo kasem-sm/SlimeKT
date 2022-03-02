@@ -2,8 +2,8 @@
 
 ## Introduction
 
-Robust Article sharing platform where you can personalize, subscribe to your favourite topics, get
-daily-read reminder, explore new authors and share your articles. It uses the most cutting edge
+Robust Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
+daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
 ## Documentation
@@ -84,7 +84,7 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 
 There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
-* Special thanks to our contributors
+* Special thanks to our contributors:
   - Be the first one here 😎
 
 ## Articles related to this project
