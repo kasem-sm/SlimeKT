@@ -118,7 +118,7 @@ More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
 
 ## Contact 🤙
 
-My DMs on [Twitter](https://twitter.com/KasemSM_) are always open. If you have any questions related to SlimeKT or Android development, ping me anytime!
+Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. If you have any questions related to SlimeKT or Android development, ping me anytime!
 
 ## Credits 💎
 
