@@ -1,5 +1,5 @@
 object AndroidX {
-    private const val gradleVersion = "7.1.1"
+    private const val gradleVersion = "7.1.2"
     const val gradle = "com.android.tools.build:gradle:$gradleVersion"
 
     private const val coreVersion = "1.9.0-alpha01"
