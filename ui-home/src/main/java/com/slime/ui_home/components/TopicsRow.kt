@@ -4,6 +4,8 @@
  */
 package com.slime.ui_home.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -64,20 +66,25 @@ internal fun TopicsRow(
             items(topics) { topic ->
                 val isSelected = currentTopic == topic.title
 
-                val backgroundColor = when (isSelected) {
-                    true -> MaterialTheme.colorScheme.primary
-                    else -> MaterialTheme.colorScheme.primaryContainer
-                }
+                val backgroundColor = animateColorAsState(
+                    targetValue = when (isSelected) {
+                        true -> MaterialTheme.colorScheme.primary
+                        else -> MaterialTheme.colorScheme.primaryContainer
+                    },
+                    animationSpec = tween(500),
+                )
 
-                val textColor = when (isSelected) {
-                    true -> MaterialTheme.colorScheme.onPrimary
-                    false -> MaterialTheme.colorScheme.onPrimaryContainer
-                }
+                val textColor = animateColorAsState(
+                    targetValue = when (isSelected) {
+                        true -> MaterialTheme.colorScheme.onPrimary
+                        false -> MaterialTheme.colorScheme.onPrimaryContainer
+                    }
+                )
 
                 TopicChip(
                     topic = topic.title,
-                    chipBackgroundColor = backgroundColor,
-                    chipTextColor = textColor,
+                    chipBackgroundColor = backgroundColor.value,
+                    chipTextColor = textColor.value,
                     modifier = Modifier
                         .padding(10.dp)
                         .toggleWithRipple(
