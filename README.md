@@ -22,7 +22,7 @@ of our backend deployed on Heroku. SlimeKT Android application resides inside of
                 <a href="#1">
                     <img src="docs/screenshots/home_screen_with_subscribed_topics.png" width=300>
                 </a>
-                <figcaption>Home screen with subscribed topics at top</figcaption>
+                <figcaption>Home screen</figcaption>
             </figure>
         </td>
         <td>
@@ -48,7 +48,7 @@ of our backend deployed on Heroku. SlimeKT Android application resides inside of
                 <a href="#4">
                     <img src="docs/screenshots/subscribe_category_screen.png" width=300>
                 </a>
-                <figcaption>Subscribe To Topics Screen</figcaption>
+                <figcaption>Subscribe Topics Screen</figcaption>
             </figure>
         </td>
     </tr>
