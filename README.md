@@ -9,7 +9,7 @@
 
 ## Introduction 🙋‍♂️
 
-Robust Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
+Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
 daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
@@ -45,13 +45,13 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <a href="#2">
                     <img src="docs/screenshots/explore_screen_dark.png" width=300>
                 </a>
-                <figcaption>Explore Screen (Dark)</figcaption>
+                <figcaption>Explore Screen</figcaption>
             </figure>
         </td>
         <td>
             <figure>
                 <a href="#3">
-                    <img src="docs/screenshots/detail_screen_light.png" width=300>
+                    <img src="docs/screenshots/detail_screen_dark.png" width=300>
                 </a>
                 <figcaption>Detail Screen</figcaption>
             </figure>
@@ -71,7 +71,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <a href="#5">
                     <img src="docs/screenshots/login_sheet.png" width=300>
                 </a>
-                <figcaption>Login bottom sheet</figcaption>
+                <figcaption>Login sheet</figcaption>
             </figure>
         </td>
         <td>
@@ -79,7 +79,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <a href="#6">
                     <img src="docs/screenshots/register_sheet.png" width=300>
                 </a>
-                <figcaption>Register bottom sheet</figcaption>
+                <figcaption>Register sheet</figcaption>
             </figure>
         </td>
     </tr>    
@@ -93,7 +93,7 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 
 ## Tech stack / Miscellaneous Features 🚀
 
-- **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached (Hot Flow).
+- **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
 - **WorkManager:** App uses WorkManager API to update user's subscription and to fetch Daily Read article.
 - **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
 - **Material You:** The most exciting one.
@@ -110,8 +110,8 @@ There is no special rules for contributing your expertise and making the open so
 
 ## Medium Articles related to this project features 🖋
 
-1. When Jetpack's Glance met his fellow worker, WorkManager (unreleased)
-2. Create Animated PlaceHolder for your Jetpack Compose text fields (unreleased)
+1. When Jetpack's Glance met his fellow worker, WorkManager (draft)
+2. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
 3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
