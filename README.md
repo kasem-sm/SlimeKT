@@ -76,13 +76,13 @@ backend deployed on Heroku. SlimeKT Android application resides inside of [`/app
 
 ## Contribution
 
-There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a Pull request would be <b><i>cherry on the cake</b><i>.
+There is no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a Pull request would be <b><i>cherry on the cake</b></i>.
 
 ## Articles related to this project
 
 1. When Jetpack's Glance met his fellow worker, WorkManager (unreleased)
 2. Create Animated PlaceHolder for your Jetpack Compose text fields (unreleased)
-3. Android’s IME Actions: Don’t ignore them.[Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
+3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
 
