@@ -1,6 +1,15 @@
-![Asset 1](https://user-images.githubusercontent.com/83884225/155851992-afd58940-0535-4099-a096-cb97fff56819.svg)
+![Asset 1](/docs/header.svg)
 
 ## Introduction 🙋‍♂️
+
+[![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
+[![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
+[![Slime Documentation Deploy](https://github.com/kasem-sm/SlimeKT/actions/workflows/deploy_docs.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/deploy_docs.yml)
+![Slime Heroku Deployment](https://img.shields.io/github/deployments/kasem-sm/SlimeKT/slime-kt?logo=Heroku)
+
+[![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
+
 
 Robust Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
 daily-read reminder, explore new authors and share your articles**_. It uses the most cutting edge
@@ -18,6 +27,8 @@ SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists
 backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
 
 ## Screenshots and Demo 📱
+
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/sample.apk)
 
 <table>
     <tr>
