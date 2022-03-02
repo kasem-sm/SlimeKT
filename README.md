@@ -2,16 +2,19 @@
 
 ## Introduction
 
-Robust Article sharing platform where you can personalize, subscribe to your favourite topics, get daily-read reminder, explore new authors and share your articles. It uses the most cutting edge technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
+Robust Article sharing platform where you can personalize, subscribe to your favourite topics, get
+daily-read reminder, explore new authors and share your articles. It uses the most cutting edge
+technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
 ## Documentation
 
-We have prepared a detailed guide on every features, API routes, project structure and documentation about each module. Please visit [here]().
+We have prepared a detailed guide on every features, API routes, project structure and documentation
+about each module. Please visit [here]().
 
 ## Repository overview
 
-SlimeKT has it's on backend built with Ktor and MongoDB. The folder [`/api`](/api) consists
-of our backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
+SlimeKT has it's on backend built with Ktor and MongoDB. The folder [`/api`](/api) consists of our
+backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
 
 ## Screenshots
 
@@ -33,8 +36,6 @@ of our backend deployed on Heroku. SlimeKT Android application resides inside of
                 <figcaption>Explore Screen (Dark)</figcaption>
             </figure>
         </td>
-    </tr>
-    <tr>
         <td>
             <figure>
                 <a href="#3">
@@ -43,6 +44,8 @@ of our backend deployed on Heroku. SlimeKT Android application resides inside of
                 <figcaption>Detail Screen</figcaption>
             </figure>
         </td>
+    </tr>
+    <tr>
         <td>
             <figure>
                 <a href="#4">
@@ -51,8 +54,6 @@ of our backend deployed on Heroku. SlimeKT Android application resides inside of
                 <figcaption>Subscribe Topics Screen</figcaption>
             </figure>
         </td>
-    </tr>
-    <tr>
         <td>
             <figure>
                 <a href="#5">
