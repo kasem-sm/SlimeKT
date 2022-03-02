@@ -21,19 +21,19 @@ interface TopicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(topics: List<TopicEntity>)
 
-    @Query("SELECT * FROM table_topic ORDER BY topic_timestamp DESC")
+    @Query("SELECT * FROM table_topic ORDER BY topic_title ASC")
     fun getAllTopics(): Flow<List<TopicEntity>>
 
-    @Query("SELECT * FROM table_topic ORDER BY topic_timestamp DESC")
+    @Query("SELECT * FROM table_topic ORDER BY topic_title ASC")
     suspend fun getAllTopicsNonFlow(): List<TopicEntity>
 
-    @Query("SELECT * FROM table_topic WHERE is_in_subscription = 1")
+    @Query("SELECT * FROM table_topic WHERE is_in_subscription = 1 ORDER BY topic_title ASC")
     fun getSubscribedTopics(): Flow<List<TopicEntity>>
 
-    @Query("SELECT * FROM table_topic WHERE is_in_explore = 1")
+    @Query("SELECT * FROM table_topic WHERE is_in_explore = 1 ORDER BY topic_title ASC")
     fun getTopicsInExplore(): Flow<List<TopicEntity>>
 
-    @Query("SELECT * FROM table_topic WHERE is_in_explore = 1")
+    @Query("SELECT * FROM table_topic WHERE is_in_explore = 1 ORDER BY topic_title ASC")
     suspend fun getTopicsInExploreNonFlow(): List<TopicEntity>
 
     @Query("SELECT * FROM table_topic WHERE topic_id = :id")
