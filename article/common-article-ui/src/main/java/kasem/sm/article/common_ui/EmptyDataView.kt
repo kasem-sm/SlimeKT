@@ -5,9 +5,8 @@
 package kasem.sm.article.common_ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,11 +19,10 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeElevatedButton
 
 @Composable
-fun BoxScope.emptyArticleView(onContributeClick: () -> Unit) = apply {
+fun EmptyView(modifier: Modifier = Modifier, onContributeClick: () -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .align(Alignment.Center),
+        modifier = modifier
+            .wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {

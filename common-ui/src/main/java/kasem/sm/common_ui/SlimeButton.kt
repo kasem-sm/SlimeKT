@@ -48,15 +48,17 @@ internal fun RowScope.buttonContent(
         }
     }
 
-    trailingIcon?.let {
-        Icon(
-            painter = painterResource(id = it),
-            contentDescription = text,
-            tint = trailingIconColor ?: textColor,
-            modifier = Modifier.size(20.dp),
-        )
+    if (!isLoading) {
+        trailingIcon?.let {
+            Icon(
+                painter = painterResource(id = it),
+                contentDescription = text,
+                tint = trailingIconColor ?: textColor,
+                modifier = Modifier.size(20.dp),
+            )
 
-        HorizontalSpacer(value = 10.dp)
+            HorizontalSpacer(value = 10.dp)
+        }
     }
 
     Text(
@@ -112,6 +114,8 @@ fun SlimePrimaryButton(
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     textColor: Color = MaterialTheme.colorScheme.onPrimary,
     enabled: Boolean = true,
+    @DrawableRes trailingIcon: Int? = null,
+    trailingIconColor: Color? = null,
 ) {
     Button(
         modifier = modifier,
@@ -127,7 +131,9 @@ fun SlimePrimaryButton(
         buttonContent(
             isLoading = isLoading,
             text = if (isLoading) "Please Wait" else text,
-            textColor = textColor
+            textColor = textColor,
+            trailingIcon = trailingIcon,
+            trailingIconColor = trailingIconColor
         )
     }
 }
@@ -169,7 +175,7 @@ fun SlimeDoubleRoleButton(
             text = text,
             textColor = contentColor,
             trailingIcon = trailingIcon,
-            trailingIconColor = contentColor
+            trailingIconColor = contentColor,
         )
     }
 }

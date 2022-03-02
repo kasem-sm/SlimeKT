@@ -18,10 +18,12 @@ fun Application.configureSecurity() {
             val jwtSec = if (isDebugMode) "secret" else System.getenv("JWT_SEC")
             realm = if (isDebugMode) "jwt_realm" else System.getenv("JWT_RE")
             verifier(
-                JWT.require(Algorithm.HMAC256(jwtSec)).withAudience(jwtAudience).withIssuer(jwtDomain).build()
+                JWT.require(Algorithm.HMAC256(jwtSec)).withAudience(jwtAudience)
+                    .withIssuer(jwtDomain).build()
             )
             validate { credential ->
-                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
+                val predicate = credential.payload.audience.contains(jwtAudience)
+                JWTPrincipal(credential.payload) elseNull { predicate }
             }
         }
     }
@@ -32,3 +34,7 @@ val JWTPrincipal.userId: String?
 
 val ApplicationCall.userId: String?
     get() = principal<JWTPrincipal>()?.userId
+
+infix fun <T> T.elseNull(predicate: () -> Boolean): T? {
+    return if (predicate()) this else null
+}

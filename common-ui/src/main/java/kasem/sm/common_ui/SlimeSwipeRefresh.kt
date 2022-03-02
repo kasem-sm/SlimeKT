@@ -13,7 +13,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun SlimeSwipeRefresh(
     refreshing: Boolean,
     onRefresh: () -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val state = rememberSwipeRefreshState(isRefreshing = refreshing)
 
@@ -25,7 +25,6 @@ fun SlimeSwipeRefresh(
                 state = swipeRefreshState,
                 refreshTriggerDistance = trigger,
                 scale = true,
-                // TODO: change Color
             )
         },
         content = content
