@@ -14,7 +14,7 @@ and [`/features`](/features), contains short documentation in Github repository 
 
 ## Repository overview
 
-SlimeKT has it's on backend built with Ktor and MongoDB. The folder [`/api`](/api) consists of our
+SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists of our
 backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
 
 ## Screenshots
@@ -49,27 +49,29 @@ backend deployed on Heroku. SlimeKT Android application resides inside of [`/app
     <tr>
         <td>
             <figure>
+                <figcaption>Subscribe Topics Screen</figcaption>
                 <a href="#4">
                     <img src="docs/screenshots/subscribe_category_screen.png" width=300>
                 </a>
-                <figcaption>Subscribe Topics Screen</figcaption>
             </figure>
         </td>
         <td>
             <figure>
+                <figcaption>Login bottom sheet</figcaption>
                 <a href="#5">
                     <img src="docs/screenshots/login_sheet.png" width=300>
                 </a>
-                <figcaption>Login bottom sheet</figcaption>
             </figure>
         </td>
         <td>
             <figure>
+                <figcaption>Register bottom sheet</figcaption>
                 <a href="#6">
                     <img src="docs/screenshots/register_sheet.png" width=300>
                 </a>
-                <figcaption>Register bottom sheet</figcaption>
             </figure>
         </td>
     </tr>    
 </table>
+
+## Tech Stack
