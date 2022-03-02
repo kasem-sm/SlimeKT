@@ -4,7 +4,6 @@
 
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
-[![Slime Documentation Deploy](https://github.com/kasem-sm/SlimeKT/actions/workflows/deploy_docs.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/deploy_docs.yml)
 ![Slime Heroku Deployment](https://img.shields.io/github/deployments/kasem-sm/SlimeKT/slime-kt?logo=Heroku)
 
 [![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
@@ -17,16 +16,18 @@ technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack
 
 ## Documentation 📚
 
+[![Documentation](https://img.shields.io/badge/Documentation-Read-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
+
 We have prepared a detailed guide on every features, API routes, project structure and documentation
-of each module. Please visit [here](). Additionally every major folder such as [`/api`](/api)
+of each module, Please visit [here]() to know more about the same. Additionally every major folder such as [`/api`](/api)
 and [`/features`](/features), contains short documentation in Github repository itself.
 
 ## Repository overview 📂
 
 SlimeKT has it's own backend built with Ktor. The folder [`/api`](/api) consists of our
-backend deployed on Heroku. SlimeKT Android application resides inside of [`/app`](/app) folder.
+backend deployed on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
-## Screenshots and Demo 📱
+## Sample, Screenshots and Demo 📱
 
 [![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/sample.apk)
 
@@ -106,9 +107,9 @@ There is no special rules for contributing your expertise and making the open so
 
 * Special thanks to our contributors:
   - The first one gets featured here 😎
-  - All [contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
+  - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
 
-## Articles related to this project 🖋
+## Medium Articles related to this project features 🖋
 
 1. When Jetpack's Glance met his fellow worker, WorkManager (unreleased)
 2. Create Animated PlaceHolder for your Jetpack Compose text fields (unreleased)
@@ -122,7 +123,7 @@ My DMs on [Twitter](https://twitter.com/KasemSM_) are always open. If you have a
 
 ## Credits 💎
 
-- [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as `Gold`.
+- [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
 - [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my dumb questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
 - [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.
 
