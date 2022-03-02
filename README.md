@@ -1,4 +1,4 @@
-![Asset 1](/docs/header.svg)
+![Asset 1](/docs/header.png)
 
 ## Introduction 🙋‍♂️
 
@@ -96,6 +96,7 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached (Hot Flow).
 - **WorkManager:** App uses WorkManager API to update user's subscription and to fetch Daily Read article.
 - **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
+- **Material You:** The most exciting one.
 
 Please visit [the documentation of this project]() for detailed information.
 
