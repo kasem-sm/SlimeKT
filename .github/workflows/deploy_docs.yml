@@ -2,7 +2,7 @@ name: Slime Documentation Deploy
 on:
   push:
     branches:
-      - 22docs
+      - dev
 jobs:
   deploy:
     runs-on: ubuntu-latest

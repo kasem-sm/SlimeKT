@@ -3,7 +3,7 @@ site_name: "SlimeKT"
 site_description: "Kotlin stack Open source project"
 site_author: "kasem-sm"
 site_url: "https://kasem-sm.github.io/SlimeKT/"
-edit_uri: "tree/22docs/docs/"
+edit_uri: "tree/dev/docs/"
 
 docs_dir: docs
 
