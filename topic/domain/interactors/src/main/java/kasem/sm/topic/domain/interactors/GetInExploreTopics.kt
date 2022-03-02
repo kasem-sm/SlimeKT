@@ -14,7 +14,6 @@ import kasem.sm.topic.datasource.network.TopicApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GetInExploreTopics @Inject constructor(
     private val api: TopicApiService,
@@ -47,18 +46,17 @@ class GetInExploreTopics @Inject constructor(
              * (as topics that aren't subscribed are in explore section and vice versa)
              */
 
-            withContext(dispatchers.default) {
-                cache.getAllTopicsNonFlow()
-                    .filter { ent ->
-                        apiTopics.any { api ->
-                            api.id != ent.id
-                        }
-                    }.map {
-                        applicationScope.launch {
-                            cache.updateSubscriptionStatus(true, it.id)
-                        }
+            cache.getAllTopicsNonFlow()
+                .filter { ent ->
+                    apiTopics.any { api ->
+                        api.id != ent.id
                     }
-            }
+                }
+                .map {
+                    applicationScope.launch {
+                        cache.updateSubscriptionStatus(true, it.id)
+                    }.join()
+                }
 
             applicationScope.launch {
                 cache.insert(apiTopics)
