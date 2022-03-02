@@ -29,8 +29,8 @@ import kasem.sm.ui_profile.ProfileScreen
 import kasem.sm.ui_subscribe_topic.SubscribeTopicScreen
 
 internal fun NavGraphBuilder.attachRegistrationScreen(
-    snackbarHostState: SnackbarHostState,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
     bottomSheet(Routes.RegisterScreen.route) {
         RegisterScreen(
@@ -44,8 +44,8 @@ internal fun NavGraphBuilder.attachRegistrationScreen(
 }
 
 internal fun NavGraphBuilder.attachLoginScreen(
-    snackbarHostState: SnackbarHostState,
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
 ) {
     bottomSheet(route = Routes.LoginScreen.route) {
         LoginScreen(

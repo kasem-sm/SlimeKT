@@ -1,0 +1,10 @@
+- **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached (Hot Flow).
+- **Parallel API Requests:** While subscribing multiple topics at once, app sends a parallel API request to the server for faster execution of the task. (The requests are independent of one another).
+- **Prioritize Recent Request:** Any ongoing requests gets cancelled once new request is made (For example: User filters the article list with topic "a" and then immediately wishes to filter the list with topic "b").
+- **IME Action:** App uses Keyboard's IME Action wherever possible for the best user experience.
+- **WorkManager:** App uses WorkManager API to update user's subscription and to fetch Daily Read article.
+- **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
+- **Composition Local:** Used to provide different font styles to Composable.
+- **UI Sate:** App combines various flows to construct UI state.
+- **Lightweight modules:** Every module is as small as possible and is only responsible for the given task.
+- **Dark Mode and Material You:** Application supports dark mode as well as Material You. The color of the app changes according to user's wallpaper.

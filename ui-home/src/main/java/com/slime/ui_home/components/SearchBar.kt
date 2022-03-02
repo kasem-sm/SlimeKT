@@ -17,10 +17,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import kasem.sm.common_ui.AnimatedPlaceholder
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
@@ -30,7 +32,6 @@ fun SearchBar(
     onQueryChange: (String) -> Unit,
     onSearchActionClicked: KeyboardActionScope.() -> Unit,
     onTrailingIconClicked: () -> Unit,
-    placeholders: List<String>,
 ) {
     SlimeTextField(
         modifier = modifier,
@@ -67,6 +68,14 @@ fun SearchBar(
         keyboardActions = KeyboardActions(
             onDone = onSearchActionClicked
         ),
-        placeholderContent = { AnimatedPlaceholder(hints = placeholders) },
+        placeholderContent = {
+            AnimatedPlaceholder(
+                hints = listOf(
+                    stringResource(id = R.string.article_search_txt_1),
+                    stringResource(id = R.string.article_search_txt_2),
+                    "Search your favourite topic"
+                ),
+            )
+        },
     )
 }

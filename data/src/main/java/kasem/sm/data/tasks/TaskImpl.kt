@@ -6,19 +6,19 @@ package kasem.sm.data.tasks
 
 import javax.inject.Inject
 import kasem.sm.article.worker.DailyReadManager
-import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.interfaces.Tasks
 import kasem.sm.topic.datasource.cache.dao.TopicDao
 import kasem.sm.topic.worker.SubscribeTopicManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 
 class TaskImpl @Inject constructor(
     private val dailyReadManager: DailyReadManager,
     private val subscribeTopicManager: SubscribeTopicManager,
-    private val dispatchers: SlimeDispatchers,
-    private val topicDao: TopicDao
+    private val topicDao: TopicDao,
+    private val applicationScope: CoroutineScope
 ) : Tasks {
     override fun executeDailyReader() = dailyReadManager.execute()
 
@@ -27,8 +27,8 @@ class TaskImpl @Inject constructor(
     }
 
     override suspend fun clearUserSubscriptionLocally() {
-        withContext(dispatchers.io) {
+        applicationScope.launch {
             topicDao.clearSubscription()
-        }
+        }.join()
     }
 }

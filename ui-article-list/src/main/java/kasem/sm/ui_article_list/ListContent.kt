@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleView
-import kasem.sm.article.common_ui.emptyArticleView
+import kasem.sm.article.common_ui.EmptyView
 import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
@@ -65,7 +65,8 @@ internal fun ListContent(
                         state.endOfPagination &&
                         state.articles.isEmpty()
                     ) {
-                        emptyArticleView { }
+                        EmptyView {
+                        }
                     }
                 }
 

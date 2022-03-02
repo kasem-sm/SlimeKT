@@ -37,8 +37,8 @@ internal fun NavHost(
             startDestination = Routes.HomeScreen.route,
             route = Main.route,
         ) {
-            attachLoginScreen(snackbarHostState, navController)
-            attachRegistrationScreen(snackbarHostState, navController)
+            attachLoginScreen(navController, snackbarHostState)
+            attachRegistrationScreen(navController, snackbarHostState)
             attachHomeScreen(imageLoader, navController, snackbarHostState)
             attachExploreScreen(navController, imageLoader, snackbarHostState)
             attachProfileScreen(navController)

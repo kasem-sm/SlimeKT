@@ -24,5 +24,6 @@ data class HomeState(
         val EMPTY = HomeState()
         const val DEFAULT_TOPIC_QUERY = ""
         const val DEFAULT_SEARCH_QUERY = ""
+        val HomeState.isListEmpty get() = !paginationLoadStatus && endOfPagination && articles.isEmpty()
     }
 }

@@ -81,7 +81,7 @@ internal fun ExploreContent(
 
                 item {
                     ProfileCard(
-                        username = "Kasim",
+                        username = "Qasim",
                         bio = "This is an example bio of this user limited to 2 lines, it means that you can't see this text.",
                     )
                 }

@@ -9,6 +9,8 @@
 .cxx
 local.properties
 
+/app/.idea
+
 # Project exclude paths
 /buildSrc/build/
 
@@ -19,3 +21,4 @@ local.properties
 app/release/output-metadata.json
 *.apk
 *.json
+/docs/env

@@ -13,6 +13,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ fun SlimeTextField(
     input: String,
     onTextChange: (String) -> Unit,
     enabled: Boolean = true,
+    shape: RoundedCornerShape = RoundedCornerShape(20.dp),
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -32,12 +34,14 @@ fun SlimeTextField(
     trailingIconContent: @Composable (() -> Unit)? = null,
 ) {
     TextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(shape),
         value = input,
         onValueChange = onTextChange,
         enabled = enabled,
         singleLine = true,
-        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        shape = shape,
         textStyle = TextStyle(
             fontFamily = LocalSlimeFont.current.semiBold,
             fontSize = 14.sp,

@@ -1,0 +1,74 @@
+# Project information
+site_name: "SlimeKT"
+site_description: "Kotlin stack Open source project"
+site_author: "kasem-sm"
+site_url: "https://kasem-sm.github.io/SlimeKT/"
+edit_uri: "tree/dev/docs/"
+
+docs_dir: docs
+
+# Repository
+repo_name: "SlimeKT"
+repo_url: "https://github.com/kasem-sm/SlimeKT"
+
+# Navigation
+nav:
+  - "API":
+    - "Authentication Routes":
+      - "Login/Register Route": api/auth/post_login_register.md
+      - "Get Random Author": api/auth/get_random_user.md
+    - "Article Routes":
+      - "Get Daily Read Article": api/article/get_daily_read_article.md
+      - "Get Article By Id": api/article/get_article_by_id.md
+      - "Get All Articles": api/article/get_all_articles.md
+      - "Get Articles In Explore": api/article/get_articles_in_explore.md
+      - "Post New Article": api/article/post_article.md
+    - "Topic Routes":
+      - "Get All Topics": api/topics/get_all_topics.md
+      - "Get Topic By Id": api/topics/get_topic_by_id.md
+    - "Subscription Routes":
+      - "Subscribe To Topic": api/subscribption/subscribe_if_not.md
+      - "Get All Subscribed Topics": api/subscribption/get_all_subscribed_topics.md
+      - "Get All Explore Topics": api/subscribption/get_all_explore_topics.md
+  - "Core Features":
+    - "Authentication": android/features/ft_authentication.md
+    - "Article": android/features/ft_article.md
+    - "Topics": android/features/ft_topics.md
+    - "Miscellaneous": android/features/misc.md
+  - "Modules & Project Structure":
+    - "Java/Kotlin Modules":
+      - "Core Module": api/auth/post_login_register.md
+    - "Android Modules":
+      - "UI Core": api/auth/post_login_register.md
+
+theme:
+  name: "material"
+  language: "en"
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+      primary: "deep orange"
+      accent: "deep orange"
+  font:
+    text: "Roboto"
+    code: "Fira Code"
+  features:
+    - navigation.sections
+    - navigation.top
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.betterem
+  - pymdownx.superfences
+  - pymdownx.details
