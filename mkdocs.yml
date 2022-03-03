@@ -39,10 +39,10 @@ nav:
     - "Java/Kotlin Modules": modules/java_kotlin/java_kotlin_modules.md
     - "Android Modules": modules/android/ui_modules.md
   - "Guide":
-    - "View-State": faqs/view_state_construction.md
-    - "Observable Loader": faqs/observable_loader.md
-    - "Interactors": faqs/interactors.md
-    - "Slime Paginator": faqs/slime_paginator.md
+    - "View-State": guide/view_state_construction.md
+    - "Observable Loader": guide/observable_loader.md
+    - "Interactors": guide/interactors.md
+    - "Slime Paginator": guide/slime_paginator.md
 
 theme:
   name: "material"
