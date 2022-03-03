@@ -92,7 +92,7 @@ For more screenshots and screen-recording demo, [please visit our documentation]
 SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us in our journey by contributing your skills. Please don't forget to create a issue/feature request first or pick any existing one.
 
 ## Tech stack / Miscellaneous Features 🚀
-
+- Kotlin, Jetpack Compose, Coroutines, Flow, Accompanist, Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
 - **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
@@ -124,7 +124,7 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
 - [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
-- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.
+- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my code snippets and add their value to it.
 
 ## License
 
