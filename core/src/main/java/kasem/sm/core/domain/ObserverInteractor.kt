@@ -16,10 +16,8 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 /**
- * Inspired by
- * https://github.com/chrisbanes/tivi/
- */
-
+ * Inspired by ChrisBane's [tivi](https://github.com/chrisbanes/tivi/)
+*/
 abstract class ObserverInteractor<P : Any, T> {
     private val flowOfError = MutableSharedFlow<String>()
 
@@ -40,9 +38,8 @@ abstract class ObserverInteractor<P : Any, T> {
         .catch { flowOfError.emit(it.toMessage) }
 
     /**
-     * join is an extension function which takes in a coroutineScope
-     * and onError lambda gets triggered if any exception is thrown while
-     * querying our database.
+     * A function which takes in a [coroutineScope]
+     * and [onError] lambda gets triggered if any exception is thrown.
      */
     @Suppress("Unchecked_Cast")
     fun join(
@@ -58,6 +55,10 @@ abstract class ObserverInteractor<P : Any, T> {
         }
     }
 
+    /**
+     * A function similar to [join] which also returns Flow of type T
+     * which has it's own use-case.
+     */
     @Suppress("Unchecked_Cast")
     suspend fun joinAndCollect(
         coroutineScope: CoroutineScope,

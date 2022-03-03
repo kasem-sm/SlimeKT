@@ -92,7 +92,7 @@ For more screenshots and screen-recording demo, [please visit our documentation]
 SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us in our journey by contributing your skills. Please don't forget to create a issue/feature request first or pick any existing one.
 
 ## Tech stack / Miscellaneous Features 🚀
-
+- Kotlin, Jetpack Compose, Coroutines, Flow, Accompanist, Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
 - **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
@@ -100,9 +100,18 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 
 Please visit [the documentation of this project]() for detailed information.
 
-## Contributions and Contributors 👷‍♂️
+## Project Setup Guide ⚒
 
-There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+### Android App
+You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to set up this project locally. After downloading all the requirements, please import the project into Android Studio, build the project and click Run.
+
+### Backend (API)
+You need to have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. 
+After downloading all the requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and click the Run icon besides `main` function in `Application.kt` file.
+
+## Contribution Guide and Contributors 👷‍♂️
+
+There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file an issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
 * Special thanks to our contributors:
   - The first one gets featured here 😎
@@ -123,8 +132,8 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 ## Credits 💎
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
-- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my dumb questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
-- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.
+- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
+- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my code snippets and add their value to it.
 
 ## License
 

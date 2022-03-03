@@ -32,7 +32,6 @@ class ArticlePager @Inject constructor(
     private val _endOfPagination = MutableStateFlow(false)
     val endOfPagination = _endOfPagination.asStateFlow()
 
-    // TODO: check if this actually works or not
     val loadingStatus = ObservableLoader()
 
     /**

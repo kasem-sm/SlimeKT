@@ -36,10 +36,13 @@ nav:
     - "Topics": android/features/ft_topics.md
     - "Miscellaneous": android/features/misc.md
   - "Modules & Project Structure":
-    - "Java/Kotlin Modules":
-      - "Core Module": api/auth/post_login_register.md
-    - "Android Modules":
-      - "UI Core": api/auth/post_login_register.md
+    - "Java/Kotlin Modules": modules/java_kotlin/java_kotlin_modules.md
+    - "Android Modules": modules/android/ui_modules.md
+  - "Guide":
+    - "View-State": guide/view_state_construction.md
+    - "Observable Loader": guide/observable_loader.md
+    - "Interactors": guide/interactors.md
+    - "Slime Paginator": guide/slime_paginator.md
 
 theme:
   name: "material"
