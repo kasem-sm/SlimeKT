@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 
+/**
+ * A custom class that help us in Pagination by requesting next page or
+ * triggering [PaginationOver] Exception when necessary.
+ * It returns [SlimePaginationStatus] sealed class.
+ */
 class SlimePaginator<T>(
     /**
      * in here, you may request data from the server and store it into the cache

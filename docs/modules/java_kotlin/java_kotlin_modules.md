@@ -1,6 +1,6 @@
 ## Core Module
 
-[A pure Java/Kotlin module](https://github.com/kasem-sm/SlimeKT/tree/dev/core) that consists of core business models, classes and utlities for all other modules in the project. It doesn't depends on any other modules.
+[A pure Java/Kotlin module](https://github.com/kasem-sm/SlimeKT/tree/dev/core) that consists of core business models, classes and utilities for all other modules in the project. It doesn't depend on any other modules.
 
 ## Feature Modules Structure
 Every feature module consists of the following sub-modules:
@@ -19,9 +19,9 @@ Every feature module consists of the following sub-modules:
 
 
 ## Feature Article
-Article feature module consists of two extra modules including all the other modules that a feature modules usually contains. The two extra modules are:
+Article feature module consists of two extra modules including all the other modules that a feature module usually contains. The four extra modules are:
 
 - **markdown:** Contains all the necessary classes which helps in rendering text markdown in Article Detail Screen. It depends on a third party library called `commonmark`.
-- **widget:** It contains all the necessary classes that helps in creating Daily Read widget using Jetpack Glance API.
-- **worker:** This module manages Daily Read feature. It consists of `DailyReadManager` which fetches article and shows them as Daily Read via notification and widget.
-- **article-common-ui:** Contains common UI components related to Article such as ArticleCard which is used in every screen where article is displayed.
+- **widget:** It contains all the necessary classes that help in creating a Daily Read widget using Jetpack Glance API.
+- **worker:** This module manages the Daily Read feature. It consists of `DailyReadManager` which fetches articles and shows them as Daily Read via notification and widget.
+- **article-common-ui:** Contains common UI components related to Article such as ArticleCard which is used in every screen where an article is displayed.

@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.map
  * when the count is greater than 0.
  * It consists of a `[start]` function which increments the counter
  * and `[stop]` function which decrements the counter.
+ *
+ * Please refer to our documentation for more [details](https://kasem-sm.github.io/SlimeKT/guide/observable_loader/)
  */
 class ObservableLoader {
     private val count = AtomicInteger()

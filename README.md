@@ -103,15 +103,15 @@ Please visit [the documentation of this project]() for detailed information.
 ## Project Setup Guide ⚒
 
 ### Android App
-You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to setup this project locally. After downloading all the requirements, please import the project into Android Studio, build the project and click Run.
+You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to set up this project locally. After downloading all the requirements, please import the project into Android Studio, build the project and click Run.
 
 ### Backend (API)
 You need to have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. 
-After downloading all the requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and click Run icon besides `main` function in `Application.kt` file.
+After downloading all the requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and click the Run icon besides `main` function in `Application.kt` file.
 
 ## Contribution Guide and Contributors 👷‍♂️
 
-There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file an issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
 * Special thanks to our contributors:
   - The first one gets featured here 😎

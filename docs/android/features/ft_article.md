@@ -2,14 +2,14 @@
 
 - User's can search for articles, filter it according to their favourite author or any topic they like.
 - Custom Implementation:
-    - **Implemented our own Pagination system.** It also supports recovery from process death and is based on Single Source of Truth principle. Everything such as the page number, search query, selected topic will be restored after process death from the cache.
+    - **Implemented our own Pagination system.** It also supports recovery from process death and is based on the Single Source of Truth principle. Everything such as the page number, search query, selected topic will be restored after process death from the cache.
     - **Article detail screen supports Text Markdown** such as displaying quotes, code blocks, and many more.
 - Daily Read Reminder notification and widget:
     - Users get a notification to read an article every 24 hours.
-    - If the user is authenticated and has subscribed to any topics of their choice, server would pick a random article from their subscription.
-    - If the user is not authenticated, server would pick any random article.
+    - If the user is authenticated and has subscribed to any topics of their choice, the server would pick a random article from their subscription.
+    - If the user is not authenticated, the server would pick any random article.
     - Article once shown for Daily Read would not be shown again (verified on the client side).
-    - App's widget also displays the article selected for Daily Read.
+    - The app's widget also displays the article selected for Daily Read.
     - Clicking the Daily Read notification would open the respective article.
 
 ## Demo

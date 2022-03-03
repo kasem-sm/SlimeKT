@@ -1,4 +1,4 @@
-A custom class that help us in Pagination by requesting next page or trigerring PaginationOver Exception when necessary. It returns `SlimePaginationStatus` sealed class.
+A custom class that helps us in Pagination by requesting the next page or triggering PaginationOver Exception when necessary. It returns `SlimePaginationStatus` sealed class.
 
 ```kotlin
 class SlimePaginator<T>(

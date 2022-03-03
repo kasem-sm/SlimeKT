@@ -17,6 +17,8 @@ sealed class Stage {
  * [collect] is an extension function which takes in
  * a loader which helps in showing the progressBar for each execution
  * and onError lambda gets triggered if any exception is thrown.
+ *
+ * Please refer to our documentation for more [details](https://kasem-sm.github.io/SlimeKT/guide/interactors/)
  */
 suspend fun Flow<Stage>.collect(
     loader: ObservableLoader,
