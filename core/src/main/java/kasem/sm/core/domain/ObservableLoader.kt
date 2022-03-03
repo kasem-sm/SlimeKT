@@ -15,6 +15,12 @@ import kotlinx.coroutines.flow.map
  * https://github.com/chrisbanes/tivi/
  */
 
+/**
+ * Observable Loader exposes a [flow] of type Boolean which returns true
+ * when the count is greater than 0.
+ * It consists of a `[start]` function which increments the counter
+ * and `[stop]` function which decrements the counter.
+ */
 class ObservableLoader {
     private val count = AtomicInteger()
     private val loadingState = MutableStateFlow(count.get())

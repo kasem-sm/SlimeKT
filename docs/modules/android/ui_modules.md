@@ -14,3 +14,7 @@
 
 [A Module](https://github.com/kasem-sm/SlimeKT/tree/dev/data) that handles data related work such as creation and persistance of Database, session and task management, caching data etc.
 
+# UI Modules
+
+Every screen is a module that contains Screen UI made with Jetpack Compose, Screen's state and it's ViewModel. Feature interactors are a dependency to screen modules. The ViewModel exposes `viewState` to the screen.
+

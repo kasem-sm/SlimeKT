@@ -5,9 +5,9 @@
 ## Feature Modules Structure
 Every feature module consists of the following sub-modules:
 
-- **datasource:** Contains interface for cache and network which can be injected to `interactors` module The naming convention of the interface in this module are `XFeatureApiService`, `XFeatureDatabaseService`
+- **datasource:** Contains interface for cache and network which can be injected to `interactors` module. This can also make testing easier. The naming convention of the classes in this module are `XFeatureApiService`, `XFeatureDatabaseService`
 
-- **datasource-impl:** Contains concrete implementation of the interface in datasource module. The naming convention of the classes here are `XFeatureApiServiceImpl`, `XFeatureDatabaseServiceImpl`
+- **datasource-impl:** Contains concrete implementation of the interface from the datasource module. The naming convention of the classes are `XFeatureApiServiceImpl`, `XFeatureDatabaseServiceImpl`
 
 - **domain/model:** Contains the UI Model class of the feature which can be provided to `feature-common-ui` modules or the module where the screen using the feature resides.
 
@@ -23,3 +23,5 @@ Article feature module consists of two extra modules including all the other mod
 
 - **markdown:** Contains all the necessary classes which helps in rendering text markdown in Article Detail Screen. It depends on a third party library called `commonmark`.
 - **widget:** It contains all the necessary classes that helps in creating Daily Read widget using Jetpack Glance API.
+- **worker:** This module manages Daily Read feature. It consists of `DailyReadManager` which fetches article and shows them as Daily Read via notification and widget.
+- **article-common-ui:** Contains common UI components related to Article such as ArticleCard which is used in every screen where article is displayed.

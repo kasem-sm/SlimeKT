@@ -100,6 +100,9 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 
 Please visit [the documentation of this project]() for detailed information.
 
+## Project Setup Guide ⚒
+
+
 ## Contributions and Contributors 👷‍♂️
 
 There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file a issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
