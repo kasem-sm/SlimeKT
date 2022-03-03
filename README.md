@@ -102,6 +102,8 @@ Please visit [the documentation of this project]() for detailed information.
 
 ## Project Setup Guide ⚒
 
+You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to setup this project locally. To run SlimeKT API, you need to have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. 
+After downloading all the requirements, please import the [`/api`](/api) folder into IntelliJ IDEA and click Run.
 
 ## Contributions and Contributors 👷‍♂️
 
