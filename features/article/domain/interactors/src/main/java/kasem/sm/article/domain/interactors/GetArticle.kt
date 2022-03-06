@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class GetArticleById @Inject constructor(
+class GetArticle @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
     private val applicationScope: CoroutineScope,

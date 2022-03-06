@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_login.utils
+package kasem.sm.common_test_utils
 
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description

@@ -30,8 +30,9 @@ object AppModule {
             .build()
     }
 
+    @Singleton
     @Provides
     fun provideApplicationScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 }

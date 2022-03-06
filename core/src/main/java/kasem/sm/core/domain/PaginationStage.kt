@@ -20,7 +20,7 @@ sealed class SlimePaginationStatus<out T> {
      * and store the new page value into savedState.
      */
     data class OnPageLoaded<out T>(val page: Int, val data: T) : SlimePaginationStatus<T>()
-    data class OnError(val error: Throwable) : SlimePaginationStatus<Nothing>()
+    data class OnException(val throwable: Throwable) : SlimePaginationStatus<Nothing>()
     data class OnLoadingStatus(val value: Boolean) : SlimePaginationStatus<Nothing>()
     data class EndOfPaginationStatus(val value: Boolean) : SlimePaginationStatus<Nothing>()
 }

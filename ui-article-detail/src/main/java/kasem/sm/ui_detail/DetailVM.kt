@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.article.domain.interactors.GetArticleById
+import kasem.sm.article.domain.interactors.GetArticle
 import kasem.sm.article.domain.interactors.ObserveArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
@@ -22,10 +22,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 @HiltViewModel
 class DetailVM @Inject constructor(
-    private val getArticle: GetArticleById,
+    private val getArticle: GetArticle,
     private val observeArticle: ObserveArticle,
     private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
@@ -46,17 +47,20 @@ class DetailVM @Inject constructor(
             isLoading = loading,
             article = article
         )
-    }.stateIn(viewModelScope, DetailState.EMPTY)
+    }.stateIn(
+        coroutineScope = viewModelScope + dispatchers.main,
+        initialValue = DetailState.EMPTY
+    )
 
     init {
         observe()
-
+//
         refresh()
     }
 
     private fun observe() {
         observeArticle.join(
-            coroutineScope = viewModelScope,
+            coroutineScope = viewModelScope + dispatchers.main,
             onError = { _uiEvent.emit(showMessage(it)) },
             params = articleId,
         )
@@ -67,7 +71,9 @@ class DetailVM @Inject constructor(
             getArticle.execute(articleId)
                 .collect(
                     loader = loadingStatus,
-                    onError = { _uiEvent.emit(showMessage(it)) },
+                    onError = {
+                        _uiEvent.emit(showMessage(it))
+                    },
                 )
         }
     }
