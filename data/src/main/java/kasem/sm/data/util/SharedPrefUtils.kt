@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.onCompletion
 fun SharedPreferences.observe(key: String, defValue: String?): Flow<String?> {
     val flow = MutableStateFlow(getString(key, defValue))
 
-    val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, k ->
+    val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
         flow.value = getString(key, defValue)
     }
 

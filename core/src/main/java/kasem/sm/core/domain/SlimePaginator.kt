@@ -4,7 +4,10 @@
  */
 package kasem.sm.core.domain
 
+import kasem.sm.core.domain.SlimePaginationStatus.EndOfPaginationStatus
+import kasem.sm.core.domain.SlimePaginationStatus.OnException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -34,29 +37,31 @@ class SlimePaginator<T>(
     ) {
         updatedPage?.let {
             page = it
-            currentStatus(SlimePaginationStatus.EndOfPaginationStatus(false))
+            currentStatus(EndOfPaginationStatus(false))
         }
 
-        requestForNextPage(page)
-            .onStart { currentStatus(SlimePaginationStatus.OnLoadingStatus(true)) }
-            .onCompletion { currentStatus(SlimePaginationStatus.OnLoadingStatus(false)) }
-            .collectLatest { stage ->
-                when (stage) {
-                    is PaginationStage.Success -> {
-                        val data = stage.data
-                        page++
-                        currentStatus(SlimePaginationStatus.OnPageLoaded(page, data))
-                        if ((data as List<*>).isEmpty()) {
-                            currentStatus(SlimePaginationStatus.EndOfPaginationStatus(true))
+        try {
+            requestForNextPage(page)
+                .onStart { currentStatus(SlimePaginationStatus.OnLoadingStatus(true)) }
+                .onCompletion { currentStatus(SlimePaginationStatus.OnLoadingStatus(false)) }
+                .catch { currentStatus(OnException(it)) }
+                .collectLatest { stage ->
+                    currentStatus(
+                        when (stage) {
+                            is PaginationStage.Success -> {
+                                val data = stage.data
+                                page++
+                                if ((data as List<*>).isEmpty()) {
+                                    EndOfPaginationStatus(true)
+                                } else SlimePaginationStatus.OnPageLoaded(page, data)
+                            }
+                            is PaginationStage.Exception -> OnException(stage.error)
+                            is PaginationStage.PaginationOver -> EndOfPaginationStatus(true)
                         }
-                    }
-                    is PaginationStage.Exception -> SlimePaginationStatus.OnError(stage.error)
-                    is PaginationStage.PaginationOver -> currentStatus(
-                        SlimePaginationStatus.EndOfPaginationStatus(
-                            true
-                        )
                     )
                 }
-            }
+        } catch (e: Exception) {
+            currentStatus(OnException(e))
+        }
     }
 }

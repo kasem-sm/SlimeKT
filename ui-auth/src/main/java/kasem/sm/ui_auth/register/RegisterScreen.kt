@@ -6,10 +6,8 @@ package kasem.sm.ui_auth.register
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import kasem.sm.ui_auth.common.AuthState
-import kasem.sm.ui_core.rememberFlow
+import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 
 @Composable
@@ -18,8 +16,7 @@ fun RegisterScreen(
     snackbarHostState: SnackbarHostState,
     onRegistrationSuccess: () -> Unit
 ) {
-    val viewState by rememberFlow(viewModel.state)
-        .collectAsState(AuthState.EMPTY)
+    val viewState by rememberStateWithLifecycle(viewModel.state)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,

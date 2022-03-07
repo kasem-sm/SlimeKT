@@ -144,7 +144,7 @@ class ListVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Routes.RegisterScreen.route))
+                _uiEvent.emit(navigate(Routes.LoginScreen.route))
             }
         }
     }

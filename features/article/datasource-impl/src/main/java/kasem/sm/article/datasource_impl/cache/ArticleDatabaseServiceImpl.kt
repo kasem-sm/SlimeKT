@@ -144,7 +144,7 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     private suspend fun isActive(id: Int): Boolean {
         return slimeSuspendTry {
             dao.getAllActiveArticlesNonFlow().any {
-                id == it?.id
+                id == it.id
             }
         }
     }

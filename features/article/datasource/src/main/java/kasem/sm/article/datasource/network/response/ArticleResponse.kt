@@ -52,12 +52,12 @@ data class ArticleDto(
             id = id,
             title = title,
             description = description,
+            topic = topic,
             featuredImage = featuredImage,
             author = author,
             timestamp = timestamp,
             isShownInDailyRead = pair.first.isShown,
             isActiveInDailyRead = pair.second.isActive,
-            topic = topic
         )
     }
 }

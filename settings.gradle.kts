@@ -67,3 +67,4 @@ include(":features:authentication:datasource-impl")
 
 include(":data")
 include(":navigation")
+include(":common-test-utils")

@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_login.utils
+package kasem.sm.common_test_utils
 
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
@@ -12,7 +12,7 @@ import org.junit.runner.Description
  * exception handler as that any exception inside of
  * a viewModelScope will actually fail a test.
  *
- * Inspiration - https://github.kasem/Kotlin/kotlinx.coroutines/issues/1205
+ * Inspiration - https:///github.com/kotlinx.coroutines/issues/1205
  */
 
 class ThreadExceptionTestRule : TestWatcher() {

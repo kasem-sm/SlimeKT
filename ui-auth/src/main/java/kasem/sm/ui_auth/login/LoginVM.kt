@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 @HiltViewModel
 class LoginVM @Inject constructor(
@@ -56,6 +57,8 @@ class LoginVM @Inject constructor(
 
     private val loadingStatus = ObservableLoader()
 
+    private val scope = viewModelScope + dispatchers.main
+
     val state = combineFlows(
         username.flow,
         password.flow,
@@ -68,7 +71,10 @@ class LoginVM @Inject constructor(
             isLoading = isLoading,
             passwordVisibility = passwordVisibility
         )
-    }.stateIn(viewModelScope, AuthState.EMPTY)
+    }.stateIn(
+        coroutineScope = viewModelScope + dispatchers.main,
+        initialValue = AuthState.EMPTY
+    )
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()

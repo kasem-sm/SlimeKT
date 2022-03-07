@@ -35,7 +35,7 @@ interface ArticleDao {
 
     // Only 1 article will be active
     @Query("SELECT * FROM table_article WHERE is_active = 1")
-    fun getAllActiveArticlesNonFlow(): List<ArticleEntity?>
+    fun getAllActiveArticlesNonFlow(): List<ArticleEntity>
 
     @Query("SELECT * FROM table_article WHERE is_shown = 1")
     suspend fun getAllArticlesShowInDailyRead(): List<ArticleEntity>

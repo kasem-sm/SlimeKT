@@ -1,8 +1,8 @@
 /*
- * Copyright (C) 2021, Kasem S.M
+ * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_login.utils
+package kasem.sm.ui_detail.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

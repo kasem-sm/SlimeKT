@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_login.data
+package kasem.sm.ui_login.ui
 
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -12,12 +12,20 @@ import kasem.sm.authentication.domain.model.Credentials
 import kotlinx.coroutines.flow.flowOf
 
 class FakeLoginUseCase {
+    val mock: LoginUseCase = mockk()
 
-    val mock: LoginUseCase = mockk(relaxed = true)
+    fun mockAndThrowErr(
+        credentials: Credentials = Credentials(),
+        someException: Exception = SecurityException()
+    ) {
+        coEvery {
+            mock.execute(credentials)
+        } throws someException
+    }
 
-    fun mockLoginResultForCredentials(
-        credentials: Credentials,
+    fun mockAndReturn(
         result: AuthResult,
+        credentials: Credentials = Credentials(),
     ) {
         coEvery {
             mock.execute(credentials)

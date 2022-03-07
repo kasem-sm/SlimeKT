@@ -52,6 +52,7 @@ buildscript {
 
 plugins {
     id "com.jraska.module.graph.assertion" version "2.2.0"
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10' apply false
 }
 
 task clean(type: Delete) {

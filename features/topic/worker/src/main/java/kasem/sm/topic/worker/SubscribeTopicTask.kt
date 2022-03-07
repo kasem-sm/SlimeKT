@@ -38,14 +38,18 @@ internal class SubscribeTopicTask @AssistedInject constructor(
         val ids = inputData.getStringArray(ID_KEY) ?: return Result.failure()
 
         val listOfResult = withContext(Dispatchers.Default) {
-            ids.map { id ->
-                async { api.subscribeIfNot(id) }
-            }.awaitAll()
+            try {
+                ids.map { id ->
+                    async { api.subscribeIfNot(id) }
+                }.awaitAll()
+            } catch (e: Exception) {
+                null
+            }
         }
 
-        listOfResult
-            .map { it.getOrThrow() }
-            .forEach { it.updateCache() }
+        listOfResult?.let { list ->
+            list.map { it.getOrThrow() }.forEach { it.updateCache() }
+        } ?: return Result.retry()
 
         return Result.success()
     }
