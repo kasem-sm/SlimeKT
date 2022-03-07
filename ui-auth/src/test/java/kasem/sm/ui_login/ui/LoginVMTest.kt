@@ -6,11 +6,7 @@ package kasem.sm.ui_login.ui
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import io.mockk.coEvery
-import io.mockk.mockk
-import kasem.sm.authentication.domain.interactors.LoginUseCase
 import kasem.sm.authentication.domain.model.AuthResult
-import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.common_ui.R.string
@@ -21,7 +17,6 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.UiText
 import kasem.sm.ui_core.showMessage
 import kotlin.time.ExperimentalTime
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -35,12 +30,12 @@ class LoginVMTest {
 
     private lateinit var viewModel: LoginVM
 
-    private val loginUseCase: LoginUseCase = mockk()
+    private val fakeLoginUseCase = FakeLoginUseCase()
 
     @Before
     fun setUp() {
         viewModel = LoginVM(
-            loginUseCase = loginUseCase,
+            loginUseCase = fakeLoginUseCase.mock,
             dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher()),
             savedStateHandle = SavedStateHandle()
         )
@@ -62,11 +57,7 @@ class LoginVMTest {
 
     @Test
     fun testUiState_WhenLoginEmitsError() = runTest {
-        coEvery {
-            loginUseCase.execute(Credentials())
-        } returns flow {
-            emit(AuthResult.Exception(UnknownError()))
-        }
+        fakeLoginUseCase.mockAndReturn(AuthResult.Exception(UnknownError()))
 
         viewModel.uiEvent.test {
             viewModel.loginUser()
@@ -78,16 +69,29 @@ class LoginVMTest {
 
     @Test
     fun testUiEvent_WhenBothFieldsAreEmpty() = runTest {
-        coEvery {
-            loginUseCase.execute(Credentials())
-        } returns flow {
-            emit(AuthResult.EmptyCredentials(isUsernameEmpty = true, isPasswordEmpty = true))
-        }
+        fakeLoginUseCase.mockAndReturn(
+            AuthResult.EmptyCredentials(
+                isUsernameEmpty = true,
+                isPasswordEmpty = true
+            )
+        )
 
         viewModel.uiEvent.test {
             viewModel.loginUser()
             val item = awaitItem()
             item shouldBe showMessage(string.err_both_fields_empty)
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    @Test
+    fun testUiEvent_WhenLoginIsSuccess() = runTest {
+        fakeLoginUseCase.mockAndReturn(AuthResult.Success)
+
+        viewModel.uiEvent.test {
+            viewModel.loginUser()
+            val item = awaitItem()
+            item shouldBe UiEvent.Success
             cancelAndConsumeRemainingEvents()
         }
     }
