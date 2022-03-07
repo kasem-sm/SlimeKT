@@ -12,13 +12,13 @@ import io.mockk.mockk
 import io.mockk.runs
 import kasem.sm.article.domain.interactors.GetArticle
 import kasem.sm.article.domain.interactors.ObserveArticle
+import kasem.sm.article.domain.interactors.utils.getMockDomain
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.domain.collect
-import kasem.sm.ui_detail.utils.getMockDomain
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -33,8 +33,7 @@ class DetailVMTest {
 
     private lateinit var viewModel: DetailVM
 
-    private val getArticle: GetArticle = mockk(relaxed = true) {
-    }
+    private val getArticle: GetArticle = mockk(relaxed = true)
 
     private val observeArticle: ObserveArticle = mockk(relaxed = true) {
         coEvery {
@@ -83,7 +82,7 @@ class DetailVMTest {
 //    fun testUiEvent() = runTest {
 //        viewModel.uiEvent.test {
 //            viewModel.refresh()
-//            awaitItem() shouldBe UiEvent.Success
+//            awaitItem() kasem.sm.common_test_utils.shouldBe UiEvent.Success
 //            cancelAndConsumeRemainingEvents()
 //        }
 //    }

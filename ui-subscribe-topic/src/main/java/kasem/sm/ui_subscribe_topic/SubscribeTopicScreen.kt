@@ -6,9 +6,8 @@ package kasem.sm.ui_subscribe_topic
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import kasem.sm.ui_core.rememberFlow
+import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 
 @Composable
@@ -18,8 +17,7 @@ fun SubscribeTopicScreen(
     onSubscriptionSaved: () -> Unit,
     navigateTo: (String) -> Unit,
 ) {
-    val viewState by rememberFlow(viewModel.state)
-        .collectAsState(SubscribeTopicState.EMPTY)
+    val viewState by rememberStateWithLifecycle(viewModel.state)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,

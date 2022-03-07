@@ -6,10 +6,9 @@ package kasem.sm.ui_detail
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import coil.ImageLoader
-import kasem.sm.ui_core.rememberFlow
+import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 
 @Composable
@@ -18,8 +17,7 @@ fun DetailScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState
 ) {
-    val viewState by rememberFlow(viewModel.state)
-        .collectAsState(DetailState.EMPTY)
+    val viewState by rememberStateWithLifecycle(viewModel.state)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar
