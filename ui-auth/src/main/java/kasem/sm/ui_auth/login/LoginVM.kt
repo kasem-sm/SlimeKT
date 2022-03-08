@@ -52,12 +52,10 @@ class LoginVM @Inject constructor(
     private val passwordVisibilityToggle = SavedMutableState(
         savedStateHandle,
         PASSWORD_VIS_KEY,
-        defValue = true
+        defValue = false
     )
 
     private val loadingStatus = ObservableLoader()
-
-    private val scope = viewModelScope + dispatchers.main
 
     val state = combineFlows(
         username.flow,

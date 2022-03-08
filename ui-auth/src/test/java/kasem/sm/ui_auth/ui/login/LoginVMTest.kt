@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_login.ui
+package kasem.sm.ui_auth.ui.login
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test

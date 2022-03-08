@@ -17,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
+import kasem.sm.common_ui.util.TestTags
 
 @Composable
 internal fun UsernameField(
@@ -33,7 +36,8 @@ internal fun UsernameField(
     onNextClicked: KeyboardActionScope.() -> Unit,
 ) {
     SlimeTextField(
-        modifier = modifier,
+        modifier = modifier
+            .semantics { testTag = TestTags.LoginContent.USERNAME_FIELD },
         input = state.username,
         onTextChange = onUsernameChanged,
         enabled = !state.isLoading,
