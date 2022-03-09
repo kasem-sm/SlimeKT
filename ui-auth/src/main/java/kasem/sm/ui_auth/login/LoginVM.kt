@@ -58,6 +58,8 @@ class LoginVM @Inject constructor(
 
     private val loadingStatus = ObservableLoader()
 
+    private val scope = viewModelScope + dispatchers.main
+
     val state = combineFlows(
         username.flow,
         password.flow,
