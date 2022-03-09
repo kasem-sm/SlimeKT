@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.ui.login
+package kasem.sm.ui_auth.login
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
@@ -12,10 +12,10 @@ import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.common_ui.R.string
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.ui_auth.common.AuthState
-import kasem.sm.ui_auth.login.LoginVM
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.UiText
 import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_core.success
 import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -91,7 +91,7 @@ class LoginVMTest {
         viewModel.uiEvent.test {
             viewModel.loginUser()
             val item = awaitItem()
-            item shouldBe UiEvent.Success
+            item shouldBe success()
             cancelAndConsumeRemainingEvents()
         }
     }

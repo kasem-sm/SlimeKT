@@ -6,7 +6,7 @@ package kasem.sm.article.domain.interactors
 
 import io.mockk.clearAllMocks
 import kasem.sm.article.domain.interactors.data.FakeGetPagedArticles
-import kasem.sm.article.domain.interactors.utils.getMockDomain
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockDomain
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe

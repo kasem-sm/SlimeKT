@@ -25,6 +25,7 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.navigate
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
+import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -143,7 +144,7 @@ class SubscribeTopicVM @Inject constructor(
                     ).collect(
                         loader = isSubscriptionInProgress,
                         onError = { _uiEvent.emit(showMessage(it)) },
-                        onSuccess = { _uiEvent.emit(UiEvent.Success) },
+                        onSuccess = { _uiEvent.emit(success()) },
                     )
                 }
             }

@@ -54,14 +54,16 @@ class DetailVM @Inject constructor(
 
     init {
         observe()
-//
+
         refresh()
     }
 
     private fun observe() {
         observeArticle.join(
             coroutineScope = viewModelScope + dispatchers.main,
-            onError = { _uiEvent.emit(showMessage(it)) },
+            onError = {
+                _uiEvent.emit(showMessage(it))
+            },
             params = articleId,
         )
     }

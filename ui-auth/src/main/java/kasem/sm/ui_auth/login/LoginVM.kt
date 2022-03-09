@@ -22,6 +22,7 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
+import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -103,7 +104,7 @@ class LoginVM @Inject constructor(
                         when (result) {
                             is AuthResult.Exception -> showMessage(result.throwable.toMessage)
                             is AuthResult.EmptyCredentials -> showMessage(R.string.err_both_fields_empty)
-                            is AuthResult.Success -> UiEvent.Success
+                            is AuthResult.Success -> success()
                         }
                     )
                 }

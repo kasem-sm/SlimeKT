@@ -14,50 +14,60 @@ import kasem.sm.article.datasource.utils.IsActiveInDailyRead
 import kasem.sm.article.domain.interactors.ArticleMapper
 import kasem.sm.article.domain.model.Article
 
-fun getMockDto(): ArticleDto {
-    return ArticleDto(
-        id = 1,
-        title = "Title",
-        description = "Description",
-        featuredImage = "featuredImage",
-        timestamp = 1L,
-        author = "author",
-        topic = "Topic",
-    )
-}
+internal object ArticleFakes {
 
-fun getMockEntity(pair: Pair<DailyReadStatus, IsActiveInDailyRead> = defaultPair): ArticleEntity {
-    return getMockDto().toEntity(pair)
-}
+    fun getMockDto(): ArticleDto {
+        return ArticleDto(
+            id = 1,
+            title = "Title",
+            description = "Description",
+            featuredImage = "featuredImage",
+            timestamp = 1L,
+            author = "author",
+            topic = "Topic",
+        )
+    }
 
-suspend fun getMockDomain(): Article {
-    return ArticleMapper().map(getMockEntity(defaultPair))
-}
+    fun getMockEntity(pair: Pair<DailyReadStatus, IsActiveInDailyRead> = defaultPair): ArticleEntity {
+        return getMockDto().toEntity(pair)
+    }
 
-val defaultPair: Pair<DailyReadStatus, IsActiveInDailyRead>
-    get() =
-        Pair(DailyReadStatus(isShown = true), IsActiveInDailyRead(isActive = true))
+    suspend fun ArticleEntity.toDomain(pair: Pair<DailyReadStatus, IsActiveInDailyRead> = defaultPair): Article {
+        return ArticleMapper().map(this).copy(
+            isActiveInDailyRead = pair.second.isActive,
+            isShownInDailyRead = pair.first.isShown
+        )
+    }
 
-val defaultPairWithOneFalse: Pair<DailyReadStatus, IsActiveInDailyRead>
-    get() =
-        Pair(DailyReadStatus(isShown = false), IsActiveInDailyRead(isActive = true))
+    suspend fun getMockDomain(): Article {
+        return ArticleMapper().map(getMockEntity(defaultPair))
+    }
 
-fun mockArticleResponse(
-    size: Int = 0,
-    totalPage: Int = 0,
-    prevPage: Int = 0,
-    nextPage: Int = 0
-): ArticleResponse {
-    return ArticleResponse(
-        info = InfoDto(size, totalPage, prevPage, nextPage),
-        articles = listOf(getMockDto())
-    )
-}
+    val defaultPair: Pair<DailyReadStatus, IsActiveInDailyRead>
+        get() =
+            Pair(DailyReadStatus(isShown = true), IsActiveInDailyRead(isActive = true))
 
-fun <T> mockSuccessResponse(data: T?): Result<SlimeResponse<T>> {
-    return Result.success(SlimeResponse("Success", data, true))
-}
+    val defaultPairWithOneFalse: Pair<DailyReadStatus, IsActiveInDailyRead>
+        get() =
+            Pair(DailyReadStatus(isShown = false), IsActiveInDailyRead(isActive = true))
 
-fun <T> mockSuccessResponseWithNullData(): Result<SlimeResponse<T>> {
-    return Result.success(SlimeResponse("success", null, true))
+    fun mockArticleResponse(
+        size: Int = 0,
+        totalPage: Int = 0,
+        prevPage: Int = 0,
+        nextPage: Int = 0
+    ): ArticleResponse {
+        return ArticleResponse(
+            info = InfoDto(size, totalPage, prevPage, nextPage),
+            articles = listOf(getMockDto())
+        )
+    }
+
+    fun <T> mockSuccessResponse(data: T?): Result<SlimeResponse<T>> {
+        return Result.success(SlimeResponse("Success", data, true))
+    }
+
+    fun <T> mockSuccessResponseWithNullData(): Result<SlimeResponse<T>> {
+        return Result.success(SlimeResponse("success", null, true))
+    }
 }

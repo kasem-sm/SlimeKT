@@ -35,7 +35,9 @@ abstract class ObserverInteractor<P : Any, T> {
         .distinctUntilChanged()
         .flatMapLatest { execute(it) }
         .distinctUntilChanged()
-        .catch { flowOfError.emit(it.toMessage) }
+        .catch {
+            flowOfError.emit(it.toMessage)
+        }
 
     /**
      * A function which takes in a [coroutineScope]

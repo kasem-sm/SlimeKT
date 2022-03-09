@@ -5,10 +5,11 @@
 package kasem.sm.article.domain.interactors
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.mockk
+import java.sql.SQLException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPairWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
@@ -22,7 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ObserveArticleTest {
+class ObserveDailyReadArticleTest {
 
     @get:Rule
     val uncaughtExceptionHandler = ThreadExceptionTestRule()
@@ -30,20 +31,22 @@ class ObserveArticleTest {
     private val databaseMock: ArticleDatabaseService = mockk()
     private val mapper = ArticleMapper()
 
-    private val observer = ObserveArticle(
+    private val observer = ObserveDailyReadArticle(
         cache = databaseMock,
         mapper = mapper
     )
 
     @Test
     fun assertFlowEmitsProperValue() = runTest {
-        coEvery { databaseMock.getArticleById(2) } returns flow { emit(getMockEntity().copy(id = 2)) }
+        coEvery { databaseMock.getActiveArticleFlow() } returns flow {
+            emit(getMockEntity(defaultPairWithOneFalse))
+        }
 
         observer.joinAndCollect(
-            params = 2,
+            params = Unit,
             coroutineScope = TestScope()
         ).test {
-            Truth.assertThat(awaitItem()?.id).isEqualTo(2)
+            awaitItem()?.isActiveInDailyRead shouldBe defaultPairWithOneFalse.second.isActive
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -51,15 +54,14 @@ class ObserveArticleTest {
     @Test
     fun assertExceptionIsCaught() = runBlocking {
         val list = mutableListOf<String>()
-        coEvery { databaseMock.getArticleById(2) } throws
-            ArrayIndexOutOfBoundsException("Please check this error message")
+        coEvery { databaseMock.getActiveArticleFlow() } throws SQLException("Table doesn't exists")
 
         observer.joinAndCollect(
+            params = Unit,
             coroutineScope = TestScope(UnconfinedTestDispatcher()),
             onError = { list.add(it) },
-            params = 2,
         ).test { cancelAndIgnoreRemainingEvents() }
 
-        list.first() shouldBe "Please check this error message"
+        list.first() shouldBe "Table doesn't exists"
     }
 }

@@ -11,8 +11,9 @@ import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPair
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockDto
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPairWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockArticleResponse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponseWithNullData
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
@@ -28,7 +29,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetArticleTest {
+class GetLatestArticleTest {
 
     @get:Rule
     val uncaughtExceptionHandler = ThreadExceptionTestRule()
@@ -36,7 +37,7 @@ class GetArticleTest {
     private val databaseMock: ArticleDatabaseService = mockk()
     private val apiMock: ArticleApiService = mockk()
 
-    private val useCase = GetArticle(
+    private val useCase = GetLatestArticles(
         api = apiMock,
         cache = databaseMock,
         applicationScope = TestScope(UnconfinedTestDispatcher()),
@@ -45,11 +46,11 @@ class GetArticleTest {
 
     @Test
     fun assertApiCallErrorIsAnExceptionStage_and_InsertNotCalled() = runBlocking {
-        coEvery { apiMock.getArticleById(1) } returns Result.failure(RuntimeException())
+        coEvery { apiMock.getAllArticles(0, 10) } returns Result.failure(IllegalCallerException())
 
-        val stage = useCase.execute(1).first()
+        val stage = useCase.execute().first()
 
-        (stage as Stage.Exception).throwable shouldBe RuntimeException()
+        (stage as Stage.Exception).throwable shouldBe IllegalCallerException()
 
         coVerify(exactly = 0) {
             databaseMock.insert(getMockEntity(defaultPair))
@@ -58,21 +59,26 @@ class GetArticleTest {
 
     @Test
     fun assertApiCallSuccess_and_InsertCalled() = runBlocking {
-        coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(data = getMockDto())
-        coEvery { databaseMock.getRespectivePair(1) } returns defaultPair
+        coEvery {
+            apiMock.getAllArticles(
+                0,
+                10
+            )
+        } returns mockSuccessResponse(data = mockArticleResponse())
+        coEvery { databaseMock.getRespectivePair(1) } returns defaultPairWithOneFalse
 
-        val stage = useCase.execute(1).first()
+        val stage = useCase.execute().first()
 
         stage shouldBe Stage.Success
 
-        coVerify { databaseMock.insert(getMockEntity(defaultPair)) }
+        coVerify { databaseMock.insert(getMockEntity(defaultPairWithOneFalse)) }
     }
 
     @Test
     fun assertApiCallSuccess_but_DataIsNull() = runBlocking {
-        coEvery { apiMock.getArticleById(1) } returns mockSuccessResponseWithNullData()
+        coEvery { apiMock.getAllArticles(0, 10) } returns mockSuccessResponseWithNullData()
 
-        val stage = useCase.execute(1).first()
+        val stage = useCase.execute().first()
 
         stage shouldBe Stage.Success
 
@@ -83,19 +89,19 @@ class GetArticleTest {
 
     @Test
     fun apiCallThrowsException() = runBlocking {
-        coEvery { apiMock.getArticleById(1) } throws IOException()
+        coEvery { apiMock.getAllArticles(0, 10) } throws IOException()
 
-        val stage = useCase.execute(1).first()
+        val stage = useCase.execute().first()
 
         (stage as Stage.Exception).throwable shouldBe IOException()
     }
 
 //    @Test
 //    fun cacheThrowsException() = runBlocking {
-//        coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(getMockDto())
+//        coEvery { apiMock.getAllArticles(0, 10) } returns mockSuccessResponse(mockArticleResponse())
 //        coEvery { databaseMock.getRespectivePair(1) } throws UnknownError()
 //
-//        val stage = useCase.execute(1).first()
+//        val stage = useCase.execute().first()
 //
 //        stage shouldBe Stage.Exception()
 //    }
