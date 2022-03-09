@@ -7,25 +7,24 @@ package kasem.sm.ui_detail
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import io.mockk.coEvery
-import io.mockk.just
 import io.mockk.mockk
-import io.mockk.runs
+import java.io.IOException
 import kasem.sm.article.domain.interactors.GetArticle
 import kasem.sm.article.domain.interactors.ObserveArticle
-import kasem.sm.article.domain.interactors.utils.getMockDomain
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
-import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
-import kasem.sm.core.domain.collect
+import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_detail.utils.ArticleFakes.getMockDomain
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
+// Robot Pattern
 
 class DetailVMTest {
     @get:Rule
@@ -35,32 +34,10 @@ class DetailVMTest {
 
     private val getArticle: GetArticle = mockk(relaxed = true)
 
-    private val observeArticle: ObserveArticle = mockk(relaxed = true) {
-        coEvery {
-            join(
-                coroutineScope = TestScope(UnconfinedTestDispatcher()),
-                onError = { },
-                params = 1
-            )
-        } just runs
+    private var observeArticle: ObserveArticle = mockk(relaxUnitFun = true)
 
-        coEvery { flow } returns flow {
-            emit(getMockDomain())
-        }
-    }
-
-    @Before
-    fun setUp() {
-        coEvery { getArticle.execute(1) } returns flow {
-            emit(Stage.Exception())
-        }
-
-        coEvery {
-            getArticle.execute(1).collect(
-                loader = ObservableLoader(),
-                onError = { },
-            )
-        } just runs
+    private fun initViewModel(returnWhen: ObserveArticle.() -> Unit) {
+        returnWhen(observeArticle)
 
         viewModel = DetailVM(
             getArticle = getArticle,
@@ -71,19 +48,48 @@ class DetailVMTest {
     }
 
     @Test
-    fun testStateChange() = runTest {
+    fun testStateEmits_ProperData() = runTest {
+        initViewModel { coEvery { flow } returns flowOf(getMockDomain()) }
+
         viewModel.state.test {
-            val data = awaitItem()
-            data shouldBe DetailState(isLoading = false, article = getMockDomain())
+            val state = awaitItem()
+            state shouldBe DetailState(
+                isLoading = true,
+                article = getMockDomain()
+            )
+            cancelAndIgnoreRemainingEvents()
         }
     }
 
-//    @Test
-//    fun testUiEvent() = runTest {
-//        viewModel.uiEvent.test {
-//            viewModel.refresh()
-//            awaitItem() kasem.sm.common_test_utils.shouldBe UiEvent.Success
-//            cancelAndConsumeRemainingEvents()
-//        }
-//    }
+    @Test
+    fun testArticleIsNull_When_CacheThrowsException() = runTest {
+        initViewModel { coEvery { flow } returns flowOf() }
+
+        coEvery { observeArticle.flow } throws IOException()
+
+        viewModel.state.test {
+            val state = awaitItem()
+            state shouldBe DetailState(
+                isLoading = true,
+                article = null
+            )
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun testUiEventEmit_ProperError() = runTest {
+        initViewModel { coEvery { flow } returns flowOf() }
+
+        coEvery { getArticle.execute(any()) } returns flow {
+            emit(Stage.Exception(IOException()))
+        }
+
+        viewModel.uiEvent.test {
+            viewModel.refresh()
+            val event = awaitItem()
+            event shouldBe showMessage("Something went wrong!")
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 }

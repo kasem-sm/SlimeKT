@@ -9,9 +9,9 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
-import kasem.sm.article.domain.interactors.utils.getMockEntity
-import kasem.sm.article.domain.interactors.utils.mockArticleResponse
-import kasem.sm.article.domain.interactors.utils.mockSuccessResponse
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockArticleResponse
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.core.domain.PaginationOver
 import kasem.sm.core.domain.PaginationStage

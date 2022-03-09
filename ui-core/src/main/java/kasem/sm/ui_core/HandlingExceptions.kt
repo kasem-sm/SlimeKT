@@ -8,12 +8,14 @@ import androidx.annotation.StringRes
 
 fun navigate(
     route: String
-) = UiEvent.NavigateTo(route)
+): UiEvent.NavigateTo = UiEvent.NavigateTo(route)
 
 fun showMessage(
     value: String,
-) = UiEvent.ShowMessage(UiText.StringText(value))
+): UiEvent.ShowMessage = UiEvent.ShowMessage(UiText.StringText(value))
 
 fun showMessage(
     @StringRes res: Int
-) = UiEvent.ShowMessage(UiText.ResourceText(res))
+): UiEvent.ShowMessage = UiEvent.ShowMessage(UiText.ResourceText(res))
+
+fun success(): UiEvent.Success = UiEvent.Success

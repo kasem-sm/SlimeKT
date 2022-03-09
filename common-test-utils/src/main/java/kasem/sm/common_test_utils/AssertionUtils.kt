@@ -13,3 +13,8 @@ infix fun Any?.shouldBe(assert: Any?) {
 infix fun Throwable?.shouldBe(assert: Throwable) {
     Truth.assertThat(this).isInstanceOf(assert::class.java)
 }
+
+infix fun Boolean.shouldBe(bool: Boolean) {
+    if (bool) Truth.assertThat(this).isTrue()
+    else Truth.assertThat(this).isFalse()
+}

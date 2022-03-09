@@ -13,6 +13,7 @@ import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.session.AuthState
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.ui_core.UiEvent
+import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -43,7 +44,7 @@ class ProfileVM @Inject constructor(
     fun clearUserSession() {
         viewModelScope.launch(dispatchers.main) {
             authManager.clearSession()
-            _uiEvent.emit(UiEvent.Success)
+            _uiEvent.emit(success())
         }
     }
 }

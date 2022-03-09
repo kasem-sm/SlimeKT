@@ -23,8 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.common_ui.util.TestTags.BUTTON_PROGRESS_BAR
 
 @Composable
 internal fun RowScope.buttonContent(
@@ -39,7 +42,8 @@ internal fun RowScope.buttonContent(
         Row {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .size(20.dp),
+                    .size(20.dp)
+                    .semantics { testTag = BUTTON_PROGRESS_BAR },
                 color = progressColor,
                 strokeWidth = 2.5.dp
             )

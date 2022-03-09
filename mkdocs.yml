@@ -43,6 +43,7 @@ nav:
     - "Observable Loader": guide/observable_loader.md
     - "Interactors": guide/interactors.md
     - "Slime Paginator": guide/slime_paginator.md
+  - "Testing Status": tests/tests.md
 
 theme:
   name: "material"

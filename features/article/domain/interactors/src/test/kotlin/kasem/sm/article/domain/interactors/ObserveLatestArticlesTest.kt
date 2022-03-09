@@ -5,15 +5,16 @@
 package kasem.sm.article.domain.interactors
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.mockk
+import java.sql.SQLTimeoutException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPairWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.toDomain
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -22,7 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ObserveArticleTest {
+class ObserveLatestArticlesTest {
 
     @get:Rule
     val uncaughtExceptionHandler = ThreadExceptionTestRule()
@@ -30,20 +31,28 @@ class ObserveArticleTest {
     private val databaseMock: ArticleDatabaseService = mockk()
     private val mapper = ArticleMapper()
 
-    private val observer = ObserveArticle(
+    private val observer = ObserveLatestArticles(
         cache = databaseMock,
         mapper = mapper
     )
 
     @Test
     fun assertFlowEmitsProperValue() = runTest {
-        coEvery { databaseMock.getArticleById(2) } returns flow { emit(getMockEntity().copy(id = 2)) }
+        coEvery {
+            databaseMock.getPagedArticles(
+                page = any(), pageSize = any()
+            )
+        } returns listOf(getMockEntity(), getMockEntity(defaultPairWithOneFalse).copy(id = 2))
 
         observer.joinAndCollect(
-            params = 2,
+            params = Unit,
             coroutineScope = TestScope()
         ).test {
-            Truth.assertThat(awaitItem()?.id).isEqualTo(2)
+            awaitItem() shouldBe listOf(
+                getMockEntity().toDomain(),
+                getMockEntity(defaultPairWithOneFalse).copy(id = 2).toDomain(defaultPairWithOneFalse)
+            )
+
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -51,15 +60,19 @@ class ObserveArticleTest {
     @Test
     fun assertExceptionIsCaught() = runBlocking {
         val list = mutableListOf<String>()
-        coEvery { databaseMock.getArticleById(2) } throws
-                ArrayIndexOutOfBoundsException("Please check this error message")
+        coEvery {
+            databaseMock.getPagedArticles(
+                page = any(),
+                pageSize = any()
+            )
+        } throws SQLTimeoutException("Exceeds")
 
         observer.joinAndCollect(
             coroutineScope = TestScope(UnconfinedTestDispatcher()),
             onError = { list.add(it) },
-            params = 2,
+            params = Unit,
         ).test { cancelAndIgnoreRemainingEvents() }
 
-        list.first() shouldBe "Please check this error message"
+        list.first() shouldBe "Exceeds"
     }
 }

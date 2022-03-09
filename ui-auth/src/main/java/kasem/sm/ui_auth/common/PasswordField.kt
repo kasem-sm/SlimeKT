@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
+import kasem.sm.common_ui.util.TestTags
 
 @Composable
 internal fun PasswordField(
@@ -41,7 +44,8 @@ internal fun PasswordField(
     onDoneClicked: KeyboardActionScope.() -> Unit,
 ) {
     SlimeTextField(
-        modifier = modifier,
+        modifier = modifier
+            .semantics { testTag = TestTags.LoginContent.PASSWORD_FIELD },
         input = state.password,
         onTextChange = onPasswordChanged,
         enabled = !state.isLoading,
@@ -87,18 +91,18 @@ internal fun PasswordField(
             onDone = onDoneClicked
         ),
         visualTransformation = if (state.passwordVisibility) {
-            PasswordVisualTransformation()
-        } else VisualTransformation.None
+            VisualTransformation.None
+        } else PasswordVisualTransformation()
     )
 }
 
 @Composable
 fun MaterialTheme.getIconTintAccordingly(boolean: Boolean): Color {
-    return if (boolean) colorScheme.onSurfaceVariant else colorScheme.primary
+    return if (boolean) colorScheme.primary else colorScheme.onSurfaceVariant
 }
 
 @Composable
 fun Boolean.getTrailingIconAccordingly(): ImageVector {
-    return if (this) Icons.Default.VisibilityOff else
-        Icons.Default.Visibility
+    return if (this) Icons.Default.Visibility else
+        Icons.Default.VisibilityOff
 }

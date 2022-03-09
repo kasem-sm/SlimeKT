@@ -22,12 +22,14 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
+import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 @HiltViewModel
 class RegisterVM @Inject constructor(
@@ -76,7 +78,10 @@ class RegisterVM @Inject constructor(
             passwordVisibility = passwordVisibility,
             isAccountDiscoverable = isAccountDiscoverable
         )
-    }.stateIn(viewModelScope, AuthState.EMPTY)
+    }.stateIn(
+        coroutineScope = viewModelScope + dispatchers.main,
+        initialValue = AuthState.EMPTY
+    )
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -112,7 +117,7 @@ class RegisterVM @Inject constructor(
                         when (result) {
                             is AuthResult.Exception -> showMessage(result.throwable.toMessage)
                             is AuthResult.EmptyCredentials -> showMessage(R.string.err_both_fields_empty)
-                            is AuthResult.Success -> UiEvent.Success
+                            is AuthResult.Success -> success()
                         }
                     )
                 }
