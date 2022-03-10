@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleCard
+import kasem.sm.article.common_ui.EmptyView
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimeHeader
@@ -41,18 +42,29 @@ internal fun ExploreContent(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            SlimeScreenColumn {
+            SlimeScreenColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 item {
                     SlimeHeader(text = stringResource(id = R.string.recommend_article_header))
                 }
 
-                itemsIndexed(state.articles) { index, article ->
-                    ArticleCard(
-                        article = article,
-                        imageLoader = imageLoader,
-                        onArticleClick = onArticleClick,
-                        index = index
-                    )
+                if (!state.isLoading && state.articles.isEmpty()) {
+                    item {
+                        EmptyView(
+                            emoji = "🤏",
+                            message = "You are all set!"
+                        )
+                    }
+                } else {
+                    itemsIndexed(state.articles) { index, article ->
+                        ArticleCard(
+                            article = article,
+                            imageLoader = imageLoader,
+                            onArticleClick = onArticleClick,
+                            index = index
+                        )
+                    }
                 }
 
                 if (state.topics.isNotEmpty()) {

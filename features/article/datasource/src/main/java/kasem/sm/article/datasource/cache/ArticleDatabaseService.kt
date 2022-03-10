@@ -7,6 +7,7 @@ package kasem.sm.article.datasource.cache
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsInExplore
 import kotlinx.coroutines.flow.Flow
 
 interface ArticleDatabaseService {
@@ -15,6 +16,8 @@ interface ArticleDatabaseService {
     fun getArticleById(id: Int): Flow<ArticleEntity?>
 
     fun getActiveArticleFlow(): Flow<ArticleEntity?>
+
+    fun getInExploreArticles(): Flow<List<ArticleEntity>>
 
     suspend fun getActiveArticle(): ArticleEntity?
 
@@ -36,7 +39,9 @@ interface ArticleDatabaseService {
 
     suspend fun updateIsActiveInDailyReadStatus(active: Boolean, id: Int)
 
-    suspend fun getRespectivePair(id: Int): Pair<DailyReadStatus, IsActiveInDailyRead>
+    suspend fun getRespectiveTriplets(id: Int): Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>
 
     suspend fun removePreviousActiveArticle()
+
+    suspend fun removeAllArticlesFromExplore()
 }

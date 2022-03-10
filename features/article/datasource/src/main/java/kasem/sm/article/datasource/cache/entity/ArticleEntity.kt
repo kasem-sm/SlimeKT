@@ -22,5 +22,7 @@ data class ArticleEntity(
     @ColumnInfo(name = "is_shown")
     val isShownInDailyRead: Boolean,
     @ColumnInfo(name = "is_active")
-    val isActiveInDailyRead: Boolean
+    val isActiveInDailyRead: Boolean,
+    @ColumnInfo(name = "is_in_explore")
+    val isInExplore: Boolean,
 )

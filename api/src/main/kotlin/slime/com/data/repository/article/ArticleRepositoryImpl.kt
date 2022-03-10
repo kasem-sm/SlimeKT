@@ -137,14 +137,17 @@ class ArticleRepositoryImpl(
         }
     }
 
-    override suspend fun getRecommendedArticles(userId: String?, page: Int, pageSize: Int): List<Article> {
-        return if (userId != null) {
-            val topicsInExploreOrRandom =
-                subscriptionService.getTopicsNotSubscribed(userId).randomOrNull() ?: topicDb.find().toList().random()
-            articleDb.find(Article::topic eq topicsInExploreOrRandom.name).skipAndMap(0, 4)
-        } else {
-            val randomTopic = topicDb.find().toList().random()
-            articleDb.find(Article::topic eq randomTopic.name).skipAndMap(0, 4)
+    override suspend fun getRecommendedArticles(userId: String?): List<Article> {
+        return try {
+            if (userId != null) {
+                val topicsInExplore = subscriptionService.getTopicsNotSubscribed(userId).randomOrNull() ?: return emptyList()
+                articleDb.find(Article::topic eq topicsInExplore.name).toList().shuffled().take(4)
+            } else {
+                val randomTopic = topicDb.find().toList().randomOrNull() ?: return emptyList()
+                articleDb.find(Article::topic eq randomTopic.name).toList().shuffled().take(4)
+            }
+        } catch (e: Exception) {
+            emptyList()
         }
     }
 

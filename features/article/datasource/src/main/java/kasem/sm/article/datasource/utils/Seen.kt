@@ -9,3 +9,6 @@ value class DailyReadStatus(val isShown: Boolean)
 
 @JvmInline
 value class IsActiveInDailyRead(val isActive: Boolean)
+
+@JvmInline
+value class IsInExplore(val inExplore: Boolean)

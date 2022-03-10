@@ -78,8 +78,8 @@ class GetPagedArticles @Inject constructor(
     private suspend fun List<ArticleDto>.cacheData() {
         applicationScope.launch {
             map {
-                val pair = slimeSuspendTry { cache.getRespectivePair(it.id) }
-                cache.insert(it.toEntity(pair))
+                val triple = slimeSuspendTry { cache.getRespectiveTriplets(it.id) }
+                cache.insert(it.toEntity(triple))
             }
         }.join()
     }

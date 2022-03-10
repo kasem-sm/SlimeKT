@@ -8,6 +8,19 @@ java {
 	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+configurations {
+	create("test")
+}
+
+tasks.register<Jar>("testArchive") {
+	archiveBaseName.set("common-test-utils")
+	from(project.the<SourceSetContainer>()["test"].output)
+}
+
+artifacts {
+	add("test", tasks["testArchive"])
+}
+
 dependencies {
 	// Test Libs
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")

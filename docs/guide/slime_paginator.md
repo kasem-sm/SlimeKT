@@ -1,4 +1,4 @@
-A custom class that helps us in Pagination by requesting the next page or triggering PaginationOver Exception when necessary. I have also written some unit tests for this class, you may find it [here](https://github.com/kasem-sm/SlimeKT/blob/dev/features/article/domain/interactors/src/test/kotlin/kasem/sm/article/domain/interactors/SlimePaginatorTest.kt).
+A custom class that helps us in Pagination by requesting the next page or triggering PaginationOver Exception when necessary. To check out Unit Tests for this class, please visit [here](https://github.com/kasem-sm/SlimeKT/blob/dev/features/article/domain/interactors/src/test/kotlin/kasem/sm/article/domain/interactors/SlimePaginatorTest.kt).
 
 ```kotlin
 class SlimePaginator<T>(

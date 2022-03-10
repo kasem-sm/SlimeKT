@@ -92,4 +92,4 @@ inline fun <T> CoroutineDispatcher.pagingStage(
 }
 ```
 
-To see its usage, please checkout [GetArticlesTillPage](https://github.com/kasem-sm/SlimeKT/blob/dev/features/article/domain/interactors/src/main/java/kasem/sm/article/domain/interactors/GetArticlesTillPage.kt) interactor.
+To see its usage, please checkout [GetArticlesTillPage](https://github.com/kasem-sm/SlimeKT/blob/dev/features/article/domain/interactors/src/main/java/kasem/sm/article/domain/interactors/GetPagedArticles.kt) interactor.

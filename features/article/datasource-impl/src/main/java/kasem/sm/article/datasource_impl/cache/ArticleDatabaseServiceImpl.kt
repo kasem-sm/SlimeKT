@@ -10,6 +10,7 @@ import kasem.sm.article.datasource.cache.dao.ArticleDao
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsInExplore
 import kasem.sm.core.utils.slimeSuspendTry
 import kasem.sm.core.utils.slimeTry
 import kotlinx.coroutines.flow.Flow
@@ -36,6 +37,12 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
             dao.getAllActiveArticles().map {
                 it.firstOrNull()
             }
+        }
+    }
+
+    override fun getInExploreArticles(): Flow<List<ArticleEntity>> {
+        return slimeTry {
+            dao.getArticlesInExplore()
         }
     }
 
@@ -128,17 +135,22 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRespectivePair(id: Int): Pair<DailyReadStatus, IsActiveInDailyRead> {
+    override suspend fun getRespectiveTriplets(id: Int): Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> {
         return slimeSuspendTry {
-            Pair(
+            Triple(
                 DailyReadStatus(isShown(id)),
-                IsActiveInDailyRead(isActive(id))
+                IsActiveInDailyRead(isActive(id)),
+                IsInExplore((inExplore(id)))
             )
         }
     }
 
     override suspend fun removePreviousActiveArticle() {
         updateIsActiveInDailyReadStatus(false, getActiveArticle()?.id ?: return)
+    }
+
+    override suspend fun removeAllArticlesFromExplore() {
+        dao.clearArticlesInExplore()
     }
 
     private suspend fun isActive(id: Int): Boolean {
@@ -152,6 +164,14 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     private suspend fun isShown(id: Int): Boolean {
         return slimeSuspendTry {
             dao.getAllArticlesShowInDailyRead().any {
+                id == it.id
+            }
+        }
+    }
+
+    private suspend fun inExplore(id: Int): Boolean {
+        return slimeSuspendTry {
+            dao.getArticlesInExploreNonFlow().any {
                 id == it.id
             }
         }

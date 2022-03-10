@@ -23,7 +23,8 @@ class ArticleMapper @Inject constructor() : IMapper<ArticleEntity, Article> {
                 timestamp = from.timestamp,
                 isShownInDailyRead = from.isShownInDailyRead,
                 isActiveInDailyRead = from.isActiveInDailyRead,
-                topic = from.topic
+                topic = from.topic,
+                isInExplore = from.isInExplore
             )
         } else throw Exception()
     }
