@@ -52,7 +52,7 @@ class ObserveArticleTest {
     fun assertExceptionIsCaught() = runBlocking {
         val list = mutableListOf<String>()
         coEvery { databaseMock.getArticleById(2) } throws
-                ArrayIndexOutOfBoundsException("Please check this error message")
+            ArrayIndexOutOfBoundsException("Please check this error message")
 
         observer.joinAndCollect(
             coroutineScope = TestScope(UnconfinedTestDispatcher()),

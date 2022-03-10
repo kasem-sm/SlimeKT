@@ -14,6 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleView
 import kasem.sm.article.common_ui.EmptyView
@@ -64,8 +66,10 @@ internal fun ListContent(
                         state.endOfPagination &&
                         state.articles.isEmpty()
                     ) {
-                        EmptyView {
-                        }
+                        EmptyView(
+                            modifier = Modifier.semantics { testTag = "emptyView" },
+                            onContributeClick = { }
+                        )
                     }
                 }
 

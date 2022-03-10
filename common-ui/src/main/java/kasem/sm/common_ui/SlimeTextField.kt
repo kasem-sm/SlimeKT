@@ -14,8 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -26,6 +28,7 @@ fun SlimeTextField(
     onTextChange: (String) -> Unit,
     enabled: Boolean = true,
     shape: RoundedCornerShape = RoundedCornerShape(20.dp),
+    shadow: Dp = 0.dp,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -36,6 +39,7 @@ fun SlimeTextField(
     TextField(
         modifier = modifier
             .fillMaxWidth()
+            .shadow(shadow, shape = shape, clip = true)
             .clip(shape),
         value = input,
         onValueChange = onTextChange,
@@ -63,5 +67,5 @@ fun defaultTextFieldColors() = textFieldColors(
     unfocusedIndicatorColor = MaterialTheme.colorScheme.primaryContainer,
     backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
     textColor = MaterialTheme.colorScheme.onSurfaceVariant,
-    cursorColor = MaterialTheme.colorScheme.onSurfaceVariant
+    cursorColor = MaterialTheme.colorScheme.onSurfaceVariant,
 )

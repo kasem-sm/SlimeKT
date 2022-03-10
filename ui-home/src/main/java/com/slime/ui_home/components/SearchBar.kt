@@ -37,6 +37,7 @@ fun SearchBar(
         modifier = modifier,
         input = query,
         onTextChange = onQueryChange,
+        shadow = 1.5.dp,
         leadingIconContent = {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -73,7 +74,7 @@ fun SearchBar(
                 hints = listOf(
                     stringResource(id = R.string.article_search_txt_1),
                     stringResource(id = R.string.article_search_txt_2),
-                    "Search your favourite topic"
+                    "Search your favourite topic",
                 ),
             )
         },
