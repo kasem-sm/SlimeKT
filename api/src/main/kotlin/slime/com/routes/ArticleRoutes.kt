@@ -7,6 +7,7 @@ import io.ktor.routing.Route
 import io.ktor.routing.delete
 import io.ktor.routing.get
 import io.ktor.routing.post
+import slime.com.data.models.Article
 import slime.com.data.request.CreateArticleRequest
 import slime.com.data.response.Info
 import slime.com.data.response.PagedArticlesResponse
@@ -92,6 +93,8 @@ fun Route.registerArticleRoutes(
     get("/api/article/explore") {
         val userId = call.parameters["userId"]
         val articlesInExplore = service.getArticlesInExplore(userId)
-        respondWith(articlesInExplore)
+        if (articlesInExplore.isNotEmpty()) respondWith(articlesInExplore) else {
+            respondWith(SlimeResponse(success = true, additionalMessage = "No Recommendation Left", data = emptyList<Article>()))
+        }
     }
 }
