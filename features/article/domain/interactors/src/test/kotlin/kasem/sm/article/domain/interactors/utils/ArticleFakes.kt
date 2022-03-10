@@ -11,6 +11,7 @@ import kasem.sm.article.datasource.network.response.InfoDto
 import kasem.sm.article.datasource.network.response.SlimeResponse
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsInExplore
 import kasem.sm.article.domain.interactors.ArticleMapper
 import kasem.sm.article.domain.model.Article
 
@@ -28,28 +29,37 @@ internal object ArticleFakes {
         )
     }
 
-    fun getMockEntity(pair: Pair<DailyReadStatus, IsActiveInDailyRead> = defaultPair): ArticleEntity {
-        return getMockDto().toEntity(pair)
+    fun getMockEntity(triple: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> = defaultTriplets): ArticleEntity {
+        return getMockDto().toEntity(triple)
     }
 
-    suspend fun ArticleEntity.toDomain(pair: Pair<DailyReadStatus, IsActiveInDailyRead> = defaultPair): Article {
+    suspend fun ArticleEntity.toDomain(triple: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> = defaultTriplets): Article {
         return ArticleMapper().map(this).copy(
-            isActiveInDailyRead = pair.second.isActive,
-            isShownInDailyRead = pair.first.isShown
+            isShownInDailyRead = triple.first.isShown,
+            isActiveInDailyRead = triple.second.isActive,
+            isInExplore = triple.third.inExplore
         )
     }
 
     suspend fun getMockDomain(): Article {
-        return ArticleMapper().map(getMockEntity(defaultPair))
+        return ArticleMapper().map(getMockEntity(defaultTriplets))
     }
 
-    val defaultPair: Pair<DailyReadStatus, IsActiveInDailyRead>
+    val defaultTriplets: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>
         get() =
-            Pair(DailyReadStatus(isShown = true), IsActiveInDailyRead(isActive = true))
+            Triple(
+                DailyReadStatus(isShown = true),
+                IsActiveInDailyRead(isActive = true),
+                IsInExplore(inExplore = true)
+            )
 
-    val defaultPairWithOneFalse: Pair<DailyReadStatus, IsActiveInDailyRead>
+    val defaultTripletsWithOneFalse: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>
         get() =
-            Pair(DailyReadStatus(isShown = false), IsActiveInDailyRead(isActive = true))
+            Triple(
+                DailyReadStatus(isShown = false),
+                IsActiveInDailyRead(isActive = true),
+                IsInExplore(inExplore = true)
+            )
 
     fun mockArticleResponse(
         size: Int = 0,

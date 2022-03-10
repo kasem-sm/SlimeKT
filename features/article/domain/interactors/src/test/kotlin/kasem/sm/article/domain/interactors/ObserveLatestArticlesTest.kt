@@ -9,7 +9,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import java.sql.SQLTimeoutException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPairWithOneFalse
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTripletsWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.toDomain
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
@@ -42,7 +42,7 @@ class ObserveLatestArticlesTest {
             databaseMock.getPagedArticles(
                 page = any(), pageSize = any()
             )
-        } returns listOf(getMockEntity(), getMockEntity(defaultPairWithOneFalse).copy(id = 2))
+        } returns listOf(getMockEntity(), getMockEntity(defaultTripletsWithOneFalse).copy(id = 2))
 
         observer.joinAndCollect(
             params = Unit,
@@ -50,7 +50,7 @@ class ObserveLatestArticlesTest {
         ).test {
             awaitItem() shouldBe listOf(
                 getMockEntity().toDomain(),
-                getMockEntity(defaultPairWithOneFalse).copy(id = 2).toDomain(defaultPairWithOneFalse)
+                getMockEntity(defaultTripletsWithOneFalse).copy(id = 2).toDomain(defaultTripletsWithOneFalse)
             )
 
             cancelAndIgnoreRemainingEvents()

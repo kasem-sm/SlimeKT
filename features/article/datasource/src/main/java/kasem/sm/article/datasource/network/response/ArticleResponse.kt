@@ -7,6 +7,7 @@ package kasem.sm.article.datasource.network.response
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsInExplore
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,7 +48,9 @@ data class ArticleDto(
     @SerialName("topic")
     val topic: String
 ) {
-    fun toEntity(pair: Pair<DailyReadStatus, IsActiveInDailyRead>): ArticleEntity {
+    fun toEntity(
+        pair: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>,
+    ): ArticleEntity {
         return ArticleEntity(
             id = id,
             title = title,
@@ -58,6 +61,7 @@ data class ArticleDto(
             timestamp = timestamp,
             isShownInDailyRead = pair.first.isShown,
             isActiveInDailyRead = pair.second.isActive,
+            isInExplore = pair.third.inExplore
         )
     }
 }

@@ -22,4 +22,6 @@ interface ArticleApiService {
     ): Result<SlimeResponse<ArticleDto>?>
 
     suspend fun getRandomArticleFromSubscription(): Result<SlimeResponse<ArticleDto>?>
+
+    suspend fun getExploreArticles(): Result<SlimeResponse<List<ArticleDto>>>
 }

@@ -19,7 +19,12 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeElevatedButton
 
 @Composable
-fun EmptyView(modifier: Modifier = Modifier, onContributeClick: () -> Unit) {
+fun EmptyView(
+    modifier: Modifier = Modifier,
+    message: String = "Nothing found!",
+    emoji: String = "\uD83D\uDE25",
+    onContributeClick: () -> Unit = { }
+) {
     Column(
         modifier = modifier
             .wrapContentSize(),
@@ -27,13 +32,13 @@ fun EmptyView(modifier: Modifier = Modifier, onContributeClick: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(
-            text = "\uD83D\uDE25",
+            text = emoji,
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
             fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         Text(
-            text = "Nothing found!",
+            text = message,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
             fontSize = 20.sp,

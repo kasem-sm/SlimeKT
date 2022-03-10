@@ -12,10 +12,12 @@ import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.datasource.network.response.ArticleDto
 import kasem.sm.article.datasource.network.response.ArticleResponse
 import kasem.sm.article.datasource.network.response.SlimeResponse
+import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.withResult
 
 internal class ArticleApiServiceImpl @Inject constructor(
     private val client: HttpClient,
+    private val authManager: AuthManager
 ) : ArticleApiService {
     override suspend fun getAllArticles(
         page: Int,
@@ -43,7 +45,17 @@ internal class ArticleApiServiceImpl @Inject constructor(
 
     override suspend fun getRandomArticleFromSubscription(): Result<SlimeResponse<ArticleDto>?> {
         return withResult {
-            client.get(GET_RANDOM_ARTICLE_ROUTE)
+            client.get(GET_RANDOM_ARTICLE_ROUTE) {
+                parameter("userId", authManager.getUserId())
+            }
+        }
+    }
+
+    override suspend fun getExploreArticles(): Result<SlimeResponse<List<ArticleDto>>> {
+        return withResult {
+            client.get(GET_EXPLORE_ARTICLES_ROUTE) {
+                parameter("userId", authManager.getUserId())
+            }
         }
     }
 
@@ -51,5 +63,6 @@ internal class ArticleApiServiceImpl @Inject constructor(
         const val GET_ALL_ARTICLE_ROUTE = "/api/article/all"
         const val GET_ARTICLE_BY_ID_ROUTE = "/api/article/get"
         const val GET_RANDOM_ARTICLE_ROUTE = "/api/article/get/random"
+        const val GET_EXPLORE_ARTICLES_ROUTE = "/api/article/explore"
     }
 }

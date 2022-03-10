@@ -14,5 +14,6 @@ data class Article(
     val hasUserSeen: Boolean = false,
     val isShownInDailyRead: Boolean,
     val isActiveInDailyRead: Boolean,
+    val isInExplore: Boolean,
     val topic: String,
 )

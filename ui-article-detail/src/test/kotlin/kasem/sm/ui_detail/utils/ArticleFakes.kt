@@ -19,6 +19,7 @@ internal object ArticleFakes {
             hasUserSeen = true,
             isShownInDailyRead = true,
             isActiveInDailyRead = true,
+            isInExplore = true,
             topic = "topic"
         )
     }
