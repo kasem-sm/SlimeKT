@@ -13,10 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.VerticalSpacer
+import kasem.sm.common_ui.drawableId
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.ui_article_list.R
 
@@ -54,7 +57,11 @@ internal fun SubscribeButtonAndHeader(
                 isActive = isSubscriptionButtonActive,
                 text = text,
                 trailingIcon = icon,
-                isLoading = isSubscriptionInProgress
+                isLoading = isSubscriptionInProgress,
+                modifier = Modifier.semantics {
+                    testTag = "subscribeButton"
+                    drawableId = icon
+                }
             )
 
             Text(
