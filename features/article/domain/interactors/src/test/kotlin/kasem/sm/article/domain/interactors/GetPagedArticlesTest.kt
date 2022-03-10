@@ -4,7 +4,6 @@
  */
 package kasem.sm.article.domain.interactors
 
-import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.mockk
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
@@ -13,6 +12,7 @@ import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockArticleResponse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
+import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.core.domain.PaginationOver
 import kasem.sm.core.domain.PaginationStage
 import kasem.sm.core.domain.SlimeDispatchers
@@ -54,7 +54,7 @@ class GetPagedArticlesTest {
             query = ""
         ).toList().first()
 
-        Truth.assertThat(data).isEqualTo(PaginationStage.PaginationOver)
+        data shouldBe PaginationStage.PaginationOver
     }
 
     @Test
@@ -79,10 +79,8 @@ class GetPagedArticlesTest {
             query = ""
         ).toList().first()
 
-        Truth.assertThat(data).isEqualTo(
-            PaginationStage.Success(
-                mapper.map(listOf(getMockEntity()))
-            )
+        data shouldBe PaginationStage.Success(
+            mapper.map(listOf(getMockEntity()))
         )
     }
 
@@ -108,6 +106,6 @@ class GetPagedArticlesTest {
         ).toList().first()
 
         // Pagination over is thrown
-        Truth.assertThat(data).isEqualTo(PaginationStage.PaginationOver)
+        data shouldBe PaginationStage.PaginationOver
     }
 }

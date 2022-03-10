@@ -18,7 +18,7 @@ technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
 
 We have prepared a detailed guide on every feature, API routes, project structure and documentation
-of each module, Please visit [here]() to know more about the same. Additionally every major folder such as [`/api`](/api)
+of each module, Please visit [here](https://kasem-sm.github.io/SlimeKT) to know more about the same. Additionally every major folder such as [`/api`](/api)
 and [`/features`](/features), contains short documentation in the Github repository itself.
 
 ## Repository overview 📂
@@ -85,7 +85,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
     </tr>    
 </table>
 
-For more screenshots and screen-recording demo, [please visit our documentation]().
+For more screenshots and screen-recording demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
 
 ## What's next ✨
 
@@ -95,10 +95,10 @@ SlimeKT is a _Work In Progress_ project and there are several features/ideas whi
 - Kotlin, Jetpack Compose, Coroutines, Flow, Accompanist, Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
 - **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
-- **AndroidX Glance:** Used to make App's widget with the power of Jetpack Compose.
-- **Material You:** The most exciting one.
+- **AndroidX Glance:** Daily Read Widget with the power of Jetpack Compose.
+- **Material You:** On Android 12 and above, you can have custom theme based on your device wallpaper.
 
-Please visit [the documentation of this project]() for detailed information.
+Please visit [the documentation of this project](https://kasem-sm.github.io/SlimeKT) for detailed information.
 
 ## Project Setup Guide ⚒
 

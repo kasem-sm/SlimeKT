@@ -20,8 +20,8 @@
 - **Prioritize Recent Request:** Any ongoing requests gets cancelled once a new request is made (For example: User filters the article list with topic "a" and then immediately wishes to filter the list with topic "b").
 - **IME Action:** App uses Keyboard's IME Action wherever possible for the best user experience.
 - **WorkManager Use case:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
-- **AndroidX Glance Use case:** Used to make App's widget with the power of Jetpack Compose.
-- **Composition Local:** Used to provide different font styles to Composable.
+- **AndroidX Glance Use case:** Daily Read Widget with the power of Jetpack Compose.
+- **Composition Local:** To provide different font styles to Composable.
 - **UI Sate:** App combines various flows to construct UI state.
 - **Lightweight modules:** Every module is as small as possible and is only responsible for the given task.
 - **Dark Mode and Material You:** Application supports dark mode as well as Material You. The color of the app changes according to the user's wallpaper.

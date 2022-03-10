@@ -5,7 +5,6 @@
 package kasem.sm.article.domain.interactors
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.mockk
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
@@ -43,7 +42,7 @@ class ObserveArticleTest {
             params = 2,
             coroutineScope = TestScope()
         ).test {
-            Truth.assertThat(awaitItem()?.id).isEqualTo(2)
+            awaitItem()?.id shouldBe 2
             cancelAndIgnoreRemainingEvents()
         }
     }

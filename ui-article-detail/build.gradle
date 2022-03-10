@@ -1,26 +1,22 @@
 plugins {
-	id("com.android.library")
+    id("com.android.library")
 }
 
 apply {
-	from("$rootDir/ui.gradle")
+    from("$rootDir/ui.gradle")
 }
 
+provideUnitTestDeps(this)
+
 dependencies {
-	implementation(project(":features:article:common-article-ui"))
-	implementation(project(":features:article:domain:interactors"))
-	implementation(project(":features:article:domain:model"))
-	implementation(project(":features:article:markdown"))
+    implementation(project(":features:article:common-article-ui"))
+    implementation(project(":features:article:domain:interactors"))
+    implementation(project(":features:article:domain:model"))
+    implementation(project(":features:article:markdown"))
 
-	implementation(project(":features:topic:common-topic-ui"))
+    implementation(project(":features:topic:common-topic-ui"))
 
-	implementation Coil.core
+    implementation Coil.core
 
-	// Test Libs
-	testImplementation(project(':common-test-utils'))
-	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
-	testImplementation("com.google.truth:truth:1.1.3")
-	testImplementation("junit:junit:4.13.2")
-	testImplementation("app.cash.turbine:turbine:0.7.0")
-	testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation(project(":common-test-utils"))
 }
