@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.article.domain.interactors.GetLatestArticles
-import kasem.sm.article.domain.interactors.ObserveLatestArticles
+import kasem.sm.article.domain.interactors.GetInExploreArticles
+import kasem.sm.article.domain.interactors.ObserveInExploreArticles
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
@@ -28,10 +28,10 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ExploreVM @Inject constructor(
-    private val getLatestArticles: GetLatestArticles,
-    private val getInExploreTopics: GetInExploreTopics,
-    observeLatestArticles: ObserveLatestArticles,
-    observeInExploreTopics: ObserveInExploreTopics,
+    private val getArticles: GetInExploreArticles,
+    private val getTopics: GetInExploreTopics,
+    observeArticles: ObserveInExploreArticles,
+    observeTopics: ObserveInExploreTopics,
     private val dispatchers: SlimeDispatchers,
     private val observeAuthState: ObserveAuthState,
 ) : ViewModel() {
@@ -43,8 +43,8 @@ class ExploreVM @Inject constructor(
 
     val state: StateFlow<ExploreState> = combine(
         loadingStatus.flow,
-        observeLatestArticles.flow,
-        observeInExploreTopics.flow
+        observeArticles.flow,
+        observeTopics.flow
     ) { latestArticleLoading, latestArticles, topics ->
         ExploreState(
             isLoading = latestArticleLoading,
@@ -62,12 +62,12 @@ class ExploreVM @Inject constructor(
             }
         }
 
-        observeLatestArticles.join(
+        observeArticles.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
 
-        observeInExploreTopics.join(
+        observeTopics.join(
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
@@ -75,14 +75,14 @@ class ExploreVM @Inject constructor(
 
     fun refresh() {
         viewModelScope.launch(dispatchers.main) {
-            getLatestArticles.execute().collect(
+            getArticles.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
 
         viewModelScope.launch(dispatchers.main) {
-            getInExploreTopics.execute().collect(
+            getTopics.execute().collect(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )

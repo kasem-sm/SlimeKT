@@ -11,4 +11,5 @@ interface Tasks {
     fun executeDailyReader()
     suspend fun updateSubscriptionStatus(ids: List<String>): Flow<Stage>
     suspend fun clearUserSubscriptionLocally()
+    suspend fun clearArticlesInExploreLocally()
 }

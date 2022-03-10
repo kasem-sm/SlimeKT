@@ -40,11 +40,20 @@ interface ArticleDao {
     @Query("SELECT * FROM table_article WHERE is_shown = 1")
     suspend fun getAllArticlesShowInDailyRead(): List<ArticleEntity>
 
+    @Query("SELECT * FROM table_article WHERE is_in_explore = 1")
+    fun getArticlesInExplore(): Flow<List<ArticleEntity>>
+
+    @Query("SELECT * FROM table_article WHERE is_in_explore = 1")
+    suspend fun getArticlesInExploreNonFlow(): List<ArticleEntity>
+
     @Query("UPDATE table_article SET is_shown = :status WHERE id = :id")
     suspend fun updateDailyReadStatus(status: Boolean, id: Int)
 
     @Query("UPDATE table_article SET is_active = :active WHERE id = :id")
     suspend fun updateIsActiveInDailyReadStatus(active: Boolean, id: Int)
+
+    @Query("UPDATE table_article SET is_in_explore = 0")
+    suspend fun clearArticlesInExplore()
 
     /**
      * ------------

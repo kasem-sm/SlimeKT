@@ -10,7 +10,7 @@ import io.mockk.mockk
 import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultPair
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTriplets
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockDto
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
@@ -52,20 +52,20 @@ class GetArticleTest {
         (stage as Stage.Exception).throwable shouldBe RuntimeException()
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultPair))
+            databaseMock.insert(getMockEntity(defaultTriplets))
         }
     }
 
     @Test
     fun assertApiCallSuccess_and_InsertCalled() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(data = getMockDto())
-        coEvery { databaseMock.getRespectivePair(1) } returns defaultPair
+        coEvery { databaseMock.getRespectiveTriplets(1) } returns defaultTriplets
 
         val stage = useCase.execute(1).first()
 
         stage shouldBe Stage.Success
 
-        coVerify { databaseMock.insert(getMockEntity(defaultPair)) }
+        coVerify { databaseMock.insert(getMockEntity(defaultTriplets)) }
     }
 
     @Test
@@ -77,7 +77,7 @@ class GetArticleTest {
         stage shouldBe Stage.Success
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultPair))
+            databaseMock.insert(getMockEntity(defaultTriplets))
         }
     }
 

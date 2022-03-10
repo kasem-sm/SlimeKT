@@ -28,8 +28,8 @@ class GetLatestArticles @Inject constructor(
 
             applicationScope.launch {
                 articles.map {
-                    val pair = cache.getRespectivePair(it.id)
-                    cache.insert(it.toEntity(pair))
+                    val triple = cache.getRespectiveTriplets(it.id)
+                    cache.insert(it.toEntity(triple))
                 }
             }.join()
         }
