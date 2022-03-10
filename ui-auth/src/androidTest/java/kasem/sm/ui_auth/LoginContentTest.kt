@@ -19,7 +19,6 @@ import androidx.compose.ui.test.performImeAction
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.common_ui.util.TestTags
 import kasem.sm.ui_auth.common.AuthState
-import kasem.sm.ui_auth.login.LoginContent
 import org.junit.Rule
 import org.junit.Test
 
@@ -33,15 +32,10 @@ class LoginContentTest {
         var hasUserClicked = false
 
         composeTestRule.setContent {
-            LoginContent(
-                state = AuthState(),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
+            loginContentForTest(
                 onLoginClicked = {
                     hasUserClicked = true
-                },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
+                }
             )
         }
 
@@ -55,13 +49,8 @@ class LoginContentTest {
     @Test
     fun assertStateChanges() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(username = "usr"),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -73,14 +62,7 @@ class LoginContentTest {
     @Test
     fun assertPasswordIsNotShown_When_VisibilityToggle_IsDisabled() {
         composeTestRule.setContent {
-            LoginContent(
-                state = AuthState(password = "123", passwordVisibility = false),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
-            )
+            loginContentForTest(state = AuthState(password = "123", passwordVisibility = false))
         }
 
         composeTestRule
@@ -91,13 +73,8 @@ class LoginContentTest {
     @Test
     fun assertPasswordIsShown_When_VisibilityToggle_IsEnabled() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(password = "123", passwordVisibility = true),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -109,13 +86,8 @@ class LoginContentTest {
     @Test
     fun assertProgressBarIsShown_When_IsLoading() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(isLoading = true),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -127,13 +99,8 @@ class LoginContentTest {
     @Test
     fun assertLoginButtonTextChanges_When_IsLoading() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(isLoading = true),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -145,13 +112,8 @@ class LoginContentTest {
     @Test
     fun assertProgressBarIsNotShown_When_IsNotLoading() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(isLoading = false),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -163,13 +125,8 @@ class LoginContentTest {
     @Test
     fun testUsernameFieldIMEAction_Should_MoveFocusToPasswordField() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(username = "usr", password = "123"),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 
@@ -186,13 +143,11 @@ class LoginContentTest {
     fun testPasswordFieldIMEAction_Should_Login() {
         var onLoginClicked = false
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(username = "user", password = "1234"),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { onLoginClicked = true },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
+                onLoginClicked = {
+                    onLoginClicked = true
+                }
             )
         }
 
@@ -206,13 +161,8 @@ class LoginContentTest {
     @Test
     fun assertButtonsAreDisabled_While_isLoadingIsTrue() {
         composeTestRule.setContent {
-            LoginContent(
+            loginContentForTest(
                 state = AuthState(isLoading = true),
-                onUsernameChanged = { },
-                onPasswordChanged = { },
-                onLoginClicked = { },
-                onPasswordToggleClicked = { },
-                onSignUpClicked = { }
             )
         }
 

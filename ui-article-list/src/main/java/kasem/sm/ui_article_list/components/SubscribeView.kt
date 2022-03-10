@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import kasem.sm.ui_article_list.ListState
 
 @Composable
@@ -21,7 +23,8 @@ internal fun SubscribeView(
 
     state.topic?.let { topic ->
         SubscribeButtonAndHeader(
-            modifier = modifier,
+            modifier = modifier
+                .semantics { testTag = "subscribeButtonAndHeader" },
             topic = topic,
             onClick = {
                 if (state.isUserAuthenticated) {
