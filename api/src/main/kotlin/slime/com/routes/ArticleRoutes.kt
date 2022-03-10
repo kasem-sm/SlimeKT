@@ -11,7 +11,6 @@ import slime.com.data.request.CreateArticleRequest
 import slime.com.data.response.Info
 import slime.com.data.response.PagedArticlesResponse
 import slime.com.data.response.SlimeResponse
-import slime.com.plugins.userId
 import slime.com.service.ArticleService
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
@@ -22,7 +21,7 @@ fun Route.registerArticleRoutes(
     service: ArticleService
 ) {
     get("/api/article/get/random") {
-        val userId = call.userId
+        val userId = call.parameters["userId"]
         // Return an article from subscription if the user is authorized,
         // if not return any random article
         val article = service.getRandomArticleFromUsersSubscription(userId)
@@ -91,7 +90,7 @@ fun Route.registerArticleRoutes(
     }
 
     get("/api/article/explore") {
-        val userId = call.userId
+        val userId = call.parameters["userId"]
         val articlesInExplore = service.getArticlesInExplore(userId)
         respondWith(articlesInExplore)
     }

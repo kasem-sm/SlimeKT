@@ -1,3 +1,5 @@
+
+
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
@@ -45,6 +47,7 @@ dependencies {
     // Test
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {
