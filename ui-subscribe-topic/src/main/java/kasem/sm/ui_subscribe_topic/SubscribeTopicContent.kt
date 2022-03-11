@@ -38,6 +38,7 @@ fun SubscribeTopicContent(
     onRefresh: () -> Unit,
     saveRecommendedValues: () -> Unit,
     showAuthenticationSheet: () -> Unit,
+    navigateBack: () -> Unit,
     updateList: (Int) -> Unit,
 ) {
     // TODO("Add Glow")
@@ -78,10 +79,13 @@ fun SubscribeTopicContent(
                         isLoading = state.loadingStatus,
                         text = if (!state.isUserAuthenticated) {
                             "Please Sign In to continue"
-                        } else stringResource(string.continue_btn),
+                        } else if (state.isListEmpty) "Go Back"
+                        else stringResource(string.continue_btn),
                         onClick = {
                             if (!state.isUserAuthenticated) {
                                 showAuthenticationSheet()
+                            } else if (state.isListEmpty) {
+                                navigateBack()
                             } else saveRecommendedValues()
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -99,7 +103,8 @@ fun SubscribeTopicContent(
 private fun EmptyView() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
         Text(
             text = "😎",
@@ -108,7 +113,7 @@ private fun EmptyView() {
             fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         Text(
-            text = "Damn, Slimer!\nYou have subscribed every topic.",
+            text = "Damn, Slimer!\nYou have subscribed to every topic.",
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
             fontSize = 20.sp,

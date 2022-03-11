@@ -16,6 +16,7 @@ fun SubscribeTopicScreen(
     snackbarHostState: SnackbarHostState,
     onSubscriptionSaved: () -> Unit,
     navigateTo: (String) -> Unit,
+    navigateBack: () -> Unit,
 ) {
     val viewState by rememberStateWithLifecycle(viewModel.state)
 
@@ -30,6 +31,7 @@ fun SubscribeTopicScreen(
         onRefresh = viewModel::refresh,
         saveRecommendedValues = viewModel::saveUserSubscribedTopics,
         updateList = viewModel::updateList,
-        showAuthenticationSheet = viewModel::checkAuthenticationStatus
+        showAuthenticationSheet = viewModel::checkAuthenticationStatus,
+        navigateBack = navigateBack
     )
 }

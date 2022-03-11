@@ -17,7 +17,7 @@ class ObserveInExploreArticles @Inject constructor(
 ) : ObserverInteractor<Unit, List<Article>>() {
     override suspend fun execute(params: Unit): Flow<List<Article>> {
         return cache.getInExploreArticles().map {
-            it.map { mapper.map(it) }
+            mapper.map(it)
         }
     }
 }
