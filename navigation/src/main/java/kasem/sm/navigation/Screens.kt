@@ -162,6 +162,9 @@ internal fun NavGraphBuilder.attachSelectTopicsScreen(
             },
             navigateTo = {
                 navController.navigate(it)
+            },
+            navigateBack = {
+                navController.popBackStack()
             }
         )
     }

@@ -7,7 +7,6 @@ package kasem.sm.ui_detail.utils
 import kasem.sm.article.domain.model.Article
 
 internal object ArticleFakes {
-
     fun getMockDomain(): Article {
         return Article(
             id = 1,

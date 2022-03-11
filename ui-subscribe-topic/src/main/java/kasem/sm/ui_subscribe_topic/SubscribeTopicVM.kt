@@ -152,6 +152,7 @@ class SubscribeTopicVM @Inject constructor(
     }
 
     fun refresh() {
+        listOfTopics.value = emptyList()
         viewModelScope.launch(dispatchers.main) {
             getInExploreTopics.execute().collect(
                 loader = loadingStatus,
