@@ -4,10 +4,7 @@
  */
 package slime.com.routes
 
-import io.ktor.application.call
 import io.ktor.auth.authenticate
-import io.ktor.http.HttpStatusCode
-import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -101,18 +98,13 @@ fun Route.registerAuthenticationRoutes(
         val userId = getUserId()
 
         if (userId == null) {
-            call.respond(HttpStatusCode.BadRequest)
+            respondWith(false)
         } else {
             val userExists = service.run {
                 userId.getUserById() != null
             }
 
-            call.respond(
-                message = when (userExists) {
-                    false -> HttpStatusCode.BadRequest
-                    else -> HttpStatusCode.OK
-                }
-            )
+            respondWith(userExists)
         }
     }
 }
