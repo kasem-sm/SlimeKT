@@ -14,5 +14,5 @@ jobs:
         working-directory: api
 
       - name: Slime Code Review
-        run: ./gradlew ktlintCheck
+        run: ./gradlew spotlessCheck
         working-directory: api

@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package slime.com.routes
 
 import io.ktor.application.call
@@ -13,6 +17,8 @@ import slime.com.data.response.Info
 import slime.com.data.response.PagedArticlesResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.ArticleService
+import slime.com.utils.get
+import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
 import slime.com.utils.respondWithResult
@@ -22,7 +28,7 @@ fun Route.registerArticleRoutes(
     service: ArticleService
 ) {
     get("/api/article/get/random") {
-        val userId = call.parameters["userId"]
+        val userId = getUserId()
         // Return an article from subscription if the user is authorized,
         // if not return any random article
         val article = service.getRandomArticleFromUsersSubscription(userId)
@@ -31,16 +37,16 @@ fun Route.registerArticleRoutes(
 
     get("/api/article/get") {
         val article = service.getArticleById(
-            articleId = call.parameters["id"]?.toInt() ?: return@get
+            articleId = get("id")?.toInt() ?: return@get
         ) ?: return@get
         respondWith(article)
     }
 
     get("/api/article/all") {
-        val topic = call.parameters["topic"] ?: ""
-        val query = call.parameters["query"] ?: ""
-        val page = call.parameters["page"]?.toIntOrNull() ?: 0
-        val pageSize = call.parameters["pageSize"]?.toIntOrNull() ?: 3
+        val topic = get("topic") ?: ""
+        val query = get("query") ?: ""
+        val page = get("page")?.toIntOrNull() ?: 0
+        val pageSize = get("pageSize")?.toIntOrNull() ?: 3
 
         val articlesAndSize = service.getAllArticles(
             topic = topic, query = query, page = page, pageSize = pageSize
@@ -77,7 +83,7 @@ fun Route.registerArticleRoutes(
     authenticate {
         delete("/api/article/delete") {
             val result = service.deleteArticleById(
-                articleId = call.parameters["id"]?.toInt() ?: return@delete
+                articleId = get("id")?.toInt() ?: return@delete
             )
             when (result) {
                 true -> respondWith<Unit>(SlimeResponse(true, "Article deleted successfully"))
@@ -91,10 +97,16 @@ fun Route.registerArticleRoutes(
     }
 
     get("/api/article/explore") {
-        val userId = call.parameters["userId"]
+        val userId = getUserId()
         val articlesInExplore = service.getArticlesInExplore(userId)
         if (articlesInExplore.isNotEmpty()) respondWith(articlesInExplore) else {
-            respondWith(SlimeResponse(success = true, additionalMessage = "No Recommendation Left", data = emptyList<Article>()))
+            respondWith(
+                SlimeResponse(
+                    success = true,
+                    additionalMessage = "No Recommendation Left",
+                    data = emptyList<Article>()
+                )
+            )
         }
     }
 }
