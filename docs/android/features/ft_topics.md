@@ -1,7 +1,7 @@
 ## Overview
 
-- User's can categorize/filter lists of articles using topics.
-- User's can subscribe to their favourite topics to personalize their home screen content.
+- Users can categorize and filter lists of articles using topics.
+- Users can subscribe to their favorite topics to personalize their home screen content.
 
 ## Demo
 

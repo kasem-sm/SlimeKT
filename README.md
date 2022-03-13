@@ -9,22 +9,20 @@
 
 ## Introduction 🙋‍♂️
 
-Article sharing platform where you can _**personalize, subscribe to your favourite topics, get
-daily-read reminders, explore new authors and share your articles**_. It uses the most cutting edge
-technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
+An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
+daily-read reminders, explore new authors, and share your articles**_. It uses the most cutting-edge technology in the frontend and backend parts, such as <b>Ktor, MongoDB, and Jetpack Compose.</b>
+
+It follows the recommended app architecture as stated in official [Android documentation](https://developer.android.com/jetpack/guide)
 
 ## Documentation 📚
 
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
 
-We have prepared a detailed guide on every feature, API routes, project structure and documentation
-of each module, Please visit [here](https://kasem-sm.github.io/SlimeKT) to know more about the same. Additionally every major folder such as [`/api`](/api)
-and [`/features`](/features), contains short documentation in the Github repository itself.
+We have prepared a detailed guide on every feature, API route, and project structure. Please visit [here](https://kasem-sm.github.io/SlimeKT) to know more about the same. Additionally, every major folder, such as [`/api`](/api) and [`/features`](/features), contains short documentation in the Github repository itself.
 
 ## Repository overview 📂
 
-SlimeKT has its own backend built with Ktor. The folder [`/api`](/api) consists of our
-backend deployed on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
+SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
 ## Sample, Screenshots and Demo 📱
 
@@ -89,11 +87,11 @@ For more screenshots and screen-recording demo, [please visit our documentation]
 
 ## What's next ✨
 
-SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us in our journey by contributing your skills. Please don't forget to create a issue/feature request first or pick any existing one.
+SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be implemented. You can help us on our journey by contributing your skills. Please don't forget to create an issue/feature request first, or pick an existing one.
 
 ## Tech stack / Miscellaneous Features 🚀
 - Kotlin, Jetpack Compose, Coroutines, Flow, Accompanist, Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
-- **Observer Pattern:** Data from cache  would be shown while new data is fetched from the server. The data on the screen gets updated immediately once new data is cached.
+- **Observer Pattern:** Data from the cache would be shown while new data is fetched from the server. Newly retrieved data gets updated immediately on the screen.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read articles.
 - **AndroidX Glance:** Daily Read Widget with the power of Jetpack Compose.
 - **Material You:** On Android 12 and above, you can have custom theme based on your device wallpaper.
@@ -103,15 +101,15 @@ Please visit [the documentation of this project](https://kasem-sm.github.io/Slim
 ## Project Setup Guide ⚒
 
 ### Android App
-You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to set up this project locally. After downloading all the requirements, please import the project into Android Studio, build the project and click Run.
+You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to set up this project locally. After downloading all the requirements, please import the project into Android Studio, build the project, and click Run.
 
 ### Backend (API)
 You need to have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. 
-After downloading all the requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and click the Run icon besides `main` function in `Application.kt` file.
+After downloading all the requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and click the Run icon beside `main` function in `Application.kt` file.
 
 ## Contribution Guide and Contributors 👷‍♂️
 
-There are no special rules for contributing your expertise and making the open source community more powerful. Just don't forget to file an issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
+There are no special rules for contributing your expertise and making the open-source community more powerful. Just don't forget to file an issue or start a discussion so that I may not be surprised when you create a pull request. Running `spotlessApply` before creating a pull request would be _cherry on the cake_.
 
 * Special thanks to our contributors:
   - The first one gets featured here 😎
@@ -132,8 +130,8 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 ## Credits 💎
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
-- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
-- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my code snippets and add their value to it.
+- [**Gabor Varadi**](https://twitter.com/Zhuinden) - He is always willing to answer my questions. A great man and a blessing to the Android community (AKA, the `SavedStateHandle` preacher).
+- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their value to them.
 
 ## License
 
