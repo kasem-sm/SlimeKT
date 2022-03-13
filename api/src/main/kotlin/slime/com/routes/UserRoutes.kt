@@ -1,32 +1,32 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package slime.com.routes
 
-import io.ktor.application.ApplicationCall
-import io.ktor.application.call
 import io.ktor.auth.authenticate
-import io.ktor.http.HttpStatusCode
-import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
-import io.ktor.util.pipeline.PipelineContext
 import slime.com.data.response.AuthResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.UserService
 import slime.com.utils.ServiceResult
+import slime.com.utils.get
 import slime.com.utils.getUserId
+import slime.com.utils.loginUser
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
-import java.lang.NumberFormatException
 
 fun Route.registerAuthenticationRoutes(
     service: UserService
 ) {
     post("api/auth/register") {
-        val username = call.parameters["username"] ?: return@post
-        val password = call.parameters["password"] ?: return@post
+        val username = get("username") ?: return@post
+        val password = get("password") ?: return@post
 
         val isUserDiscoverable = try {
-            call.parameters["discoverable"]?.toInt() ?: kotlin.run {
+            get("discoverable")?.toInt() ?: kotlin.run {
                 respondWithBadRequest()
                 return@post
             }
@@ -63,8 +63,8 @@ fun Route.registerAuthenticationRoutes(
     }
 
     post("api/auth/login") {
-        val username = call.parameters["username"] ?: return@post
-        val password = call.parameters["password"] ?: return@post
+        val username = get("username") ?: return@post
+        val password = get("password") ?: return@post
 
         val user = service.run { username.getUser() }
         user?.let {
@@ -94,29 +94,17 @@ fun Route.registerAuthenticationRoutes(
         }
     }
 
-    authenticate {
-        get("/api/auth/authenticate") {
-            call.respond(HttpStatusCode.OK)
-        }
-    }
-}
+    get("/api/auth/authenticate") {
+        val userId = getUserId()
 
-private suspend fun PipelineContext<Unit, ApplicationCall>.loginUser(
-    validateLogin: suspend (username: String, password: String) -> ServiceResult,
-    username: String,
-    password: String,
-    userId: String,
-) {
-    when (val result = validateLogin(username, password)) {
-        is ServiceResult.Success -> {
-            respondWith(
-                AuthResponse(
-                    userId,
-                    username,
-                    result.message
-                )
-            )
+        if (userId == null) {
+            respondWith(false)
+        } else {
+            val userExists = service.run {
+                userId.getUserById() != null
+            }
+
+            respondWith(userExists)
         }
-        is ServiceResult.Error -> respondWith(SlimeResponse<AuthResponse>(false, result.message, null))
     }
 }

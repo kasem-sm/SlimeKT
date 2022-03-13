@@ -5,16 +5,20 @@
 package kasem.sm.authentication.datasource_impl.network
 
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
+import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.withResult
 
-internal class AuthApiServiceImpl @Inject constructor(private val client: HttpClient) :
-    AuthApiService {
+internal class AuthApiServiceImpl @Inject constructor(
+    private val client: HttpClient,
+    private val authManager: AuthManager,
+) : AuthApiService {
     override suspend fun loginUser(
         username: String,
         password: String,
@@ -41,8 +45,17 @@ internal class AuthApiServiceImpl @Inject constructor(private val client: HttpCl
         }
     }
 
+    override suspend fun checkAuthenticationState(): Result<SlimeResponse<Boolean>> {
+        return withResult {
+            client.get(AUTHENTICATION_ROUTE) {
+                parameter("userId", authManager.getUserId())
+            }
+        }
+    }
+
     companion object EndPoints {
         const val LOGIN_ROUTE = "/api/auth/login"
         const val REGISTER_ROUTE = "/api/auth/register"
+        const val AUTHENTICATION_ROUTE = "/api/auth/authenticate"
     }
 }

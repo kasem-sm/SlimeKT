@@ -32,6 +32,6 @@ class SlimeApp : Application(), Configuration.Provider {
         if (BuildConfig.DEBUG) {
             plant(DebugTree())
         }
-        task.executeDailyReader()
+        task.execute()
     }
 }

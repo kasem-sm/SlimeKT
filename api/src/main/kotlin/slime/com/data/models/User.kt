@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package slime.com.data.models
 
 import kotlinx.serialization.Serializable

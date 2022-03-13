@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.article.worker
+package kasem.sm.authentication.worker
 
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -12,7 +12,7 @@ import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class DailyReadManager @Inject constructor(
+class CheckAuthenticationManager @Inject constructor(
     private val workManager: WorkManager,
     private val constraints: Constraints
 ) {
@@ -20,15 +20,15 @@ class DailyReadManager @Inject constructor(
 
     private fun enqueueWorker() {
         workManager.enqueueUniquePeriodicWork(
-            DailyReadTask.TAG,
+            CheckAuthenticationTask.TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             buildRequest()
         )
     }
 
     private fun buildRequest(): PeriodicWorkRequest {
-        return PeriodicWorkRequestBuilder<DailyReadTask>(24, TimeUnit.HOURS)
-            .addTag(DailyReadTask.TAG)
+        return PeriodicWorkRequestBuilder<CheckAuthenticationTask>(24, TimeUnit.HOURS)
+            .addTag(CheckAuthenticationTask.TAG)
             .setConstraints(constraints)
             .build()
     }

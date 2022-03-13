@@ -19,11 +19,15 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "Slime"
 include(":app")
 include(":core")
 include(":common-ui")
 include(":ui-core")
+include(":data")
+include(":navigation")
+include(":common-test-utils")
 
 include(":features")
 
@@ -64,7 +68,4 @@ include(":features:authentication:domain:model")
 include(":features:authentication:datasource")
 include(":features:authentication:domain:interactors")
 include(":features:authentication:datasource-impl")
-
-include(":data")
-include(":navigation")
-include(":common-test-utils")
+include(":features:authentication:worker")

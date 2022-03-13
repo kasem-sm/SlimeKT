@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+provideAndroidXWorkerDeps(this)
+provideHiltDeps(this)
+
+dependencies {
+	implementation(project(":core"))
+
+	implementation(project(":features:authentication:datasource"))
+
+	implementation("com.jakewharton.timber:timber:5.0.1")
+}

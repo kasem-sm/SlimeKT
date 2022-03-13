@@ -1,6 +1,9 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package slime.com.routes
 
-import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.routing.Route
 import io.ktor.routing.get
@@ -9,6 +12,8 @@ import slime.com.data.models.Topic
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.data.response.SlimeResponse
 import slime.com.service.SubscriptionService
+import slime.com.utils.get
+import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 
 fun Route.registerTopicRoutes(
@@ -24,8 +29,8 @@ fun Route.registerTopicRoutes(
     }
 
     get("/api/topic/get") {
-        val topicId = call.parameters["id"] ?: return@get
-        val userId = call.parameters["userId"]
+        val topicId = get("id") ?: return@get
+        val userId = getUserId()
 
         val topic = repository.getTopicById(topicId)?.let {
             if (userId != null) {
@@ -43,7 +48,7 @@ fun Route.registerTopicRoutes(
 
     authenticate {
         post("/api/topic/create") {
-            val topicName = call.parameters["name"] ?: return@post
+            val topicName = get("name") ?: return@post
 
             when (repository.insertTopic(Topic(name = topicName.trim()))) {
                 true -> respondWith<Unit>(SlimeResponse(true, "Topic created successfully"))

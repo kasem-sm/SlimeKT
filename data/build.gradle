@@ -24,6 +24,7 @@ dependencies {
 	implementation(project(":features:article:datasource"))
 	implementation(project(":features:article:datasource-impl"))
 
+	implementation(project(":features:authentication:worker"))
 	implementation(project(":features:topic:worker"))
 	implementation(project(":features:article:worker"))
 
