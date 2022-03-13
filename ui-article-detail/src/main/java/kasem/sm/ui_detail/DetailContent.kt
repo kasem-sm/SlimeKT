@@ -4,6 +4,7 @@
  */
 package kasem.sm.ui_detail
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import kasem.sm.ui_detail.components.ArticleFeaturedImage
 import kasem.sm.ui_detail.components.ArticleHeader
 import kasem.sm.ui_detail.components.slimeMarkdownStyle
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun DetailContent(
     imageLoader: ImageLoader,
@@ -37,7 +39,7 @@ internal fun DetailContent(
         ) {
             SlimeScreenColumn {
                 state.article?.let { article ->
-                    item {
+                    stickyHeader {
                         ArticleHeader(article)
                     }
 

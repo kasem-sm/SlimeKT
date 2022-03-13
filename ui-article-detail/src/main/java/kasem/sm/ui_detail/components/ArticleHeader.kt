@@ -4,21 +4,51 @@
  */
 package kasem.sm.ui_detail.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
 internal fun ArticleHeader(article: Article) {
-    Text(
-        text = article.title,
-        fontFamily = LocalSlimeFont.current.semiBold,
-        lineHeight = 30.sp,
-        letterSpacing = 1.sp,
-        color = MaterialTheme.colorScheme.primary,
-        fontSize = 22.sp,
-    )
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(MaterialTheme.colorScheme.surface)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+        ) {
+            Text(
+                text = article.title,
+                fontFamily = LocalSlimeFont.current.semiBold,
+                lineHeight = 30.sp,
+                letterSpacing = 1.sp,
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 22.sp,
+            )
+            Divider(
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(6.dp)
+                    .clip(RoundedCornerShape(100.dp)),
+            )
+        }
+    }
 }
