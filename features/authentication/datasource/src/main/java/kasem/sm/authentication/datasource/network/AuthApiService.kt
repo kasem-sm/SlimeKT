@@ -28,4 +28,6 @@ interface AuthApiService {
         password: String,
         isUserDiscoverable: String
     ): Result<SlimeResponse<AuthResponse>>
+
+    suspend fun checkAuthenticationState(): Result<SlimeResponse<Boolean>>
 }
