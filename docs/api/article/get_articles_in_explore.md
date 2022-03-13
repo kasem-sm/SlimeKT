@@ -2,7 +2,7 @@
   GET api/article/explore
 ```
 
-Fetches four Articles of any topics that are not yet subscribed by the user. 
+Fetches four articles from any topic that has not yet been subscribed to by the user. 
 
 ```
 {

@@ -2,7 +2,7 @@
   GET api/subscriptionService/all
 ```
 
-Fetches all the **subscribed** topics of the current User. If the `userId` is not passed in the parameters, an empty list would be retrieved.
+Fetches all the "subscribed** topics of the current user. If `userId` is null, an empty list would be retrieved.
 
 
 | Parameter | Type     | Description         | Required | Default Value |

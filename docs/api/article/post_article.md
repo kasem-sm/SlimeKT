@@ -6,7 +6,7 @@
 |:----------------|:---------------------------|
 | `Authorization` | Bearer Token <User Token>` |
 
-Creates a new Article provided that the user is authenticated. If the user passes a topic name which doesn't exists, the server would automatically create a new topic by that name.
+It creates a new article provided that the user is authenticated. If the user passes a topic name that doesn't exist, the server will automatically create a new topic with that name.
 
 Create Request:
 ```

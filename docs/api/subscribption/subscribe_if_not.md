@@ -12,7 +12,7 @@
 | `topicId` | `string` | The unique ID of the topic to subscribe | 👍       |
 
 
-Subscribe to the topic if the user has not. If the user has already subscribed, API would unsubscribe from it.
+Subscribe to the topic if the user has not. If the user has already subscribed, the API will unsubscribe them from the topic.
 
 ```
 {

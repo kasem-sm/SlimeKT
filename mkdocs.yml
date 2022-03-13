@@ -17,6 +17,7 @@ nav:
     - "Authentication Routes":
       - "Login/Register Route": api/auth/post_login_register.md
       - "Get Random Author": api/auth/get_random_user.md
+      - "Get Authentication Status": api/auth/get_authentication_status.md
     - "Article Routes":
       - "Get Daily Read Article": api/article/get_daily_read_article.md
       - "Get Article By Id": api/article/get_article_by_id.md
@@ -36,6 +37,7 @@ nav:
     - "Topics": android/features/ft_topics.md
     - "Miscellaneous": android/features/misc.md
   - "Modules & Project Structure":
+    - "Feature Modules": modules/feature/feature_module_structure.md
     - "Java/Kotlin Modules": modules/java_kotlin/java_kotlin_modules.md
     - "Android Modules": modules/android/ui_modules.md
   - "Guide":
@@ -44,6 +46,7 @@ nav:
     - "Interactors": guide/interactors.md
     - "Slime Paginator": guide/slime_paginator.md
   - "Testing Status": tests/tests.md
+  - "End Notes": end_notes.md
 
 theme:
   name: "material"

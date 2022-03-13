@@ -2,7 +2,7 @@
   GET api/topic/get
 ```
 
-Fetches the topic with the given ID. If `userId` is provided in the parameter, the server would scan and also include `hasUserSubscribed` `boolean` which indicates whether the user has subscribed to that topic or not.
+Fetches the article topic with the `id` given in the parameters. If the `userId` exists in the parameters, the server will scan and include `hasUserSubscribed` `boolean` that indicates whether the current user has subscribed to that topic or not.
 
 | Parameter | Type     | Description                  | Required |
 |:----------|----------|:-----------------------------|----------|

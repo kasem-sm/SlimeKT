@@ -7,7 +7,7 @@
 | `Authorization` | Bearer Token <User Token>` |
 
 
-Fetches a random author to be displayed in Explore section.
+Fetches a random author to be displayed in the Explore section.
 
 ```
 {

@@ -1,8 +1,8 @@
 ```http
   GET api/article/get/random
 ```
-Fetches a random article from user's subscription to be shown as Daily Read. If the user is not authenticated or has not subscribed to any topics, any random article would be fetched. It is the responsibility of the client to make sure that repeated article is not 
-shown in Daily Read.
+Fetches a random article from the user's subscription to be shown as the Daily Read. If the user is not authenticated or has not yet subscribed to topics, a random article would be fetched. It is the responsibility of the client to make sure that repeated articles are not 
+shown in the Daily Read.
 
 ```
 {

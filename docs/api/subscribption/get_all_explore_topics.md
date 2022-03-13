@@ -2,7 +2,7 @@
   GET api/subscriptionService/explore
 ```
 
-Fetches all the **unsubscribed** topics of the current User. If the `userId` is not passed in the parameters, the request would redirect to [Get All Topics](http://127.0.0.1:8000/SlimeKT/api/topics/get_all_topics/) route.
+Fetches all the **unsubscribed** topics of the current user. If `userId` is null, the request will redirect to the [Get All Topics] (https://kasem-sm.github.io/SlimeKT/api/topics/get_all_topics/) route.
 
 
 | Parameter | Type     | Description         | Required | Default Value |

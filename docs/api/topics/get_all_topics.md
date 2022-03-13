@@ -2,7 +2,7 @@
   GET api/topic/all
 ```
 
-Fetches all the topics.
+Fetches all the article's topics available in the database.
 
 ```
 {

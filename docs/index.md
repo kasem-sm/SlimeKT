@@ -9,6 +9,8 @@ Article sharing platform where you can _**personalize, subscribe to your favouri
 daily-read reminders, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
+It follows the recommended app architecture as stated in official [Android documentation](https://developer.android.com/jetpack/guide)
+
 ## Repository overview 📂
 
 SlimeKT has its own backend built with Ktor. The folder [`/api`](https://github.com/kasem-sm/SlimeKT/tree/dev/api) consists of our
@@ -142,5 +144,5 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 ## Credits 💎
 
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
-- [**Gabor Varadi**](https://twitter.com/Zhuinden) - Always willing to answer my questions. A great man and blessing to the Android Community (AKA, the `SavedStateHandle` preacher).
-- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help reviewing my ugly code snippets and add their value to it.
+- [**Gabor Varadi**](https://twitter.com/Zhuinden) - He is always willing to answer my questions. A great man and a blessing to the Android community (AKA, the `SavedStateHandle` preacher).
+- [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their value to them.
