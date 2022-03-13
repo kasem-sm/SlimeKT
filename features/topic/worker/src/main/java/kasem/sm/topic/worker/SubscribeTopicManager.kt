@@ -21,7 +21,7 @@ class SubscribeTopicManager @Inject constructor(
     private val workManager: WorkManager,
     private val constraints: Constraints
 ) {
-    suspend fun updateSubscriptionStatus(
+    fun updateSubscriptionStatus(
         ids: List<String>
     ): Flow<Stage> {
         return channelFlow {

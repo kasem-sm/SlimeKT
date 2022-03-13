@@ -76,4 +76,10 @@ internal class TopicDatabaseServiceImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun removeAllTopicsFromSubscription() {
+        slimeSuspendTry {
+            dao.removeAllTopicsFromSubscription()
+        }
+    }
 }
