@@ -7,11 +7,11 @@ package kasem.sm.ui_auth.register
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.common_ui.R.string
 import kasem.sm.core.domain.SlimeDispatchers
-import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.UiText
 import kasem.sm.ui_core.showMessage

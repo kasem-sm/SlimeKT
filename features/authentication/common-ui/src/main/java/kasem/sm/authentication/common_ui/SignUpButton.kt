@@ -2,7 +2,7 @@
  * Copyright (C) 2021, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.common
+package kasem.sm.authentication.common_ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +20,7 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.util.TestTags
 
 @Composable
-internal fun SignUpButton(
+fun SignUpButton(
     modifier: Modifier = Modifier,
     enabled: Boolean,
     onSignUpClicked: () -> Unit,

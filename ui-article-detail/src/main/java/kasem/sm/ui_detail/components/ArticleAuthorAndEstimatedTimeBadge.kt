@@ -16,12 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kasem.sm.article.common_ui.SlimeGradientProfile
 import kasem.sm.article.common_ui.toDate
 import kasem.sm.article.common_ui.toEstimatedTime
 import kasem.sm.article.common_ui.withAuthorAndPostedTime
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.SlimeGradientProfile
 
 @Composable
 internal fun ArticleAuthorAndEstimatedTimeBadge(

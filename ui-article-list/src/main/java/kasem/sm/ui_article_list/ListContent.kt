@@ -18,8 +18,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleView
-import kasem.sm.article.common_ui.EmptyView
 import kasem.sm.article.domain.interactors.ArticlePager
+import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.ui_article_list.components.SubscribeView
@@ -67,8 +67,8 @@ internal fun ListContent(
                         state.articles.isEmpty()
                     ) {
                         EmptyView(
-                            modifier = Modifier.semantics { testTag = "emptyView" },
-                            onContributeClick = { }
+                            modifier = Modifier
+                                .semantics { testTag = "emptyView" },
                         )
                     }
                 }

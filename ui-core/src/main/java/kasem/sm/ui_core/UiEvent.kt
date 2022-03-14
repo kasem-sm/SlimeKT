@@ -18,6 +18,9 @@ sealed class UiEvent {
 }
 
 @Composable
+fun getContext() = LocalContext.current
+
+@Composable
 fun SharedFlow<UiEvent>.safeCollector(
     onRouteReceived: suspend (route: String) -> Unit = {},
     onDataReceived: suspend (data: Any) -> Unit = {},

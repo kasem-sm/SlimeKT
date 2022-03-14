@@ -16,9 +16,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performImeAction
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.common_ui.util.TestTags
-import kasem.sm.ui_auth.common.AuthState
 import org.junit.Rule
 import org.junit.Test
 

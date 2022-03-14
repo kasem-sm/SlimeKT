@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.common
+package kasem.sm.authentication.common_ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,13 +30,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
 import kasem.sm.common_ui.util.TestTags
 
 @Composable
-internal fun PasswordField(
+fun PasswordField(
     modifier: Modifier = Modifier,
     state: AuthState,
     onPasswordChanged: (String) -> Unit,

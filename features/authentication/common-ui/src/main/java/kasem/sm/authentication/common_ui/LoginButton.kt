@@ -2,7 +2,7 @@
  * Copyright (C) 2021, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.common
+package kasem.sm.authentication.common_ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,15 +14,15 @@ import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.util.TestTags
 
 @Composable
-internal fun LoginButton(
+fun LoginButton(
     modifier: Modifier = Modifier,
-    state: AuthState,
+    isLoading: Boolean,
     onContinueClicked: () -> Unit,
 ) {
     SlimePrimaryButton(
-        isLoading = state.isLoading,
+        isLoading = isLoading,
         onClick = onContinueClicked,
-        enabled = !state.isLoading,
+        enabled = !isLoading,
         text = stringResource(id = string.continue_btn),
         modifier = modifier
             .semantics { testTag = TestTags.LoginContent.LOGIN_BUTTON }

@@ -23,6 +23,8 @@ dependencies {
 	implementation(project(":features:authentication:domain:interactors"))
 	implementation(project(":features:authentication:domain:model"))
 
+	implementation(project(":features:authentication:common-ui"))
+
 	implementation(Compose.iconsExtended)
 
 	testImplementation(project(':common-test-utils'))

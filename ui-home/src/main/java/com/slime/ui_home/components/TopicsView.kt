@@ -31,7 +31,7 @@ import kasem.sm.topic.common_ui.TopicChip
 import kasem.sm.topic.domain.model.Topic
 
 @Composable
-internal fun TopicsRow(
+internal fun TopicsView(
     isLoading: Boolean,
     topics: List<Topic>,
     currentTopic: String,

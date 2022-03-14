@@ -2,11 +2,8 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.common
+package kasem.sm.authentication.domain.model
 
-import androidx.compose.runtime.Immutable
-
-@Immutable
 data class AuthState(
     val username: String = "",
     val password: String = "",

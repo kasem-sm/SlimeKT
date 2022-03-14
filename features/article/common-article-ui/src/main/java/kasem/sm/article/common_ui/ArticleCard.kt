@@ -28,6 +28,7 @@ import coil.ImageLoader
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
+import kasem.sm.common_ui.SlimeGradientProfile
 import kasem.sm.common_ui.util.clickWithRipple
 
 @Composable

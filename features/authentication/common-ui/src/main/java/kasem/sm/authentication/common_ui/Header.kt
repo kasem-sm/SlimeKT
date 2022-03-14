@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.register.components
+package kasem.sm.authentication.common_ui
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
 
 @Composable
-internal fun Header(text1: String, text2: String) {
+fun Header(text1: String, text2: String) {
     Text(
         text = buildAnnotatedString {
             withStyle(

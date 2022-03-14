@@ -6,7 +6,7 @@ package kasem.sm.ui_auth
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import kasem.sm.ui_auth.common.AuthState
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.ui_auth.login.LoginContent
 
 @SuppressLint("ComposableNaming")

@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.ui_auth.common
+package kasem.sm.authentication.common_ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun BottomSheetHandle() {
+fun BottomSheetHandle() {
     Box(modifier = Modifier.fillMaxWidth()) {
         Divider(
             modifier = Modifier
