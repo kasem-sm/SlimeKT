@@ -26,7 +26,7 @@ internal class ClearSessionTask @AssistedInject constructor(
 ) : CoroutineWorker(context, workParams) {
 
     override suspend fun doWork(): Result {
-        topicDbService.removeAllTopicsFromSubscription()
+        topicDbService.updateSubscriptionStatus(false)
         return Result.success()
     }
 

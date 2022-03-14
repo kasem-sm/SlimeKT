@@ -64,22 +64,18 @@ internal class TopicDatabaseServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateSubscriptionStatus(status: Boolean, id: String) {
-        slimeSuspendTry {
-            dao.updateSubscriptionStatus(
-                inSubscription = status,
-                // If the topic is subscribed,
-                // it should be removed from the explore tab too
-                // and vice versa
-                inExplore = !status,
-                id = id
-            )
-        }
-    }
-
-    override suspend fun removeAllTopicsFromSubscription() {
-        slimeSuspendTry {
-            dao.removeAllTopicsFromSubscription()
+    override suspend fun updateSubscriptionStatus(status: Boolean, id: String?) {
+        return slimeSuspendTry {
+            if (id != null) {
+                dao.updateSubscriptionStatus(
+                    inSubscription = status,
+                    // If the topic is subscribed,
+                    // it should be removed from the explore tab too
+                    // and vice versa
+                    inExplore = !status,
+                    id = id
+                )
+            } else dao.removeAllTopicsFromSubscription()
         }
     }
 }
