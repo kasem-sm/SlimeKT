@@ -47,5 +47,5 @@ interface TopicDao {
     )
 
     @Query("UPDATE table_topic SET is_in_subscription = 0, is_in_explore = 1")
-    suspend fun clearSubscription()
+    suspend fun removeAllTopicsFromSubscription()
 }

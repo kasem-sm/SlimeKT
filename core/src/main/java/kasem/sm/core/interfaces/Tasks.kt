@@ -10,9 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface Tasks {
     fun executeDailyReader()
     fun executeAuthenticationVerifier()
-    suspend fun updateSubscriptionStatus(ids: List<String>): Flow<Stage>
-    suspend fun clearUserSubscriptionLocally()
-    suspend fun clearArticlesInExploreLocally()
+    fun updateSubscriptionStatus(ids: List<String>): Flow<Stage>
+    fun clearUserSubscriptionLocally()
 
     fun execute() {
         executeDailyReader()

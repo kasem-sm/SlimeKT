@@ -2,7 +2,7 @@
 <resources>
     <string name="common_success_msg">Successful</string>
     <string name="common_error_msg">Something went wrong, Please try again later!</string>
-    <string name="subscribe_topic_min_sel">Please subscribe to at least 3 topics</string>
+    <string name="subscribe_topic_min_sel">Please subscribe to at least 1 topic</string>
     <string name="err_empty_username">Please enter your username</string>
     <string name="err_empty_password">Please enter your password</string>
     <string name="err_both_fields_empty">Please enter your username and password</string>

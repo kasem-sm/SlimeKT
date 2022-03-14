@@ -137,7 +137,7 @@ class SubscribeTopicVM @Inject constructor(
 
         viewModelScope.launch(dispatchers.main) {
             when {
-                topicsToSubscribe.count() < 3 -> _uiEvent.emit(showMessage(string.subscribe_topic_min_sel))
+                listOfTopics.value.isNotEmpty() && topicsToSubscribe.count() < 1 -> _uiEvent.emit(showMessage(string.subscribe_topic_min_sel))
                 else -> {
                     subscribeTopicManager.updateSubscriptionStatus(
                         ids = topicsToSubscribe.map { it.id }

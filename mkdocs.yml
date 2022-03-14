@@ -49,6 +49,8 @@ nav:
   - "End Notes": end_notes.md
 
 theme:
+  logo: logo.png
+  favicon: ico.png
   name: "material"
   language: "en"
   palette:
