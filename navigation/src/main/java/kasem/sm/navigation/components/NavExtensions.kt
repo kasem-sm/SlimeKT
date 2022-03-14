@@ -22,3 +22,8 @@ internal fun NavController.isNotAuthRoute(): Boolean {
         else -> false
     }
 }
+
+@Composable
+internal fun NavController.isProfileScreenRoute(): Boolean {
+    return currentRouteAsState() == Routes.ProfileScreen.route
+}

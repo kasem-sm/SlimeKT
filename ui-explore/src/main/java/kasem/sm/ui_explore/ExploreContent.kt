@@ -7,23 +7,20 @@ package kasem.sm.ui_explore
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import kasem.sm.article.common_ui.ArticleCard
-import kasem.sm.article.common_ui.EmptyView
+import kasem.sm.common_ui.EmptyView
+import kasem.sm.common_ui.ProfileCard
 import kasem.sm.common_ui.R
-import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
-import kasem.sm.ui_explore.components.ProfileCard
-import kasem.sm.ui_explore.components.TopicView
+import kasem.sm.ui_explore.components.DiscoverTopicsView
+import kasem.sm.ui_explore.components.discoverArticlesView
 
 @Composable
 internal fun ExploreContent(
@@ -57,14 +54,11 @@ internal fun ExploreContent(
                         )
                     }
                 } else {
-                    itemsIndexed(state.articles) { index, article ->
-                        ArticleCard(
-                            article = article,
-                            imageLoader = imageLoader,
-                            onArticleClick = onArticleClick,
-                            index = index
-                        )
-                    }
+                    discoverArticlesView(
+                        articles = state.articles,
+                        imageLoader = imageLoader,
+                        onArticleClick = onArticleClick
+                    )
                 }
 
                 if (state.topics.isNotEmpty()) {
@@ -73,21 +67,14 @@ internal fun ExploreContent(
                     }
 
                     item {
-                        SlimeFlowRow(
-                            mainAxisSpacing = 20.dp, crossAxisSpacing = 15.dp
-                        ) {
-                            state.topics.forEach { topic ->
-                                TopicView(topic, onTopicClick)
-                            }
-                        }
+                        DiscoverTopicsView(state, onTopicClick)
                     }
                 }
 
                 item {
                     SlimeHeader(
                         text = stringResource(id = R.string.find_authors_header),
-                        modifier = Modifier
-                            .align(Alignment.TopStart)
+                        modifier = Modifier.align(Alignment.TopStart)
                     )
                 }
 

@@ -36,7 +36,7 @@ internal fun SlimeScaffold(
             }
         },
         floatingActionButton = {
-            if (navController.isNotAuthRoute()) {
+            if (navController.isProfileScreenRoute()) {
                 FloatingActionButton(onClick = {
                     //
                 }) {

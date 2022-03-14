@@ -11,12 +11,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.authentication.domain.interactors.LoginUseCase
 import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.authentication.domain.model.Credentials
 import kasem.sm.common_ui.R
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.utils.toMessage
-import kasem.sm.ui_auth.common.AuthState
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows

@@ -17,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
-import kasem.sm.ui_auth.common.AuthState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

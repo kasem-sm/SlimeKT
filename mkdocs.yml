@@ -45,7 +45,7 @@ nav:
     - "Observable Loader": guide/observable_loader.md
     - "Interactors": guide/interactors.md
     - "Slime Paginator": guide/slime_paginator.md
-  - "Testing Status": tests/tests.md
+  - "Testing Status": tests/status.md
   - "End Notes": end_notes.md
 
 theme:

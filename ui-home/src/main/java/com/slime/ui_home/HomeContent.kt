@@ -21,12 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import com.slime.ui_home.HomeState.Companion.isListEmpty
+import com.slime.ui_home.components.ArticleView
+import com.slime.ui_home.components.DailyReadArticle
 import com.slime.ui_home.components.SearchBar
-import com.slime.ui_home.components.TopicsRow
-import kasem.sm.article.common_ui.ArticleCard
-import kasem.sm.article.common_ui.ArticleView
-import kasem.sm.article.common_ui.EmptyView
-import kasem.sm.article.domain.interactors.ArticlePager.Companion.PAGE_SIZE
+import com.slime.ui_home.components.TopicsView
+import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeHeader
 import kasem.sm.common_ui.SlimeScreenColumn
@@ -74,7 +73,7 @@ internal fun HomeContent(
                 }
 
                 item {
-                    TopicsRow(
+                    TopicsView(
                         isLoading = state.isLoading,
                         topics = state.topics,
                         currentTopic = state.currentTopic,
@@ -84,7 +83,7 @@ internal fun HomeContent(
                 }
 
                 dynamicItem(state.isListEmpty) {
-                    EmptyView { }
+                    EmptyView()
                 }
 
                 itemsIndexed(state.articles) { index, article ->
@@ -96,11 +95,7 @@ internal fun HomeContent(
                         index = index,
                         executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition,
-                        currentPage = state.currentPage,
-                        pageSize = PAGE_SIZE,
-                        isLoading = state.paginationLoadStatus,
-                        endOfPagination = state.endOfPagination,
-                        onUserDemandPagination = true
+                        state = state
                     )
                 }
 
@@ -109,13 +104,11 @@ internal fun HomeContent(
                 }
 
                 item {
-                    state.dailyReadArticle?.let {
-                        ArticleCard(
-                            article = it,
-                            imageLoader = imageLoader,
-                            onArticleClick = onArticleClick,
-                        )
-                    }
+                    DailyReadArticle(
+                        article = state.dailyReadArticle,
+                        imageLoader = imageLoader,
+                        onArticleClick = onArticleClick
+                    )
                 }
             }
         }

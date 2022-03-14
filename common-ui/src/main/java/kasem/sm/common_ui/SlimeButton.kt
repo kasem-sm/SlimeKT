@@ -88,6 +88,7 @@ fun SlimeElevatedButton(
     text: String,
     onClick: () -> Unit = {},
     backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     enabled: Boolean = true,
 ) {
     ElevatedButton(
@@ -98,7 +99,7 @@ fun SlimeElevatedButton(
         colors = buttonColors(backgroundColor),
         elevation = buttonElevation(1.dp)
     ) {
-        buttonContent(isLoading = isLoading, text = text)
+        buttonContent(isLoading = isLoading, text = text, textColor = textColor)
     }
 }
 
