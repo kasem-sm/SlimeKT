@@ -39,7 +39,7 @@ on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) fold
         <td>
             <figure>
                 <a href="#1">
-                    <img src="docs/screenshots/1.png" width=400 height=400>
+                    <img src="docs/screenshots/1.png" width=500 height=400>
                 </a>
                 <figcaption>Home screen</figcaption>
             </figure>
@@ -47,7 +47,7 @@ on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) fold
         <td>
             <figure>
                 <a href="#2">
-                    <img src="docs/screenshots/2.png" width=400 height=500>
+                    <img src="docs/screenshots/2.png" width=500 height=500>
                 </a>
                 <figcaption>Explore Screen</figcaption>
             </figure>
