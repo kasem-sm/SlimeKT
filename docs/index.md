@@ -23,7 +23,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#1">
-                    <img src="docs/screenshots/1.png">
+                    <img src="screenshots/1.png">
                 </a>
                 <figcaption>Home screen</figcaption>
             </figure>
@@ -31,7 +31,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#2">
-                    <img src="docs/screenshots/2.png">
+                    <img src="screenshots/2.png">
                 </a>
                 <figcaption>Explore Screen</figcaption>
             </figure>
@@ -41,7 +41,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#3">
-                    <img src="docs/screenshots/3.png" width=300>
+                    <img src="screenshots/3.png" width=300>
                 </a>
                 <figcaption>Detail Screen</figcaption>
             </figure>
@@ -49,7 +49,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#6">
-                    <img src="docs/screenshots/6.png" width=300>
+                    <img src="screenshots/6.png" width=300>
                 </a>
                 <figcaption>Register sheet</figcaption>
             </figure>
@@ -59,7 +59,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#4">
-                    <img src="docs/screenshots/4.png" width=300>
+                    <img src="screenshots/4.png" width=300>
                 </a>
                 <figcaption>Subscribe Topics Screen</figcaption>
             </figure>
@@ -67,7 +67,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#5">
-                    <img src="docs/screenshots/5.png" width=300>
+                    <img src="screenshots/5.png" width=300>
                 </a>
                 <figcaption>Login sheet</figcaption>
             </figure>
@@ -77,7 +77,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#7">
-                    <img src="docs/screenshots/7.png" width=300>
+                    <img src="screenshots/7.png" width=300>
                 </a>
                 <figcaption>Profile Screen (WIP)</figcaption>
             </figure>
@@ -85,7 +85,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
         <td>
             <figure>
                 <a href="#8">
-                    <img src="docs/screenshots/8.png" width=300>
+                    <img src="screenshots/8.png" width=300>
                 </a>
                 <figcaption>Home screen with search query</figcaption>
             </figure>
