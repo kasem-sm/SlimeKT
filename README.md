@@ -32,36 +32,15 @@ on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) fold
 
 ## Architecture
 
- <figure>
-    <a href="#1">
-        <img src="docs/arch_diagram.png">
-    </a>
-</figure>
+![Asset 2](/docs/arch_diagram.png)
 
 ## Sample, Screenshots and Demo 📱
 
 [![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/sample.apk)
 
-<table>
-    <tr>
-        <td>
-            <figure>
-                <a href="#1">
-                    <img src="docs/screenshots/board_1.png">
-                </a>
-            </figure>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <figure>
-                <a href="#1">
-                    <img src="docs/screenshots/board_2.png">
-                </a>
-            </figure>
-        </td>
-    </tr>
-</table>
+![Asset 3](/docs/screenshots/board_1.png)
+
+![Asset 4](/docs/screenshots/board_2.png)
 
 For more screenshots and screen-recording
 demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
@@ -110,8 +89,8 @@ when you create a pull request. Running `spotlessApply` before creating a pull r
 cherry on the cake_.
 
 * Special thanks to our contributors:
-    - The first one gets featured here 😎
-    - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
+  - The first one gets featured here 😎
+  - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
 
 ## Medium Articles related to this project 🖋
 
