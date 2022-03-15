@@ -9,7 +9,16 @@ Article sharing platform where you can _**personalize, subscribe to your favouri
 daily-read reminders, explore new authors and share your articles**_. It uses the most cutting edge
 technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack Compose.</b>
 
-It follows the recommended app architecture as stated in official [Android documentation](https://developer.android.com/jetpack/guide)
+## App Architecture
+
+It follows the recommended app architecture as stated in
+official [Android documentation](https://developer.android.com/jetpack/guide)
+
+![Asset 2](app_architecture.svg)
+
+## Module Graph
+
+![Asset 3](modules/graph.png)
 
 ## Repository overview 📂
 

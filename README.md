@@ -1,4 +1,4 @@
-![Asset 1](/docs/header.png)
+![Header Image](/docs/header.png)
 
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
@@ -27,19 +27,20 @@ the Github repository itself.
 SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed
 on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
-## Architecture
+## App Architecture
+
 It follows the recommended app architecture as stated in
 official [Android documentation](https://developer.android.com/jetpack/guide)
 
-![Asset 2](/docs/arch.svg)
+![App Architecture](/docs/app_architecture.svg)
 
 ## Sample, Screenshots and Demo 📱
 
 [![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/app-release.apk)
 
-![Asset 3](/docs/screenshots/board_1.png)
+![Screenshot Board 1](/docs/screenshots/board_1.png)
 
-![Asset 4](/docs/screenshots/board_2.png)
+![Screenshot Board 2](/docs/screenshots/board_2.png)
 
 For more screenshots and screen-recording
 demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
@@ -47,8 +48,9 @@ demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
 ## What's next ✨
 
 SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be
-implemented. You can help us on our journey by contributing your skills. Please don't forget to
-create an issue/feature request first, or pick an existing one.
+implemented. You can help us on our journey by contributing your skills. Please checkout
+our [Contribution Guide](https://github.com/kasem-sm/SlimeKT#contribution-guide-and-contributors-%EF%B8%8F)
+for more.
 
 ## Tech stack / Miscellaneous Features 🚀
 
@@ -88,8 +90,8 @@ when you create a pull request. Running `spotlessApply` before creating a pull r
 cherry on the cake_.
 
 * Special thanks to our contributors:
-  - The first one gets featured here 😎
-  - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
+    - The first one gets featured here 😎
+    - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
 
 ## Medium Articles related to this project 🖋
 
