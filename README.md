@@ -13,9 +13,6 @@ An article sharing platform where you can _**personalize, subscribe to your favo
 daily-read reminders, explore new authors, and share your articles**_. It uses the most cutting-edge
 technology in the frontend and backend parts, such as <b>Ktor, MongoDB, and Jetpack Compose.</b>
 
-It follows the recommended app architecture as stated in
-official [Android documentation](https://developer.android.com/jetpack/guide)
-
 ## Documentation 📚
 
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
@@ -31,12 +28,14 @@ SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of o
 on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
 ## Architecture
+It follows the recommended app architecture as stated in
+official [Android documentation](https://developer.android.com/jetpack/guide)
 
 ![Asset 2](/docs/arch_diagram.png)
 
 ## Sample, Screenshots and Demo 📱
 
-[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/sample.apk)
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/app-release.apk)
 
 ![Asset 3](/docs/screenshots/board_1.png)
 
