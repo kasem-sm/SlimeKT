@@ -12,4 +12,5 @@ dependencies {
 
 	// Material 3
 	implementation(Compose.material3)
+	implementation(Compose.iconsExtended)
 }

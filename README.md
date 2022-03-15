@@ -1,4 +1,4 @@
-![Asset 1](/docs/header.png)
+![Header Image](/docs/header.png)
 
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
@@ -12,9 +12,6 @@
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
 daily-read reminders, explore new authors, and share your articles**_. It uses the most cutting-edge
 technology in the frontend and backend parts, such as <b>Ktor, MongoDB, and Jetpack Compose.</b>
-
-It follows the recommended app architecture as stated in
-official [Android documentation](https://developer.android.com/jetpack/guide)
 
 ## Documentation 📚
 
@@ -30,66 +27,20 @@ the Github repository itself.
 SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed
 on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
+## App Architecture
+
+It follows the recommended app architecture as stated in
+official [Android documentation](https://developer.android.com/jetpack/guide)
+
+![App Architecture](/docs/app_architecture.svg)
+
 ## Sample, Screenshots and Demo 📱
 
-[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/sample.apk)
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/app-release.apk)
 
-<table>
-    <tr>
-        <td>
-            <figure>
-                <a href="#1">
-                    <img src="docs/screenshots/1.png">
-                </a>
-                <figcaption>Home screen</figcaption>
-            </figure>
-        </td>
-        <td>
-            <figure>
-                <a href="#2">
-                    <img src="docs/screenshots/2.png">
-                </a>
-                <figcaption>Explore Screen</figcaption>
-            </figure>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <figure>
-                <a href="#3">
-                    <img src="docs/screenshots/3.png" width=300>
-                </a>
-                <figcaption>Detail Screen</figcaption>
-            </figure>
-        </td>    
-        <td>
-            <figure>
-                <a href="#6">
-                    <img src="docs/screenshots/6.png" width=300>
-                </a>
-                <figcaption>Register sheet</figcaption>
-            </figure>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <figure>
-                <a href="#4">
-                    <img src="docs/screenshots/4.png" width=300>
-                </a>
-                <figcaption>Subscribe Topics Screen</figcaption>
-            </figure>
-        </td>
-        <td>
-            <figure>
-                <a href="#5">
-                    <img src="docs/screenshots/5.png" width=300>
-                </a>
-                <figcaption>Login sheet</figcaption>
-            </figure>
-        </td>
-    </tr>     
-</table>
+![Screenshot Board 1](/docs/screenshots/board_1.png)
+
+![Screenshot Board 2](/docs/screenshots/board_2.png)
 
 For more screenshots and screen-recording
 demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
@@ -97,8 +48,9 @@ demo, [please visit our documentation](https://kasem-sm.github.io/SlimeKT).
 ## What's next ✨
 
 SlimeKT is a _Work In Progress_ project and there are several features/ideas which are yet to be
-implemented. You can help us on our journey by contributing your skills. Please don't forget to
-create an issue/feature request first, or pick an existing one.
+implemented. You can help us on our journey by contributing your skills. Please checkout
+our [Contribution Guide](https://github.com/kasem-sm/SlimeKT#contribution-guide-and-contributors-%EF%B8%8F)
+for more.
 
 ## Tech stack / Miscellaneous Features 🚀
 
@@ -117,13 +69,13 @@ information.
 
 ## Project Setup Guide ⚒
 
-### Android App
+#### Android App
 
 You need to have [Android Studio](https://developer.android.com/studio) Bumblebee or Dolphin to set
 up this project locally. After downloading all the requirements, please import the project into
 Android Studio, build the project, and click Run.
 
-### Backend (API)
+#### Backend (API)
 
 You need to have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows)
 and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. After downloading all the
