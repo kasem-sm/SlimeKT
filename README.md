@@ -31,7 +31,7 @@ on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) fold
 It follows the recommended app architecture as stated in
 official [Android documentation](https://developer.android.com/jetpack/guide)
 
-![Asset 2](/docs/arch_diagram.png)
+![Asset 2](/docs/arch.svg)
 
 ## Sample, Screenshots and Demo 📱
 
