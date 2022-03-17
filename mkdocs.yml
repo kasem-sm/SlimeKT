@@ -37,10 +37,12 @@ nav:
     - "Topics": android/features/ft_topics.md
     - "Miscellaneous": android/features/misc.md
   - "Modules & Project Structure":
+    - "Why Modularization": modules/why_modularization.md
     - "Feature Modules": modules/feature/feature_module_structure.md
     - "Java/Kotlin Modules": modules/java_kotlin/java_kotlin_modules.md
     - "Android Modules": modules/android/ui_modules.md
   - "Guide":
+    - "App Architecture": guide/app_architecture.md
     - "View-State": guide/view_state_construction.md
     - "Observable Loader": guide/observable_loader.md
     - "Interactors": guide/interactors.md

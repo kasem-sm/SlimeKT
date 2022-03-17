@@ -27,7 +27,7 @@ the Github repository itself.
 SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed
 on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
-## App Architecture
+## App Architecture Diagram
 
 It follows the recommended app architecture as stated in
 official [Android documentation](https://developer.android.com/jetpack/guide)
@@ -54,8 +54,8 @@ for more.
 
 ## Tech stack / Miscellaneous Features 🚀
 
-- Kotlin, Jetpack Compose, Coroutines, Flow, Accompanist, Navigation Component, Ktor (Android
-  client), Room Database, Coil, Dagger Hilt, etc.
+- Kotlin, Jetpack Compose, Work Manager, Glance API, Material You, Coroutines, Flow, Accompanist,
+  Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
 - **Observer Pattern:** Data from the cache would be shown while new data is fetched from the
   server. Newly retrieved data gets updated immediately on the screen.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read
@@ -82,12 +82,14 @@ and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. After
 requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and
 click the Run icon beside `main` function in `Application.kt` file.
 
+## Test Case  
+
 ## Contribution Guide and Contributors 👷‍♂️
 
 There are no special rules for contributing your expertise and making the open-source community more
 powerful. Just don't forget to file an issue or start a discussion so that I may not be surprised
-when you create a pull request. Running `spotlessApply` before creating a pull request would be _
-cherry on the cake_.
+when you create a pull request. Running `spotlessApply` before creating a pull request would be
+_cherry on the cake_.
 
 * Special thanks to our contributors:
     - The first one gets featured here 😎
@@ -95,9 +97,10 @@ cherry on the cake_.
 
 ## Medium Articles related to this project 🖋
 
-1. When Jetpack's Glance met his fellow worker, WorkManager (draft)
-2. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
-3. Android’s IME Actions: Don’t ignore
+1. [SlimeKT - Kotlin Powered open source project. (Android app with Ktor backend)](https://medium.com/@kasem.sm/slimekt-136a56864e57)
+2. When Jetpack's Glance met his fellow worker, WorkManager (draft)
+3. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
+4. Android’s IME Actions: Don’t ignore
    them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
