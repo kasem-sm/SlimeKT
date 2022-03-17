@@ -13,9 +13,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,11 +25,5 @@ object AppModule {
             .memoryCache(MemoryCache.Builder(context).maxSizePercent(0.25).build())
             .crossfade(250)
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideApplicationScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
     }
 }

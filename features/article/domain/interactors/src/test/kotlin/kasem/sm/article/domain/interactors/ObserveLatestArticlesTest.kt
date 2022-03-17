@@ -12,6 +12,7 @@ import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTripletsWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.toDomain
+import kasem.sm.article.domain.observers.ObserveLatestArticles
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi

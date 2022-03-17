@@ -10,8 +10,8 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import java.io.IOException
 import kasem.sm.article.domain.interactors.GetArticle
-import kasem.sm.article.domain.interactors.ObserveArticle
 import kasem.sm.article.domain.model.Article
+import kasem.sm.article.domain.observers.ObserveArticle
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kasem.sm.core.domain.SlimeDispatchers
@@ -54,7 +54,7 @@ class DetailVMTest {
         viewModel.state.test {
             val state = awaitItem()
             state shouldBe DetailState(
-                isLoading = true,
+                isLoading = false,
                 article = getMockDomain()
             )
             cancelAndIgnoreRemainingEvents()

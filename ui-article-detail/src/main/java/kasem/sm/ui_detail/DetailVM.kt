@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetArticle
-import kasem.sm.article.domain.interactors.ObserveArticle
+import kasem.sm.article.domain.observers.ObserveArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect

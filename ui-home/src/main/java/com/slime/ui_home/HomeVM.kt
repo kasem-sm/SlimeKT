@@ -12,13 +12,13 @@ import com.slime.ui_home.HomeState.Companion.DEFAULT_TOPIC_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
-import kasem.sm.article.domain.interactors.ObserveDailyReadArticle
+import kasem.sm.article.domain.observers.ObserveDailyReadArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetSubscribedTopics
-import kasem.sm.topic.domain.interactors.ObserveSubscribedTopics
+import kasem.sm.topic.domain.observers.ObserveSubscribedTopics
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows

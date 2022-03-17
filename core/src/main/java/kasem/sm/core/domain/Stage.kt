@@ -6,11 +6,15 @@ package kasem.sm.core.domain
 
 import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 
 sealed class Stage {
+    object Initial : Stage()
     object Success : Stage()
     data class Exception(val throwable: Throwable = UnknownError()) : Stage()
+
+    companion object {
+        val Stage.exception get() = (this as Exception).throwable
+    }
 }
 
 /**
@@ -24,13 +28,16 @@ suspend fun Flow<Stage>.collect(
     loader: ObservableLoader,
     onError: suspend (String) -> Unit,
     onSuccess: suspend () -> Unit = { },
-) {
-    loader.start()
-    collectLatest { stage ->
-        when (stage) {
-            is Stage.Success -> onSuccess.invoke()
-            is Stage.Exception -> onError.invoke(stage.throwable.toMessage)
+) = collect { stage ->
+    when (stage) {
+        is Stage.Initial -> loader.start()
+        is Stage.Success -> {
+            onSuccess.invoke()
+            loader.stop()
         }
-        loader.stop()
+        is Stage.Exception -> {
+            onError.invoke(stage.throwable.toMessage)
+            loader.stop()
+        }
     }
 }

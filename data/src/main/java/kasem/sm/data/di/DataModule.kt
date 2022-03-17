@@ -79,6 +79,7 @@ object DataModule {
     fun provideWorkerConstraints(): Constraints {
         return Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
             .build()
     }
 

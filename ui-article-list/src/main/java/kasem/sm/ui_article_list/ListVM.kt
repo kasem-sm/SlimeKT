@@ -19,7 +19,7 @@ import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetTopicById
-import kasem.sm.topic.domain.interactors.ObserveTopicById
+import kasem.sm.topic.domain.observers.ObserveTopicById
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows

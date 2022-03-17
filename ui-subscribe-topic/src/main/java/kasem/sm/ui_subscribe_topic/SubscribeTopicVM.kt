@@ -17,8 +17,8 @@ import kasem.sm.core.domain.collect
 import kasem.sm.core.session.AuthState
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
-import kasem.sm.topic.domain.interactors.ObserveInExploreTopics
 import kasem.sm.topic.domain.model.Topic
+import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.topic.worker.SubscribeTopicManager
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent

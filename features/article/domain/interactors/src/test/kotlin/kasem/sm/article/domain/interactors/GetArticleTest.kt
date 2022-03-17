@@ -6,7 +6,9 @@ package kasem.sm.article.domain.interactors
 
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
@@ -17,12 +19,12 @@ import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessRespons
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponseWithNullData
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
+import kasem.sm.common_test_utils.shouldBeInOrder
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
+import kasem.sm.core.domain.Stage.Companion.exception
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Rule
 import org.junit.Test
@@ -39,7 +41,6 @@ class GetArticleTest {
     private val useCase = GetArticle(
         api = apiMock,
         cache = databaseMock,
-        applicationScope = TestScope(UnconfinedTestDispatcher()),
         dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher())
     )
 
@@ -47,9 +48,10 @@ class GetArticleTest {
     fun assertApiCallErrorIsAnExceptionStage_and_InsertNotCalled() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns Result.failure(RuntimeException())
 
-        val stage = useCase.execute(1).first()
-
-        (stage as Stage.Exception).throwable shouldBe RuntimeException()
+        useCase.execute(1).shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem().exception shouldBe RuntimeException()
+        }
 
         coVerify(exactly = 0) {
             databaseMock.insert(getMockEntity(defaultTriplets))
@@ -60,10 +62,12 @@ class GetArticleTest {
     fun assertApiCallSuccess_and_InsertCalled() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(data = getMockDto())
         coEvery { databaseMock.getRespectiveTriplets(1) } returns defaultTriplets
+        coEvery { databaseMock.insert(getMockEntity(defaultTriplets)) } just runs
 
-        val stage = useCase.execute(1).first()
-
-        stage shouldBe Stage.Success
+        useCase.execute(1).shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem() shouldBe Stage.Success
+        }
 
         coVerify { databaseMock.insert(getMockEntity(defaultTriplets)) }
     }
@@ -72,9 +76,10 @@ class GetArticleTest {
     fun assertApiCallSuccess_but_DataIsNull() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponseWithNullData()
 
-        val stage = useCase.execute(1).first()
-
-        stage shouldBe Stage.Success
+        useCase.execute(1).shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem() shouldBe Stage.Success
+        }
 
         coVerify(exactly = 0) {
             databaseMock.insert(getMockEntity(defaultTriplets))
@@ -85,18 +90,20 @@ class GetArticleTest {
     fun apiCallThrowsException() = runBlocking {
         coEvery { apiMock.getArticleById(1) } throws IOException()
 
-        val stage = useCase.execute(1).first()
-
-        (stage as Stage.Exception).throwable shouldBe IOException()
+        useCase.execute(1).shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem().exception shouldBe IOException()
+        }
     }
 
-//    @Test
-//    fun cacheThrowsException() = runBlocking {
-//        coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(getMockDto())
-//        coEvery { databaseMock.getRespectivePair(1) } throws UnknownError()
-//
-//        val stage = useCase.execute(1).first()
-//
-//        stage shouldBe Stage.Exception()
-//    }
+    @Test
+    fun cacheThrowsException() = runBlocking {
+        coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(getMockDto())
+        coEvery { databaseMock.getRespectiveTriplets(1) } throws UnknownError()
+
+        useCase.execute(1).shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem().exception shouldBe UnknownError()
+        }
+    }
 }
