@@ -4,6 +4,7 @@
  */
 package kasem.sm.authentication.datasource_impl.network
 
+import com.slime.auth_api.AuthManager
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -12,7 +13,6 @@ import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
-import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.withResult
 
 internal class AuthApiServiceImpl @Inject constructor(

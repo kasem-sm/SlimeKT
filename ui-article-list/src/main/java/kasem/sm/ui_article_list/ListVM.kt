@@ -7,6 +7,9 @@ package kasem.sm.ui_article_list
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.slime.auth_api.AuthState
+import com.slime.auth_api.ObserveAuthState
+import com.slime.task_api.Tasks
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.ArticlePager
@@ -15,9 +18,6 @@ import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
-import kasem.sm.core.interfaces.Tasks
-import kasem.sm.core.session.AuthState
-import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetTopicById
 import kasem.sm.topic.domain.observers.ObserveTopicById
 import kasem.sm.ui_core.SavedMutableState
@@ -178,16 +178,17 @@ class ListVM @Inject constructor(
     }
 
     fun updateSubscription() {
+        subscriptionProgress.start()
         viewModelScope.launch(dispatchers.main) {
             tasks.updateSubscriptionStatus(
                 ids = listOf(topicId)
-            ).collect(
-                loader = subscriptionProgress,
-                onError = { _uiEvent.emit(showMessage(it)) },
-                onSuccess = {
-                    _uiEvent.emit(showMessage(string.common_success_msg))
-                },
-            )
+            ).collect { result ->
+                when {
+                    result.isSuccess -> _uiEvent.emit(showMessage(string.common_success_msg))
+                    result.isFailure -> _uiEvent.emit(showMessage(string.common_error_msg))
+                }
+                subscriptionProgress.stop()
+            }
         }
     }
 

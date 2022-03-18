@@ -14,8 +14,6 @@ dependencies {
 	implementation(project(":features:article:domain:model"))
 	implementation(project(":features:article:markdown"))
 
-	implementation(project(":features:topic:common-topic-ui"))
-
 	implementation Coil.core
 
 	testImplementation(project(":common-test-utils"))

@@ -4,6 +4,7 @@
  */
 package kasem.sm.topic.datasource_impl.network
 
+import com.slime.auth_api.AuthManager
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -11,7 +12,6 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import javax.inject.Inject
-import kasem.sm.core.interfaces.AuthManager
 import kasem.sm.core.utils.withResult
 import kasem.sm.topic.datasource.network.TopicApiService
 import kasem.sm.topic.datasource.network.response.SlimeResponse

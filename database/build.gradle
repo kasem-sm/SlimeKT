@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+	defaultConfig {
+		testInstrumentationRunner "kasem.sm.database.dao_test.utils.HiltTestRunner"
+	}
+}
+
+provideHiltDeps(this)
+
+dependencies {
+	// Article
+	implementation(project(":features:article:datasource-impl"))
+	implementation(project(':features:article:datasource-api'))
+
+	// Topic
+	implementation(project(":features:topic:datasource-impl"))
+	implementation(project(":features:topic:datasource-api"))
+
+	// Auth
+	implementation(project(":features:authentication:datasource-impl"))
+	implementation(project(":features:authentication:datasource-api"))
+
+	// Room
+	implementation AndroidX.room
+	kapt AndroidX.roomCompiler
+
+	// LiveData
+	implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+
+	// Instrumentation Test
+	androidTestImplementation "com.google.truth:truth:1.1.3"
+	androidTestImplementation 'junit:junit:4.13.2'
+	androidTestImplementation 'androidx.test:runner:1.5.0-alpha01'
+	androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+	androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+	androidTestImplementation 'com.google.dagger:hilt-android-testing:2.41'
+	kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.41'
+}

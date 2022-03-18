@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import coil.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kasem.sm.navigation.SlimeNavigation
+import kasem.sm.slime.ui.navigation.SlimeNavigation
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

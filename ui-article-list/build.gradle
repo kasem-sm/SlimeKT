@@ -15,11 +15,13 @@ android {
 provideUiTestDeps(this)
 
 dependencies {
+	implementation(project(":task-api"))
+	implementation(project(":auth-api"))
+
 	implementation(project(":features:article:common-article-ui"))
 	// Article
 	implementation(project(":features:article:domain:interactors"))
 	implementation(project(":features:article:domain:model"))
-	implementation(project(":features:topic:common-topic-ui"))
 
 	// Topic
 	implementation(project(":features:topic:domain:interactors"))

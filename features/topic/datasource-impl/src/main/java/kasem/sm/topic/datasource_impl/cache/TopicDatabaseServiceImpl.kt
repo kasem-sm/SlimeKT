@@ -8,8 +8,8 @@ import javax.inject.Inject
 import kasem.sm.core.utils.slimeSuspendTry
 import kasem.sm.core.utils.slimeTry
 import kasem.sm.topic.datasource.cache.TopicDatabaseService
-import kasem.sm.topic.datasource.cache.dao.TopicDao
 import kasem.sm.topic.datasource.cache.entity.TopicEntity
+import kasem.sm.topic.datasource_impl.cache.dao.TopicDao
 import kotlinx.coroutines.flow.Flow
 
 internal class TopicDatabaseServiceImpl @Inject constructor(

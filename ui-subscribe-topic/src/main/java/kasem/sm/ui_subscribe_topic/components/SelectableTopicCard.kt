@@ -7,8 +7,8 @@ package kasem.sm.ui_subscribe_topic.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import kasem.sm.common_ui.TopicChip
 import kasem.sm.common_ui.util.clickWithRipple
-import kasem.sm.topic.common_ui.TopicChip
 import kasem.sm.topic.domain.model.Topic
 
 @Composable

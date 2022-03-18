@@ -1,5 +1,5 @@
 object Accompanist {
-    private const val accompanistVersion = "0.24.3-alpha"
+    private const val accompanistVersion = "0.24.4-alpha"
     private const val prefix = "com.google.accompanist:accompanist"
 
     const val navigationAnimation =

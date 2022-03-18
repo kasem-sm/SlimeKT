@@ -7,6 +7,8 @@ package com.slime.ui_home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.slime.auth_api.AuthState
+import com.slime.auth_api.ObserveAuthState
 import com.slime.ui_home.HomeState.Companion.DEFAULT_SEARCH_QUERY
 import com.slime.ui_home.HomeState.Companion.DEFAULT_TOPIC_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +18,6 @@ import kasem.sm.article.domain.observers.ObserveDailyReadArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
-import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetSubscribedTopics
 import kasem.sm.topic.domain.observers.ObserveSubscribedTopics
 import kasem.sm.ui_core.SavedMutableState
@@ -30,7 +31,9 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltViewModel
 class HomeVM @Inject constructor(
@@ -102,6 +105,7 @@ class HomeVM @Inject constructor(
         searchQuery: String = this.searchQuery.value,
         forceRefresh: Boolean = false
     ) {
+        Timber.d("Initialized Pager")
         job?.cancel()
         job = viewModelScope.launch(dispatchers.main) {
             pager.initialize(
@@ -128,9 +132,11 @@ class HomeVM @Inject constructor(
 
     private fun observeData() {
         viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow.collect {
-                refresh()
-            }
+            observeAuthState.flow
+                .filter { it == AuthState.LOGGED_IN }
+                .collect {
+                    refresh()
+                }
         }
 
         viewModelScope.launch(dispatchers.main) {

@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'dagger.hilt.android.plugin'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+provideAndroidXWorkerDeps(this)
+provideHiltDeps(this)
+
+dependencies {
+	implementation(project(":core"))
+	implementation(project(":task-api"))
+
+	// Worker
+	implementation(project(":features:authentication:worker"))
+	implementation(project(":features:topic:worker"))
+	implementation(project(":features:article:worker"))
+}

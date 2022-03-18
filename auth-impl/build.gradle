@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+provideHiltDeps(this)
+
+dependencies {
+	implementation(project(":core"))
+	implementation(project(":auth-api"))
+	implementation(project(":task-api"))
+
+	implementation(AndroidX.core)
+	implementation(Jetbrains.coroutinesCore)
+}

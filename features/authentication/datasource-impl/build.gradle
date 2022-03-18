@@ -10,7 +10,8 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":features:authentication:datasource"))
+	implementation(project(":auth-api"))
+	implementation(project(":features:authentication:datasource-api"))
 
 	// Ktor (with)
 	implementation(Jetbrains.ktorJvm)
