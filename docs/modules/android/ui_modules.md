@@ -12,7 +12,7 @@ Responsible for handling the navigation of the app. All the screen modules are a
 
 ## [Data Module](https://github.com/kasem-sm/SlimeKT/tree/dev/data)
 
-Handles data-allied tasks such as creation and persistence of databases, session and task management, caching data, etc.
+Handles data-allied tasks such as creation and persistence of databases, session and task management, etc.
 
 ## UI Modules
 
