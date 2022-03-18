@@ -12,14 +12,11 @@ import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.Stage
 import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class GetInExploreArticles @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
-    private val applicationScope: CoroutineScope,
     private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(): Flow<Stage> {
@@ -27,13 +24,11 @@ class GetInExploreArticles @Inject constructor(
             val articles = api.getExploreArticles()
                 .getOrThrow().data.getOrDefault()
 
-            applicationScope.launch {
-                cache.removeAllArticlesFromExplore()
-                articles.map {
-                    val triple = cache.getRespectiveTriplets(it.id)
-                    cache.insert(it.toEntity(pair = triple.copy(third = IsInExplore(true))))
-                }
-            }.join()
+            cache.removeAllArticlesFromExplore()
+            articles.map {
+                val triple = cache.getRespectiveTriplets(it.id)
+                cache.insert(it.toEntity(pair = triple.copy(third = IsInExplore(true))))
+            }
         }
     }
 }

@@ -4,7 +4,11 @@
  */
 package kasem.sm.common_test_utils
 
+import app.cash.turbine.FlowTurbine
+import app.cash.turbine.test
 import com.google.common.truth.Truth
+import kasem.sm.core.domain.Stage
+import kotlinx.coroutines.flow.Flow
 
 infix fun Any?.shouldBe(assert: Any?) {
     Truth.assertThat(this).isEqualTo(assert)
@@ -17,4 +21,13 @@ infix fun Throwable?.shouldBe(assert: Throwable) {
 infix fun Boolean.shouldBe(bool: Boolean) {
     if (bool) Truth.assertThat(this).isTrue()
     else Truth.assertThat(this).isFalse()
+}
+
+suspend inline fun Flow<Stage>.shouldBeInOrder(
+    crossinline testScope: suspend FlowTurbine<Stage>.() -> Unit
+) {
+    test {
+        testScope()
+        cancelAndConsumeRemainingEvents()
+    }
 }

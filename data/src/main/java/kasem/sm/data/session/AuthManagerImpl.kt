@@ -13,6 +13,7 @@ import kasem.sm.core.interfaces.Tasks
 import kasem.sm.core.session.AuthState
 import kasem.sm.data.util.observe
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,14 +25,15 @@ class AuthManagerImpl @Inject constructor(
     private val dispatchers: SlimeDispatchers,
     private val tasks: Tasks,
     private val preferences: SharedPreferences,
-    private val applicationScope: CoroutineScope
 ) : AuthManager {
 
     private val _state: MutableStateFlow<AuthState> = MutableStateFlow(AuthState.LOGGED_OUT)
     override val state: StateFlow<AuthState> = _state.asStateFlow()
 
+    private val scope = CoroutineScope(SupervisorJob() + dispatchers.default)
+
     init {
-        applicationScope.launch(dispatchers.io) {
+        scope.launch(dispatchers.io) {
             preferences.observe(AUTH_TOKEN_KEY, defValue = null).collectLatest {
                 updateState(!it.isNullOrEmpty())
             }
@@ -39,7 +41,7 @@ class AuthManagerImpl @Inject constructor(
     }
 
     override fun onNewSession(session: AuthManager.SlimeSession) {
-        applicationScope.launch(dispatchers.io) {
+        scope.launch(dispatchers.io) {
             saveAuthState(session)
             tasks.executeDailyReader()
 
@@ -54,7 +56,7 @@ class AuthManagerImpl @Inject constructor(
             putString(AUTH_TOKEN_KEY, null)
             putString(AUTH_ID_KEY, null)
         }
-        applicationScope.launch(dispatchers.io) {
+        scope.launch(dispatchers.io) {
             tasks.clearUserSubscriptionLocally()
         }
     }

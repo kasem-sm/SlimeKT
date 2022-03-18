@@ -5,9 +5,12 @@
 package kasem.sm.article.domain.interactors
 
 import io.mockk.coEvery
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTriplets
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockArticleResponse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
@@ -19,7 +22,6 @@ import kasem.sm.core.domain.SlimeDispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Rule
 import org.junit.Test
@@ -38,7 +40,6 @@ class GetPagedArticlesTest {
     private val useCase = GetPagedArticles(
         api = apiMock,
         cache = databaseMock,
-        applicationScope = TestScope(UnconfinedTestDispatcher()),
         dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher()),
         mapper = mapper
     )
@@ -72,6 +73,9 @@ class GetPagedArticlesTest {
             )
         } returns listOf(getMockEntity())
 
+        coEvery { databaseMock.getRespectiveTriplets(any()) } returns defaultTriplets
+        coEvery { databaseMock.insert(any()) } just runs
+
         val data = useCase.execute(
             page = 0,
             pageSize = 10,
@@ -96,6 +100,8 @@ class GetPagedArticlesTest {
             apiMock.getAllArticles(page = 3, pageSize = 10)
             // API responded with only 2 pages
         } returns mockSuccessResponse(mockArticleResponse(totalPage = 2))
+        coEvery { databaseMock.getRespectiveTriplets(any()) } returns defaultTriplets
+        coEvery { databaseMock.insert(any()) } just runs
 
         // We tried to fetch page number 3 that never existed
         val data = useCase.execute(

@@ -11,14 +11,11 @@ import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
 import kasem.sm.topic.datasource.cache.TopicDatabaseService
 import kasem.sm.topic.datasource.network.TopicApiService
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class GetSubscribedTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
-    private val applicationScope: CoroutineScope,
     private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(): Flow<Stage> {
@@ -28,9 +25,7 @@ class GetSubscribedTopics @Inject constructor(
                     it.toEntity()
                 }
 
-            applicationScope.launch {
-                cache.insert(topics)
-            }.join()
+            cache.insert(topics)
         }
     }
 }

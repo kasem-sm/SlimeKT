@@ -14,14 +14,11 @@ import kasem.sm.core.domain.PaginationStage
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.pagingStage
 import kasem.sm.core.utils.slimeSuspendTry
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class GetPagedArticles @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
-    private val applicationScope: CoroutineScope,
     private val dispatchers: SlimeDispatchers,
     private val mapper: ArticleMapper
 ) {
@@ -76,11 +73,9 @@ class GetPagedArticles @Inject constructor(
     }
 
     private suspend fun List<ArticleDto>.cacheData() {
-        applicationScope.launch {
-            map {
-                val triple = slimeSuspendTry { cache.getRespectiveTriplets(it.id) }
-                cache.insert(it.toEntity(triple))
-            }
-        }.join()
+        map {
+            val triple = slimeSuspendTry { cache.getRespectiveTriplets(it.id) }
+            cache.insert(it.toEntity(triple))
+        }
     }
 }

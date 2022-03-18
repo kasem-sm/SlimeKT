@@ -9,6 +9,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
+import kasem.sm.article.domain.observers.ObserveArticle
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
 import kasem.sm.common_test_utils.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi

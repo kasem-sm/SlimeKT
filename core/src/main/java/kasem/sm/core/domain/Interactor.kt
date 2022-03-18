@@ -32,6 +32,7 @@ inline fun <T> CoroutineDispatcher.start(
     return flow {
         try {
             withTimeout(TimeUnit.MINUTES.toMillis(5)) {
+                emit(Stage.Initial)
                 doWork.invoke()
                 emit(Stage.Success)
             }

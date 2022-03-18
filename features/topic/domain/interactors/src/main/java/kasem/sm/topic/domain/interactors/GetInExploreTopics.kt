@@ -11,15 +11,12 @@ import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
 import kasem.sm.topic.datasource.cache.TopicDatabaseService
 import kasem.sm.topic.datasource.network.TopicApiService
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class GetInExploreTopics @Inject constructor(
     private val api: TopicApiService,
     private val cache: TopicDatabaseService,
     private val dispatchers: SlimeDispatchers,
-    private val applicationScope: CoroutineScope
 ) {
     fun execute(): Flow<Stage> {
         return dispatchers.default.start {
@@ -53,14 +50,10 @@ class GetInExploreTopics @Inject constructor(
                     }
                 }
                 .map {
-                    applicationScope.launch {
-                        cache.updateSubscriptionStatus(true, it.id)
-                    }.join()
+                    cache.updateSubscriptionStatus(true, it.id)
                 }
 
-            applicationScope.launch {
-                cache.insert(apiTopics)
-            }.join()
+            cache.insert(apiTopics)
         }
     }
 }

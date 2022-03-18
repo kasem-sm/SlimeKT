@@ -9,13 +9,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetInExploreArticles
-import kasem.sm.article.domain.interactors.ObserveInExploreArticles
+import kasem.sm.article.domain.observers.ObserveInExploreArticles
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
-import kasem.sm.topic.domain.interactors.ObserveInExploreTopics
+import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
