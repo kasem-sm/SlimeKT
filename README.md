@@ -1,4 +1,4 @@
-![Header Image](/docs/header.png)
+![Header Image](/docs/assets/header.png)
 
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
@@ -31,7 +31,7 @@ on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) fold
 It follows the recommended app architecture as stated in
 official [Android documentation](https://developer.android.com/jetpack/guide)
 
-![App Architecture](/docs/app_architecture.svg)
+![App Architecture](/docs/assets/app_architecture.svg)
 
 ## Sample, Screenshots and Demo 📱
 
