@@ -54,7 +54,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 </a>
                 <figcaption>Detail Screen</figcaption>
             </figure>
-        </td>    
+        </td>
         <td>
             <figure>
                 <a href="#6">
@@ -81,7 +81,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <figcaption>Login sheet</figcaption>
             </figure>
         </td>
-    </tr>    
+    </tr>
     <tr>
         <td>
             <figure>
@@ -99,7 +99,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <figcaption>Home screen with search query</figcaption>
             </figure>
         </td>
-    </tr>    
+    </tr>
 </table>
 
 ## Medium Articles 🖋
