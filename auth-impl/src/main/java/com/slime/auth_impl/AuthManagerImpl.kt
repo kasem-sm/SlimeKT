@@ -8,6 +8,9 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.slime.auth_api.AuthManager
 import com.slime.auth_api.AuthState
+import com.slime.auth_api.ID
+import com.slime.auth_api.Token
+import com.slime.auth_api.UserData
 import com.slime.task_api.Tasks
 import javax.inject.Inject
 import kasem.sm.core.domain.SlimeDispatchers
@@ -60,12 +63,12 @@ class AuthManagerImpl @Inject constructor(
         }
     }
 
-    override fun getUserId(): String? {
-        return preferences.getString(AUTH_ID_KEY, null)
-    }
-
-    override fun getUserToken(): String? {
-        return preferences.getString(AUTH_TOKEN_KEY, null)
+    override fun getUserData(data: UserData): String? {
+        return when (data) {
+            is ID -> preferences.getString(AUTH_ID_KEY, null)
+            is Token -> preferences.getString(AUTH_TOKEN_KEY, null)
+            else -> null
+        }
     }
 
     private fun saveAuthState(session: AuthManager.SlimeSession) {

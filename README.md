@@ -10,8 +10,7 @@
 ## Introduction 🙋‍♂️
 
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
-daily-read reminders, explore new authors, and share your articles**_. It uses the most cutting-edge
-technology in the frontend and backend parts, such as <b>Ktor, MongoDB, and Jetpack Compose.</b>
+daily-read reminders, explore new authors, and share your articles**_. App built using Kotlin, Dagger Hilt, Room Database, Coroutines, Flow, AndroidX Glance, WorkManager, Coil etc.</b>
 
 ## Documentation 📚
 
@@ -54,8 +53,8 @@ for more.
 
 ## Tech stack / Miscellaneous Features 🚀
 
-- Kotlin, Jetpack Compose, Work Manager, Glance API, Material You, Coroutines, Flow, Accompanist,
-  Navigation Component, Ktor (Android client), Room Database, Coil, Dagger Hilt, etc.
+- <b>Kotlin, Jetpack Compose, Work Manager, Glance API, Material You, Coroutines, Flow, Accompanist,
+  Navigation Component, Ktor, Room Database, Coil, Dagger Hilt, Mockk etc.</b>
 - **Observer Pattern:** Data from the cache would be shown while new data is fetched from the
   server. Newly retrieved data gets updated immediately on the screen.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read
@@ -82,7 +81,9 @@ and [MongoDB Compass](https://www.mongodb.com/products/compass) installed. After
 requirements, please import the [`/api`](/api) module into IntelliJ IDEA, build the project and
 click the Run icon beside `main` function in `Application.kt` file.
 
-## Test Case  
+## Test Cases (Android app)
+
+Current Testing status - https://kasem-sm.github.io/SlimeKT/tests/status/
 
 ## Contribution Guide and Contributors 👷‍♂️
 
@@ -98,12 +99,15 @@ _cherry on the cake_.
 ## Medium Articles related to this project 🖋
 
 1. [SlimeKT - Kotlin Powered open source project. (Android app with Ktor backend)](https://medium.com/@kasem.sm/slimekt-136a56864e57)
-2. When Jetpack's Glance met his fellow worker, WorkManager (draft)
-3. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
-4. Android’s IME Actions: Don’t ignore
-   them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
+2. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
+3. When Jetpack's Glance met his fellow worker, WorkManager (Coming soon)
+4. Create Animated PlaceHolder for your Jetpack Compose text fields (Coming soon)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
+
+## Find this project useful? 💖
+
+Support it by starring this repository. Join our [Stargazers](https://github.com/kasem-sm/SlimeKT/stargazers) team!
 
 ## Contact 🤙
 
@@ -122,17 +126,4 @@ questions related to SlimeKT or Android development, ping me anytime!
 
 ## License
 
-```
-Copyright 2022 Kasem SM
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[GNU General Public License v3.0]()

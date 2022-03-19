@@ -5,6 +5,7 @@
 package kasem.sm.authentication.datasource_impl.network
 
 import com.slime.auth_api.AuthManager
+import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -13,6 +14,7 @@ import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
+import kasem.sm.core.utils.userIdParam
 import kasem.sm.core.utils.withResult
 
 internal class AuthApiServiceImpl @Inject constructor(
@@ -48,7 +50,7 @@ internal class AuthApiServiceImpl @Inject constructor(
     override suspend fun checkAuthenticationState(): Result<SlimeResponse<Boolean>> {
         return withResult {
             client.get(AUTHENTICATION_ROUTE) {
-                parameter("userId", authManager.getUserId())
+                userIdParam(id = authManager.getUserData(ID))
             }
         }
     }

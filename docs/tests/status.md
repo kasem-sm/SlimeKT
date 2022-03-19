@@ -34,7 +34,7 @@ Currently, unit tests are only written for:
 
 ## Instrumentation Tests
 
-Currently, instrumentation tTests are only written for:
+Currently, instrumentation Tests are only written for:
 
 #### Room Database
 

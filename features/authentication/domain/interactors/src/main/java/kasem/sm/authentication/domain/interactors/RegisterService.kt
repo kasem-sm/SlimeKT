@@ -8,8 +8,8 @@ import com.slime.auth_api.AuthManager
 import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.AuthResult.Companion.toInvalidCredentialsException
 import kasem.sm.authentication.domain.model.Credentials
-import kasem.sm.authentication.domain.model.InvalidCredentialsException
 import kasem.sm.authentication.domain.model.ServerException
 import kasem.sm.authentication.domain.model.containsOnlyNumbers
 import kasem.sm.authentication.domain.model.containsSpecialCharacters
@@ -70,10 +70,10 @@ class RegisterService @Inject constructor(
                 isUsernameEmpty = isUsernameEmpty,
                 isPasswordEmpty = isPasswordEmpty,
             )
-            username.trim().length !in (4..10) -> AuthResult.Exception(InvalidCredentialsException("Username length should be between 4 to 10 characters"))
-            password.trim().length !in (4..20) -> AuthResult.Exception(InvalidCredentialsException("Password length should be between 4 to 20 characters"))
-            username.containsOnlyNumbers -> AuthResult.Exception(InvalidCredentialsException("Username should not only consists of numbers"))
-            username.containsSpecialCharacters -> AuthResult.Exception(InvalidCredentialsException("Special characters are not allowed inside username"))
+            username.trim().length !in (4..10) -> "Username length should be between 4 to 10 characters".toInvalidCredentialsException()
+            password.trim().length !in (4..20) -> "Password length should be between 4 to 20 characters".toInvalidCredentialsException()
+            username.containsOnlyNumbers -> "Username should not only consists of numbers".toInvalidCredentialsException()
+            username.containsSpecialCharacters -> "Special characters are not allowed inside username".toInvalidCredentialsException()
             else -> null
         }
     }

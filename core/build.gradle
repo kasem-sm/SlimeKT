@@ -12,6 +12,7 @@ java {
 dependencies {
 	api(Jetbrains.serializationCore)
 	api(Jetbrains.coroutinesCore)
+	api(Jetbrains.ktorClientCore)
 	implementation(JavaX.inject)
 }
 

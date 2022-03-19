@@ -4,4 +4,8 @@ It consists of core business models, classes, and utilities for all other module
 
 ## [Common Test Utils](https://github.com/kasem-sm/SlimeKT/tree/dev/common-test-utils)
 
-It consists of utilities and helper extension functions used during unit testing. 
+It consists of utilities and helper extension functions used during unit testing.
+
+## [Task-api]()
+
+## [Auth-api]()

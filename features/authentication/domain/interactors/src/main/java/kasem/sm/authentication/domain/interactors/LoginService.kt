@@ -7,10 +7,9 @@ package kasem.sm.authentication.domain.interactors
 import com.slime.auth_api.AuthManager
 import javax.inject.Inject
 import kasem.sm.authentication.datasource.network.AuthApiService
-import kasem.sm.authentication.domain.model.ApiResponseConstants.LOGIN_FAILED_INVALID_CREDENTIALS
 import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.AuthResult.Companion.toInvalidCredentialsException
 import kasem.sm.authentication.domain.model.Credentials
-import kasem.sm.authentication.domain.model.InvalidCredentialsException
 import kasem.sm.authentication.domain.model.ServerException
 import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
@@ -35,8 +34,8 @@ class LoginService @Inject constructor(
         }
 
         val apiResponse = api.loginUser(
-            username = credentials.username,
-            password = credentials.password
+            username = credentials.username.trim(),
+            password = credentials.password.trim()
         ).getOrElse {
             emit(AuthResult.Exception(ServerException(it.toMessage)))
             return@flow
@@ -75,10 +74,12 @@ class LoginService @Inject constructor(
 
     private fun loginResultForFailure(error: String?): AuthResult.Exception {
         return when (error) {
-            LOGIN_FAILED_INVALID_CREDENTIALS -> AuthResult.Exception(
-                InvalidCredentialsException()
-            )
+            LOGIN_FAILED_INVALID_CREDENTIALS -> "Your username or password is incorrect".toInvalidCredentialsException()
             else -> AuthResult.Exception(ServerException(error ?: "Server Failure"))
         }
+    }
+
+    companion object {
+        const val LOGIN_FAILED_INVALID_CREDENTIALS = "Invalid Credentials"
     }
 }

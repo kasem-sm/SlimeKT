@@ -14,6 +14,7 @@ import androidx.work.WorkManager
 import coil.ImageLoader
 import coil.memory.MemoryCache
 import com.slime.auth_api.AuthManager
+import com.slime.auth_api.Token
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,8 +60,8 @@ object AppModule {
                     }
                 }
 
-                authManager.getUserToken()?.let { token ->
-                    header("Authorization", "Bearer $token")
+                authManager.getUserData(Token)?.let { value ->
+                    header("Authorization", "Bearer $value")
                 }
             }
         }
