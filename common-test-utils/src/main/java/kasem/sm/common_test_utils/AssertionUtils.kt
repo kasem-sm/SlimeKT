@@ -24,10 +24,10 @@ infix fun Boolean.shouldBe(bool: Boolean) {
 }
 
 suspend inline fun Flow<Stage>.shouldBeInOrder(
-    crossinline testScope: suspend FlowTurbine<Stage>.() -> Unit
+    crossinline scope: suspend FlowTurbine<Stage>.() -> Unit
 ) {
     test {
-        testScope()
+        scope()
         cancelAndConsumeRemainingEvents()
     }
 }

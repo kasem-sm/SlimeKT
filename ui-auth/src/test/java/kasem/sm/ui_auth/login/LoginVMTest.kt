@@ -35,7 +35,7 @@ class LoginVMTest {
     @Before
     fun setUp() {
         viewModel = LoginVM(
-            loginUseCase = fakeLoginUseCase.mock,
+            loginService = fakeLoginUseCase.mock,
             dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher()),
             savedStateHandle = SavedStateHandle()
         )

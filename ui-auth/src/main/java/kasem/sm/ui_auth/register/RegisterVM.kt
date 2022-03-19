@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.authentication.domain.interactors.RegisterUseCase
+import kasem.sm.authentication.domain.interactors.RegisterService
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.authentication.domain.model.Credentials
@@ -33,7 +33,7 @@ import kotlinx.coroutines.plus
 
 @HiltViewModel
 class RegisterVM @Inject constructor(
-    private val registerUseCase: RegisterUseCase,
+    private val registerService: RegisterService,
     private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -109,7 +109,7 @@ class RegisterVM @Inject constructor(
                 password = password.value,
                 isAccountDiscoverable = isAccountDiscoverable.value
             )
-            registerUseCase.execute(credentials)
+            registerService.execute(credentials)
                 .onStart { loadingStatus.start() }
                 .onCompletion { loadingStatus.stop() }
                 .collectLatest { result ->

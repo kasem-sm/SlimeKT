@@ -9,5 +9,5 @@ package kasem.sm.authentication.domain.model
  * with Invalid credentials.
  */
 
-class InvalidCredentialsException(override val message: String? = "Your username or password is incorrect") : Throwable(message)
+class InvalidCredentialsException(override val message: String?) : Throwable(message)
 class ServerException(override val message: String? = null) : Throwable(message)

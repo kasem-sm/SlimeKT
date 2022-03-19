@@ -20,4 +20,5 @@ dependencies {
 
 	implementation(Accompanist.swipeRefresh)
 	implementation(Accompanist.flowLayout)
+	implementation Accompanist.sysUiController
 }

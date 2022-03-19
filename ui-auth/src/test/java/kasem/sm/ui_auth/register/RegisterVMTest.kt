@@ -35,7 +35,7 @@ class RegisterVMTest {
     @Before
     fun setUp() {
         viewModel = RegisterVM(
-            registerUseCase = fakeRegisterUseCase.mock,
+            registerService = fakeRegisterUseCase.mock,
             dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher()),
             savedStateHandle = SavedStateHandle()
         )

@@ -8,11 +8,11 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.slime.auth_api.AuthManager
+import com.slime.auth_api.AuthState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kasem.sm.authentication.datasource.network.AuthApiService
-import kasem.sm.core.interfaces.AuthManager
-import kasem.sm.core.session.AuthState
 
 @HiltWorker
 internal class CheckAuthenticationTask @AssistedInject constructor(

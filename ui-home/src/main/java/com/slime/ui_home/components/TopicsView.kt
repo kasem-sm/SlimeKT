@@ -26,8 +26,8 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.SlimePrimaryButton
+import kasem.sm.common_ui.TopicChip
 import kasem.sm.common_ui.util.toggleWithRipple
-import kasem.sm.topic.common_ui.TopicChip
 import kasem.sm.topic.domain.model.Topic
 
 @Composable

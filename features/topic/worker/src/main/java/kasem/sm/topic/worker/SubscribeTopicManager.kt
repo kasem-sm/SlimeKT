@@ -11,7 +11,6 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import javax.inject.Inject
-import kasem.sm.core.domain.Stage
 import kasem.sm.topic.worker.utils.asFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -23,7 +22,7 @@ class SubscribeTopicManager @Inject constructor(
 ) {
     fun updateSubscriptionStatus(
         ids: List<String>
-    ): Flow<Stage> {
+    ): Flow<Result<Unit>> {
         return channelFlow {
             val request = buildRequest(ids)
             request.enqueueWorker()
@@ -33,8 +32,8 @@ class SubscribeTopicManager @Inject constructor(
                 .collectLatest { workInfo ->
                     if (workInfo != null) {
                         when (workInfo.state) {
-                            WorkInfo.State.SUCCEEDED -> send(Stage.Success)
-                            WorkInfo.State.FAILED -> send(Stage.Exception())
+                            WorkInfo.State.SUCCEEDED -> send(Result.success(Unit))
+                            WorkInfo.State.FAILED -> send(Result.failure(UnknownError()))
                             else -> Unit
                         }
                     }

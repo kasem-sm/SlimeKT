@@ -4,6 +4,8 @@
  */
 package kasem.sm.article.datasource_impl.network
 
+import com.slime.auth_api.AuthManager
+import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -12,7 +14,7 @@ import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.datasource.network.response.ArticleDto
 import kasem.sm.article.datasource.network.response.ArticleResponse
 import kasem.sm.article.datasource.network.response.SlimeResponse
-import kasem.sm.core.interfaces.AuthManager
+import kasem.sm.core.utils.userIdParam
 import kasem.sm.core.utils.withResult
 
 internal class ArticleApiServiceImpl @Inject constructor(
@@ -46,7 +48,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
     override suspend fun getRandomArticleFromSubscription(): Result<SlimeResponse<ArticleDto>?> {
         return withResult {
             client.get(GET_RANDOM_ARTICLE_ROUTE) {
-                parameter("userId", authManager.getUserId())
+                userIdParam(id = authManager.getUserData(ID))
             }
         }
     }
@@ -54,7 +56,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
     override suspend fun getExploreArticles(): Result<SlimeResponse<List<ArticleDto>>> {
         return withResult {
             client.get(GET_EXPLORE_ARTICLES_ROUTE) {
-                parameter("userId", authManager.getUserId())
+                userIdParam(id = authManager.getUserData(ID))
             }
         }
     }

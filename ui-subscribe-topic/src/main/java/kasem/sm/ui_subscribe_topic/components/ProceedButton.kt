@@ -24,7 +24,7 @@ fun ProceedButton(
     saveRecommendedValues: () -> Unit
 ) {
     SlimePrimaryButton(
-        isLoading = state.loadingStatus,
+        isLoading = state.isSubscriptionInProgress,
         text = if (!state.isUserAuthenticated) {
             "Please Sign In to continue"
         } else if (state.isListEmpty) "Go Back"

@@ -11,11 +11,11 @@ dependencies {
 	// Article:features
 	implementation(project(":features:article:domain:interactors"))
 	implementation(project(":features:article:domain:model"))
-	implementation(project(":features:topic:common-topic-ui"))
 
 	// Topic
 	implementation(project(":features:topic:domain:interactors"))
 	implementation(project(":features:topic:domain:model"))
 
 	implementation Coil.core
+	implementation project(":auth-api")
 }

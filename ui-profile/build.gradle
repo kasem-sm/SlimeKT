@@ -7,5 +7,5 @@ apply {
 }
 
 dependencies {
-
+	implementation(project(":auth-api"))
 }

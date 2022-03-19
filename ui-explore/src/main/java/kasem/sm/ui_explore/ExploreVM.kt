@@ -6,6 +6,7 @@ package kasem.sm.ui_explore
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetInExploreArticles
@@ -13,7 +14,6 @@ import kasem.sm.article.domain.observers.ObserveInExploreArticles
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
-import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.ui_core.UiEvent

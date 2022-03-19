@@ -25,15 +25,14 @@ include(":app")
 include(":core")
 include(":common-ui")
 include(":ui-core")
-include(":data")
-include(":navigation")
+include(":database")
 include(":common-test-utils")
 
 include(":features")
 
 // Feature Article
 include(":features:article")
-include(":features:article:datasource")
+include(":features:article:datasource-api")
 include(":features:article:domain")
 include(":features:article:domain:model")
 include(":features:article:domain:interactors")
@@ -45,10 +44,9 @@ include(":features:article:datasource-impl")
 
 // Feature Topic
 include(":features:topic")
-include(":features:topic:common-topic-ui")
 include(":features:topic:domain")
 include(":features:topic:domain:model")
-include(":features:topic:datasource")
+include(":features:topic:datasource-api")
 include(":features:topic:domain:interactors")
 include(":features:topic:worker")
 include(":features:topic:datasource-impl")
@@ -65,8 +63,15 @@ include(":ui-auth")
 // Feature Auth
 include(":features:authentication")
 include(":features:authentication:domain:model")
-include(":features:authentication:datasource")
+include(":features:authentication:datasource-api")
 include(":features:authentication:domain:interactors")
 include(":features:authentication:datasource-impl")
 include(":features:authentication:worker")
-include(":features:authentication:common-ui")
+
+// Tasks
+include(":task-api")
+include(":task-impl")
+
+// Auth
+include(":auth-api")
+include(":auth-impl")

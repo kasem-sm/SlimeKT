@@ -7,6 +7,8 @@ package kasem.sm.ui_subscribe_topic
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.slime.auth_api.AuthState
+import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.common_ui.R.string
@@ -14,8 +16,6 @@ import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
-import kasem.sm.core.session.AuthState
-import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
@@ -137,15 +137,20 @@ class SubscribeTopicVM @Inject constructor(
 
         viewModelScope.launch(dispatchers.main) {
             when {
-                listOfTopics.value.isNotEmpty() && topicsToSubscribe.count() < 1 -> _uiEvent.emit(showMessage(string.subscribe_topic_min_sel))
+                listOfTopics.value.isNotEmpty() && topicsToSubscribe.count() < 1 -> _uiEvent.emit(
+                    showMessage(string.subscribe_topic_min_sel)
+                )
                 else -> {
+                    isSubscriptionInProgress.start()
                     subscribeTopicManager.updateSubscriptionStatus(
                         ids = topicsToSubscribe.map { it.id }
-                    ).collect(
-                        loader = isSubscriptionInProgress,
-                        onError = { _uiEvent.emit(showMessage(it)) },
-                        onSuccess = { _uiEvent.emit(success()) },
-                    )
+                    ).collect { result ->
+                        when {
+                            result.isSuccess -> _uiEvent.emit(success())
+                            result.isFailure -> _uiEvent.emit(showMessage(string.common_error_msg))
+                        }
+                        isSubscriptionInProgress.stop()
+                    }
                 }
             }
         }

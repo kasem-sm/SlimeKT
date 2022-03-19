@@ -17,4 +17,10 @@ sealed class AuthResult {
         val isUsernameEmpty: Boolean,
         val isPasswordEmpty: Boolean,
     ) : AuthResult()
+
+    companion object {
+        fun String.toInvalidCredentialsException(): Exception {
+            return Exception(InvalidCredentialsException(this))
+        }
+    }
 }

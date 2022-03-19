@@ -16,12 +16,12 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import kasem.sm.authentication.common_ui.BottomSheetHandle
-import kasem.sm.authentication.common_ui.Header
-import kasem.sm.authentication.common_ui.PasswordField
-import kasem.sm.authentication.common_ui.UsernameField
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.SlimeScreenColumn
+import kasem.sm.ui_auth.components.BottomSheetHandle
+import kasem.sm.ui_auth.components.Header
+import kasem.sm.ui_auth.components.PasswordField
+import kasem.sm.ui_auth.components.UsernameField
 import kasem.sm.ui_auth.register.components.ConfirmRegistrationButton
 import kasem.sm.ui_auth.register.components.DiscoverableToOtherUsersToggle
 

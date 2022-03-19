@@ -12,7 +12,7 @@ provideUnitTestDeps(this)
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":features:article:datasource"))
+	implementation implementation(project(':features:article:datasource-api',))
 	implementation(project(":features:article:domain:model"))
 
 	implementation(JavaX.inject)

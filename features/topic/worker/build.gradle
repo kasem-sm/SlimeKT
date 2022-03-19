@@ -12,6 +12,6 @@ provideHiltDeps(this)
 dependencies {
 	implementation(project(":core"))
 
-	implementation(project(":features:topic:datasource"))
+	implementation(project(":features:topic:datasource-api"))
 	implementation(project(":features:topic:domain:model"))
 }

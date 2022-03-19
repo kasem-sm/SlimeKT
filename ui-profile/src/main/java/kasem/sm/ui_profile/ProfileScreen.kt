@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
-import kasem.sm.ui_profile.components.CurrentUserProfileView
 import kasem.sm.ui_profile.components.SignInOutButton
 import kasem.sm.ui_profile.components.WorkInProgressView
 
@@ -43,9 +42,6 @@ fun ProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            item {
-                CurrentUserProfileView()
-            }
             item {
                 WorkInProgressView()
             }

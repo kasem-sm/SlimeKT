@@ -1,4 +1,4 @@
-![Asset 1](header.png)
+![Asset 1](assets/header.png)
 
 [![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
@@ -14,7 +14,7 @@ technology in the frontend and backend part such as <b>Ktor, MongoDB and Jetpack
 It follows the recommended app architecture as stated in
 official [Android documentation](https://developer.android.com/jetpack/guide). Please refer to [this](https://kasem-sm.github.io/SlimeKT/guide/app_architecture/) page for more information on this topic.
 
-![Asset 2](app_architecture.svg)
+![Asset 2](assets/app_architecture.svg)
 
 ## Module Graph
 
@@ -54,7 +54,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 </a>
                 <figcaption>Detail Screen</figcaption>
             </figure>
-        </td>    
+        </td>
         <td>
             <figure>
                 <a href="#6">
@@ -81,7 +81,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <figcaption>Login sheet</figcaption>
             </figure>
         </td>
-    </tr>    
+    </tr>
     <tr>
         <td>
             <figure>
@@ -99,7 +99,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
                 <figcaption>Home screen with search query</figcaption>
             </figure>
         </td>
-    </tr>    
+    </tr>
 </table>
 
 ## Medium Articles 🖋

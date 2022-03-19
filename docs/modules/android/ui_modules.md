@@ -6,13 +6,13 @@ It contains Jetpack Compose UI components, which are stateless and reusable. Com
 
 Contains utilities and classes such as UiEvent, FlowUtils, etc. that are required by every UI Module.
 
-## [Navigation Module](https://github.com/kasem-sm/SlimeKT/tree/dev/navigation)
+## [Database Module](https://github.com/kasem-sm/SlimeKT/tree/dev/data)
 
-Responsible for handling the navigation of the app. All the screen modules are a dependency on the navigation module. It constructs the navigation graph for the app.
+Handles creation and persistence of databases.
 
-## [Data Module](https://github.com/kasem-sm/SlimeKT/tree/dev/data)
+## [Task-impl]()
 
-Handles data-allied tasks such as creation and persistence of databases, session and task management, etc.
+## [Auth-impl]()
 
 ## UI Modules
 

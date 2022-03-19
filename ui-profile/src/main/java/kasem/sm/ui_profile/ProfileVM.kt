@@ -6,12 +6,12 @@ package kasem.sm.ui_profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.slime.auth_api.AuthManager
+import com.slime.auth_api.AuthState
+import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.core.domain.SlimeDispatchers
-import kasem.sm.core.interfaces.AuthManager
-import kasem.sm.core.session.AuthState
-import kasem.sm.core.session.ObserveAuthState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
