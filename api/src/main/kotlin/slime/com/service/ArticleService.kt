@@ -6,25 +6,33 @@ package slime.com.service
 
 import slime.com.data.models.Article
 import slime.com.data.repository.article.ArticleRepository
+import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
 import slime.com.data.request.CreateArticleRequest
 import slime.com.utils.ServiceResult
 
 class ArticleService(
-    private val articleRepository: ArticleRepository
+    private val articleRepository: ArticleRepository,
+    private val recommendedTopicRepository: RecommendedTopicRepository
 ) {
 
-    suspend fun getArticlesInExplore(userId: String?): List<Article> = articleRepository.getRecommendedArticles(userId)
+    suspend fun getArticlesInExplore(userId: String?): List<Article> {
+        return if (userId == null) {
+            articleRepository.getRecommendedArticles()
+        } else {
+            val recommendedTopic = recommendedTopicRepository.getRecommendedTopic(userId)?.topicName
+                ?: return articleRepository.getRecommendedArticles()
+            return articleRepository.getAllArticles(recommendedTopic)
+        }
+    }
 
-    suspend fun getRandomArticleFromUsersSubscription(userId: String? = null): Article? = articleRepository.getRandomArticleFromSubscription(userId)
+    suspend fun getRandomArticleFromUsersSubscription(userId: String? = null): Article? {
+        return articleRepository.getRandomArticleFromSubscription(userId)
+    }
 
     suspend fun getAllArticles(
         topic: String = "",
-        query: String = "",
-        page: Int = 0,
-        pageSize: Int = 10
-    ): Pair<List<Article>, Int> {
-        return articleRepository.getAllArticles(topic, query, page, pageSize)
-    }
+        query: String = ""
+    ): List<Article> = articleRepository.getAllArticles(topic, query)
 
     suspend fun getArticleById(articleId: Int) = articleRepository.getArticleById(articleId)
 

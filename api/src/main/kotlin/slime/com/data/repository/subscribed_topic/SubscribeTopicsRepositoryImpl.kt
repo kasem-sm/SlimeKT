@@ -11,7 +11,7 @@ import slime.com.data.models.SubscribedTopic
 import slime.com.data.models.Topic
 
 class SubscribeTopicsRepositoryImpl(
-    db: CoroutineDatabase
+    db: CoroutineDatabase,
 ) : SubscribeTopicsRepository {
 
     private val subscribedTopicDb = db.getCollection<SubscribedTopic>()

@@ -52,9 +52,7 @@ class ArticleRepositoryImpl(
     override suspend fun getAllArticles(
         topic: String,
         query: String,
-        page: Int,
-        pageSize: Int
-    ): Pair<List<Article>, Int> {
+    ): List<Article> {
         val articles = when {
             topic.isEmpty() && query.isNotEmpty() -> {
                 articleDb.find().filter(
@@ -62,20 +60,20 @@ class ArticleRepositoryImpl(
                         Article::title regex Regex("(?i).*$query.*"),
                         Article::author regex Regex("(?i).*$query.*"),
                     )
-                ).skipAndMap(page, pageSize)
+                ).skipAndMap()
             }
             topic.isNotEmpty() && query.isEmpty() -> {
                 articleDb.find(
                     or(Article::topic eq topic)
-                ).skipAndMap(page, pageSize)
+                ).skipAndMap()
             }
             topic.isEmpty() -> {
-                articleDb.find().skipAndMap(page, pageSize)
+                articleDb.find().skipAndMap()
             }
             query.isEmpty() -> {
                 articleDb.find(
                     or(Article::topic eq topic)
-                ).skipAndMap(page, pageSize)
+                ).skipAndMap()
             }
             else -> {
                 articleDb.find(
@@ -85,45 +83,10 @@ class ArticleRepositoryImpl(
                         Article::title regex Regex("(?i).*$query.*"),
                         Article::author regex Regex("(?i).*$query.*"),
                     )
-                ).skipAndMap(page, pageSize)
+                ).skipAndMap()
             }
         }
-
-        val size = when {
-            topic.isEmpty() && query.isNotEmpty() -> {
-                articleDb.find().filter(
-                    or(
-                        Article::title regex Regex("(?i).*$query.*"),
-                        Article::author regex Regex("(?i).*$query.*"),
-                    )
-                ).toList().count()
-            }
-            topic.isNotEmpty() && query.isEmpty() -> {
-                articleDb.find(
-                    or(Article::topic eq topic)
-                ).toList().count()
-            }
-            topic.isEmpty() -> {
-                articleDb.find().toList().count()
-            }
-            query.isEmpty() -> {
-                articleDb.find(
-                    or(Article::topic eq topic)
-                ).toList().count()
-            }
-            else -> {
-                articleDb.find(
-                    or(Article::topic eq topic)
-                ).filter(
-                    or(
-                        Article::title regex Regex("(?i).*$query.*"),
-                        Article::author regex Regex("(?i).*$query.*"),
-                    )
-                ).toList().count()
-            }
-        }
-
-        return Pair(articles, size)
+        return articles
     }
 
     override suspend fun getRandomArticleFromSubscription(userId: String?): Article? {
@@ -155,8 +118,8 @@ class ArticleRepositoryImpl(
         }
     }
 
-    private suspend fun CoroutineFindPublisher<Article>.skipAndMap(page: Int, pageSize: Int): List<Article> {
-        return this.skip(page * pageSize).limit(pageSize).descendingSort(Article::timestamp).toList().map {
+    private suspend fun CoroutineFindPublisher<Article>.skipAndMap(): List<Article> {
+        return descendingSort(Article::timestamp).toList().map {
             Article(
                 id = it.id,
                 title = it.title,

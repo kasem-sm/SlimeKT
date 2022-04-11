@@ -13,8 +13,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import slime.com.data.models.Article
 import slime.com.data.request.CreateArticleRequest
-import slime.com.data.response.Info
-import slime.com.data.response.PagedArticlesResponse
+import slime.com.data.response.ArticlesResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.ArticleService
 import slime.com.utils.get
@@ -22,7 +21,6 @@ import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
 import slime.com.utils.respondWithResult
-import kotlin.math.ceil
 
 fun Route.registerArticleRoutes(
     service: ArticleService
@@ -45,26 +43,15 @@ fun Route.registerArticleRoutes(
     get("/api/article/all") {
         val topic = get("topic") ?: ""
         val query = get("query") ?: ""
-        val page = get("page")?.toIntOrNull() ?: 0
-        val pageSize = get("pageSize")?.toIntOrNull() ?: 3
 
-        val articlesAndSize = service.getAllArticles(
-            topic = topic, query = query, page = page, pageSize = pageSize
+        val articles = service.getAllArticles(
+            topic = topic, query = query
         )
 
-        val totalArticlesCount = articlesAndSize.second
-        val totalPages = ceil((totalArticlesCount.toDouble() / pageSize.toDouble()))
-
-        val pagedArticlesResponse = PagedArticlesResponse(
-            info = Info(
-                articleSize = totalArticlesCount,
-                totalPages = totalPages.toInt() - 1,
-                prevPage = if (page == 0) null else page - 1,
-                nextPage = if (page >= totalPages.toInt() - 1) null else page + 1,
-            ),
-            articles = articlesAndSize.first
+        val articlesResponse = ArticlesResponse(
+            articles = articles
         )
-        respondWith(pagedArticlesResponse)
+        respondWith(articlesResponse)
     }
 
     authenticate {

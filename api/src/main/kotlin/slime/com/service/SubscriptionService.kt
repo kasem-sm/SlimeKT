@@ -5,15 +5,16 @@
 package slime.com.service
 
 import slime.com.data.models.Topic
+import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
 import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.utils.ServiceResult
 
 class SubscriptionService(
     private val subscribeRepository: SubscribeTopicsRepository,
-    private val topicRepository: TopicRepository
+    private val topicRepository: TopicRepository,
+    private val recommendedTopicRepository: RecommendedTopicRepository,
 ) {
-
     suspend fun getNumber(topicId: String) = subscribeRepository.getNumberOfSubscribers(topicId)
 
     suspend fun verifyAndSubscribe(userId: String, topicId: String): ServiceResult {
@@ -28,7 +29,10 @@ class SubscriptionService(
     private suspend fun subscribe(userId: String, followingUserId: String): ServiceResult {
         subscribeRepository.subscribe(userId, followingUserId).let { transaction ->
             return when (transaction) {
-                true -> ServiceResult.Success("Subscribed")
+                true -> {
+                    refreshRecommendedTopic(userId)
+                    ServiceResult.Success("Subscribed")
+                }
                 false -> ServiceResult.Error("Failed")
             }
         }
@@ -38,7 +42,10 @@ class SubscriptionService(
         return when {
             topicRepository.getTopicById(topicId) == null -> ServiceResult.Error("Doesn't Exists")
             // technically this should not happen but for a safer side
-            !checkIfUserSubscribes(userId, topicId) -> ServiceResult.Error("You are trying to unsubscribe from a topic you don't subscribe")
+            !checkIfUserSubscribes(
+                userId,
+                topicId
+            ) -> ServiceResult.Error("You are trying to unsubscribe from a topic you don't subscribe")
             else -> unsubscribe(userId, topicId)
         }
     }
@@ -46,7 +53,10 @@ class SubscriptionService(
     private suspend fun unsubscribe(userId: String, topicId: String): ServiceResult {
         subscribeRepository.unSubscribe(userId, topicId).let { transaction ->
             return when (transaction) {
-                true -> ServiceResult.Success("Unsubscribed")
+                true -> {
+                    refreshRecommendedTopic(userId)
+                    ServiceResult.Success("Unsubscribed")
+                }
                 false -> ServiceResult.Error("Failed")
             }
         }
@@ -79,6 +89,21 @@ class SubscriptionService(
             // as a response.
             val hasUserSubscribed = checkIfUserSubscribes(userId = currentUserId, it.id)
             it.copy(totalSubscribers = totalSubscribers, hasUserSubscribed = hasUserSubscribed)
+        }
+    }
+
+    private suspend fun refreshRecommendedTopic(
+        currentUserId: String,
+    ) {
+        val isNotEmpty = getUserSubscribedTopics(currentUserId).isNotEmpty()
+        if (isNotEmpty) {
+            getTopicsNotSubscribed(currentUserId).random().also {
+                recommendedTopicRepository.insertRecommendedTopic(
+                    userId = currentUserId,
+                    topicId = it.id,
+                    topicName = it.name
+                )
+            }
         }
     }
 }

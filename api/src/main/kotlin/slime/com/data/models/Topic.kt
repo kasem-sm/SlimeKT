@@ -14,6 +14,7 @@ data class Topic(
     val totalSubscribers: Int = 0,
     val hasUserSubscribed: Boolean = false,
     val timestamp: Long = System.currentTimeMillis(),
+    val isInRecommendation: Boolean = false,
     @BsonId
     val id: String = ObjectId().toString(),
 )
