@@ -5,9 +5,9 @@
 package slime.com.service
 
 import io.ktor.util.hex
+import slime.com.utils.ALGORITHM
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import slime.com.utils.ALGORITHM
 
 class EncryptorService(
     private val secretKey: String
