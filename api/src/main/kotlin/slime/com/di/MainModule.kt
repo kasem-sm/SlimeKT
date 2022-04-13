@@ -11,6 +11,8 @@ import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.article.ArticleRepositoryImpl
 import slime.com.data.repository.auth.AuthRepository
 import slime.com.data.repository.auth.AuthRepositoryImpl
+import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
+import slime.com.data.repository.recommended_topic.RecommendedTopicRepositoryImpl
 import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
 import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepositoryImpl
 import slime.com.data.repository.topic.TopicRepository
@@ -26,7 +28,7 @@ val mainModule = module(createdAtStart = true) {
         client.getDatabase(DATABASE_NAME)
     }
     single {
-        SubscriptionService(get(), get())
+        SubscriptionService(get(), get(), get())
     }
     single<AuthRepository> {
         AuthRepositoryImpl(get())
@@ -38,6 +40,9 @@ val mainModule = module(createdAtStart = true) {
         TopicRepositoryImpl(get())
     }
     single<SubscribeTopicsRepository> {
-        SubscribeTopicsRepositoryImpl(get())
+        SubscribeTopicsRepositoryImpl(get(),)
+    }
+    single<RecommendedTopicRepository> {
+        RecommendedTopicRepositoryImpl(get())
     }
 }

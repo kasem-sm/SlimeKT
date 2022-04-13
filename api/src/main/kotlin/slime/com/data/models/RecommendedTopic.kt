@@ -4,15 +4,14 @@
  */
 package slime.com.data.models
 
-import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.types.ObjectId
 
-@Serializable
-data class SubscribedTopic(
-    val userId: String,
+@kotlinx.serialization.Serializable
+data class RecommendedTopic(
+    val userId: String? = null,
     val topicId: String,
-    val isInExplore: Boolean = false,
+    val topicName: String,
     @BsonId
     val id: String = ObjectId().toString(),
 )

@@ -12,10 +12,8 @@ interface ArticleRepository {
     suspend fun getArticleById(articleId: Int): Article?
     suspend fun getAllArticles(
         topic: String = "",
-        query: String,
-        page: Int = 0,
-        pageSize: Int = 10
-    ): Pair<List<Article>, Int>
+        query: String = "",
+    ): List<Article>
     suspend fun getRandomArticleFromSubscription(userId: String? = null): Article?
     suspend fun getRecommendedArticles(
         userId: String? = null,

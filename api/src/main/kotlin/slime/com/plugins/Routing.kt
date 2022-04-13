@@ -11,7 +11,7 @@ import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.auth.AuthRepository
-import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
+import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.isDebugMode
 import slime.com.routes.registerArticleRoutes
@@ -26,7 +26,7 @@ fun Application.configureRouting() {
     val authRepository by inject<AuthRepository>()
     val articleRepository by inject<ArticleRepository>()
     val topicRepository by inject<TopicRepository>()
-    val subscribersRepository by inject<SubscribeTopicsRepository>()
+    val recommendedTopicRepository by inject<RecommendedTopicRepository>()
 
     val jwtAudience = if (isDebugMode) "jwt_aud" else System.getenv("JWT_AUD")
     val jwtDomain = if (isDebugMode) "jwt_dom" else System.getenv("JWT_DO")
@@ -39,10 +39,8 @@ fun Application.configureRouting() {
         jwtSecret = jwtSec
     )
 
-    val articleService = ArticleService(articleRepository)
-    val subscriptionService = SubscriptionService(
-        subscribersRepository, topicRepository
-    )
+    val articleService = ArticleService(articleRepository, recommendedTopicRepository)
+    val subscriptionService by inject<SubscriptionService>()
 
     routing {
         registerAuthenticationRoutes(userService)
