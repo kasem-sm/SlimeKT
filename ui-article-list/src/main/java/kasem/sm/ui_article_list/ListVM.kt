@@ -12,7 +12,7 @@ import com.slime.auth_api.ObserveAuthState
 import com.slime.task_api.Tasks
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.article.domain.interactors.ArticlePager
+import kasem.sm.article.domain.observers.ObserveArticlesByTopic
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
 import kasem.sm.core.domain.ObservableLoader
@@ -29,116 +29,58 @@ import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ListVM @Inject constructor(
-    private val pager: ArticlePager,
     private val getTopic: GetTopicById,
-    private val savedStateHandle: SavedStateHandle,
     private val dispatchers: SlimeDispatchers,
-    private val observeAuthState: ObserveAuthState,
     private val tasks: Tasks,
+    private val observeAuthState: ObserveAuthState,
     private val observeTopic: ObserveTopicById,
+    private val observeArticles: ObserveArticlesByTopic,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val topicId = savedStateHandle.get<String>(TOPIC_ID_KEY)!!
 
     private val topicQuery = savedStateHandle.get<String>(TOPIC_QUERY_KEY)!!
 
-    private val scrollPosition = SavedMutableState(
-        savedStateHandle,
-        LIST_POSITION_KEY,
-        defValue = 0
-    )
-
-    private val currentPage = SavedMutableState(
-        savedStateHandle,
-        PAGE_KEY,
-        defValue = 0
-    )
-
     private val isUserAuthenticated = SavedMutableState(
         savedStateHandle,
-        "user_authenticated",
+        USER_AUTHENTICATION_KEY,
         defValue = false
     )
 
     private val subscriptionProgress = ObservableLoader()
 
-    private val topicLoadingStatus = ObservableLoader()
+    private val loadingStatus = ObservableLoader()
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
     val state: StateFlow<ListState> = combineFlows(
-        currentPage.flow,
-        pager.loadingStatus.flow,
-        topicLoadingStatus.flow,
-        pager.endOfPagination,
-        pager.articles,
+        loadingStatus.flow,
         observeTopic.flow,
         subscriptionProgress.flow,
-        isUserAuthenticated.flow
-    ) { currentPage, paginationLoadStatus, topicLoadStatus, endOfPagination,
-        articles, topic, isSubscriptionInProgress, isUserAuthenticated ->
+        observeAuthState.flow,
+        observeArticles.flow
+    ) { topicLoadStatus, topic, isSubscriptionInProgress,
+        state, articles ->
         ListState(
-            currentPage = currentPage,
-            isLoading = paginationLoadStatus || topicLoadStatus,
-            endOfPagination = endOfPagination,
+            isLoading = topicLoadStatus,
             articles = articles,
             topic = topic,
             isSubscriptionInProgress = isSubscriptionInProgress,
-            isUserAuthenticated = isUserAuthenticated
+            isUserAuthenticated = state == AuthState.LOGGED_IN
         )
     }.stateIn(viewModelScope, ListState.EMPTY)
 
     init {
-        observe()
+        observeData()
 
-        observeAuthenticationState()
-
-        initializePager()
-
-        getTopic()
-    }
-
-    private fun observeAuthenticationState() {
-        viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow.collect {
-                isUserAuthenticated.value = it == AuthState.LOGGED_IN
-            }
-        }
-    }
-
-    private fun initializePager(
-        topicQuery: String = this.topicQuery,
-    ) {
-        viewModelScope.launch(dispatchers.main) {
-            pager.initialize(
-                topic = topicQuery,
-                page = currentPage.value,
-                saveLoadedPage = { currentPage.value = it },
-                onError = { _uiEvent.emit(showMessage(it)) },
-                scrollPosition = scrollPosition.value,
-                onRestorationComplete = {
-                    _uiEvent.emit(UiEvent.SendData(scrollPosition.value))
-                    scrollPosition.value = 0
-                    executeNextPage(currentPage.value)
-                }
-            )
-            if (scrollPosition.value == 0) {
-                viewModelScope.launch(dispatchers.main) {
-                    pager.refresh()
-                }
-            }
-        }
-    }
-
-    fun executeNextPage(updatedPage: Int? = null) {
-        viewModelScope.launch(dispatchers.main) {
-            pager.executeNextPage(updatedPage)
-        }
+        refresh()
     }
 
     fun checkAuthenticationStatus() {
@@ -150,19 +92,26 @@ class ListVM @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch(dispatchers.main) {
-            pager.refresh()
-        }
-
-        // Refresh
         getTopic()
     }
 
-    private fun observe() {
-        observeAuthState.join(viewModelScope)
+    private fun observeData() {
+        viewModelScope.launch {
+            observeAuthState.joinAndCollect(viewModelScope).collectLatest {
+                isUserAuthenticated.value = it == AuthState.LOGGED_IN
+                // Refresh subscription status when auth State changes
+                refresh()
+            }
+        }
 
         observeTopic.join(
             params = topicId,
+            coroutineScope = viewModelScope,
+            onError = { _uiEvent.emit(showMessage(it)) },
+        )
+
+        observeArticles.join(
+            params = topicQuery,
             coroutineScope = viewModelScope,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
@@ -171,7 +120,7 @@ class ListVM @Inject constructor(
     private fun getTopic() {
         viewModelScope.launch(dispatchers.main) {
             getTopic.execute(topicId).collect(
-                loader = topicLoadingStatus,
+                loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
         }
@@ -203,8 +152,8 @@ class ListVM @Inject constructor(
 
     companion object {
         const val LIST_POSITION_KEY = "slime_list_position"
-        const val PAGE_KEY = "slime_page"
         const val TOPIC_QUERY_KEY = "slime_topic"
         const val TOPIC_ID_KEY = "slime_topic_id"
+        const val USER_AUTHENTICATION_KEY = "user_authenticated"
     }
 }

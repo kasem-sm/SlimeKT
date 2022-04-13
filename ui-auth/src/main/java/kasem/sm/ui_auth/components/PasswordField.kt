@@ -29,12 +29,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
 import kasem.sm.common_ui.util.TestTags
+import kasem.sm.common_ui.withScale
 
 @Composable
 fun PasswordField(
@@ -80,7 +80,7 @@ fun PasswordField(
             Text(
                 text = stringResource(id = string.password),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 14.sp,
+                fontSize = 14.withScale(),
                 fontFamily = LocalSlimeFont.current.medium
             )
         },

@@ -13,19 +13,21 @@ import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
 import kotlinx.coroutines.flow.Flow
 
-class GetLatestArticles @Inject constructor(
+class GetArticles @Inject constructor(
     private val api: ArticleApiService,
     private val cache: ArticleDatabaseService,
     private val dispatchers: SlimeDispatchers,
 ) {
     fun execute(): Flow<Stage> {
         return dispatchers.default.start {
-            val articles = api.getAllArticles(0, 10)
+            val articles = api.getAllArticles()
                 .getOrThrow()?.data?.articles.getOrDefault()
 
+            cache.removeAllArticlesFromExplore()
+
             articles.map {
-                val triple = cache.getRespectiveTriplets(it.id)
-                cache.insert(it.toEntity(triple))
+                val data = cache.getData(it.id)
+                cache.insert(it.toEntity(quadData = data))
             }
         }
     }

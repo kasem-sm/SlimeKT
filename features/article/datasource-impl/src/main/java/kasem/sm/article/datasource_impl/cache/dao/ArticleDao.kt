@@ -22,10 +22,6 @@ interface ArticleDao {
     suspend fun insert(articles: List<ArticleEntity>)
 
     @Transaction
-    @Query("SELECT * FROM table_article ORDER BY timestamp DESC")
-    fun getAllArticles(): Flow<List<ArticleEntity>>
-
-    @Transaction
     @Query("SELECT * FROM table_article WHERE id = :id")
     fun getArticleById(id: Int): Flow<ArticleEntity?>
 
@@ -33,7 +29,6 @@ interface ArticleDao {
     @Query("SELECT * FROM table_article WHERE is_active = 1")
     fun getAllActiveArticles(): Flow<List<ArticleEntity>>
 
-    // Only 1 article will be active
     @Query("SELECT * FROM table_article WHERE is_active = 1")
     fun getAllActiveArticlesNonFlow(): List<ArticleEntity>
 
@@ -55,155 +50,48 @@ interface ArticleDao {
     @Query("UPDATE table_article SET is_in_explore = 0")
     suspend fun clearArticlesInExplore()
 
-    /**
-     * ------------
-     * STARTS PAGED ARTICLE
-     * ------------
-     */
+    @Query("DELETE From table_article")
+    suspend fun removeAllArticles()
 
-    @Query(
-        """
-        SELECT * FROM table_article 
-        WHERE topic = :topic
-        ORDER BY timestamp DESC
-        LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
-    """
-    )
-    // 1
-    suspend fun getTopicPagedArticles(
-        topic: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
+    @Query("SELECT * FROM table_article WHERE is_in_bookmark = 1")
+    suspend fun getArticlesInBookmarkNonFlow(): List<ArticleEntity>
 
-    @Query(
-        """
-        SELECT * FROM table_article 
-        ORDER BY timestamp DESC
-        LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
-    """
-    )
-    // 2
-    suspend fun getPagedArticles(
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
+    @Query("SELECT * FROM table_article WHERE is_in_bookmark = 1")
+    fun getArticlesInBookmark(): Flow<List<ArticleEntity>>
 
-    @Query(
-        """
-        SELECT * FROM table_article 
-        WHERE topic = :topic
-        AND title LIKE '%' || :query || '%'
-        OR author LIKE '%' || :query || '%'
-        ORDER BY timestamp DESC
-        LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
-    """
-    )
-    // 3
-    suspend fun getQueriedPagedArticles(
-        topic: String,
-        query: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
+    @Query("UPDATE table_article SET is_in_bookmark = :status WHERE id = :id")
+    suspend fun updateBookmarkStatus(status: Boolean, id: Int)
+
+    @Query("UPDATE table_article SET is_in_bookmark = 0")
+    suspend fun resetAllBookmarks()
 
     @Query(
         """
         SELECT * FROM table_article 
         WHERE title LIKE '%' || :query || '%'
         OR author LIKE '%' || :query || '%'
+        OR topic LIKE '%' || :query || '%'
         ORDER BY timestamp DESC
-        LIMIT :pageSize OFFSET ((:page - 1) * :pageSize)
     """
     )
-    // 4
-    suspend fun getQueriedPagedArticle(
-        query: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
-
-    /**
-     * ------------
-     * ENDS PAGED ARTICLE
-     * ------------
-     */
-
-    /**
-     * -------------------------------------------------------------
-     */
-
-    /**
-     * ------------
-     * STARTS TILL PAGE ARTICLE
-     * ------------
-     */
+    fun getAllArticles(query: String): Flow<List<ArticleEntity>>
 
     @Query(
         """
         SELECT * FROM table_article 
         WHERE topic = :topic
         ORDER BY timestamp DESC
-        LIMIT (:page * :pageSize)
     """
     )
-    // 1
-    suspend fun getTopicArticlesTillPage(
-        topic: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
+    fun getArticlesByTopic(topic: String): Flow<List<ArticleEntity>>
 
     @Query(
         """
         SELECT * FROM table_article 
-        WHERE topic = :topic
-        AND title LIKE '%' || :query || '%'
-        OR author LIKE '%' || :query || '%'
+        WHERE is_in_explore = 1 
         ORDER BY timestamp DESC
         LIMIT (:page * :pageSize)
     """
     )
-    // 2
-    suspend fun getQueriedArticlesTillPage(
-        topic: String,
-        query: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
-
-    @Query(
-        """
-        SELECT * FROM table_article 
-        WHERE title LIKE '%' || :query || '%'
-        OR author LIKE '%' || :query || '%'
-        ORDER BY timestamp DESC
-        LIMIT (:page * :pageSize)
-    """
-    )
-    // 3
-    suspend fun getQueriedArticlesTillPage(
-        query: String,
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
-
-    @Query(
-        """
-        SELECT * FROM table_article
-        ORDER BY timestamp DESC
-        LIMIT (:page * :pageSize)
-    """
-    )
-    // 4
-    suspend fun getArticlesTillPage(
-        page: Int,
-        pageSize: Int,
-    ): List<ArticleEntity>
-
-    /**
-     * ------------
-     * END TILL PAGE ARTICLE
-     * ------------
-     */
+    fun getArticlesForRecommend(page: Int, pageSize: Int): Flow<List<ArticleEntity>>
 }

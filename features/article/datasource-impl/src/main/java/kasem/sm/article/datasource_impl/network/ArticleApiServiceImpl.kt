@@ -22,8 +22,6 @@ internal class ArticleApiServiceImpl @Inject constructor(
     private val authManager: AuthManager
 ) : ArticleApiService {
     override suspend fun getAllArticles(
-        page: Int,
-        pageSize: Int,
         topic: String,
         query: String,
     ): Result<SlimeResponse<ArticleResponse>?> {
@@ -31,8 +29,6 @@ internal class ArticleApiServiceImpl @Inject constructor(
             client.get(GET_ALL_ARTICLE_ROUTE) {
                 parameter("topic", topic)
                 parameter("query", query)
-                parameter("page", page)
-                parameter("pageSize", pageSize)
             }
         }
     }

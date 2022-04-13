@@ -4,33 +4,24 @@
  */
 package kasem.sm.article.datasource.network.response
 
+import androidx.annotation.Keep
+import kasem.sm.article.datasource.cache.Quad
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsBookmarked
 import kasem.sm.article.datasource.utils.IsInExplore
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 data class ArticleResponse(
-    @SerialName("info")
-    val info: InfoDto? = null,
     @SerialName("articles")
     val articles: List<ArticleDto>? = null
 )
 
-@Serializable
-data class InfoDto(
-    @SerialName("articleSize")
-    val size: Int,
-    @SerialName("totalPages")
-    val totalPages: Int,
-    @SerialName("prevPage")
-    val prevPage: Int? = null,
-    @SerialName("nextPage")
-    val nextPage: Int? = null,
-)
-
+@Keep
 @Serializable
 data class ArticleDto(
     @SerialName("id")
@@ -49,7 +40,7 @@ data class ArticleDto(
     val topic: String
 ) {
     fun toEntity(
-        pair: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>,
+        quadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>
     ): ArticleEntity {
         return ArticleEntity(
             id = id,
@@ -59,9 +50,10 @@ data class ArticleDto(
             featuredImage = featuredImage,
             author = author,
             timestamp = timestamp,
-            isShownInDailyRead = pair.first.isShown,
-            isActiveInDailyRead = pair.second.isActive,
-            isInExplore = pair.third.inExplore
+            isShownInDailyRead = quadData.first.dailyReadStatus,
+            isActiveInDailyRead = quadData.second.isActiveInDailyRead,
+            isInExplore = quadData.third.isInExplore,
+            isInBookmark = quadData.fourth.isBookmarked
         )
     }
 }

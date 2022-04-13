@@ -10,9 +10,13 @@ Contains utilities and classes such as UiEvent, FlowUtils, etc. that are require
 
 Handles creation and persistence of databases.
 
-## [Task-impl]()
+## [Task-impl](https://github.com/kasem-sm/SlimeKT/tree/dev/task-impl)
 
-## [Auth-impl]()
+Consists of concrete implementation of 'tas-api' module.
+
+## [Auth-impl](https://github.com/kasem-sm/SlimeKT/tree/dev/auth-impl)
+
+Consists of concrete implementation of 'auth-api' module.
 
 ## UI Modules
 

@@ -8,20 +8,12 @@ Fetches all the articles in paged form.
 |:-----------|:---------|:----------------------------------|:---------|:--------------|
 | `topic`    | `string` | Filter article by the given topic | 👎       | Empty         |
 | `query`    | `string` | Filter article by the given query | 👎       | Empty         |
-| `page`     | `string` | Page number to retrieve           | 👎       | 0             |
-| `pageSize` | `string` | Number of items per page          | 👎       | 3             |
 
 ```
 {
     "success": true,
     "additionalMessage": null,
     "data": {
-        "info": {
-            "articleSize": 22,
-            "totalPages": 7,
-            "prevPage": null,
-            "nextPage": 1
-        },
         "articles": [
             {
                 "title": "I use an outdated iPhone 12",

@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun SlimeHeader(
@@ -27,6 +26,6 @@ fun SlimeHeader(
             .fillMaxWidth()
             .padding(vertical = 10.dp, horizontal = 5.dp),
         fontFamily = LocalSlimeFont.current.semiBold,
-        fontSize = 22.sp
+        fontSize = 22.withScale()
     )
 }

@@ -16,7 +16,6 @@ import kasem.sm.topic.datasource.network.TopicApiService
 import kasem.sm.topic.datasource.network.response.SlimeResponse
 import kasem.sm.topic.worker.utils.SubscriptionState
 import kasem.sm.topic.worker.utils.getSubscriptionState
-import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -30,7 +29,6 @@ internal class SubscribeTopicTask @AssistedInject constructor(
     private val cache: TopicDatabaseService,
 ) : CoroutineWorker(context, workParams) {
 
-    @OptIn(ExperimentalTime::class)
     override suspend fun doWork(): Result {
         // starts from 0
         if (runAttemptCount >= MAXIMUM_RETRIES) return Result.failure()

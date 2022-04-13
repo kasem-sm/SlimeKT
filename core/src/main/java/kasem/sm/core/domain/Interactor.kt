@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -41,31 +40,5 @@ inline fun <T> CoroutineDispatcher.start(
         }
     }.catch { throwable ->
         emit(Stage.Exception(throwable))
-    }.flowOn(this)
-}
-
-/**
- * A Top Level Function that returns a flow of [PaginationStage] which is a sealed class containing
- * [PaginationStage.Success], [PaginationStage.Exception] and [PaginationStage.PaginationOver] object.
- *
- * Please refer to our documentation for more [details](https://kasem-sm.github.io/SlimeKT/guide/interactors/#pagination-interactor)
- */
-inline fun <T> CoroutineDispatcher.pagingStage(
-    crossinline doWork: suspend FlowCollector<PaginationStage<T>>.() -> T,
-): Flow<PaginationStage<T>> {
-    return flow {
-        try {
-            withTimeout(TimeUnit.MINUTES.toMillis(5)) {
-                val data = doWork()
-                emit(PaginationStage.Success(data))
-            }
-        } catch (e: TimeoutCancellationException) {
-            emit(PaginationStage.Exception(e))
-        }
-    }.catch { throwable ->
-        when (throwable) {
-            is PaginationOver -> emit(PaginationStage.PaginationOver)
-            else -> emit(PaginationStage.Exception(throwable))
-        }
     }.flowOn(this)
 }

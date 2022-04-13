@@ -12,7 +12,7 @@ import io.mockk.runs
 import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTriplets
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultQuadData
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockDto
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
@@ -54,22 +54,22 @@ class GetArticleTest {
         }
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultTriplets))
+            databaseMock.insert(getMockEntity(defaultQuadData))
         }
     }
 
     @Test
     fun assertApiCallSuccess_and_InsertCalled() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(data = getMockDto())
-        coEvery { databaseMock.getRespectiveTriplets(1) } returns defaultTriplets
-        coEvery { databaseMock.insert(getMockEntity(defaultTriplets)) } just runs
+        coEvery { databaseMock.getData(1) } returns defaultQuadData
+        coEvery { databaseMock.insert(getMockEntity(defaultQuadData)) } just runs
 
         useCase.execute(1).shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial
             awaitItem() shouldBe Stage.Success
         }
 
-        coVerify { databaseMock.insert(getMockEntity(defaultTriplets)) }
+        coVerify { databaseMock.insert(getMockEntity(defaultQuadData)) }
     }
 
     @Test
@@ -82,7 +82,7 @@ class GetArticleTest {
         }
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultTriplets))
+            databaseMock.insert(getMockEntity(defaultQuadData))
         }
     }
 
@@ -99,7 +99,7 @@ class GetArticleTest {
     @Test
     fun cacheThrowsException() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(getMockDto())
-        coEvery { databaseMock.getRespectiveTriplets(1) } throws UnknownError()
+        coEvery { databaseMock.getData(1) } throws UnknownError()
 
         useCase.execute(1).shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial

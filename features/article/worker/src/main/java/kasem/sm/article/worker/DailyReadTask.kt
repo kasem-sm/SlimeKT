@@ -39,8 +39,8 @@ internal class DailyReadTask @AssistedInject constructor(
         val randomArticleFromApi = api.getRandomArticleFromSubscription().getOrElse {
             return Result.retry()
         }?.data?.let {
-            val triple = cache.getRespectiveTriplets(it.id)
-            it.toEntity(triple)
+            val data = cache.getData(it.id)
+            it.toEntity(data)
         } ?: return Result.retry()
 
         Timber.d(randomArticleFromApi.title)

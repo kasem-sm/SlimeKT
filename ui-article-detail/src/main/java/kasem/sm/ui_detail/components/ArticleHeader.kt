@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.withScale
 
 @Composable
 internal fun ArticleHeader(article: Article) {
@@ -36,7 +37,7 @@ internal fun ArticleHeader(article: Article) {
                 lineHeight = 30.sp,
                 letterSpacing = 1.sp,
                 color = MaterialTheme.colorScheme.primary,
-                fontSize = 22.sp,
+                fontSize = 22.withScale(),
             )
         }
     }

@@ -22,12 +22,12 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
 import kasem.sm.common_ui.util.TestTags
+import kasem.sm.common_ui.withScale
 
 @Composable
 fun UsernameField(
@@ -57,7 +57,7 @@ fun UsernameField(
                 text = stringResource(id = R.string.username),
                 fontFamily = LocalSlimeFont.current.medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 14.sp
+                fontSize = 14.withScale()
             )
         },
         keyboardOptions = KeyboardOptions(

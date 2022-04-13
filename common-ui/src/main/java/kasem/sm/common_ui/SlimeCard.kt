@@ -30,6 +30,7 @@ fun SlimeCard(
         color = backgroundColor,
         contentColor = contentColor,
         tonalElevation = elevation,
-        content = content
+        shadowElevation = 1.dp,
+        content = content,
     )
 }

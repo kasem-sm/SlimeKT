@@ -10,10 +10,10 @@ import androidx.lifecycle.viewModelScope
 import com.slime.auth_api.AuthState
 import com.slime.auth_api.ObserveAuthState
 import com.slime.ui_home.HomeState.Companion.DEFAULT_SEARCH_QUERY
-import com.slime.ui_home.HomeState.Companion.DEFAULT_TOPIC_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kasem.sm.article.domain.interactors.ArticlePager
+import kasem.sm.article.domain.interactors.GetArticles
+import kasem.sm.article.domain.observers.ObserveArticles
 import kasem.sm.article.domain.observers.ObserveDailyReadArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
@@ -25,32 +25,24 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.combineFlows
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import timber.log.Timber
 
 @HiltViewModel
 class HomeVM @Inject constructor(
+    private val getArticles: GetArticles,
     private val getSubscribedTopics: GetSubscribedTopics,
-    private val pager: ArticlePager,
     private val savedStateHandle: SavedStateHandle,
     private val dispatchers: SlimeDispatchers,
-    private val observeDailyReadArticle: ObserveDailyReadArticle,
-    private val observeSubscribedTopics: ObserveSubscribedTopics,
+    private val observeArticles: ObserveArticles,
     private val observeAuthState: ObserveAuthState,
+    observeDailyReadArticle: ObserveDailyReadArticle,
+    observeSubscribedTopics: ObserveSubscribedTopics,
 ) : ViewModel() {
-
-    private val topicQuery = SavedMutableState(
-        savedStateHandle,
-        TOPIC_QUERY_KEY,
-        defValue = DEFAULT_TOPIC_QUERY
-    )
 
     private val searchQuery = SavedMutableState(
         savedStateHandle,
@@ -58,124 +50,82 @@ class HomeVM @Inject constructor(
         defValue = DEFAULT_SEARCH_QUERY
     )
 
-    private val scrollPosition = SavedMutableState(savedStateHandle, LIST_POSITION_KEY, 0)
-    private val currentPage = SavedMutableState(savedStateHandle, PAGE_KEY, 0)
     private val loadingStatus = ObservableLoader()
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private var job: Job? = null
-
     val state = combineFlows(
-        topicQuery.flow,
         searchQuery.flow,
-        currentPage.flow,
         loadingStatus.flow,
         observeSubscribedTopics.flow,
         observeDailyReadArticle.flow,
-        pager.loadingStatus.flow,
-        pager.endOfPagination,
-        pager.articles,
-    ) { currentTopic, currentQuery, currentPage, isLoading, topics, dailyReadArticle,
-        pagingLoadingState, endOfPagination, articles ->
+        observeArticles.flow,
+    ) { currentQuery, isLoading, topics,
+        dailyReadArticle, articles ->
         HomeState(
-            currentTopic = currentTopic,
             currentQuery = currentQuery,
-            currentPage = currentPage,
-            paginationLoadStatus = pagingLoadingState,
             isLoading = isLoading,
             topics = topics,
             dailyReadArticle = dailyReadArticle,
-            endOfPagination = endOfPagination,
             articles = articles,
         )
     }.stateIn(viewModelScope, HomeState.EMPTY)
 
     init {
-        initializePager()
+        refresh()
 
-        observeData()
+        observeAuthState()
 
-        getSubscribedTopics()
-    }
-
-    private fun initializePager(
-        topicQuery: String = this.topicQuery.value,
-        searchQuery: String = this.searchQuery.value,
-        forceRefresh: Boolean = false
-    ) {
-        Timber.d("Initialized Pager")
-        job?.cancel()
-        job = viewModelScope.launch(dispatchers.main) {
-            pager.initialize(
-                topic = topicQuery,
-                query = searchQuery,
-                page = currentPage.value,
-                saveLoadedPage = { currentPage.value = it },
-                onError = { _uiEvent.emit(showMessage(it)) },
-                scrollPosition = scrollPosition.value,
-                onRestorationComplete = {
-                    _uiEvent.emit(UiEvent.SendData(scrollPosition.value))
-                    scrollPosition.value = 0
-                    executeNextPage(currentPage.value)
-                }
-            )
-            if (forceRefresh) {
-                job?.cancel()
-                job = viewModelScope.launch(dispatchers.main) {
-                    pager.refresh()
-                }
-            }
-        }
-    }
-
-    private fun observeData() {
-        viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow
-                .filter { it == AuthState.LOGGED_IN }
-                .collect {
-                    refresh()
-                }
-        }
-
-        viewModelScope.launch(dispatchers.main) {
-            searchQuery.flow
-                .debounce(800)
-                .distinctUntilChanged()
-                .collectLatest { query ->
-                    job?.cancel()
-                    job = launch {
-                        if (scrollPosition.value == 0) {
-                            // Reinitialize and refresh pager with updated search query
-                            onQueryChange(query)
-                        }
-                    }
-                    job?.join()
-                }
-        }
-
-        observeAuthState.join(viewModelScope)
+        observeArticles()
 
         observeSubscribedTopics.join(
-            coroutineScope = viewModelScope,
+            coroutineScope = viewModelScope + dispatchers.main,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
 
         observeDailyReadArticle.join(
-            coroutineScope = viewModelScope,
+            coroutineScope = viewModelScope + dispatchers.main,
             onError = { _uiEvent.emit(showMessage(it)) },
         )
     }
 
-    fun refresh() {
-        job?.cancel()
-        job = viewModelScope.launch(dispatchers.main) {
-            pager.refresh()
+    private fun observeAuthState() {
+        viewModelScope.launch {
+            observeAuthState
+                .joinAndCollect(viewModelScope + dispatchers.main)
+                .filter { it == AuthState.LOGGED_IN }
+                .collect {
+                    Timber.d("Auth State is logged in, refreshing")
+                    refresh(subscriptionOnly = true)
+                }
         }
+    }
 
-        // Refresh
+    private fun observeArticles() {
+        observeArticles.join(
+            params = searchQuery.value,
+            coroutineScope = viewModelScope + dispatchers.main,
+            onError = { _uiEvent.emit(showMessage(it)) },
+        )
+    }
+
+    fun refresh(subscriptionOnly: Boolean = false) {
+        if (subscriptionOnly) {
+            getSubscribedTopics()
+            return
+        }
+        getArticles()
         getSubscribedTopics()
+    }
+
+    private fun getArticles() {
+        viewModelScope.launch(dispatchers.main) {
+            getArticles.execute().collect(
+                loader = loadingStatus,
+                onError = { _uiEvent.emit(showMessage(it)) },
+            )
+        }
     }
 
     private fun getSubscribedTopics() {
@@ -188,30 +138,8 @@ class HomeVM @Inject constructor(
     }
 
     fun onQueryChange(newValue: String) {
-        job?.cancel()
         searchQuery.value = newValue
-        // Reinitialize and refresh pager with updated search query
-        initializePager(
-            searchQuery = newValue,
-            forceRefresh = true
-        )
-    }
-
-    fun onTopicChange(newValue: String) {
-        job?.cancel()
-        topicQuery.value = newValue
-        // Reinitialize and refresh pager with updated topic query
-        initializePager(
-            topicQuery = newValue,
-            forceRefresh = true
-        )
-    }
-
-    fun executeNextPage(updatedPage: Int? = null) {
-        job?.cancel()
-        job = viewModelScope.launch(dispatchers.main) {
-            pager.executeNextPage(updatedPage)
-        }
+        observeArticles()
     }
 
     /**
@@ -224,16 +152,17 @@ class HomeVM @Inject constructor(
     }
 
     fun resetToDefaults() {
-        when {
-            searchQuery.value.isNotEmpty() -> onQueryChange(DEFAULT_SEARCH_QUERY)
-            topicQuery.value.isNotEmpty() -> onTopicChange(DEFAULT_TOPIC_QUERY)
+        if (searchQuery.value.isNotEmpty()) {
+            onQueryChange(DEFAULT_SEARCH_QUERY)
         }
+    }
+
+    fun queryIsNotEmpty(): Boolean {
+        return state.value.currentQuery.isNotEmpty()
     }
 
     companion object {
         const val LIST_POSITION_KEY = "slime_list_position"
-        const val PAGE_KEY = "slime_page"
         const val QUERY_KEY = "slime_query"
-        const val TOPIC_QUERY_KEY = "slime_topic"
     }
 }

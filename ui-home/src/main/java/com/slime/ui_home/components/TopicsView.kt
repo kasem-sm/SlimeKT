@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.slime.ui_home.HomeState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
@@ -28,13 +27,14 @@ import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.SlimePrimaryButton
 import kasem.sm.common_ui.TopicChip
 import kasem.sm.common_ui.util.toggleWithRipple
+import kasem.sm.common_ui.withScale
 import kasem.sm.topic.domain.model.Topic
 
 @Composable
 internal fun TopicsView(
     isLoading: Boolean,
     topics: List<Topic>,
-    currentTopic: String,
+    currentQuery: String,
     onTopicChange: (String) -> Unit,
     navigateToSubscriptionScreen: () -> Unit
 ) {
@@ -50,7 +50,7 @@ internal fun TopicsView(
                 Text(
                     text = stringResource(R.string.subscribe_to_topic_header),
                     fontFamily = LocalSlimeFont.current.secondaryMedium,
-                    fontSize = 14.sp,
+                    fontSize = 14.withScale(),
                     modifier = Modifier
                         .wrapContentSize(),
                     textAlign = TextAlign.Center
@@ -64,7 +64,7 @@ internal fun TopicsView(
     } else {
         LazyRow {
             items(topics) { topic ->
-                val isSelected = currentTopic == topic.title
+                val isSelected = currentQuery == topic.title
 
                 val backgroundColor = animateColorAsState(
                     targetValue = when (isSelected) {
@@ -88,7 +88,7 @@ internal fun TopicsView(
                     modifier = Modifier
                         .padding(10.dp)
                         .toggleWithRipple(
-                            value = currentTopic == topic.title,
+                            value = currentQuery == topic.title,
                         ) { value ->
                             when (value) {
                                 true -> onTopicChange(topic.title)

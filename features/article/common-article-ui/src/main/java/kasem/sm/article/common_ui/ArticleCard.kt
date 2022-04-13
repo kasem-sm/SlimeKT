@@ -4,18 +4,27 @@
  */
 package kasem.sm.article.common_ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,8 +37,8 @@ import coil.ImageLoader
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
-import kasem.sm.common_ui.SlimeGradientProfile
 import kasem.sm.common_ui.util.clickWithRipple
+import kasem.sm.common_ui.withScale
 
 @Composable
 fun ArticleCard(
@@ -39,10 +48,14 @@ fun ArticleCard(
     onArticleClick: (Int) -> Unit,
     index: Int = 0,
 ) {
+    val isArticleBookmarked = rememberSaveable {
+        mutableStateOf(false)
+    }
+
     SlimeCard(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight()
+            .height(120.dp)
             .padding(if (index == 0) 0.dp else 5.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickWithRipple {
@@ -50,42 +63,48 @@ fun ArticleCard(
             },
     ) {
         Row(
-            modifier = Modifier
-                .height(100.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = modifier
+                .wrapContentSize(),
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.5f)
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.SpaceAround,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .weight(0.2f)
+                    .height(120.dp)
+                    .clip(RoundedCornerShape(topStart = 6.dp, bottomStart = 6.dp)),
+            ) {
+                imageLoader.Image(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    data = article.featuredImage,
+                    contentScale = ContentScale.Crop
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(0.5f),
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = article.title,
                     maxLines = 2,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
                     textAlign = TextAlign.Start,
                     overflow = TextOverflow.Ellipsis,
                     fontFamily = LocalSlimeFont.current.semiBold,
-                    fontSize = 14.sp,
-                    lineHeight = 26.sp
+                    fontSize = 14.withScale(),
+                    lineHeight = 26.sp,
                 )
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Bottom
                 ) {
-
-                    SlimeGradientProfile(
-                        size = 20.dp,
-                        textSize = 12.sp,
-                        username = article.author
-                    )
-
                     Text(
                         text = withAuthorAndPostedTime(
                             article.author,
@@ -93,19 +112,46 @@ fun ArticleCard(
                         ),
                         maxLines = 2,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .padding(start = 10.dp, bottom = 5.dp),
+                    )
+
+                    BookmarkBar(
+                        modifier = Modifier
+                            .clickWithRipple {
+                                isArticleBookmarked.value = !isArticleBookmarked.value
+                            },
+                        isBookmarked = isArticleBookmarked.value
                     )
                 }
             }
-
-            imageLoader.Image(
-                modifier = Modifier
-                    .weight(0.2f)
-                    .height(100.dp)
-                    .clip(RoundedCornerShape(topEnd = 6.dp, bottomEnd = 6.dp)),
-                data = article.featuredImage,
-                contentScale = ContentScale.Crop
-            )
         }
+    }
+}
+
+@Composable
+fun BookmarkBar(
+    modifier: Modifier = Modifier,
+    isBookmarked: Boolean
+) {
+    Box(
+        modifier = modifier
+            .size(30.dp)
+            .clip(RoundedCornerShape(topStart = 6.dp))
+            .background(MaterialTheme.colorScheme.secondary)
+    ) {
+        val icon = when (isBookmarked) {
+            true -> Icons.Default.Bookmark
+            else -> Icons.Default.BookmarkBorder
+        }
+        Icon(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(15.dp),
+            imageVector = icon,
+            contentDescription = icon.name,
+            tint = MaterialTheme.colorScheme.onSecondary
+        )
     }
 }

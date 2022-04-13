@@ -7,6 +7,7 @@ package com.slime.auth_impl
 import android.content.SharedPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 
 /**
@@ -20,8 +21,13 @@ fun SharedPreferences.observe(key: String, defValue: String?): Flow<String?> {
         flow.value = getString(key, defValue)
     }
 
-    registerOnSharedPreferenceChangeListener(listener)
+    try {
+        registerOnSharedPreferenceChangeListener(listener)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 
     return flow
         .onCompletion { unregisterOnSharedPreferenceChangeListener(listener) }
+        .catch { it.printStackTrace() }
 }

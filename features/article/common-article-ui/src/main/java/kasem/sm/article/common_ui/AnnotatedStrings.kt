@@ -17,11 +17,15 @@ fun withAuthorAndPostedTime(
     authorName: String,
     postedTime: String
 ): AnnotatedString = buildAnnotatedString {
+    withStyle(SpanStyle(fontFamily = LocalSlimeFont.current.secondaryMedium, fontSize = 12.sp)) {
+        append("By ")
+    }
     withStyle(SpanStyle(fontFamily = LocalSlimeFont.current.secondaryBold)) {
         append(authorName)
     }
+    append("\n")
     withStyle(SpanStyle(fontFamily = LocalSlimeFont.current.secondaryMedium, fontSize = 12.sp)) {
-        append(" on ")
+        append("on ")
         append(postedTime)
     }
 }

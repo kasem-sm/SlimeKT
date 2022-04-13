@@ -68,7 +68,7 @@ internal fun RowScope.buttonContent(
     Text(
         text = if (isLoading) "Please wait" else text,
         color = textColor,
-        fontSize = 14.sp,
+        fontSize = 14.withScale(),
         letterSpacing = 1.sp,
         fontFamily = LocalSlimeFont.current.secondaryMedium
     )

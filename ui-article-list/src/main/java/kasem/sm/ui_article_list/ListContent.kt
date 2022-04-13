@@ -18,7 +18,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleView
-import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
@@ -31,7 +30,6 @@ internal fun ListContent(
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onArticleClick: (Int) -> Unit,
-    executeNextPage: () -> Unit,
     updateSubscription: () -> Unit,
     showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
@@ -63,7 +61,6 @@ internal fun ListContent(
                 item {
                     if (
                         !state.isLoading &&
-                        state.endOfPagination &&
                         state.articles.isEmpty()
                     ) {
                         EmptyView(
@@ -79,13 +76,7 @@ internal fun ListContent(
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition,
-                        currentPage = state.currentPage,
-                        pageSize = ArticlePager.PAGE_SIZE,
-                        isLoading = state.isLoading,
-                        endOfPagination = state.endOfPagination,
-                        onUserDemandPagination = false
                     )
                 }
             }

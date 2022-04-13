@@ -100,8 +100,8 @@ _cherry on the cake_.
 
 1. [SlimeKT - Kotlin Powered open source project. (Android app with Ktor backend)](https://medium.com/@kasem.sm/slimekt-136a56864e57)
 2. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
-3. When Jetpack's Glance met his fellow worker, WorkManager (Coming soon)
-4. Create Animated PlaceHolder for your Jetpack Compose text fields (Coming soon)
+3. Create Animated PlaceHolder for your Jetpack Compose text fields [Read here](https://medium.com/@kasem.sm/animated-placeholder-with-jetpack-compose-60c85547b47a)
+4. When Jetpack's Glance met his fellow worker, WorkManager (Coming soon)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
 

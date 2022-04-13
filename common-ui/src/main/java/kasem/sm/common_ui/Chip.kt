@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun TopicChip(
@@ -33,7 +32,7 @@ fun TopicChip(
             text = topic,
             color = chipTextColor,
             modifier = Modifier.padding(10.dp),
-            fontSize = 14.sp,
+            fontSize = 14.withScale(),
             fontFamily = LocalSlimeFont.current.semiBold,
         )
     }

@@ -26,7 +26,7 @@ import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
 
 @Composable
-fun SearchBar(
+internal fun SearchBar(
     modifier: Modifier = Modifier,
     query: String,
     onQueryChange: (String) -> Unit,

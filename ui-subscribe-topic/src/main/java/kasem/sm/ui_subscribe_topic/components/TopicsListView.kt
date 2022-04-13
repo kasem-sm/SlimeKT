@@ -17,6 +17,7 @@ internal fun TopicsListView(
         state.topics.forEachIndexed { itemsIndex, topic ->
             SelectableTopicCard(
                 topic = topic,
+                enabled = !state.isLoading,
                 onClick = {
                     updateList(itemsIndex)
                 }

@@ -37,7 +37,6 @@ fun ListScreen(
         onRefresh = viewModel::refresh,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
-        executeNextPage = viewModel::executeNextPage,
         saveScrollPosition = viewModel::saveScrollPosition,
         listState = state,
         updateSubscription = viewModel::updateSubscription,

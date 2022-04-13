@@ -5,8 +5,6 @@
 package kasem.sm.article.domain.interactors
 
 data class Param(
-    val topic: String,
-    val query: String,
-    val page: Int,
-    val pageSize: Int
+    val topic: String = "",
+    val query: String = "",
 )

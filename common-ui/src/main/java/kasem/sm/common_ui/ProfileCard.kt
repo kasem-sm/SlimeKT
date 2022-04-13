@@ -58,7 +58,7 @@ fun ProfileCard(
             ) {
                 Text(
                     text = username,
-                    fontSize = 18.sp,
+                    fontSize = 18.withScale(),
                     color = MaterialTheme.colorScheme.onSurface,
                     letterSpacing = 1.5.sp,
                     fontFamily = LocalSlimeFont.current.semiBold
@@ -69,7 +69,7 @@ fun ProfileCard(
                 Text(
                     text = bio,
                     fontFamily = LocalSlimeFont.current.secondaryRegular,
-                    fontSize = 14.sp,
+                    fontSize = 14.withScale(),
                     maxLines = 2,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -92,7 +92,7 @@ fun SlimeGradientProfile(
     modifier: Modifier = Modifier,
     username: String,
     size: Dp = 40.dp,
-    textSize: TextUnit = 20.sp,
+    textSize: TextUnit = 20.withScale(),
     color: Color = listOfRandomColor.random(),
 ) {
     Box(
