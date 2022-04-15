@@ -11,4 +11,3 @@ enum class AuthState {
 sealed class UserData
 object ID : UserData()
 object Token : UserData()
-object Username : UserData()

@@ -4,6 +4,7 @@
  */
 package kasem.sm.common_ui.scaffold
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,28 +24,31 @@ fun SlimeBottomBar(
     navigateTo: (String) -> Unit,
     items: List<BottomNavigationItems>,
 ) {
-    NavigationBar {
-        items.forEach { item ->
-            NavigationBarItem(
-                icon = {
-                    Icon(
-                        painter = painterResource(id = item.icon),
-                        modifier = Modifier.size(22.dp),
-                        contentDescription = item.title,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                },
-                label = {
-                    Text(
-                        text = item.title,
-                        fontFamily = LocalSlimeFont.current.secondaryMedium
-                    )
-                },
-                selected = currentRoute == item.route,
-                onClick = {
-                    navigateTo(item.route)
-                }
-            )
+
+    Column {
+        NavigationBar {
+            items.forEach { item ->
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = item.icon),
+                            modifier = Modifier.size(22.dp),
+                            contentDescription = item.title,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = item.title,
+                            fontFamily = LocalSlimeFont.current.secondaryMedium
+                        )
+                    },
+                    selected = currentRoute == item.route,
+                    onClick = {
+                        navigateTo(item.route)
+                    }
+                )
+            }
         }
     }
 }
