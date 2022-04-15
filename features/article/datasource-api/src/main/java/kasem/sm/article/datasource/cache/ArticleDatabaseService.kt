@@ -31,7 +31,7 @@ interface ArticleDatabaseService {
 
     suspend fun updateIsActiveInDailyReadStatus(active: Boolean, id: Int)
 
-    suspend fun getData(id: Int): Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>
+    suspend fun getArticleData(id: Int): Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>
 
     suspend fun removePreviousActiveArticle()
 

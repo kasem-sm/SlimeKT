@@ -16,7 +16,7 @@
     <string name="confirm_reg">Confirm Registration</string>
     <string name="recommend_article_header">Recommended Articles</string>
     <string name="discover_topics_header">Discover Topics</string>
-    <string name="find_authors_header">Find Authors</string>
+    <string name="find_authors_header">Find New Authors</string>
     <string name="subscribe_to_topic_header">Select some of your favourite topics to let us suggest better articles for you.</string>
     <string name="article_search_txt_1">Search with article\'s title</string>
     <string name="article_search_txt_2">Search with author\'s name</string>

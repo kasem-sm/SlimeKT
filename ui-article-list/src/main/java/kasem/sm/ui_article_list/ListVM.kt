@@ -12,6 +12,7 @@ import com.slime.auth_api.ObserveAuthState
 import com.slime.task_api.Tasks
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.observers.ObserveArticlesByTopic
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Routes
@@ -29,12 +30,14 @@ import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ListVM @Inject constructor(
     private val getTopic: GetTopicById,
+    private val bookmarkArticle: BookmarkArticle,
     private val dispatchers: SlimeDispatchers,
     private val tasks: Tasks,
     private val observeAuthState: ObserveAuthState,
@@ -88,6 +91,12 @@ class ListVM @Inject constructor(
             if (!isUserAuthenticated.value) {
                 _uiEvent.emit(navigate(Routes.LoginScreen.route))
             }
+        }
+    }
+
+    fun updateBookmarkStatus(articleId: Int) {
+        viewModelScope.launch {
+            bookmarkArticle.execute(articleId).collect()
         }
     }
 

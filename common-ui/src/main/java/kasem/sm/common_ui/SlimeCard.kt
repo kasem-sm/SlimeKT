@@ -21,7 +21,7 @@ fun SlimeCard(
     shape: Shape = RoundedCornerShape(12.dp),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = MaterialTheme.colorScheme.contentColorFor(backgroundColor),
-    elevation: Dp = 1.dp,
+    elevation: Dp = 5.dp,
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -30,7 +30,7 @@ fun SlimeCard(
         color = backgroundColor,
         contentColor = contentColor,
         tonalElevation = elevation,
-        shadowElevation = 1.dp,
+        shadowElevation = 2.dp,
         content = content,
     )
 }

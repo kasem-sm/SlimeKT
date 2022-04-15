@@ -23,7 +23,7 @@ class GetArticle @Inject constructor(
                 .getOrThrow()
 
             articleFromApi?.data?.let {
-                val data = cache.getData(it.id)
+                val data = cache.getArticleData(it.id)
                 cache.insert(it.toEntity(data))
             }
         }

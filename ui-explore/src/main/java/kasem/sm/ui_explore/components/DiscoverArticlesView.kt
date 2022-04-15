@@ -13,14 +13,16 @@ import kasem.sm.article.domain.model.Article
 internal fun LazyListScope.discoverArticlesView(
     articles: List<Article>,
     imageLoader: ImageLoader,
-    onArticleClick: (Int) -> Unit
+    onArticleClick: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit
 ) {
     itemsIndexed(articles) { index, article ->
         ArticleCard(
             article = article,
             imageLoader = imageLoader,
             onArticleClick = onArticleClick,
-            index = index
+            index = index,
+            onBookmarkClick = onBookmarkClick
         )
     }
 }

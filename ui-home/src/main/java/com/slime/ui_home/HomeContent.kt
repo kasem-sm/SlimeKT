@@ -41,6 +41,7 @@ internal fun HomeContent(
     onArticleClick: (Int) -> Unit,
     saveScrollPosition: (Int) -> Unit,
     navigateToSubscriptionScreen: () -> Unit,
+    onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
@@ -69,14 +70,29 @@ internal fun HomeContent(
                     )
                 }
 
+                TopicsView(
+                    isLoading = state.isLoading,
+                    topics = state.topics,
+                    currentQuery = state.currentQuery,
+                    onTopicChange = onTopicChange,
+                    navigateToSubscriptionScreen = navigateToSubscriptionScreen
+                )
+
                 item {
-                    TopicsView(
-                        isLoading = state.isLoading,
-                        topics = state.topics,
-                        currentQuery = state.currentQuery,
-                        onTopicChange = onTopicChange,
-                        navigateToSubscriptionScreen = navigateToSubscriptionScreen
+                    SlimeHeader(text = stringResource(id = R.string.daily_read_header))
+                }
+
+                item {
+                    DailyReadArticle(
+                        article = state.dailyReadArticle,
+                        imageLoader = imageLoader,
+                        onArticleClick = onArticleClick,
+                        onBookmarkClick = onBookmarkClick
                     )
+                }
+
+                item {
+                    SlimeHeader(text = "Latest\nArticles")
                 }
 
                 dynamicItem(!state.isLoading && state.articles.isEmpty()) {
@@ -89,19 +105,8 @@ internal fun HomeContent(
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        saveScrollPosition = saveScrollPosition
-                    )
-                }
-
-                item {
-                    SlimeHeader(text = stringResource(id = R.string.daily_read_header))
-                }
-
-                item {
-                    DailyReadArticle(
-                        article = state.dailyReadArticle,
-                        imageLoader = imageLoader,
-                        onArticleClick = onArticleClick
+                        saveScrollPosition = saveScrollPosition,
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
             }

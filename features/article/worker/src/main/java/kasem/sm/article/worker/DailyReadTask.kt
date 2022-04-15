@@ -39,7 +39,7 @@ internal class DailyReadTask @AssistedInject constructor(
         val randomArticleFromApi = api.getRandomArticleFromSubscription().getOrElse {
             return Result.retry()
         }?.data?.let {
-            val data = cache.getData(it.id)
+            val data = cache.getArticleData(it.id)
             it.toEntity(data)
         } ?: return Result.retry()
 

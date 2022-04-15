@@ -23,6 +23,7 @@ import kasem.sm.common_ui.util.Routes
 import kasem.sm.ui_article_list.ListScreen
 import kasem.sm.ui_auth.login.LoginScreen
 import kasem.sm.ui_auth.register.RegisterScreen
+import kasem.sm.ui_bookmarks.BookmarksScreen
 import kasem.sm.ui_detail.DetailScreen
 import kasem.sm.ui_explore.ExploreScreen
 import kasem.sm.ui_profile.ProfileScreen
@@ -197,5 +198,19 @@ internal fun NavGraphBuilder.attachListScreen(
                 navController.navigate(it)
             }
         )
+    }
+}
+
+internal fun NavGraphBuilder.attachBookmarksScreen(
+    imageLoader: ImageLoader,
+    navController: NavController
+) {
+    composable(Routes.BookmarkScreen.route) {
+        BookmarksScreen(
+            viewModel = hiltViewModel(),
+            imageLoader = imageLoader
+        ) { id ->
+            navController.navigate(Routes.articleDetailLink(id))
+        }
     }
 }

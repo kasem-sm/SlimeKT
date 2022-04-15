@@ -75,3 +75,4 @@ include(":task-impl")
 // Auth
 include(":auth-api")
 include(":auth-impl")
+include(":ui-bookmarks")

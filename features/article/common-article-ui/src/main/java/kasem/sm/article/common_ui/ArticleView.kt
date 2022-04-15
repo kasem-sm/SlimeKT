@@ -11,19 +11,21 @@ import kasem.sm.article.domain.model.Article
 
 @Composable
 fun ArticleView(
+    modifier: Modifier = Modifier,
     article: Article,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
-    index: Int,
-    saveScrollPosition: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    index: Int = 0,
+    saveScrollPosition: (Int) -> Unit = {},
+    onBookmarkClick: (Int) -> Unit
 ) {
     ArticleCard(
         modifier = modifier,
         article = article,
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
-        index = index
+        index = index,
+        onBookmarkClick = onBookmarkClick
     )
 
     saveScrollPosition(index)

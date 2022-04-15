@@ -102,7 +102,7 @@ fun SlimeGradientProfile(
             .background(Brush.linearGradient(listOf(color, color.copy(0.5f))))
     ) {
         Text(
-            text = username.first().toString(),
+            text = if (username.length > 1) username.first().toString() else return,
             modifier = Modifier
                 .align(Alignment.Center),
             fontSize = textSize,

@@ -5,8 +5,10 @@
 package kasem.sm.ui_explore
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,6 +30,7 @@ internal fun ExploreContent(
     onRefresh: () -> Unit,
     imageLoader: ImageLoader,
     onArticleClick: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit,
     onTopicClick: (title: String, id: String) -> Unit,
 ) {
     SlimeSwipeRefresh(
@@ -40,7 +43,7 @@ internal fun ExploreContent(
                 .background(MaterialTheme.colorScheme.surface)
         ) {
             SlimeScreenColumn(
-                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceAround
             ) {
                 item {
                     SlimeHeader(text = stringResource(id = R.string.recommend_article_header))
@@ -49,6 +52,8 @@ internal fun ExploreContent(
                 if (!state.isLoading && state.articles.isEmpty()) {
                     item {
                         EmptyView(
+                            modifier = Modifier
+                                .fillMaxWidth(),
                             emoji = "🤏",
                             message = "You are all set!"
                         )
@@ -57,7 +62,8 @@ internal fun ExploreContent(
                     discoverArticlesView(
                         articles = state.articles,
                         imageLoader = imageLoader,
-                        onArticleClick = onArticleClick
+                        onArticleClick = onArticleClick,
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
 

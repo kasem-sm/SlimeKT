@@ -80,7 +80,7 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getData(id: Int): Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> {
+    override suspend fun getArticleData(id: Int): Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> {
         return slimeSuspendTry {
             Quad(
                 DailyReadStatus(isShown(id)),
@@ -92,27 +92,39 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     }
 
     override suspend fun removePreviousActiveArticle() {
-        updateIsActiveInDailyReadStatus(false, getActiveArticle()?.id ?: return)
+        slimeSuspendTry {
+            updateIsActiveInDailyReadStatus(false, getActiveArticle()?.id ?: return@slimeSuspendTry)
+        }
     }
 
     override suspend fun removeAllArticlesFromExplore() {
-        dao.clearArticlesInExplore()
+        slimeSuspendTry {
+            dao.clearArticlesInExplore()
+        }
     }
 
     override suspend fun removeAllArticles() {
-        dao.removeAllArticles()
+        slimeSuspendTry {
+            dao.removeAllArticles()
+        }
     }
 
     override fun getBookmarkedArticles(): Flow<List<ArticleEntity>> {
-        TODO("Not yet implemented")
+        return slimeTry {
+            dao.getArticlesInBookmark()
+        }
     }
 
     override suspend fun updateBookmarkStatus(status: Boolean, id: Int) {
-        TODO("Not yet implemented")
+        slimeSuspendTry {
+            dao.updateBookmarkStatus(status, id)
+        }
     }
 
     override suspend fun resetAllBookmarks() {
-        TODO("Not yet implemented")
+        slimeSuspendTry {
+            dao.resetAllBookmarks()
+        }
     }
 
     private suspend fun isActive(id: Int): Boolean {

@@ -12,7 +12,6 @@ sealed class BottomNavigationItems(
     @DrawableRes val icon: Int,
     val route: String,
 ) {
-
     object Home : BottomNavigationItems(
         "Home",
         R.drawable.ic_home,
@@ -26,6 +25,12 @@ sealed class BottomNavigationItems(
             Routes.ExploreScreen().route
         )
 
+    object Bookmarks : BottomNavigationItems(
+        "Bookmarks",
+        R.drawable.ic_bookmark,
+        Routes.BookmarkScreen.route
+    )
+
     object Profile : BottomNavigationItems(
         "Profile",
         R.drawable.ic_profile,
@@ -33,6 +38,6 @@ sealed class BottomNavigationItems(
     )
 
     companion object {
-        val toList = listOf(Home, Explore, Profile)
+        val toList = listOf(Home, Explore, Bookmarks, Profile)
     }
 }

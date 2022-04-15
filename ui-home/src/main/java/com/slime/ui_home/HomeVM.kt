@@ -12,6 +12,7 @@ import com.slime.auth_api.ObserveAuthState
 import com.slime.ui_home.HomeState.Companion.DEFAULT_SEARCH_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.interactors.GetArticles
 import kasem.sm.article.domain.observers.ObserveArticles
 import kasem.sm.article.domain.observers.ObserveDailyReadArticle
@@ -27,6 +28,7 @@ import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -35,6 +37,7 @@ import timber.log.Timber
 @HiltViewModel
 class HomeVM @Inject constructor(
     private val getArticles: GetArticles,
+    private val bookmarkArticle: BookmarkArticle,
     private val getSubscribedTopics: GetSubscribedTopics,
     private val savedStateHandle: SavedStateHandle,
     private val dispatchers: SlimeDispatchers,
@@ -159,6 +162,12 @@ class HomeVM @Inject constructor(
 
     fun queryIsNotEmpty(): Boolean {
         return state.value.currentQuery.isNotEmpty()
+    }
+
+    fun updateBookmarkStatus(articleId: Int) {
+        viewModelScope.launch {
+            bookmarkArticle.execute(articleId).collect()
+        }
     }
 
     companion object {

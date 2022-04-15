@@ -52,6 +52,7 @@ fun HomeScreen(
         navigateToSubscriptionScreen = {
             navigateTo(Routes.SubscribeTopicScreen.route)
         },
-        listState = listState
+        listState = listState,
+        onBookmarkClick = viewModel::updateBookmarkStatus
     )
 }

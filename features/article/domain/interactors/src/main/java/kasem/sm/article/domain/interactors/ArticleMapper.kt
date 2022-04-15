@@ -4,34 +4,46 @@
  */
 package kasem.sm.article.domain.interactors
 
-import javax.inject.Inject
-import javax.inject.Singleton
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.domain.model.Article
-import kasem.sm.core.utils.IMapper
 
-@Singleton
-class ArticleMapper @Inject constructor() : IMapper<ArticleEntity, Article> {
-    override suspend fun map(from: ArticleEntity?): Article {
-        return if (from != null) {
-            Article(
-                id = from.id,
-                title = from.title,
-                description = from.description,
-                featuredImage = from.featuredImage,
-                author = from.author,
-                timestamp = from.timestamp,
-                isShownInDailyRead = from.isShownInDailyRead,
-                isActiveInDailyRead = from.isActiveInDailyRead,
-                topic = from.topic,
-                isInExplore = from.isInExplore
-            )
-        } else throw Exception()
-    }
+@JvmName("toDomainNullable")
+fun ArticleEntity?.toDomain(): Article? {
+    return if (this != null) {
+        Article(
+            id = id,
+            title = title,
+            description = description,
+            featuredImage = featuredImage,
+            author = author,
+            timestamp = timestamp,
+            isShownInDailyRead = isShownInDailyRead,
+            isActiveInDailyRead = isActiveInDailyRead,
+            topic = topic,
+            isInExplore = isInExplore,
+            isInBookmark = isInBookmark
+        )
+    } else return null
+}
 
-    override suspend fun map(from: List<ArticleEntity>): List<Article> {
-        return from.map {
-            map(it)
-        }
+fun ArticleEntity.toDomain(): Article {
+    return Article(
+        id = id,
+        title = title,
+        description = description,
+        featuredImage = featuredImage,
+        author = author,
+        timestamp = timestamp,
+        isShownInDailyRead = isShownInDailyRead,
+        isActiveInDailyRead = isActiveInDailyRead,
+        topic = topic,
+        isInExplore = isInExplore,
+        isInBookmark = isInBookmark
+    )
+}
+
+fun List<ArticleEntity>.toDomain(): List<Article> {
+    return map {
+        it.toDomain()
     }
 }

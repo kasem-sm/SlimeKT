@@ -41,3 +41,14 @@ suspend fun Flow<Stage>.collect(
         }
     }
 }
+
+suspend fun Flow<Stage>.collect(
+    onError: suspend (String) -> Unit,
+    onSuccess: suspend () -> Unit = { },
+) = collect { stage ->
+    when (stage) {
+        is Stage.Success -> onSuccess.invoke()
+        is Stage.Exception -> onError.invoke(stage.throwable.toMessage)
+        else -> Unit
+    }
+}

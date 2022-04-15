@@ -23,8 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,19 +37,17 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.common_ui.withScale
+import timber.log.Timber
 
 @Composable
 fun ArticleCard(
     modifier: Modifier = Modifier,
     article: Article,
     imageLoader: ImageLoader,
-    onArticleClick: (Int) -> Unit,
     index: Int = 0,
+    onArticleClick: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit
 ) {
-    val isArticleBookmarked = rememberSaveable {
-        mutableStateOf(false)
-    }
-
     SlimeCard(
         modifier = modifier
             .fillMaxWidth()
@@ -60,7 +56,7 @@ fun ArticleCard(
             .clip(RoundedCornerShape(12.dp))
             .clickWithRipple {
                 onArticleClick(article.id)
-            },
+            }
     ) {
         Row(
             modifier = modifier
@@ -117,12 +113,15 @@ fun ArticleCard(
                             .padding(start = 10.dp, bottom = 5.dp),
                     )
 
+                    val isBookmarked = article.isInBookmark
+                    Timber.d("Bookmark ${article.id} $isBookmarked")
+
                     BookmarkBar(
                         modifier = Modifier
                             .clickWithRipple {
-                                isArticleBookmarked.value = !isArticleBookmarked.value
+                                onBookmarkClick(article.id)
                             },
-                        isBookmarked = isArticleBookmarked.value
+                        isBookmarked = isBookmarked
                     )
                 }
             }
@@ -142,8 +141,8 @@ fun BookmarkBar(
             .background(MaterialTheme.colorScheme.secondary)
     ) {
         val icon = when (isBookmarked) {
-            true -> Icons.Default.Bookmark
-            else -> Icons.Default.BookmarkBorder
+            true -> Icons.Filled.Bookmark
+            false -> Icons.Default.BookmarkBorder
         }
         Icon(
             modifier = Modifier

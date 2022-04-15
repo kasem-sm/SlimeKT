@@ -42,6 +42,7 @@ internal fun NavHost(
             attachArticleDetailScreen(imageLoader, snackbarHostState)
             attachSelectTopicsScreen(navController, snackbarHostState)
             attachListScreen(imageLoader, snackbarHostState, navController)
+            attachBookmarksScreen(imageLoader, navController)
         }
     }
 }

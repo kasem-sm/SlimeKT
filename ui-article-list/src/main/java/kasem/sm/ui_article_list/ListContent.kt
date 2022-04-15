@@ -33,6 +33,7 @@ internal fun ListContent(
     updateSubscription: () -> Unit,
     showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
@@ -48,8 +49,8 @@ internal fun ListContent(
                 state = listState,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                item {
-                    if (state.topic != null) {
+                if (state.topic != null) {
+                    stickyHeader {
                         SubscribeView(
                             state = state,
                             updateSubscription = updateSubscription,
@@ -58,11 +59,11 @@ internal fun ListContent(
                     }
                 }
 
-                item {
-                    if (
-                        !state.isLoading &&
-                        state.articles.isEmpty()
-                    ) {
+                if (
+                    !state.isLoading &&
+                    state.articles.isEmpty()
+                ) {
+                    item {
                         EmptyView(
                             modifier = Modifier
                                 .semantics { testTag = "emptyView" },
@@ -77,6 +78,7 @@ internal fun ListContent(
                         onArticleClick = onArticleClick,
                         index = index,
                         saveScrollPosition = saveScrollPosition,
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
             }
