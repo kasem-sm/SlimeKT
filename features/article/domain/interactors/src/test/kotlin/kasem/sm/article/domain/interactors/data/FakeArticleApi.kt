@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.article.domain.interactors.data
 
 import kasem.sm.article.datasource.network.ArticleApiService

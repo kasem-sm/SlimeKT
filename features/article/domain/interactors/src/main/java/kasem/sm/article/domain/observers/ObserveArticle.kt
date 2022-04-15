@@ -17,7 +17,7 @@ class ObserveArticle @Inject constructor(
 ) : ObserverInteractor<Int, Article?>() {
     override suspend fun execute(params: Int): Flow<Article?> {
         return cache.getArticleById(params).map {
-           it.toDomain()
+            it.toDomain()
         }
     }
 }

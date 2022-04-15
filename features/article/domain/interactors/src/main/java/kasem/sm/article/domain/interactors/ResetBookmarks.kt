@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.article.domain.interactors
 
 import javax.inject.Inject
@@ -13,7 +17,7 @@ class ResetBookmarks @Inject constructor(
 ) {
     fun execute(): Flow<Stage> {
         return dispatchers.default.start {
-           cache.resetAllBookmarks()
+            cache.resetAllBookmarks()
         }
     }
 }

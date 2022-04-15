@@ -19,7 +19,7 @@ class ObserveArticles @Inject constructor(
         val articles = cache.getAllArticles(
             query = params
         ).map {
-           it.toDomain()
+            it.toDomain()
         }
         return articles
     }

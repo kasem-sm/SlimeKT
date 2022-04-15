@@ -86,7 +86,8 @@ internal fun BookmarksContent(
                                     onClick = {
                                         resetAllBookmarks()
                                         isExpanded = false
-                                    }) {
+                                    }
+                                ) {
                                     Text(text = "Reset Bookmarks")
                                 }
                             }
