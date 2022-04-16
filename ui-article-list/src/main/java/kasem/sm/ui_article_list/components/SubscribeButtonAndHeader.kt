@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.VerticalSpacer
 import kasem.sm.common_ui.drawableId
+import kasem.sm.common_ui.withScale
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.ui_article_list.R
 
@@ -37,7 +38,7 @@ internal fun SubscribeButtonAndHeader(
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .fillMaxWidth(),
-            fontSize = 25.sp,
+            fontSize = 25.withScale(),
             letterSpacing = 1.5.sp,
             fontFamily = LocalSlimeFont.current.semiBold
         )
@@ -68,7 +69,7 @@ internal fun SubscribeButtonAndHeader(
                 text = "• ${topic.totalSubscribers} Users",
                 fontFamily = LocalSlimeFont.current.secondaryMedium,
                 color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 15.sp
+                fontSize = 15.withScale()
             )
         }
     }

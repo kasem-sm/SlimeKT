@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
+import kasem.sm.common_ui.withScale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +41,7 @@ internal fun DiscoverableToOtherUsersToggle(
             text = stringResource(id = R.string.auth_usr_msg),
             color = MaterialTheme.colorScheme.onBackground,
             letterSpacing = 0.5.sp,
-            fontSize = 14.sp,
+            fontSize = 14.withScale(),
             fontFamily = LocalSlimeFont.current.medium
         )
     }

@@ -13,13 +13,15 @@ import kasem.sm.article.domain.model.Article
 internal fun DailyReadArticle(
     article: Article?,
     imageLoader: ImageLoader,
-    onArticleClick: (Int) -> Unit
+    onArticleClick: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit,
 ) {
     article?.let {
         ArticleCard(
             article = it,
             imageLoader = imageLoader,
             onArticleClick = onArticleClick,
+            onBookmarkClick = onBookmarkClick
         )
     }
 }

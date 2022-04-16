@@ -6,6 +6,10 @@ It consists of core business models, classes, and utilities for all other module
 
 It consists of utilities and helper extension functions used during unit testing.
 
-## [Task-api]()
+## [Task-api](https://github.com/kasem-sm/SlimeKT/tree/dev/task-api)
 
-## [Auth-api]()
+It consists of interface that is responsible to execute different workers. This is done to avoid providing worker modules directly to any other modules. This module also help us during testing, i.e, we can swap out the worker with a fake Implementation of this interface.
+
+## [Auth-api](https://github.com/kasem-sm/SlimeKT/tree/dev/auth-api)
+
+It consists of interface that is responsible to manage the current authentication session. This can also make testing easier.

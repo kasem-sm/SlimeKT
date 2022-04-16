@@ -22,6 +22,8 @@ sealed class Routes(
         route = "explore_screen/$query",
     )
 
+    object BookmarkScreen : Routes("bookmark_screen")
+
     object ProfileScreen : Routes("profile_screen")
 
     object ArticleDetailScreen : Routes("article_detail_screen")

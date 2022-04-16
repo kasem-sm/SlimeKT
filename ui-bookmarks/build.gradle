@@ -1,0 +1,16 @@
+plugins {
+	id("com.android.library")
+}
+
+apply {
+	from("$rootDir/ui.gradle")
+}
+
+dependencies {
+	implementation(project(":features:article:common-article-ui"))
+	// Article:features
+	implementation(project(":features:article:domain:interactors"))
+	implementation(project(":features:article:domain:model"))
+
+	implementation(Coil.core)
+}

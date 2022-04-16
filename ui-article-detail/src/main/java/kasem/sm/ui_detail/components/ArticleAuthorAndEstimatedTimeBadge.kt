@@ -22,6 +22,7 @@ import kasem.sm.article.common_ui.withAuthorAndPostedTime
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeGradientProfile
+import kasem.sm.common_ui.withScale
 
 @Composable
 internal fun ArticleAuthorAndEstimatedTimeBadge(
@@ -60,7 +61,7 @@ internal fun ArticleAuthorAndEstimatedTimeBadge(
                     maxLines = 1,
                     fontFamily = LocalSlimeFont.current.secondaryMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    fontSize = 12.sp
+                    fontSize = 12.withScale()
                 )
             }
         }

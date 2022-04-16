@@ -18,7 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
@@ -55,12 +57,12 @@ fun AnimatedPlaceholder(
     AnimatedContent(
         targetState = target,
         transitionSpec = { ScrollAnimation() }
-    ) { text ->
+    ) { str ->
         Text(
-            text = text,
+            text = str,
             fontFamily = textStyle,
             color = textColor,
-            fontSize = 14.sp
+            fontSize = 14.withScale(),
         )
     }
 }
@@ -74,5 +76,17 @@ object ScrollAnimation {
             targetOffsetY = { -50 },
             animationSpec = tween()
         ) + fadeOut()
+    }
+}
+
+/**
+ * This prevents text size from enlarging when
+ * user increases their devices' font size
+ */
+
+@Composable
+fun Int.withScale(): TextUnit {
+    return with(LocalDensity.current) {
+        (this@withScale / fontScale).sp
     }
 }

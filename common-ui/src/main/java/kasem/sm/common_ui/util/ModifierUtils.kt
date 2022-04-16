@@ -12,9 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
-fun Modifier.clickWithRipple(onClick: () -> Unit) = composed {
+fun Modifier.clickWithRipple(
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) = composed {
     then(
         clickable(
+            enabled = enabled,
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = false),
             onClick = onClick

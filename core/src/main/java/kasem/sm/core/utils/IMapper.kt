@@ -4,7 +4,7 @@
  */
 package kasem.sm.core.utils
 
-interface IMapper<F, T> {
-    suspend fun map(from: F?): T
-    suspend fun map(from: List<F>): List<T>
-}
+// interface IMapper<F, T> {
+//    suspend fun map(from: F?): T
+//    suspend fun map(from: List<F>): List<T>
+// }

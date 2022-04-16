@@ -4,6 +4,8 @@
  */
 package kasem.sm.ui_article_list.components
 
+import androidx.compose.foundation.background
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -24,6 +26,7 @@ internal fun SubscribeView(
     state.topic?.let { topic ->
         SubscribeButtonAndHeader(
             modifier = modifier
+                .background(MaterialTheme.colorScheme.surface)
                 .semantics { testTag = "subscribeButtonAndHeader" },
             topic = topic,
             onClick = {

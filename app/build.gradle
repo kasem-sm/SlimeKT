@@ -6,8 +6,14 @@ apply {
 	from("$rootDir/common.gradle")
 }
 
-
 android {
+	buildTypes {
+		release {
+			minifyEnabled true
+			shrinkResources true
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+		}
+	}
 	buildFeatures {
 		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"
 		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi"
@@ -21,7 +27,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 def versionProperties = new Properties()
 versionProperties.load(new FileInputStream(rootProject.file("version.properties")))
 
-def _versionCode = "${versionProperties['VERSION_CODE']}"
+def _versionCode = "${versionProperties['VERSION_CODE']}".toInteger()
 def _versionName =
 		"${versionProperties['MAJOR']}" +
 		".${versionProperties['VERSION_CODE']}" +
@@ -80,4 +86,5 @@ dependencies {
 	implementation(project(":ui-home"))
 	implementation(project(":ui-article-detail"))
 	implementation(project(":ui-subscribe-topic"))
+	implementation(project(":ui-bookmarks"))
 }

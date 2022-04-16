@@ -4,7 +4,6 @@
  */
 package com.slime.ui_home
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,11 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import com.slime.ui_home.HomeState.Companion.isListEmpty
-import com.slime.ui_home.components.ArticleView
 import com.slime.ui_home.components.DailyReadArticle
 import com.slime.ui_home.components.SearchBar
 import com.slime.ui_home.components.TopicsView
+import kasem.sm.article.common_ui.ArticleView
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeHeader
@@ -41,13 +39,13 @@ internal fun HomeContent(
     onQueryChange: (String) -> Unit,
     onTopicChange: (String) -> Unit,
     onArticleClick: (Int) -> Unit,
-    executeNextPage: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
     navigateToSubscriptionScreen: () -> Unit,
+    onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
-        refreshing = state.paginationLoadStatus,
+        refreshing = state.isLoading,
         onRefresh = onRefresh,
     ) {
         Box(
@@ -72,32 +70,13 @@ internal fun HomeContent(
                     )
                 }
 
-                item {
-                    TopicsView(
-                        isLoading = state.isLoading,
-                        topics = state.topics,
-                        currentTopic = state.currentTopic,
-                        onTopicChange = onTopicChange,
-                        navigateToSubscriptionScreen = navigateToSubscriptionScreen
-                    )
-                }
-
-                dynamicItem(state.isListEmpty) {
-                    EmptyView()
-                }
-
-                itemsIndexed(state.articles) { index, article ->
-                    ArticleView(
-                        modifier = Modifier.animateItemPlacement(tween(200)),
-                        article = article,
-                        imageLoader = imageLoader,
-                        onArticleClick = onArticleClick,
-                        index = index,
-                        executeNextPage = executeNextPage,
-                        saveScrollPosition = saveScrollPosition,
-                        state = state
-                    )
-                }
+                TopicsView(
+                    isLoading = state.isLoading,
+                    topics = state.topics,
+                    currentQuery = state.currentQuery,
+                    onTopicChange = onTopicChange,
+                    navigateToSubscriptionScreen = navigateToSubscriptionScreen
+                )
 
                 item {
                     SlimeHeader(text = stringResource(id = R.string.daily_read_header))
@@ -107,7 +86,27 @@ internal fun HomeContent(
                     DailyReadArticle(
                         article = state.dailyReadArticle,
                         imageLoader = imageLoader,
-                        onArticleClick = onArticleClick
+                        onArticleClick = onArticleClick,
+                        onBookmarkClick = onBookmarkClick
+                    )
+                }
+
+                item {
+                    SlimeHeader(text = "Latest\nArticles")
+                }
+
+                dynamicItem(!state.isLoading && state.articles.isEmpty()) {
+                    EmptyView()
+                }
+
+                itemsIndexed(state.articles) { index, article ->
+                    ArticleView(
+                        article = article,
+                        imageLoader = imageLoader,
+                        onArticleClick = onArticleClick,
+                        index = index,
+                        saveScrollPosition = saveScrollPosition,
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
             }

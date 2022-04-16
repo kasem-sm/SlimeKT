@@ -14,6 +14,7 @@ import kasem.sm.topic.domain.model.Topic
 @Composable
 internal fun SelectableTopicCard(
     modifier: Modifier = Modifier,
+    enabled: Boolean,
     topic: Topic,
     onClick: () -> Unit
 ) {
@@ -30,7 +31,7 @@ internal fun SelectableTopicCard(
     TopicChip(
         topic = topic.title,
         modifier = modifier
-            .clickWithRipple { onClick() },
+            .clickWithRipple(enabled) { onClick() },
         chipBackgroundColor = backgroundColor,
         chipTextColor = textColor
     )

@@ -6,9 +6,11 @@ package kasem.sm.article.datasource_impl.cache
 
 import javax.inject.Inject
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
+import kasem.sm.article.datasource.cache.Quad
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsBookmarked
 import kasem.sm.article.datasource.utils.IsInExplore
 import kasem.sm.article.datasource_impl.cache.dao.ArticleDao
 import kasem.sm.core.utils.slimeSuspendTry
@@ -42,7 +44,7 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
 
     override fun getInExploreArticles(): Flow<List<ArticleEntity>> {
         return slimeTry {
-            dao.getArticlesInExplore()
+            dao.getArticlesForRecommend(1, 4)
         }
     }
 
@@ -52,74 +54,17 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPagedArticles(
-        page: Int,
-        pageSize: Int,
-        topic: String,
+    override fun getAllArticles(
         query: String,
-    ): List<ArticleEntity> {
-        return slimeSuspendTry {
-            when {
-                topic.isEmpty() && query.isNotEmpty() -> {
-                    dao.getQueriedPagedArticle(
-                        query,
-                        page,
-                        pageSize
-                    )
-                }
-                topic.isNotEmpty() && query.isEmpty() -> {
-                    dao.getTopicPagedArticles(
-                        topic,
-                        page,
-                        pageSize
-                    )
-                }
-                topic.isEmpty() -> {
-                    dao.getPagedArticles(page, pageSize)
-                }
-                query.isEmpty() -> {
-                    dao.getTopicPagedArticles(topic, page, pageSize)
-                }
-                else -> {
-                    dao.getQueriedPagedArticles(topic, query, page, pageSize)
-                }
-            }
+    ): Flow<List<ArticleEntity>> {
+        return slimeTry {
+            dao.getAllArticles(query)
         }
     }
 
-    // I also don't know what I have done lol but it works
-    override suspend fun getArticlesTillPage(
-        page: Int,
-        pageSize: Int,
-        topic: String,
-        query: String,
-    ): List<ArticleEntity> {
-        return slimeSuspendTry {
-            when {
-                topic.isEmpty() && query.isNotEmpty() -> {
-                    dao.getQueriedArticlesTillPage(
-                        query,
-                        page,
-                        pageSize
-                    )
-                }
-                topic.isNotEmpty() && query.isEmpty() -> {
-                    dao.getTopicArticlesTillPage(
-                        topic,
-                        page,
-                        pageSize
-                    )
-                }
-                topic.isEmpty() -> {
-                    dao.getArticlesTillPage(page, pageSize)
-                }
-                query.isEmpty() -> {
-                    dao.getTopicArticlesTillPage(topic, page, pageSize)
-                }
-                else -> {
-                    dao.getQueriedArticlesTillPage(topic, query, page, pageSize)
-                }
-            }
+    override fun getArticlesByTopic(topic: String): Flow<List<ArticleEntity>> {
+        return slimeTry {
+            dao.getArticlesByTopic(topic)
         }
     }
 
@@ -135,22 +80,51 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRespectiveTriplets(id: Int): Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> {
+    override suspend fun getArticleData(id: Int): Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> {
         return slimeSuspendTry {
-            Triple(
+            Quad(
                 DailyReadStatus(isShown(id)),
                 IsActiveInDailyRead(isActive(id)),
-                IsInExplore((inExplore(id)))
+                IsInExplore((inExplore(id))),
+                IsBookmarked(isBookmarked(id))
             )
         }
     }
 
     override suspend fun removePreviousActiveArticle() {
-        updateIsActiveInDailyReadStatus(false, getActiveArticle()?.id ?: return)
+        slimeSuspendTry {
+            updateIsActiveInDailyReadStatus(false, getActiveArticle()?.id ?: return@slimeSuspendTry)
+        }
     }
 
     override suspend fun removeAllArticlesFromExplore() {
-        dao.clearArticlesInExplore()
+        slimeSuspendTry {
+            dao.clearArticlesInExplore()
+        }
+    }
+
+    override suspend fun removeAllArticles() {
+        slimeSuspendTry {
+            dao.removeAllArticles()
+        }
+    }
+
+    override fun getBookmarkedArticles(): Flow<List<ArticleEntity>> {
+        return slimeTry {
+            dao.getArticlesInBookmark()
+        }
+    }
+
+    override suspend fun updateBookmarkStatus(status: Boolean, id: Int) {
+        slimeSuspendTry {
+            dao.updateBookmarkStatus(status, id)
+        }
+    }
+
+    override suspend fun resetAllBookmarks() {
+        slimeSuspendTry {
+            dao.resetAllBookmarks()
+        }
     }
 
     private suspend fun isActive(id: Int): Boolean {
@@ -172,6 +146,14 @@ internal class ArticleDatabaseServiceImpl @Inject constructor(
     private suspend fun inExplore(id: Int): Boolean {
         return slimeSuspendTry {
             dao.getArticlesInExploreNonFlow().any {
+                id == it.id
+            }
+        }
+    }
+
+    private suspend fun isBookmarked(id: Int): Boolean {
+        return slimeSuspendTry {
+            dao.getArticlesInBookmarkNonFlow().any {
                 id == it.id
             }
         }

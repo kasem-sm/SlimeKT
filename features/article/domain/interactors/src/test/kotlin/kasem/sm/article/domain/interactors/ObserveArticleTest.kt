@@ -28,11 +28,9 @@ class ObserveArticleTest {
     val uncaughtExceptionHandler = ThreadExceptionTestRule()
 
     private val databaseMock: ArticleDatabaseService = mockk()
-    private val mapper = ArticleMapper()
 
     private val observer = ObserveArticle(
-        cache = databaseMock,
-        mapper = mapper
+        cache = databaseMock
     )
 
     @Test

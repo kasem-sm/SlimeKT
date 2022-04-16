@@ -12,8 +12,6 @@ import kasem.sm.topic.domain.model.Topic
 data class ListState(
     val isLoading: Boolean = true,
     val isSubscriptionInProgress: Boolean = false,
-    val currentPage: Int = 0,
-    val endOfPagination: Boolean = false,
     val articles: List<Article> = emptyList(),
     val topic: Topic? = null,
     val isUserAuthenticated: Boolean = false

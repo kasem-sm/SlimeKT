@@ -11,8 +11,6 @@ import kasem.sm.article.datasource.network.response.SlimeResponse
 interface ArticleApiService {
 
     suspend fun getAllArticles(
-        page: Int,
-        pageSize: Int,
         topic: String = "",
         query: String = "",
     ): Result<SlimeResponse<ArticleResponse>?>

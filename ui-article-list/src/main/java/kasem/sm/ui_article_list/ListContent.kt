@@ -18,7 +18,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleView
-import kasem.sm.article.domain.interactors.ArticlePager
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
@@ -31,10 +30,10 @@ internal fun ListContent(
     imageLoader: ImageLoader,
     onRefresh: () -> Unit,
     onArticleClick: (Int) -> Unit,
-    executeNextPage: () -> Unit,
     updateSubscription: () -> Unit,
     showAuthenticationSheet: () -> Unit,
     saveScrollPosition: (Int) -> Unit,
+    onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
 ) {
     SlimeSwipeRefresh(
@@ -50,8 +49,8 @@ internal fun ListContent(
                 state = listState,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                item {
-                    if (state.topic != null) {
+                if (state.topic != null) {
+                    stickyHeader {
                         SubscribeView(
                             state = state,
                             updateSubscription = updateSubscription,
@@ -60,12 +59,11 @@ internal fun ListContent(
                     }
                 }
 
-                item {
-                    if (
-                        !state.isLoading &&
-                        state.endOfPagination &&
-                        state.articles.isEmpty()
-                    ) {
+                if (
+                    !state.isLoading &&
+                    state.articles.isEmpty()
+                ) {
+                    item {
                         EmptyView(
                             modifier = Modifier
                                 .semantics { testTag = "emptyView" },
@@ -79,13 +77,8 @@ internal fun ListContent(
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
                         index = index,
-                        executeNextPage = executeNextPage,
                         saveScrollPosition = saveScrollPosition,
-                        currentPage = state.currentPage,
-                        pageSize = ArticlePager.PAGE_SIZE,
-                        isLoading = state.isLoading,
-                        endOfPagination = state.endOfPagination,
-                        onUserDemandPagination = false
+                        onBookmarkClick = onBookmarkClick
                     )
                 }
             }

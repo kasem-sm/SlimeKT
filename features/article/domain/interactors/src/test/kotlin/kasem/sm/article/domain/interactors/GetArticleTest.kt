@@ -12,7 +12,9 @@ import io.mockk.runs
 import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTriplets
+import kasem.sm.article.domain.interactors.data.FakeArticleApi
+import kasem.sm.article.domain.interactors.data.FakeArticleDb
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultQuadData
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockDto
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.mockSuccessResponse
@@ -28,6 +30,51 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Rule
 import org.junit.Test
+
+@ExperimentalCoroutinesApi
+class FakeGetArticleTest {
+
+    @get:Rule
+    val uncaughtExceptionHandler = ThreadExceptionTestRule()
+
+    private val fakeDb = FakeArticleDb()
+    private val fakeApi = FakeArticleApi()
+
+    private val useCase = GetArticles(
+        api = fakeApi,
+        cache = fakeDb,
+        dispatchers = SlimeDispatchers.createTestDispatchers(UnconfinedTestDispatcher())
+    )
+
+    @Test
+    fun testApiCallSuccessButCacheThrowsError() = runBlocking {
+        fakeDb.throwException(RuntimeException())
+
+        useCase.execute().shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem().exception shouldBe RuntimeException()
+        }
+    }
+
+    @Test
+    fun testApiCallError() = runBlocking {
+        fakeApi.throwException(IOException())
+
+        useCase.execute().shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem().exception shouldBe IOException()
+        }
+    }
+
+    @Test
+    fun testApiCallSuccessAndItemsInserted() = runBlocking {
+        useCase.execute().shouldBeInOrder {
+            awaitItem() shouldBe Stage.Initial
+            awaitItem() shouldBe Stage.Success
+        }
+        fakeDb.list shouldBe listOf(getMockEntity())
+    }
+}
 
 @ExperimentalCoroutinesApi
 class GetArticleTest {
@@ -54,22 +101,22 @@ class GetArticleTest {
         }
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultTriplets))
+            databaseMock.insert(getMockEntity(defaultQuadData))
         }
     }
 
     @Test
     fun assertApiCallSuccess_and_InsertCalled() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(data = getMockDto())
-        coEvery { databaseMock.getRespectiveTriplets(1) } returns defaultTriplets
-        coEvery { databaseMock.insert(getMockEntity(defaultTriplets)) } just runs
+        coEvery { databaseMock.getArticleData(1) } returns defaultQuadData
+        coEvery { databaseMock.insert(getMockEntity(defaultQuadData)) } just runs
 
         useCase.execute(1).shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial
             awaitItem() shouldBe Stage.Success
         }
 
-        coVerify { databaseMock.insert(getMockEntity(defaultTriplets)) }
+        coVerify { databaseMock.insert(getMockEntity(defaultQuadData)) }
     }
 
     @Test
@@ -82,7 +129,7 @@ class GetArticleTest {
         }
 
         coVerify(exactly = 0) {
-            databaseMock.insert(getMockEntity(defaultTriplets))
+            databaseMock.insert(getMockEntity(defaultQuadData))
         }
     }
 
@@ -99,7 +146,7 @@ class GetArticleTest {
     @Test
     fun cacheThrowsException() = runBlocking {
         coEvery { apiMock.getArticleById(1) } returns mockSuccessResponse(getMockDto())
-        coEvery { databaseMock.getRespectiveTriplets(1) } throws UnknownError()
+        coEvery { databaseMock.getArticleData(1) } throws UnknownError()
 
         useCase.execute(1).shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial

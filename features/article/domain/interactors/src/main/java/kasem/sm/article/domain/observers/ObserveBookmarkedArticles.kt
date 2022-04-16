@@ -6,22 +6,18 @@ package kasem.sm.article.domain.observers
 
 import javax.inject.Inject
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
-import kasem.sm.article.domain.interactors.ArticleMapper
+import kasem.sm.article.domain.interactors.toDomain
 import kasem.sm.article.domain.model.Article
 import kasem.sm.core.domain.ObserverInteractor
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
-class ObserveLatestArticles @Inject constructor(
+class ObserveBookmarkedArticles @Inject constructor(
     private val cache: ArticleDatabaseService,
-    private val mapper: ArticleMapper
 ) : ObserverInteractor<Unit, List<Article>>() {
     override suspend fun execute(params: Unit): Flow<List<Article>> {
-        return flow {
-            val pagedArticles = cache.getPagedArticles(0, 4).map {
-                mapper.map(it)
-            }
-            emit(pagedArticles)
+        return cache.getBookmarkedArticles().map {
+            it.toDomain()
         }
     }
 }

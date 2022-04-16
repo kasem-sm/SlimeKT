@@ -9,7 +9,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import java.sql.SQLException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
-import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultTripletsWithOneFalse
+import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultQuadDataWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
 import kasem.sm.article.domain.observers.ObserveDailyReadArticle
 import kasem.sm.common_test_utils.ThreadExceptionTestRule
@@ -30,24 +30,22 @@ class ObserveDailyReadArticleTest {
     val uncaughtExceptionHandler = ThreadExceptionTestRule()
 
     private val databaseMock: ArticleDatabaseService = mockk()
-    private val mapper = ArticleMapper()
 
     private val observer = ObserveDailyReadArticle(
-        cache = databaseMock,
-        mapper = mapper
+        cache = databaseMock
     )
 
     @Test
     fun assertFlowEmitsProperValue() = runTest {
         coEvery { databaseMock.getActiveArticleFlow() } returns flow {
-            emit(getMockEntity(defaultTripletsWithOneFalse))
+            emit(getMockEntity(defaultQuadDataWithOneFalse))
         }
 
         observer.joinAndCollect(
             params = Unit,
             coroutineScope = TestScope()
         ).test {
-            awaitItem()?.isActiveInDailyRead shouldBe defaultTripletsWithOneFalse.second.isActive
+            awaitItem()?.isActiveInDailyRead shouldBe defaultQuadDataWithOneFalse.second.isActiveInDailyRead
             cancelAndIgnoreRemainingEvents()
         }
     }

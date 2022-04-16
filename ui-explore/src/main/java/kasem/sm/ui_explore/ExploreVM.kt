@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.interactors.GetInExploreArticles
 import kasem.sm.article.domain.observers.ObserveInExploreArticles
 import kasem.sm.core.domain.ObservableLoader
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,7 @@ import kotlinx.coroutines.launch
 class ExploreVM @Inject constructor(
     private val getArticles: GetInExploreArticles,
     private val getTopics: GetInExploreTopics,
+    private val bookmarkArticle: BookmarkArticle,
     observeArticles: ObserveInExploreArticles,
     observeTopics: ObserveInExploreTopics,
     private val dispatchers: SlimeDispatchers,
@@ -86,6 +89,12 @@ class ExploreVM @Inject constructor(
                 loader = loadingStatus,
                 onError = { _uiEvent.emit(showMessage(it)) },
             )
+        }
+    }
+
+    fun updateBookmarkStatus(articleId: Int) {
+        viewModelScope.launch {
+            bookmarkArticle.execute(articleId).collect()
         }
     }
 }

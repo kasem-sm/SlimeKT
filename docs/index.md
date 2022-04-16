@@ -105,7 +105,7 @@ backend deployed on Heroku. SlimeKT Android application resides inside of the [`
 ## Medium Articles 🖋
 
 1. When Jetpack's Glance met his fellow worker, WorkManager (draft)
-2. Create Animated PlaceHolder for your Jetpack Compose text fields (draft)
+2. Create Animated PlaceHolder for your Jetpack Compose text fields [Read here](https://medium.com/@kasem.sm/animated-placeholder-with-jetpack-compose-60c85547b47a)
 3. Android’s IME Actions: Don’t ignore them. [Read here](https://proandroiddev.com/androids-ime-actions-don-t-ignore-them-36554da892ac)
 
 More articles by [_kasem-sm_](https://medium.com/@kasem.sm) on Medium.
@@ -119,3 +119,4 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
 - [**Gabor Varadi**](https://twitter.com/Zhuinden) - He is always willing to answer my questions. A great man and a blessing to the Android community (AKA, the `SavedStateHandle` preacher).
 - [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their value to them.
+- [**Hadi**](https://twitter.com/hadilq)

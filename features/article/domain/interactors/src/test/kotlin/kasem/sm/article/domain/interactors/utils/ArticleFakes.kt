@@ -4,16 +4,15 @@
  */
 package kasem.sm.article.domain.interactors.utils
 
+import kasem.sm.article.datasource.cache.Quad
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.network.response.ArticleDto
 import kasem.sm.article.datasource.network.response.ArticleResponse
-import kasem.sm.article.datasource.network.response.InfoDto
 import kasem.sm.article.datasource.network.response.SlimeResponse
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
+import kasem.sm.article.datasource.utils.IsBookmarked
 import kasem.sm.article.datasource.utils.IsInExplore
-import kasem.sm.article.domain.interactors.ArticleMapper
-import kasem.sm.article.domain.model.Article
 
 internal object ArticleFakes {
 
@@ -29,46 +28,30 @@ internal object ArticleFakes {
         )
     }
 
-    fun getMockEntity(triple: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> = defaultTriplets): ArticleEntity {
-        return getMockDto().toEntity(triple)
+    fun getMockEntity(quadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> = defaultQuadData): ArticleEntity {
+        return getMockDto().toEntity(quadData)
     }
 
-    suspend fun ArticleEntity.toDomain(triple: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore> = defaultTriplets): Article {
-        return ArticleMapper().map(this).copy(
-            isShownInDailyRead = triple.first.isShown,
-            isActiveInDailyRead = triple.second.isActive,
-            isInExplore = triple.third.inExplore
-        )
-    }
-
-    suspend fun getMockDomain(): Article {
-        return ArticleMapper().map(getMockEntity(defaultTriplets))
-    }
-
-    val defaultTriplets: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>
+    val defaultQuadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>
         get() =
-            Triple(
-                DailyReadStatus(isShown = true),
-                IsActiveInDailyRead(isActive = true),
-                IsInExplore(inExplore = true)
+            Quad(
+                DailyReadStatus(dailyReadStatus = true),
+                IsActiveInDailyRead(isActiveInDailyRead = true),
+                IsInExplore(isInExplore = true),
+                IsBookmarked(true)
             )
 
-    val defaultTripletsWithOneFalse: Triple<DailyReadStatus, IsActiveInDailyRead, IsInExplore>
+    val defaultQuadDataWithOneFalse: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>
         get() =
-            Triple(
-                DailyReadStatus(isShown = false),
-                IsActiveInDailyRead(isActive = true),
-                IsInExplore(inExplore = true)
+            Quad(
+                DailyReadStatus(dailyReadStatus = false),
+                IsActiveInDailyRead(isActiveInDailyRead = true),
+                IsInExplore(isInExplore = true),
+                IsBookmarked(true)
             )
 
-    fun mockArticleResponse(
-        size: Int = 0,
-        totalPage: Int = 0,
-        prevPage: Int = 0,
-        nextPage: Int = 0
-    ): ArticleResponse {
+    fun mockArticleResponse(): ArticleResponse {
         return ArticleResponse(
-            info = InfoDto(size, totalPage, prevPage, nextPage),
             articles = listOf(getMockDto())
         )
     }

@@ -21,4 +21,5 @@ dependencies {
 	implementation(Accompanist.swipeRefresh)
 	implementation(Accompanist.flowLayout)
 	implementation Accompanist.sysUiController
+	implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
 }

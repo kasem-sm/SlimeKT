@@ -15,5 +15,6 @@ data class Article(
     val isShownInDailyRead: Boolean,
     val isActiveInDailyRead: Boolean,
     val isInExplore: Boolean,
+    val isInBookmark: Boolean = false,
     val topic: String,
 )

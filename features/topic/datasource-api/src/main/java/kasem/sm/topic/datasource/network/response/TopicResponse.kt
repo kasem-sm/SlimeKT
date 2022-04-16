@@ -4,10 +4,12 @@
  */
 package kasem.sm.topic.datasource.network.response
 
+import androidx.annotation.Keep
 import kasem.sm.topic.datasource.cache.entity.TopicEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 data class TopicResponse(
     @SerialName("id")

@@ -23,8 +23,8 @@ class GetArticle @Inject constructor(
                 .getOrThrow()
 
             articleFromApi?.data?.let {
-                val triple = cache.getRespectiveTriplets(it.id)
-                cache.insert(it.toEntity(triple))
+                val data = cache.getArticleData(it.id)
+                cache.insert(it.toEntity(data))
             }
         }
     }

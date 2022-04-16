@@ -35,11 +35,11 @@ fun Context.listContentForTest(
         imageLoader = ImageLoader(this),
         onRefresh = { },
         onArticleClick = { },
-        executeNextPage = { },
         updateSubscription = { },
         showAuthenticationSheet = { },
         saveScrollPosition = { },
-        listState = rememberLazyListState()
+        listState = rememberLazyListState(),
+        onBookmarkClick = { }
     )
 }
 
@@ -64,7 +64,6 @@ class ListContentTest {
             activity.listContentForTest(
                 state = ListState(
                     isLoading = false,
-                    endOfPagination = true,
                     articles = emptyList()
                 )
             )
@@ -81,7 +80,6 @@ class ListContentTest {
             activity.listContentForTest(
                 state = ListState(
                     isLoading = false,
-                    endOfPagination = false,
                     articles = emptyList()
                 )
             )

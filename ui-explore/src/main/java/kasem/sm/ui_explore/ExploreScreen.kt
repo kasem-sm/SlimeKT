@@ -33,5 +33,6 @@ fun ExploreScreen(
         imageLoader = imageLoader,
         onArticleClick = onArticleClick,
         onTopicClick = onTopicClick,
+        onBookmarkClick = viewModel::updateBookmarkStatus
     )
 }

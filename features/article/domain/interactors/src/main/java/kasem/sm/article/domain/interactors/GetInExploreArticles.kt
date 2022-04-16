@@ -25,9 +25,11 @@ class GetInExploreArticles @Inject constructor(
                 .getOrThrow().data.getOrDefault()
 
             cache.removeAllArticlesFromExplore()
+
             articles.map {
-                val triple = cache.getRespectiveTriplets(it.id)
-                cache.insert(it.toEntity(pair = triple.copy(third = IsInExplore(true))))
+                val updatedData = cache.getArticleData(it.id)
+                    .copy(third = IsInExplore(true))
+                cache.insert(it.toEntity(updatedData))
             }
         }
     }

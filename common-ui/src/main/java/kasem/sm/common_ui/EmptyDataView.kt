@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun EmptyView(
@@ -32,14 +31,14 @@ fun EmptyView(
         Text(
             text = emoji,
             textAlign = TextAlign.Center,
-            fontSize = 50.sp,
+            fontSize = 50.withScale(),
             fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         Text(
             text = message,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
-            fontSize = 20.sp,
+            fontSize = 20.withScale(),
             fontFamily = LocalSlimeFont.current.secondaryMedium
         )
         SlimeElevatedButton(text = "Contribute", onClick = onContributeClick)
