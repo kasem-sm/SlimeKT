@@ -4,11 +4,12 @@
  */
 package kasem.sm.article.datasource.utils
 
-@JvmInline
-value class DailyReadStatus(val isShown: Boolean)
+abstract class ArticleData
 
-@JvmInline
-value class IsActiveInDailyRead(val isActive: Boolean)
+data class DailyReadStatus(val dailyReadStatus: Boolean) : ArticleData()
 
-@JvmInline
-value class IsInExplore(val inExplore: Boolean)
+data class IsActiveInDailyRead(val isActiveInDailyRead: Boolean) : ArticleData()
+
+data class IsInExplore(val isInExplore: Boolean) : ArticleData()
+
+data class IsBookmarked(val isBookmarked: Boolean) : ArticleData()

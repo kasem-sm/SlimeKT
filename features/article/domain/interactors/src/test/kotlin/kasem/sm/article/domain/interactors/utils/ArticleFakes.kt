@@ -13,8 +13,6 @@ import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
 import kasem.sm.article.datasource.utils.IsBookmarked
 import kasem.sm.article.datasource.utils.IsInExplore
-import kasem.sm.article.domain.interactors.ArticleMapper
-import kasem.sm.article.domain.model.Article
 
 internal object ArticleFakes {
 
@@ -32,19 +30,6 @@ internal object ArticleFakes {
 
     fun getMockEntity(quadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> = defaultQuadData): ArticleEntity {
         return getMockDto().toEntity(quadData)
-    }
-
-    suspend fun ArticleEntity.toDomain(quadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked> = defaultQuadData): Article {
-        return ArticleMapper().map(this).copy(
-            isShownInDailyRead = quadData.first.dailyReadStatus,
-            isActiveInDailyRead = quadData.second.isActiveInDailyRead,
-            isInExplore = quadData.third.isInExplore,
-            isInBookmark = quadData.fourth.isBookmarked
-        )
-    }
-
-    suspend fun getMockDomain(): Article {
-        return ArticleMapper().map(getMockEntity(defaultQuadData))
     }
 
     val defaultQuadData: Quad<DailyReadStatus, IsActiveInDailyRead, IsInExplore, IsBookmarked>

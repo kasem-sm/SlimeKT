@@ -28,7 +28,6 @@ import kasem.sm.core.domain.Stage.Companion.exception
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
@@ -48,7 +47,7 @@ class FakeGetArticleTest {
     )
 
     @Test
-    fun testApiCallSuccessButCacheThrowsError() = runTest {
+    fun testApiCallSuccessButCacheThrowsError() = runBlocking {
         fakeDb.throwException(RuntimeException())
 
         useCase.execute().shouldBeInOrder {
@@ -58,7 +57,7 @@ class FakeGetArticleTest {
     }
 
     @Test
-    fun testApiCallError() = runTest {
+    fun testApiCallError() = runBlocking {
         fakeApi.throwException(IOException())
 
         useCase.execute().shouldBeInOrder {
@@ -68,7 +67,7 @@ class FakeGetArticleTest {
     }
 
     @Test
-    fun testApiCallSuccessAndItemsInserted() = runTest {
+    fun testApiCallSuccessAndItemsInserted() = runBlocking {
         useCase.execute().shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial
             awaitItem() shouldBe Stage.Success

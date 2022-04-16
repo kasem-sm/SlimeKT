@@ -64,6 +64,7 @@ class GetLatestArticleTest {
         coEvery {
             apiMock.getAllArticles()
         } returns mockSuccessResponse(data = mockArticleResponse())
+        coEvery { databaseMock.removeAllArticlesFromExplore() } just runs
         coEvery { databaseMock.getArticleData(1) } returns defaultQuadDataWithOneFalse
         coEvery { databaseMock.insert(getMockEntity(defaultQuadDataWithOneFalse)) } just runs
 
@@ -78,6 +79,7 @@ class GetLatestArticleTest {
     @Test
     fun assertApiCallSuccess_but_DataIsNull() = runBlocking {
         coEvery { apiMock.getAllArticles() } returns mockSuccessResponseWithNullData()
+        coEvery { databaseMock.removeAllArticlesFromExplore() } just runs
 
         useCase.execute().shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial
@@ -103,6 +105,7 @@ class GetLatestArticleTest {
     fun cacheThrowsException() = runBlocking {
         coEvery { apiMock.getAllArticles() } returns mockSuccessResponse(mockArticleResponse())
         coEvery { databaseMock.getArticleData(1) } throws UnknownError()
+        coEvery { databaseMock.removeAllArticlesFromExplore() } just runs
 
         useCase.execute().shouldBeInOrder {
             awaitItem() shouldBe Stage.Initial
