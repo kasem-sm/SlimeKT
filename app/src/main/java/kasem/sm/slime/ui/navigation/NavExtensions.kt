@@ -10,12 +10,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import kasem.sm.common_ui.util.Routes
 
 @Composable
-internal fun NavController.currentRouteAsState(): String? {
+fun NavController.currentRouteAsState(): String? {
     return currentBackStackEntryAsState().value?.destination?.route
 }
 
 @Composable
-internal fun NavController.isNotAuthRoute(): Boolean {
+fun NavController.isNotAuthRoute(): Boolean {
     return when (currentRouteAsState()) {
         Routes.HomeScreen.route -> true
         Routes.ExploreScreen().route -> true
@@ -26,6 +26,6 @@ internal fun NavController.isNotAuthRoute(): Boolean {
 }
 
 @Composable
-internal fun NavController.isProfileScreenRoute(): Boolean {
+fun NavController.isProfileScreenRoute(): Boolean {
     return currentRouteAsState() == Routes.ProfileScreen.route
 }

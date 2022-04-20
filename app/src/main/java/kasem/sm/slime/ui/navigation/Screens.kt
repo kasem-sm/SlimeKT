@@ -29,7 +29,7 @@ import kasem.sm.ui_explore.ExploreScreen
 import kasem.sm.ui_profile.ProfileScreen
 import kasem.sm.ui_subscribe_topic.SubscribeTopicScreen
 
-internal fun NavGraphBuilder.attachRegistrationScreen(
+fun NavGraphBuilder.attachRegistrationScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
@@ -64,7 +64,7 @@ internal fun NavGraphBuilder.attachLoginScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachHomeScreen(
+fun NavGraphBuilder.attachHomeScreen(
     imageLoader: ImageLoader,
     navController: NavController,
     snackbarHostState: SnackbarHostState,
@@ -87,7 +87,7 @@ internal fun NavGraphBuilder.attachHomeScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachExploreScreen(
+fun NavGraphBuilder.attachExploreScreen(
     navController: NavController,
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
@@ -114,7 +114,7 @@ internal fun NavGraphBuilder.attachExploreScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachProfileScreen(
+fun NavGraphBuilder.attachProfileScreen(
     navController: NavController
 ) {
     composable(Routes.ProfileScreen.route) {
@@ -130,7 +130,7 @@ internal fun NavGraphBuilder.attachProfileScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachArticleDetailScreen(
+fun NavGraphBuilder.attachArticleDetailScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
 ) {
@@ -150,7 +150,7 @@ internal fun NavGraphBuilder.attachArticleDetailScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachSelectTopicsScreen(
+fun NavGraphBuilder.attachSelectTopicsScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
@@ -171,7 +171,7 @@ internal fun NavGraphBuilder.attachSelectTopicsScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachListScreen(
+fun NavGraphBuilder.attachListScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
     navController: NavController
@@ -201,7 +201,7 @@ internal fun NavGraphBuilder.attachListScreen(
     }
 }
 
-internal fun NavGraphBuilder.attachBookmarksScreen(
+fun NavGraphBuilder.attachBookmarksScreen(
     imageLoader: ImageLoader,
     navController: NavController
 ) {
