@@ -5,7 +5,6 @@
 package kasem.sm.ui_explore
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,9 +41,7 @@ internal fun ExploreContent(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            SlimeScreenColumn(
-                verticalArrangement = Arrangement.SpaceAround
-            ) {
+            SlimeScreenColumn {
                 item {
                     SlimeHeader(text = stringResource(id = R.string.recommend_article_header))
                 }
