@@ -26,10 +26,10 @@ fun HomeScreen(
 
     val listState = rememberLazyListState()
 
-    val handlerEnabledWhen = viewModel.queryIsNotEmpty()
+    val isBackHandlerEnabled = viewModel.queryIsNotEmpty()
 
     backHandler(
-        enabled = handlerEnabledWhen,
+        enabled = isBackHandlerEnabled,
         onBack = viewModel::resetToDefaults
     )
 
@@ -48,11 +48,10 @@ fun HomeScreen(
         onQueryChange = viewModel::onQueryChange,
         onTopicChange = viewModel::onQueryChange,
         onArticleClick = onArticleClick,
-        saveScrollPosition = viewModel::saveScrollPosition,
         navigateToSubscriptionScreen = {
             navigateTo(Routes.SubscribeTopicScreen.route)
         },
-        listState = listState,
-        onBookmarkClick = viewModel::updateBookmarkStatus
+        onBookmarkClick = viewModel::updateBookmarkStatus,
+        listState = listState
     )
 }

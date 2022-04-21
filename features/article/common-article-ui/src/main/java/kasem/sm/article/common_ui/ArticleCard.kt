@@ -44,15 +44,14 @@ fun ArticleCard(
     modifier: Modifier = Modifier,
     article: Article,
     imageLoader: ImageLoader,
-    index: Int = 0,
     onArticleClick: (Int) -> Unit,
     onBookmarkClick: (Int) -> Unit
 ) {
     SlimeCard(
         modifier = modifier
             .fillMaxWidth()
+            .padding(vertical = 2.dp)
             .height(120.dp)
-            .padding(if (index == 0) 0.dp else 5.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickWithRipple {
                 onArticleClick(article.id)

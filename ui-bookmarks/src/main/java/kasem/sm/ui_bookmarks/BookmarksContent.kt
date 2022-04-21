@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
-import kasem.sm.article.common_ui.ArticleView
+import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.article.domain.model.Article
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.SlimeHeader
@@ -109,7 +109,7 @@ internal fun BookmarksContent(
             }
 
             items(bookmarkedArticles) { article ->
-                ArticleView(
+                ArticleCard(
                     article = article,
                     imageLoader = imageLoader,
                     onArticleClick = onArticleClick,

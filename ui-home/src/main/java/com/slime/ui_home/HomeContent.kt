@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +22,7 @@ import coil.ImageLoader
 import com.slime.ui_home.components.DailyReadArticle
 import com.slime.ui_home.components.SearchBar
 import com.slime.ui_home.components.TopicsView
-import kasem.sm.article.common_ui.ArticleView
+import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeHeader
@@ -39,7 +39,6 @@ internal fun HomeContent(
     onQueryChange: (String) -> Unit,
     onTopicChange: (String) -> Unit,
     onArticleClick: (Int) -> Unit,
-    saveScrollPosition: (Int) -> Unit,
     navigateToSubscriptionScreen: () -> Unit,
     onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
@@ -99,13 +98,11 @@ internal fun HomeContent(
                     EmptyView()
                 }
 
-                itemsIndexed(state.articles) { index, article ->
-                    ArticleView(
+                items(state.articles) { article ->
+                    ArticleCard(
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
-                        index = index,
-                        saveScrollPosition = saveScrollPosition,
                         onBookmarkClick = onBookmarkClick
                     )
                 }

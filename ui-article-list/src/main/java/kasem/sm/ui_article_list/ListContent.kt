@@ -9,7 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import coil.ImageLoader
-import kasem.sm.article.common_ui.ArticleView
+import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
@@ -32,7 +32,6 @@ internal fun ListContent(
     onArticleClick: (Int) -> Unit,
     updateSubscription: () -> Unit,
     showAuthenticationSheet: () -> Unit,
-    saveScrollPosition: (Int) -> Unit,
     onBookmarkClick: (Int) -> Unit,
     listState: LazyListState,
 ) {
@@ -71,13 +70,11 @@ internal fun ListContent(
                     }
                 }
 
-                itemsIndexed(state.articles) { index, article ->
-                    ArticleView(
+                items(state.articles) { article ->
+                    ArticleCard(
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
-                        index = index,
-                        saveScrollPosition = saveScrollPosition,
                         onBookmarkClick = onBookmarkClick
                     )
                 }
