@@ -34,13 +34,12 @@ fun ListScreen(
 
     ListContent(
         state = viewState,
-        onRefresh = viewModel::refresh,
         imageLoader = imageLoader,
+        onRefresh = viewModel::refresh,
         onArticleClick = onArticleClick,
-        saveScrollPosition = viewModel::saveScrollPosition,
-        listState = state,
         updateSubscription = viewModel::updateSubscription,
         showAuthenticationSheet = viewModel::checkAuthenticationStatus,
-        onBookmarkClick = viewModel::updateBookmarkStatus
+        onBookmarkClick = viewModel::updateBookmarkStatus,
+        listState = state
     )
 }

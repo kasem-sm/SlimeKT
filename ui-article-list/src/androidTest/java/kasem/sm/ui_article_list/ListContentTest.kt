@@ -37,9 +37,8 @@ fun Context.listContentForTest(
         onArticleClick = { },
         updateSubscription = { },
         showAuthenticationSheet = { },
-        saveScrollPosition = { },
-        listState = rememberLazyListState(),
-        onBookmarkClick = { }
+        onBookmarkClick = { },
+        listState = rememberLazyListState()
     )
 }
 
