@@ -4,23 +4,17 @@
  */
 package slime.com.routes
 
-import io.ktor.application.call
 import io.ktor.auth.authenticate
-import io.ktor.request.receiveOrNull
 import io.ktor.routing.Route
 import io.ktor.routing.delete
 import io.ktor.routing.get
-import io.ktor.routing.post
 import slime.com.data.models.Article
-import slime.com.data.request.CreateArticleRequest
 import slime.com.data.response.ArticlesResponse
 import slime.com.data.response.SlimeResponse
 import slime.com.service.ArticleService
 import slime.com.utils.get
 import slime.com.utils.getUserId
 import slime.com.utils.respondWith
-import slime.com.utils.respondWithBadRequest
-import slime.com.utils.respondWithResult
 
 fun Route.registerArticleRoutes(
     service: ArticleService
@@ -54,18 +48,18 @@ fun Route.registerArticleRoutes(
         respondWith(articlesResponse)
     }
 
-    authenticate {
-        post("/api/article/create") {
-            val response = call.receiveOrNull<CreateArticleRequest>() ?: kotlin.run {
-                respondWithBadRequest()
-                return@post
-            }
-
-            respondWithResult {
-                service.validateAndCreateArticle(response)
-            }
-        }
-    }
+//    authenticate {
+//        post("/api/article/create") {
+//            val response = call.receiveOrNull<CreateArticleRequest>() ?: kotlin.run {
+//                respondWithBadRequest()
+//                return@post
+//            }
+//
+//            respondWithResult {
+//                service.validateAndCreateArticle(response)
+//            }
+//        }
+//    }
 
     authenticate {
         delete("/api/article/delete") {
