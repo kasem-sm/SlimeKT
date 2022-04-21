@@ -12,6 +12,10 @@
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
 daily-read reminders, explore new authors, and share your articles**_. App built using Kotlin, Dagger Hilt, Room Database, Coroutines, Flow, AndroidX Glance, WorkManager, Coil etc.</b>
 
+## Latest Release
+
+[![Latest Release](https://img.shields.io/badge/Release-v0.22.0.3850-brightgreen)](https://github.com/kasem-sm/SlimeKT/releases)
+
 ## Documentation 📚
 
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
