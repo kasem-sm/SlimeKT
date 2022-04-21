@@ -4,6 +4,8 @@
  */
 package kasem.sm.common_ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.wrapContentSize
@@ -12,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -20,8 +23,10 @@ fun EmptyView(
     modifier: Modifier = Modifier,
     message: String = "Nothing found!",
     emoji: String = "\uD83D\uDE25",
-    onContributeClick: () -> Unit = { }
+    onContributeClick: (() -> Unit?)? = null
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .wrapContentSize(),
@@ -41,6 +46,10 @@ fun EmptyView(
             fontSize = 20.withScale(),
             fontFamily = LocalSlimeFont.current.secondaryMedium
         )
-        SlimeElevatedButton(text = "Contribute", onClick = onContributeClick)
+        SlimeElevatedButton(text = "Contribute", onClick = {
+            onContributeClick?.invoke() ?: kotlin.run {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kasem-sm/SlimeKT")))
+            }
+        })
     }
 }

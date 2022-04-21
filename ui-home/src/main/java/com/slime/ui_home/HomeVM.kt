@@ -39,12 +39,12 @@ class HomeVM @Inject constructor(
     private val getArticles: GetArticles,
     private val bookmarkArticle: BookmarkArticle,
     private val getSubscribedTopics: GetSubscribedTopics,
-    private val savedStateHandle: SavedStateHandle,
     private val dispatchers: SlimeDispatchers,
     private val observeArticles: ObserveArticles,
     private val observeAuthState: ObserveAuthState,
     observeDailyReadArticle: ObserveDailyReadArticle,
     observeSubscribedTopics: ObserveSubscribedTopics,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val searchQuery = SavedMutableState(
@@ -145,15 +145,6 @@ class HomeVM @Inject constructor(
         observeArticles()
     }
 
-    /**
-     * Saves the latest scroll position to the savedState
-     * as after process death, we will retrieve it from savedState
-     * to scroll the list to the position for best user experience.
-     */
-    fun saveScrollPosition(updatedPosition: Int) {
-        savedStateHandle[LIST_POSITION_KEY] = updatedPosition
-    }
-
     fun resetToDefaults() {
         if (searchQuery.value.isNotEmpty()) {
             onQueryChange(DEFAULT_SEARCH_QUERY)
@@ -171,7 +162,6 @@ class HomeVM @Inject constructor(
     }
 
     companion object {
-        const val LIST_POSITION_KEY = "slime_list_position"
         const val QUERY_KEY = "slime_query"
     }
 }

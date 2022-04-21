@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.material.TextField
 import androidx.compose.material3.MaterialTheme
@@ -61,6 +62,7 @@ fun SlimeTextField(
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun defaultTextFieldColors() = textFieldColors(
     focusedIndicatorColor = MaterialTheme.colorScheme.primary,

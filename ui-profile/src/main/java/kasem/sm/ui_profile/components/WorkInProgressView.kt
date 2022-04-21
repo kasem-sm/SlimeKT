@@ -16,14 +16,13 @@ internal fun WorkInProgressView() {
 
     EmptyView(
         message = "Work In Progress",
-        emoji = "👷‍♂️⚒",
-        onContributeClick = {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    "https://github.com/kasem-sm/SlimeKT/issues/63".toUri()
-                )
+        emoji = "👷‍♂️⚒"
+    ) {
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                "https://github.com/kasem-sm/SlimeKT/issues/63".toUri()
             )
-        }
-    )
+        )
+    }
 }

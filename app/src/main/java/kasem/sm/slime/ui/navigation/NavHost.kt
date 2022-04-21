@@ -19,7 +19,7 @@ import kasem.sm.common_ui.util.Routes.Main
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-internal fun NavHost(
+fun NavHost(
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
     imageLoader: ImageLoader,

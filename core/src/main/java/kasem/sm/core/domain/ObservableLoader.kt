@@ -39,8 +39,4 @@ class ObservableLoader {
     fun stop() {
         loadingState.value = count.decrementAndGet()
     }
-
-    fun startWhen(status: Boolean) {
-        loadingState.value = if (status) count.incrementAndGet() else count.decrementAndGet()
-    }
 }
