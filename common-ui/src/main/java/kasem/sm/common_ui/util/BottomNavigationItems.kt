@@ -15,26 +15,26 @@ sealed class BottomNavigationItems(
     object Home : BottomNavigationItems(
         "Home",
         R.drawable.ic_home,
-        Routes.HomeScreen.route
+        Destination.HomeScreen.route
     )
 
     object Explore :
         BottomNavigationItems(
             "Explore",
             R.drawable.ic_discover,
-            Routes.ExploreScreen().route
+            Destination.ExploreScreen().route
         )
 
     object Bookmarks : BottomNavigationItems(
         "Bookmarks",
         R.drawable.ic_bookmark,
-        Routes.BookmarkScreen.route
+        Destination.BookmarkScreen.route
     )
 
     object Profile : BottomNavigationItems(
         "Profile",
         R.drawable.ic_profile,
-        Routes.ProfileScreen.route
+        Destination.ProfileScreen.route
     )
 
     companion object {

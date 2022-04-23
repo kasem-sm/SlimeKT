@@ -17,6 +17,7 @@ import kasem.sm.ui_core.success
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -32,10 +33,10 @@ class ProfileVM @Inject constructor(
     val isUserAuthenticated = MutableStateFlow(false)
 
     init {
-        observeAuthState.join(viewModelScope)
-
         viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow.collect {
+            observeAuthState.joinAndCollect(
+                coroutineScope = viewModelScope
+            ).collectLatest {
                 isUserAuthenticated.value = it == AuthState.LOGGED_IN
             }
         }

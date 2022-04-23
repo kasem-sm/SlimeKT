@@ -7,7 +7,7 @@ package kasem.sm.slime.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Destination
 
 @Composable
 fun NavController.currentRouteAsState(): String? {
@@ -17,15 +17,15 @@ fun NavController.currentRouteAsState(): String? {
 @Composable
 fun NavController.isNotAuthRoute(): Boolean {
     return when (currentRouteAsState()) {
-        Routes.HomeScreen.route -> true
-        Routes.ExploreScreen().route -> true
-        Routes.ProfileScreen.route -> true
-        Routes.BookmarkScreen.route -> true
+        Destination.HomeScreen.route -> true
+        Destination.ExploreScreen().route -> true
+        Destination.ProfileScreen.route -> true
+        Destination.BookmarkScreen.route -> true
         else -> false
     }
 }
 
 @Composable
 fun NavController.isProfileScreenRoute(): Boolean {
-    return currentRouteAsState() == Routes.ProfileScreen.route
+    return currentRouteAsState() == Destination.ProfileScreen.route
 }

@@ -7,33 +7,33 @@ package kasem.sm.common_ui.util
 import android.net.Uri
 import androidx.core.net.toUri
 
-sealed class Routes(
+sealed class Destination(
     val route: String,
 ) {
-    object Main : Routes("main_route")
+    object Main : Destination("main_route")
 
-    object LoginScreen : Routes("login_screen")
+    object LoginScreen : Destination("login_screen")
 
-    object RegisterScreen : Routes("sign_up_screen")
+    object RegisterScreen : Destination("sign_up_screen")
 
-    object HomeScreen : Routes("home_screen")
+    object HomeScreen : Destination("home_screen")
 
-    data class ExploreScreen(val query: String = "{slime_topic}") : Routes(
+    data class ExploreScreen(val query: String = "{slime_topic}") : Destination(
         route = "explore_screen/$query",
     )
 
-    object BookmarkScreen : Routes("bookmark_screen")
+    object BookmarkScreen : Destination("bookmark_screen")
 
-    object ProfileScreen : Routes("profile_screen")
+    object ProfileScreen : Destination("profile_screen")
 
-    object ArticleDetailScreen : Routes("article_detail_screen")
+    object ArticleDetailScreen : Destination("article_detail_screen")
 
-    object SubscribeTopicScreen : Routes("select_topics_screen")
+    object SubscribeTopicScreen : Destination("select_topics_screen")
 
     data class ListScreen(
         val topic: String = "{slime_topic}",
         val topicId: String = "{slime_topic_id}"
-    ) : Routes(
+    ) : Destination(
         route = "list_screen/$topic/$topicId",
     )
 
