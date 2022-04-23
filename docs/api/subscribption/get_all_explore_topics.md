@@ -2,7 +2,7 @@
   GET api/subscriptionService/explore
 ```
 
-Fetches all the **unsubscribed** topics of the current user. If `userId` is null, the request will redirect to the [Get All Topics] (https://kasem-sm.github.io/SlimeKT/api/topics/get_all_topics/) route.
+Fetches all the **unsubscribed** topics of the current user. If `userId` is null, the request will redirect to the [Get All Topics](https://kasem-sm.github.io/SlimeKT/api/topics/get_all_topics/) route.
 
 
 | Parameter | Type     | Description         | Required | Default Value |

@@ -14,7 +14,7 @@ daily-read reminders, explore new authors, and share your articles**_. App built
 
 ## Latest Release
 
-[![Latest Release](https://img.shields.io/badge/Release-v0.22.0.3850-brightgreen)](https://github.com/kasem-sm/SlimeKT/releases)
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/SlimeKT/releases)
 
 ## Documentation 📚
 
@@ -39,7 +39,7 @@ official [Android documentation](https://developer.android.com/jetpack/guide)
 
 ## Sample, Screenshots and Demo 📱
 
-[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/slimekt/releases/app-release.apk)
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/SlimeKT/releases/download/v0.22.0.3850/app-release.apk)
 
 ![Screenshot Board 1](/docs/screenshots/board_1.png)
 
