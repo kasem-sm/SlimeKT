@@ -14,8 +14,8 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import kasem.sm.common_ui.InitSlimeSystemUI
-import kasem.sm.common_ui.util.Routes
-import kasem.sm.common_ui.util.Routes.Main
+import kasem.sm.common_ui.util.Destination
+import kasem.sm.common_ui.util.Destination.Main
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
@@ -31,7 +31,7 @@ fun NavHost(
         AnimatedNavHost(
             modifier = modifier,
             navController = navController,
-            startDestination = Routes.HomeScreen.route,
+            startDestination = Destination.HomeScreen.route,
             route = Main.route,
         ) {
             attachLoginScreen(navController, snackbarHostState)

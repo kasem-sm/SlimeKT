@@ -39,10 +39,6 @@ fun ProceedButton(
         modifier = Modifier.fillMaxWidth(),
         enabled = !state.loadingStatus,
         backgroundColor = MaterialTheme.colorScheme.primary,
-        trailingIcon = drawable.ic_lock elseNull { !state.isUserAuthenticated }
+        trailingIcon = if (!state.isUserAuthenticated) drawable.ic_lock else null
     )
-}
-
-infix fun <T> T.elseNull(predicate: () -> Boolean): T? {
-    return if (predicate()) this else null
 }

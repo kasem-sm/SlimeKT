@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
@@ -57,10 +58,10 @@ class ExploreVM @Inject constructor(
     }.stateIn(viewModelScope, ExploreState.EMPTY)
 
     init {
-        observeAuthState.join(viewModelScope)
-
         viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow.collect {
+            observeAuthState.joinAndCollect(
+                coroutineScope = viewModelScope
+            ).collectLatest {
                 refresh()
             }
         }

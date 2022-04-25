@@ -7,7 +7,7 @@ package kasem.sm.ui_profile.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import kasem.sm.common_ui.SlimeElevatedButton
-import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Destination
 
 @Composable
 internal fun SignInOutButton(
@@ -20,7 +20,7 @@ internal fun SignInOutButton(
         onClick = {
             if (isUserAuthenticated) {
                 clearUserSession()
-            } else navigateTo(Routes.LoginScreen.route)
+            } else navigateTo(Destination.LoginScreen.route)
         },
         backgroundColor = MaterialTheme.colorScheme.primary,
         textColor = MaterialTheme.colorScheme.onPrimary,

@@ -15,7 +15,7 @@ import javax.inject.Inject
 import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.observers.ObserveArticlesByTopic
 import kasem.sm.common_ui.R.string
-import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
@@ -89,7 +89,7 @@ class ListVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Routes.LoginScreen.route))
+                _uiEvent.emit(navigate(Destination.LoginScreen.route))
             }
         }
     }

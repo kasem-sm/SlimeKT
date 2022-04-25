@@ -74,6 +74,7 @@ digraph G {
 ":ui-article-detail" -> ":features:article:domain:interactors"
 ":ui-article-detail" -> ":features:article:domain:model"
 ":ui-article-detail" -> ":features:article:markdown"
+":ui-article-detail" -> ":features:article:dynamic-links-handler"
 ":ui-subscribe-topic" -> ":core"
 ":ui-subscribe-topic" -> ":ui-core"
 ":ui-subscribe-topic" -> ":common-ui"

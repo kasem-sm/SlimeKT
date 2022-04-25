@@ -17,7 +17,7 @@ fun DetailScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState
 ) {
-    val viewState by rememberStateWithLifecycle(viewModel.state)
+    val state by rememberStateWithLifecycle(viewModel.state)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar
@@ -25,7 +25,8 @@ fun DetailScreen(
 
     DetailContent(
         imageLoader = imageLoader,
-        state = viewState,
-        onRefresh = viewModel::refresh
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onRefresh = viewModel::refresh,
     )
 }

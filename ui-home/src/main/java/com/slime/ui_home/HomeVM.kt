@@ -29,10 +29,10 @@ import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
-import timber.log.Timber
 
 @HiltViewModel
 class HomeVM @Inject constructor(
@@ -98,8 +98,7 @@ class HomeVM @Inject constructor(
             observeAuthState
                 .joinAndCollect(viewModelScope + dispatchers.main)
                 .filter { it == AuthState.LOGGED_IN }
-                .collect {
-                    Timber.d("Auth State is logged in, refreshing")
+                .collectLatest {
                     refresh(subscriptionOnly = true)
                 }
         }
@@ -143,16 +142,6 @@ class HomeVM @Inject constructor(
     fun onQueryChange(newValue: String) {
         searchQuery.value = newValue
         observeArticles()
-    }
-
-    fun resetToDefaults() {
-        if (searchQuery.value.isNotEmpty()) {
-            onQueryChange(DEFAULT_SEARCH_QUERY)
-        }
-    }
-
-    fun queryIsNotEmpty(): Boolean {
-        return state.value.currentQuery.isNotEmpty()
     }
 
     fun updateBookmarkStatus(articleId: Int) {

@@ -23,6 +23,7 @@ android {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
 
 def versionProperties = new Properties()
 versionProperties.load(new FileInputStream(rootProject.file("version.properties")))
@@ -30,9 +31,9 @@ versionProperties.load(new FileInputStream(rootProject.file("version.properties"
 def _versionCode = "${versionProperties['VERSION_CODE']}".toInteger()
 def _versionName =
 		"${versionProperties['MAJOR']}" +
-		".${versionProperties['VERSION_CODE']}" +
-		".${versionProperties['MINOR']}" +
-		".${versionProperties['PATCH']}"
+				".${versionProperties['VERSION_CODE']}" +
+				".${versionProperties['MINOR']}" +
+				".${versionProperties['PATCH']}"
 
 android {
 	defaultConfig {
@@ -87,4 +88,6 @@ dependencies {
 	implementation(project(":ui-article-detail"))
 	implementation(project(":ui-subscribe-topic"))
 	implementation(project(":ui-bookmarks"))
+
+	implementation Firebase.dynamicLink
 }

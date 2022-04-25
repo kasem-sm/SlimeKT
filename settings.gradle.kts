@@ -41,6 +41,7 @@ include(":features:article:markdown")
 include(":features:article:worker")
 include(":features:article:widget")
 include(":features:article:datasource-impl")
+include(":features:article:dynamic-links-handler")
 
 // Feature Topic
 include(":features:topic")
@@ -59,6 +60,7 @@ include(":ui-subscribe-topic")
 include(":ui-profile")
 include(":ui-article-list")
 include(":ui-auth")
+include(":ui-bookmarks")
 
 // Feature Auth
 include(":features:authentication")
@@ -75,4 +77,3 @@ include(":task-impl")
 // Auth
 include(":auth-api")
 include(":auth-impl")
-include(":ui-bookmarks")

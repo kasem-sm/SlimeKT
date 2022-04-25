@@ -19,7 +19,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
 import com.slime.ui_home.HomeScreen
-import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Destination
 import kasem.sm.ui_article_list.ListScreen
 import kasem.sm.ui_auth.login.LoginScreen
 import kasem.sm.ui_auth.register.RegisterScreen
@@ -33,7 +33,7 @@ fun NavGraphBuilder.attachRegistrationScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
-    bottomSheet(Routes.RegisterScreen.route) {
+    bottomSheet(Destination.RegisterScreen.route) {
         RegisterScreen(
             viewModel = hiltViewModel(),
             onRegistrationSuccess = {
@@ -48,7 +48,7 @@ internal fun NavGraphBuilder.attachLoginScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
-    bottomSheet(route = Routes.LoginScreen.route) {
+    bottomSheet(route = Destination.LoginScreen.route) {
         LoginScreen(
             viewModel = hiltViewModel(),
             onLoginSuccess = {
@@ -57,7 +57,7 @@ internal fun NavGraphBuilder.attachLoginScreen(
             onSignUpClicked = {
                 // Remove the login sheet from stack
                 navController.popBackStack()
-                navController.navigate(Routes.RegisterScreen.route)
+                navController.navigate(Destination.RegisterScreen.route)
             },
             snackbarHostState = snackbarHostState
         )
@@ -69,13 +69,13 @@ fun NavGraphBuilder.attachHomeScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
-    composable(Routes.HomeScreen.route) {
+    composable(Destination.HomeScreen.route) {
         HomeScreen(
             viewModel = hiltViewModel(),
             snackbarHostState = snackbarHostState,
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             navigateTo = { route ->
                 navController.navigate(route)
@@ -93,7 +93,7 @@ fun NavGraphBuilder.attachExploreScreen(
     snackbarHostState: SnackbarHostState,
 ) {
     composable(
-        route = Routes.ExploreScreen().route,
+        route = Destination.ExploreScreen().route,
         arguments = listOf(
             navArgument("slime_topic") {
                 type = NavType.StringType
@@ -105,10 +105,10 @@ fun NavGraphBuilder.attachExploreScreen(
             imageLoader = imageLoader,
             snackbarHostState = snackbarHostState,
             onArticleClick = { id ->
-                navController.navigate(Routes.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             onTopicClick = { title, id ->
-                navController.navigate(Routes.ListScreen(title, id).route)
+                navController.navigate(Destination.ListScreen(title, id).route)
             }
         )
     }
@@ -117,7 +117,7 @@ fun NavGraphBuilder.attachExploreScreen(
 fun NavGraphBuilder.attachProfileScreen(
     navController: NavController
 ) {
-    composable(Routes.ProfileScreen.route) {
+    composable(Destination.ProfileScreen.route) {
         ProfileScreen(
             viewModel = hiltViewModel(),
             onLogOutSuccess = {
@@ -135,10 +135,10 @@ fun NavGraphBuilder.attachArticleDetailScreen(
     snackbarHostState: SnackbarHostState,
 ) {
     composable(
-        route = Routes.ArticleDetailScreen.route,
+        route = Destination.ArticleDetailScreen.route,
         deepLinks = listOf(
             navDeepLink {
-                uriPattern = Routes.articleDetailDeepLink + "{id}"
+                uriPattern = Destination.articleDetailDeepLink + "{id}"
             }
         )
     ) {
@@ -154,7 +154,7 @@ fun NavGraphBuilder.attachSelectTopicsScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {
-    composable(Routes.SubscribeTopicScreen.route) {
+    composable(Destination.SubscribeTopicScreen.route) {
         SubscribeTopicScreen(
             viewModel = hiltViewModel(),
             snackbarHostState = snackbarHostState,
@@ -177,7 +177,7 @@ fun NavGraphBuilder.attachListScreen(
     navController: NavController
 ) {
     composable(
-        route = Routes.ListScreen().route,
+        route = Destination.ListScreen().route,
         arguments = listOf(
             navArgument("slime_topic") {
                 type = NavType.StringType
@@ -191,7 +191,7 @@ fun NavGraphBuilder.attachListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Routes.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             snackbarHostState = snackbarHostState,
             navigateTo = {
@@ -205,12 +205,12 @@ fun NavGraphBuilder.attachBookmarksScreen(
     imageLoader: ImageLoader,
     navController: NavController
 ) {
-    composable(Routes.BookmarkScreen.route) {
+    composable(Destination.BookmarkScreen.route) {
         BookmarksScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader
         ) { id ->
-            navController.navigate(Routes.articleDetailLink(id))
+            navController.navigate(Destination.articleDetail(id))
         }
     }
 }

@@ -12,7 +12,7 @@ import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kasem.sm.common_ui.R.string
-import kasem.sm.common_ui.util.Routes
+import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
@@ -77,18 +77,18 @@ class SubscribeTopicVM @Inject constructor(
 
     init {
         viewModelScope.launch(dispatchers.main) {
-            observeAuthState.flow.collect {
+            observeAuthState.joinAndCollect(
+                coroutineScope = viewModelScope
+            ).collectLatest {
                 refresh()
                 isUserAuthenticated.value = it == AuthState.LOGGED_IN
             }
         }
 
-        observeData()
+        observeTopics()
     }
 
-    private fun observeData() {
-        observeAuthState.join(viewModelScope)
-
+    private fun observeTopics() {
         viewModelScope.launch(dispatchers.main) {
             observeInExploreTopics.joinAndCollect(
                 coroutineScope = viewModelScope,
@@ -102,7 +102,7 @@ class SubscribeTopicVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch(dispatchers.main) {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Routes.LoginScreen.route))
+                _uiEvent.emit(navigate(Destination.LoginScreen.route))
             }
         }
     }

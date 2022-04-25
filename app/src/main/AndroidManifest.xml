@@ -37,6 +37,18 @@
                     android:scheme="https" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- the host should contain your domain. The pattern should be same as it's mentioned without any special char -->
+
+                <data
+                    android:host="slimektopensource.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+
         </activity>
 
         <provider
