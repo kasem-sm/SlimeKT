@@ -75,7 +75,7 @@ fun NavGraphBuilder.attachHomeScreen(
             snackbarHostState = snackbarHostState,
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Destination.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             navigateTo = { route ->
                 navController.navigate(route)
@@ -105,7 +105,7 @@ fun NavGraphBuilder.attachExploreScreen(
             imageLoader = imageLoader,
             snackbarHostState = snackbarHostState,
             onArticleClick = { id ->
-                navController.navigate(Destination.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             onTopicClick = { title, id ->
                 navController.navigate(Destination.ListScreen(title, id).route)
@@ -191,7 +191,7 @@ fun NavGraphBuilder.attachListScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader,
             onArticleClick = { id ->
-                navController.navigate(Destination.articleDetailLink(id))
+                navController.navigate(Destination.articleDetail(id))
             },
             snackbarHostState = snackbarHostState,
             navigateTo = {
@@ -210,7 +210,7 @@ fun NavGraphBuilder.attachBookmarksScreen(
             viewModel = hiltViewModel(),
             imageLoader = imageLoader
         ) { id ->
-            navController.navigate(Destination.articleDetailLink(id))
+            navController.navigate(Destination.articleDetail(id))
         }
     }
 }

@@ -39,6 +39,7 @@ sealed class Destination(
 
     companion object {
         const val articleDetailDeepLink = "https://slime-kt.herokuapp.com/article_detail_screen="
-        fun articleDetailLink(id: Int): Uri = (articleDetailDeepLink + "$id").toUri()
+
+        fun articleDetail(id: Int): Uri = (articleDetailDeepLink + "$id").toUri()
     }
 }

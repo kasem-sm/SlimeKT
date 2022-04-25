@@ -11,10 +11,10 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import coil.ImageLoader
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import kasem.sm.common_ui.scaffold.SlimeBottomBar
 import kasem.sm.common_ui.scaffold.SlimeScaffold
 import kasem.sm.common_ui.util.BottomNavigationItems
@@ -23,10 +23,11 @@ import kasem.sm.slime.ui.theme.SlimeTheme
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @RequiresApi(S)
 @Composable
-fun SlimeNavigation(imageLoader: ImageLoader) = SlimeTheme {
-    val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val navController = rememberAnimatedNavController(bottomSheetNavigator)
-
+fun SlimeNavigation(
+    imageLoader: ImageLoader,
+    navController: NavHostController,
+    bottomSheetNavigator: BottomSheetNavigator,
+) = SlimeTheme {
     val scaffoldState = rememberScaffoldState()
 
     SlimeScaffold(

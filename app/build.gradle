@@ -88,4 +88,6 @@ dependencies {
 	implementation(project(":ui-article-detail"))
 	implementation(project(":ui-subscribe-topic"))
 	implementation(project(":ui-bookmarks"))
+
+	implementation Firebase.dynamicLink
 }
