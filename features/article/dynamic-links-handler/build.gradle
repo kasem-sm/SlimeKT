@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/non-compose.gradle")
+}
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+	implementation Firebase.dynamicLink
+}

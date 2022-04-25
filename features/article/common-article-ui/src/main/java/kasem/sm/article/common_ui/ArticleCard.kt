@@ -37,7 +37,6 @@ import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.SlimeCard
 import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.common_ui.withScale
-import timber.log.Timber
 
 @Composable
 fun ArticleCard(
@@ -113,8 +112,6 @@ fun ArticleCard(
                     )
 
                     val isBookmarked = article.isInBookmark
-                    Timber.d("Bookmark ${article.id} $isBookmarked")
-
                     BookmarkBar(
                         modifier = Modifier
                             .clickWithRipple {

@@ -13,6 +13,7 @@ dependencies {
 	implementation(project(":features:article:domain:interactors"))
 	implementation(project(":features:article:domain:model"))
 	implementation(project(":features:article:markdown"))
+	implementation(project(":features:article:dynamic-links-handler"))
 
 	implementation Coil.core
 
