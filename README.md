@@ -12,10 +12,6 @@
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
 daily-read reminders, explore new authors, and share your articles**_. App built using Kotlin, Dagger Hilt, Room Database, Coroutines, Flow, AndroidX Glance, WorkManager, Coil etc.</b>
 
-## Latest Release
-
-[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/SlimeKT/releases)
-
 ## Documentation 📚
 
 [![Documentation](https://img.shields.io/badge/Visit-blue?style=for-the-badge)](https://kasem-sm.github.io/SlimeKT)
@@ -39,7 +35,7 @@ official [Android documentation](https://developer.android.com/jetpack/guide)
 
 ## Sample, Screenshots and Demo 📱
 
-[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/SlimeKT/releases/download/v0.22.0.3850/app-release.apk)
+[![Slime APK](https://img.shields.io/github/v/release/kasem-sm/slimekt?color=8D0AF2&label=Download&logo=android&style=for-the-badge)](https://github.com/kasem-sm/SlimeKT/releases)
 
 ![Screenshot Board 1](/docs/screenshots/board_1.png)
 
@@ -127,6 +123,7 @@ questions related to SlimeKT or Android development, ping me anytime!
 - [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel
   Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their
   value to them.
+- [**Hadi**](https://twitter.com/hadilq) - Assisted me in improving the modularized structure of this project.
 
 ## License
 
