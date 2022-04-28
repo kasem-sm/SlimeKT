@@ -119,4 +119,4 @@ Direct Messages on [My Twitter](https://twitter.com/KasemSM_) are always open. I
 - [**Tivi**](https://github.com/chrisbanes/tivi) by [chrisbanes](https://github.com/chrisbanes) - A divine project for me to explore. I refer to this project as Gold 🥇.
 - [**Gabor Varadi**](https://twitter.com/Zhuinden) - He is always willing to answer my questions. A great man and a blessing to the Android community (AKA, the `SavedStateHandle` preacher).
 - [**Doris Liu**](https://twitter.com/doris4lt) and [**Manuel Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their value to them.
-- [**Hadi**](https://twitter.com/hadilq)
+- [**Hadi**](https://twitter.com/hadilq) - Assisted me in improving the modularized structure of this project.

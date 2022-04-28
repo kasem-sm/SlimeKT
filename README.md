@@ -7,6 +7,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
 
+[![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23515-blue)](https://androidweekly.net/issues/issue-515)
+
 ## Introduction 🙋‍♂️
 
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
