@@ -23,7 +23,6 @@ android {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'com.google.gms.google-services'
 
 def versionProperties = new Properties()
 versionProperties.load(new FileInputStream(rootProject.file("version.properties")))
@@ -90,4 +89,8 @@ dependencies {
 	implementation(project(":ui-bookmarks"))
 
 	implementation Firebase.dynamicLink
+}
+
+if (file("google-services.json").exists()) {
+	apply plugin: 'com.google.gms.google-services'
 }
