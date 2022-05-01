@@ -2,7 +2,7 @@ object AndroidX {
     private const val gradleVersion = "7.1.3"
     const val gradle = "com.android.tools.build:gradle:$gradleVersion"
 
-    private const val coreVersion = "1.9.0-alpha02"
+    private const val coreVersion = "1.9.0-alpha03"
     const val core = "androidx.core:core-ktx:$coreVersion"
 
     private const val roomVersion = "2.5.0-alpha01"
@@ -16,4 +16,7 @@ object AndroidX {
 
     private const val glanceVersion = "1.0.0-alpha03"
     const val glance = "androidx.glance:glance-appwidget:$glanceVersion"
+
+    private const val annotationVersion = "1.4.0-alpha02"
+    const val annotation = "androidx.annotation:annotation:$annotationVersion"
 }
