@@ -6,4 +6,5 @@ object Lifecycle {
 
     const val core = "androidx.lifecycle:lifecycle-livedata-core-ktx:$version"
     const val savedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version"
+    const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
 }

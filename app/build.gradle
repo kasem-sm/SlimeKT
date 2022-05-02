@@ -79,14 +79,14 @@ dependencies {
 	implementation Compose.material3
 
 	// Ui Dep
-	implementation(project(":ui-profile"))
-	implementation(project(":ui-auth"))
-	implementation(project(":ui-article-list"))
-	implementation(project(":ui-explore"))
-	implementation(project(":ui-home"))
-	implementation(project(":ui-article-detail"))
-	implementation(project(":ui-subscribe-topic"))
-	implementation(project(":ui-bookmarks"))
+	implementation(project(":screen:ui-profile"))
+	implementation(project(":screen:ui-auth"))
+	implementation(project(":screen:ui-article-list"))
+	implementation(project(":screen:ui-explore"))
+	implementation(project(":screen:ui-home"))
+	implementation(project(":screen:ui-article-detail"))
+	implementation(project(":screen:ui-subscribe-topic"))
+	implementation(project(":screen:ui-bookmarks"))
 
 	implementation Firebase.dynamicLink
 }

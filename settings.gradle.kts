@@ -24,7 +24,7 @@ rootProject.name = "Slime"
 include(":app")
 include(":core")
 include(":common-ui")
-include(":ui-core")
+include(":screen:core")
 include(":database")
 include(":common-test-utils")
 
@@ -52,15 +52,18 @@ include(":features:topic:domain:interactors")
 include(":features:topic:worker")
 include(":features:topic:datasource-impl")
 
+
+include(":screen")
+
 // UI Libraries
-include(":ui-article-detail")
-include(":ui-home")
-include(":ui-explore")
-include(":ui-subscribe-topic")
-include(":ui-profile")
-include(":ui-article-list")
-include(":ui-auth")
-include(":ui-bookmarks")
+include(":screen:ui-article-detail")
+include(":screen:ui-home")
+include(":screen:ui-explore")
+include(":screen:ui-subscribe-topic")
+include(":screen:ui-profile")
+include(":screen:ui-article-list")
+include(":screen:ui-auth")
+include(":screen:ui-bookmarks")
 
 // Feature Auth
 include(":features:authentication")
