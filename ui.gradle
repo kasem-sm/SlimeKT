@@ -11,7 +11,7 @@ provideHiltDeps(this)
 dependencies {
     // WHY
     implementation project(":core")
-    implementation project(":ui-core")
+    implementation project(":screen:core")
     implementation project(":common-ui")
 
     implementation Compose.ui

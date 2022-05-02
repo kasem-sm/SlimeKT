@@ -2,7 +2,6 @@
 
 - Users can search for articles and filter them according to their favorite author or any topic they like.
 - Custom Implementation:
-    - **Implemented custom pagination system.** It also supports recovery from process death and is based on the Single Source of Truth principle. Everything, such as the page number, search query, and selected topic, will be restored after the process death from the cache.
     - **Article Detail Screen Supports Text Markdown** such as displaying quotes, code blocks, and many more.
 - Daily Read Reminder notification and widget:
     - Users get a notification to read an article every 24 hours.

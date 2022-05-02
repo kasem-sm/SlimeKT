@@ -12,7 +12,7 @@ object Jetbrains {
         "org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationCoreVersion"
 
     // Coroutines
-    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1"
 
     // Ktor
     private const val ktorVersion = "1.6.7"
