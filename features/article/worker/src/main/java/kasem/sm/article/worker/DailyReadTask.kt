@@ -5,9 +5,15 @@
 package kasem.sm.article.worker
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import coil.ImageLoader
+import coil.request.CachePolicy
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
@@ -26,6 +32,7 @@ internal class DailyReadTask @AssistedInject constructor(
     private val cache: ArticleDatabaseService,
     private val dispatcher: SlimeDispatchers,
     private val notificationManager: NotificationManager,
+    private val imageLoader: ImageLoader,
 ) : CoroutineWorker(context, workParams) {
 
     override suspend fun doWork(): Result {
@@ -61,6 +68,7 @@ internal class DailyReadTask @AssistedInject constructor(
                 updateWidgetAndShowNotification(
                     randomArticleFromApi.id,
                     randomArticleFromApi.title,
+                    randomArticleFromApi.featuredImage
                 )
                 Result.success()
             } else {
@@ -75,18 +83,52 @@ internal class DailyReadTask @AssistedInject constructor(
     private suspend fun updateWidgetAndShowNotification(
         articleId: Int,
         articleTitle: String,
+        featuredImage: String,
     ) {
-        notificationManager.showReminderNotificationFor(
-            articleId = articleId,
-            description = articleTitle,
-            title = "Your daily read is ready",
-        )
+        context.getBitmap(
+            imageLoader = imageLoader,
+            imageUrl = featuredImage,
+            onSuccess = { image ->
+                notificationManager.showReminderNotification(
+                    articleId = articleId,
+                    description = articleTitle,
+                    title = "Your daily read is ready",
+                    featuredImage = image
+                )
 
-        DailyReadWidgetReceiver.updateWidget(articleTitle, context)
+                DailyReadWidgetReceiver.updateWidget(articleTitle, context)
+            }
+        )
     }
 
     companion object {
         private const val MAXIMUM_RETRIES = 3
         const val TAG = "daily-read-manager"
+
+        private suspend fun Context.getBitmap(
+            imageLoader: ImageLoader,
+            imageUrl: String,
+            onSuccess: suspend (Bitmap) -> Unit,
+        ) {
+            val request = ImageRequest.Builder(this)
+                .diskCachePolicy(CachePolicy.DISABLED)
+                .data(imageUrl)
+                .allowHardware(false)
+                .build()
+
+            val result = try {
+                (imageLoader.execute(request) as SuccessResult).drawable
+            } catch (e: Exception) {
+                Timber.d("getBitmap Error ${e.message}")
+                null
+            }
+
+            val bitmap = (result as BitmapDrawable).bitmap
+            bitmap?.let {
+                if (!it.isRecycled) {
+                    onSuccess(bitmap)
+                }
+            }
+        }
     }
 }

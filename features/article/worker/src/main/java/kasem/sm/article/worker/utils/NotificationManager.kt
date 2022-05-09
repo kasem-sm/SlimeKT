@@ -13,6 +13,7 @@ import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -24,10 +25,11 @@ import kasem.sm.article.worker.R
 class NotificationManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    fun showReminderNotificationFor(
+    fun showReminderNotification(
         articleId: Int,
         description: String,
-        title: String
+        title: String,
+        featuredImage: Bitmap? = null,
     ) {
         val manager = context.getSystemService(
             Context.NOTIFICATION_SERVICE
@@ -43,6 +45,12 @@ class NotificationManager @Inject constructor(
             setSmallIcon(R.drawable.ic_home)
             setCategory(Notification.CATEGORY_REMINDER)
             setContentIntent(getPendingIntent(articleId))
+            setLargeIcon(featuredImage)
+            setStyle(
+                NotificationCompat.BigPictureStyle()
+                    .bigPicture(featuredImage)
+                    .bigLargeIcon(null)
+            )
         }
 
         builder.priority = NotificationManager.IMPORTANCE_DEFAULT
@@ -61,14 +69,14 @@ class NotificationManager @Inject constructor(
     }
 
     companion object {
-        val Int.openTaskIntent
+        private val Int.openTaskIntent
             get() = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("https://slime-kt.herokuapp.com/article_detail_screen=$this")
             )
 
         @RequiresApi(Build.VERSION_CODES.O)
-        val slimeNotificationChannel = NotificationChannel(
+        private val slimeNotificationChannel = NotificationChannel(
             "kasem.sm.slime.reminder",
             "Daily Read Reminder",
             IMPORTANCE_HIGH
@@ -78,7 +86,7 @@ class NotificationManager @Inject constructor(
             setBypassDnd(true)
         }
 
-        val Context.slimeNotificationCompatBuilder: NotificationCompat.Builder
+        private val Context.slimeNotificationCompatBuilder: NotificationCompat.Builder
             get() = NotificationCompat.Builder(this, "kasem.sm.slime.reminder")
     }
 }
