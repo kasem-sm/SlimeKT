@@ -17,4 +17,5 @@ dependencies {
 	implementation(project(":features:article:domain:model"))
 
 	implementation("com.jakewharton.timber:timber:5.0.1")
+	implementation(Coil.core)
 }

@@ -34,7 +34,7 @@ class DailyReadManager @Inject constructor(
     }
 
     companion object {
-        fun getDRMConstraints(): Constraints {
+        private fun getDRMConstraints(): Constraints {
             return Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .setRequiresBatteryNotLow(true)
