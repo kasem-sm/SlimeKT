@@ -20,4 +20,4 @@ updates:
       interval: "daily"
 
     commit-message:
-      prefix: "[Slime Android Client]"
+      prefix: "[Android Client]"
