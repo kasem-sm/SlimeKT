@@ -78,7 +78,7 @@ def provideHiltDeps(project) {
 // Will later migrate to Ktor 2.0
 def provideKtorAndroidDeps(project) {
     project.dependencies {
-        implementation "io.ktor:ktor-client-android:1.6.7"
+        implementation "io.ktor:ktor-client-android:2.0.1"
         implementation "io.ktor:ktor-client-serialization:1.6.7"
     }
 }
