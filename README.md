@@ -8,6 +8,7 @@
 [![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
 
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23515-blue)](https://androidweekly.net/issues/issue-515)
+[![Google Dev Library](https://img.shields.io/badge/Google%20Dev%20Library-Android-blue)](https://devlibrary.withgoogle.com/products/android/repos/kasem-sm-SlimeKT)
 
 ## Introduction 🙋‍♂️
 

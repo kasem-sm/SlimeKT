@@ -2,7 +2,7 @@
  * Copyright (C) 2021, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.slime.ui.theme
+package kasem.sm.common_ui.theme
 
 import android.content.Context
 import android.content.res.Configuration
