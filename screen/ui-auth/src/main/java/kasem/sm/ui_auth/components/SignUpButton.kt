@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.SpanStyle
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.TestTags
 
 @Composable
@@ -40,7 +42,7 @@ fun SignUpButton(
                             letterSpacing = 1.sp
                         )
                     ) {
-                        append("Don't have an account? ")
+                        append(stringResource(id = string.login_dont_have_account))
                     }
                     withStyle(
                         style = SpanStyle(

@@ -30,7 +30,7 @@ import kasem.sm.common_ui.util.toggleWithRipple
 import kasem.sm.common_ui.withScale
 import kasem.sm.topic.domain.model.Topic
 
-internal fun LazyListScope.TopicsView(
+internal fun LazyListScope.topicsView(
     isLoading: Boolean,
     topics: List<Topic>,
     currentQuery: String,

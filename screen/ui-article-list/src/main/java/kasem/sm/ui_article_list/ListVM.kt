@@ -43,7 +43,7 @@ class ListVM @Inject constructor(
     private val observeAuthState: ObserveAuthState,
     private val observeTopic: ObserveTopicById,
     private val observeArticles: ObserveArticlesByTopic,
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val topicId = savedStateHandle.get<String>(TOPIC_ID_KEY)!!
@@ -148,15 +148,6 @@ class ListVM @Inject constructor(
                 subscriptionProgress.stop()
             }
         }
-    }
-
-    /**
-     * Saves the latest scroll position to the savedState
-     * as after process death, we will retrieve it from savedState
-     * to scroll the list to the position for best user experience.
-     */
-    fun saveScrollPosition(updatedPosition: Int) {
-        savedStateHandle[LIST_POSITION_KEY] = updatedPosition
     }
 
     companion object {

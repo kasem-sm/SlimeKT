@@ -17,8 +17,8 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import kasem.sm.common_ui.scaffold.SlimeBottomBar
 import kasem.sm.common_ui.scaffold.SlimeScaffold
+import kasem.sm.common_ui.theme.SlimeTheme
 import kasem.sm.common_ui.util.BottomNavigationItems
-import kasem.sm.slime.ui.theme.SlimeTheme
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @RequiresApi(S)

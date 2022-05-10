@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kasem.sm.authentication.domain.model.AuthState
+import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.ui_auth.components.BottomSheetHandle
 import kasem.sm.ui_auth.components.Header
@@ -61,7 +63,10 @@ internal fun RegisterContent(
             }
 
             item {
-                Header("Get Started", "Publish Your Passion")
+                Header(
+                    text1 = stringResource(id = R.string.get_started),
+                    text2 = stringResource(id = R.string.publish_your_passion)
+                )
             }
 
             item {

@@ -23,7 +23,7 @@ artifacts {
 
 dependencies {
 	// Test Libs
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 	implementation("com.google.truth:truth:1.1.3")
 	implementation("junit:junit:4.13.2")
 

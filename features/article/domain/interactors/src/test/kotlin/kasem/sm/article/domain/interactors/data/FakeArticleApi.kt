@@ -14,7 +14,7 @@ class FakeArticleApi : ArticleApiService {
 
     private var showError = false
 
-    var exception: Exception = Exception()
+    private var exception: Exception = Exception()
 
     fun throwException(exception: Exception) {
         this.exception = exception

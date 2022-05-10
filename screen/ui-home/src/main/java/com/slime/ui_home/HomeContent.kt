@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import com.slime.ui_home.components.DailyReadArticle
 import com.slime.ui_home.components.SearchBar
-import com.slime.ui_home.components.TopicsView
+import com.slime.ui_home.components.topicsView
 import kasem.sm.article.common_ui.ArticleCard
 import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.R
@@ -69,7 +69,7 @@ internal fun HomeContent(
                     )
                 }
 
-                TopicsView(
+                topicsView(
                     isLoading = state.isLoading,
                     topics = state.topics,
                     currentQuery = state.currentQuery,
