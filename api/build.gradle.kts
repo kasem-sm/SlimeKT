@@ -6,7 +6,7 @@ val kmongoVersion: String by project
 
 plugins {
 	application
-	kotlin("jvm") version "1.6.0"
+	kotlin("jvm") version "1.6.21"
 	id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
 	id("com.github.johnrengelman.shadow") version "7.1.2"
 	id("com.diffplug.spotless") version "6.3.0"
