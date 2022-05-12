@@ -2,13 +2,13 @@
  * This script written by jake Wharton will help generate a modularization graph diagram.
  * Android modules are shown in green, Java/Kotlin modules in pink and Kotlin multiplatform modules in orange.
  * Run this task using this command - gradle projectDependencyGraph or ./gradlew projectDependencyGraph
- * Once the task is executed, generated png file and dot file will be available in this file path - "~/SlimeKT/build/dependency-graph/"
+ * Once the task is executed, generated png file and dot file will be available in this file path - "~/SlimeKT/docs/modules/module_graph/"
  * For running this task, please make sure graphviz is installed in your pc.
  * refer - https://github.com/JakeWharton/SdkSearch/blob/master/gradle/projectDependencyGraph.gradle
  */
 task projectDependencyGraph {
   doLast {
-    def dot = new File(rootProject.buildDir, 'reports/dependency-graph/project.dot')
+    def dot = new File(rootProject.rootDir, 'docs/modules/module_graph')
     dot.parentFile.mkdirs()
     dot.delete()
 
@@ -55,17 +55,17 @@ task projectDependencyGraph {
                 .withType(ProjectDependency)
                 .collect { it.dependencyProject }
                 .each { dependency ->
-          projects.add(project)
-          projects.add(dependency)
-          rootProjects.remove(dependency)
+                  projects.add(project)
+                  projects.add(dependency)
+                  rootProjects.remove(dependency)
 
-          def graphKey = new Tuple2<Project, Project>(project, dependency)
-          def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
+                  def graphKey = new Tuple2<Project, Project>(project, dependency)
+                  def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
 
-          if (config.name.toLowerCase().endsWith('implementation')) {
-            traits.add('style=dotted')
-          }
-        }
+                  if (config.name.toLowerCase().endsWith('implementation')) {
+                    traits.add('style=dotted')
+                  }
+                }
       }
     }
 
@@ -113,7 +113,7 @@ task projectDependencyGraph {
 
     dot << '}\n'
 
-    def p = 'dot -Tpng -O project.dot'.execute([], dot.parentFile)
+    def p = 'dot -Tpng -O module_graph'.execute([], dot.parentFile)
     p.waitFor()
     if (p.exitValue() != 0) {
       throw new RuntimeException(p.errorStream.text)
