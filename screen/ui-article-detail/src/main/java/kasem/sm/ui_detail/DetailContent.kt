@@ -18,14 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import coil.ImageLoader
+import com.amaan.dynamic_links_handler.SLIME_DYNAMIC_LINK
+import com.amaan.dynamic_links_handler.generateSharingLink
 import kasem.sm.article.domain.model.Article
 import kasem.sm.article.markdown.markdown.SlimeMarkdown
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.common_ui.TopicChip
-import kasem.sm.dynamic_links_handler.SLIME_DYNAMIC_LINK
-import kasem.sm.dynamic_links_handler.generateSharingLink
 import kasem.sm.ui_detail.components.ArticleAuthorAndEstimatedTimeBadge
 import kasem.sm.ui_detail.components.ArticleFeaturedImage
 import kasem.sm.ui_detail.components.ArticleHeader
