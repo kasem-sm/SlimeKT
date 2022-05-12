@@ -89,6 +89,7 @@ dependencies {
 	implementation(project(":screen:ui-bookmarks"))
 
 	implementation Firebase.dynamicLink
+	implementation(project(":features:article:dynamic-links-handler"))
 }
 
 if (file("google-services.json").exists()) {
