@@ -3,7 +3,7 @@ plugins {
 }
 
 apply {
-	from("$rootDir/common.gradle")
+	from("$rootDir/gradle/common.gradle")
 }
 
 dependencies {

@@ -1,7 +1,7 @@
 // Generic build.gradle for ui layers
 
 apply {
-    from("$rootDir/common.gradle")
+    from("$rootDir/gradle/common.gradle")
 }
 
 apply plugin: 'kotlin-kapt'

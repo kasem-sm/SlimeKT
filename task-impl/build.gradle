@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'dagger.hilt.android.plugin'
 
 apply {
-	from("$rootDir/non-compose.gradle")
+	from("$rootDir/gradle/non-compose.gradle")
 }
 
 apply plugin: 'kotlin-kapt'
