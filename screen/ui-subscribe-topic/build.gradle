@@ -12,5 +12,5 @@ dependencies {
 	// Topic
 	implementation(project(":features:topic:domain:interactors"))
 	implementation(project(":features:topic:domain:model"))
-	implementation(project(":features:topic:worker"))
+	implementation implementation(project(':features:topic:subscription-manager-worker',))
 }
