@@ -51,11 +51,7 @@ buildscript {
     }
 }
 
-plugins {
-    id "com.jraska.module.graph.assertion" version "2.2.0"
-}
-
-apply from:"project-dependency-graph.gradle"
+apply from: "gradle/project-dependency-graph.gradle"
 
 task clean(type: Delete) {
     delete rootProject.buildDir

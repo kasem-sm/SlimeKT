@@ -3,7 +3,7 @@ plugins {
 }
 
 apply {
-	from("$rootDir/ui.gradle")
+	from("$rootDir/gradle/ui.gradle")
 }
 
 dependencies {

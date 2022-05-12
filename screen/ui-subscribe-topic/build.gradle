@@ -3,7 +3,7 @@ plugins {
 }
 
 apply {
-	from("$rootDir/ui.gradle")
+	from("$rootDir/gradle/ui.gradle")
 }
 
 dependencies {
@@ -12,5 +12,5 @@ dependencies {
 	// Topic
 	implementation(project(":features:topic:domain:interactors"))
 	implementation(project(":features:topic:domain:model"))
-	implementation(project(":features:topic:worker"))
+	implementation implementation(project(':features:topic:subscription-manager-worker',))
 }

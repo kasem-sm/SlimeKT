@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 apply {
-	from("$rootDir/non-compose.gradle")
+	from("$rootDir/gradle/non-compose.gradle")
 }
 
 apply plugin: 'kotlin-kapt'

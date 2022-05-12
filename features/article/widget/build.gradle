@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 apply {
-	from("$rootDir/common.gradle")
+	from("$rootDir/gradle/common.gradle")
 }
 
 dependencies {
