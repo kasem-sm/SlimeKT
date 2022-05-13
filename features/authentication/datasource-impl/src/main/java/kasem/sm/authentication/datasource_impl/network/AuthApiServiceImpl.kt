@@ -7,6 +7,7 @@ package kasem.sm.authentication.datasource_impl.network
 import com.slime.auth_api.AuthManager
 import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -29,7 +30,7 @@ internal class AuthApiServiceImpl @Inject constructor(
             client.post(LOGIN_ROUTE) {
                 parameter("username", username)
                 parameter("password", password)
-            }
+            }.body()
         }
     }
 
@@ -43,7 +44,7 @@ internal class AuthApiServiceImpl @Inject constructor(
                 parameter("username", username)
                 parameter("password", password)
                 parameter("discoverable", isUserDiscoverable)
-            }
+            }.body()
         }
     }
 
@@ -51,7 +52,7 @@ internal class AuthApiServiceImpl @Inject constructor(
         return withResult {
             client.get(AUTHENTICATION_ROUTE) {
                 userIdParam(id = authManager.getUserData(ID))
-            }
+            }.body()
         }
     }
 

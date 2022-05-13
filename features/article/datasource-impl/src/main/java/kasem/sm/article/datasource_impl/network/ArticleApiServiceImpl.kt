@@ -7,6 +7,7 @@ package kasem.sm.article.datasource_impl.network
 import com.slime.auth_api.AuthManager
 import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import javax.inject.Inject
@@ -29,7 +30,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
             client.get(GET_ALL_ARTICLE_ROUTE) {
                 parameter("topic", topic)
                 parameter("query", query)
-            }
+            }.body()
         }
     }
 
@@ -37,7 +38,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
         return withResult {
             client.get(GET_ARTICLE_BY_ID_ROUTE) {
                 parameter("id", id)
-            }
+            }.body()
         }
     }
 
@@ -45,7 +46,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
         return withResult {
             client.get(GET_RANDOM_ARTICLE_ROUTE) {
                 userIdParam(id = authManager.getUserData(ID))
-            }
+            }.body()
         }
     }
 
@@ -53,7 +54,7 @@ internal class ArticleApiServiceImpl @Inject constructor(
         return withResult {
             client.get(GET_EXPLORE_ARTICLES_ROUTE) {
                 userIdParam(id = authManager.getUserData(ID))
-            }
+            }.body()
         }
     }
 

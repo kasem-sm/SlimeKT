@@ -13,9 +13,9 @@ provideHiltDeps(this)
 dependencies {
 	implementation(project(":core"))
 	implementation(project(":task-api"))
-	implementation implementation(project(':features:authentication:auth-verify-worker',))
-	implementation implementation(project(':features:topic:subscription-manager-worker',))
+	implementation(project(':features:authentication:auth-verify-worker',))
+	implementation(project(':features:topic:subscription-manager-worker',))
 
 	// Worker
-	implementation implementation(project(':features:article:daily-read-worker',))
+	implementation(project(':features:article:daily-read-worker'))
 }
