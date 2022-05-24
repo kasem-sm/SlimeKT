@@ -19,8 +19,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
 /**
- * [Credits](https://github.com/chrisbanes/tivi/commit/bce20b5ac97a99ec4ad7dc583cd021e7de5f8f87)
- * [Credits]()https://github.com/yschimke)
+ * [Credits 1](https://github.com/chrisbanes/tivi/commit/bce20b5ac97a99ec4ad7dc583cd021e7de5f8f87)
+ * [Credits 2](https://github.com/yschimke)
  */
 @Composable
 fun <T> rememberStateWithLifecycle(

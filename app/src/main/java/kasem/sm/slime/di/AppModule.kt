@@ -21,13 +21,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.header
-import io.ktor.client.request.host
-import io.ktor.client.request.port
 import io.ktor.http.URLProtocol
+import io.ktor.serialization.kotlinx.json.json
 import javax.inject.Singleton
 import kasem.sm.core.domain.SlimeDispatchers
 import kotlinx.coroutines.Dispatchers
@@ -37,15 +35,16 @@ import kotlinx.serialization.json.Json
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    /** Refer: https://ktor.io/docs/migrating-2.html#default-request */
     @Provides
     @Singleton
     fun provideHttpClient(
         authManager: AuthManager,
     ): HttpClient {
         return HttpClient {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(
-                    json = Json {
+            install(ContentNegotiation) {
+                json(
+                    Json {
                         ignoreUnknownKeys = true
                     }
                 )

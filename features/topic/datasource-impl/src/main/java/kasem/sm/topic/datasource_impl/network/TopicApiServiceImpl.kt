@@ -7,6 +7,7 @@ package kasem.sm.topic.datasource_impl.network
 import com.slime.auth_api.AuthManager
 import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -25,7 +26,7 @@ internal class TopicApiServiceImpl @Inject constructor(
 ) : TopicApiService {
     override suspend fun getAllTopics(): Result<SlimeResponse<List<TopicResponse>>> {
         return withResult {
-            client.get(GET_ALL_TOPICS_ROUTE)
+            client.get(GET_ALL_TOPICS_ROUTE).body()
         }
     }
 
@@ -34,7 +35,7 @@ internal class TopicApiServiceImpl @Inject constructor(
             client.get(GET_TOPIC_BY_ID) {
                 userIdParam(id = authManager.getUserData(ID))
                 parameter("id", id)
-            }
+            }.body()
         }
     }
 
@@ -42,7 +43,7 @@ internal class TopicApiServiceImpl @Inject constructor(
         return withResult {
             client.get(GET_SUBSCRIBED_TOPICS_ROUTE) {
                 userIdParam(id = authManager.getUserData(ID))
-            }
+            }.body()
         }
     }
 
@@ -50,7 +51,7 @@ internal class TopicApiServiceImpl @Inject constructor(
         return withResult {
             client.get(GET_EXPLORE_TOPICS_ROUTE) {
                 userIdParam(id = authManager.getUserData(ID))
-            }
+            }.body()
         }
     }
 
@@ -59,7 +60,7 @@ internal class TopicApiServiceImpl @Inject constructor(
             client.post(SUBSCRIBE_IF_NOT) {
                 contentType(ContentType.Application.Json)
                 parameter("topicId", id)
-            }
+            }.body()
         }
     }
 

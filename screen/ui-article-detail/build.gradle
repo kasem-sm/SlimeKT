@@ -16,6 +16,7 @@ dependencies {
 	implementation(project(":features:article:dynamic-links-handler"))
 
 	implementation Coil.core
+	implementation Compose.iconsExtended
 
 	testImplementation(project(":common-test-utils"))
 }

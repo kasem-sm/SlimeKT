@@ -29,5 +29,5 @@ dependencies {
 
 	implementation(project(":core"))
 
-	implementation("app.cash.turbine:turbine:0.7.0")
+	implementation("app.cash.turbine:turbine:0.8.0")
 }
