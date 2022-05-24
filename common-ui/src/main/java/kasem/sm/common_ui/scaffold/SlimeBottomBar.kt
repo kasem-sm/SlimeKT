@@ -53,7 +53,6 @@ fun SlimeBottomBar(
     }
 }
 
-
 @Composable
 fun SlimeNavigationRail(
     currentRoute: String?,
