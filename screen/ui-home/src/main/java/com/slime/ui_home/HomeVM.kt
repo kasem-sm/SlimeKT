@@ -30,7 +30,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
@@ -55,16 +54,23 @@ class HomeVM @Inject constructor(
 
     private val loadingStatus = ObservableLoader()
 
+    private val isUserAuthenticated = SavedMutableState(
+        savedStateHandle,
+        USER_AUTH_KEY,
+        defValue = false
+    )
+
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
     val state = combineFlows(
         searchQuery.flow,
         loadingStatus.flow,
+        isUserAuthenticated.flow,
         observeSubscribedTopics.flow,
         observeDailyReadArticle.flow,
         observeArticles.flow,
-    ) { currentQuery, isLoading, topics,
+    ) { currentQuery, isLoading, isUserAuthenticated, topics,
         dailyReadArticle, articles ->
         HomeState(
             currentQuery = currentQuery,
@@ -72,6 +78,7 @@ class HomeVM @Inject constructor(
             topics = topics,
             dailyReadArticle = dailyReadArticle,
             articles = articles,
+            isUserAuthenticated = isUserAuthenticated
         )
     }.stateIn(viewModelScope, HomeState.EMPTY)
 
@@ -94,13 +101,14 @@ class HomeVM @Inject constructor(
     }
 
     private fun observeAuthState() {
-        viewModelScope.launch {
-            observeAuthState
-                .joinAndCollect(viewModelScope + dispatchers.main)
-                .filter { it == AuthState.LOGGED_IN }
-                .collectLatest {
-                    refresh(subscriptionOnly = true)
-                }
+        viewModelScope.launch(dispatchers.main) {
+            observeAuthState.joinAndCollect(
+                coroutineScope = viewModelScope + dispatchers.main
+            ).collectLatest {
+                onQueryChange(DEFAULT_SEARCH_QUERY)
+                refresh(subscriptionOnly = true)
+                isUserAuthenticated.value = it == AuthState.LOGGED_IN
+            }
         }
     }
 
@@ -152,5 +160,6 @@ class HomeVM @Inject constructor(
 
     companion object {
         const val QUERY_KEY = "slime_query"
+        const val USER_AUTH_KEY = "slime_home_is_user_authenticated"
     }
 }

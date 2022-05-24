@@ -71,8 +71,9 @@ internal fun HomeContent(
 
                 topicsView(
                     isLoading = state.isLoading,
+                    isUserAuthenticated = state.isUserAuthenticated,
                     topics = state.topics,
-                    currentQuery = state.currentQuery,
+                    currentTopic = state.currentQuery,
                     onTopicChange = onTopicChange,
                     navigateToSubscriptionScreen = navigateToSubscriptionScreen
                 )

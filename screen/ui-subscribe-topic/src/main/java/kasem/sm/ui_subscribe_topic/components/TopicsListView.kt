@@ -7,6 +7,7 @@ package kasem.sm.ui_subscribe_topic.components
 import androidx.compose.runtime.Composable
 import kasem.sm.common_ui.SlimeFlowRow
 import kasem.sm.ui_subscribe_topic.SubscribeTopicState
+import kasem.sm.ui_subscribe_topic.SubscribeTopicState.Companion.loadingStatus
 
 @Composable
 internal fun TopicsListView(
@@ -17,7 +18,7 @@ internal fun TopicsListView(
         state.topics.forEachIndexed { itemsIndex, topic ->
             SelectableTopicCard(
                 topic = topic,
-                enabled = !state.isLoading,
+                enabled = !state.loadingStatus,
                 onClick = {
                     updateList(itemsIndex)
                 }
