@@ -9,6 +9,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import coil.ImageLoader
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -27,6 +29,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @RequiresApi(S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,8 @@ class MainActivity : ComponentActivity() {
             SlimeNavigation(
                 navController = navController,
                 imageLoader = imageLoader,
-                bottomSheetNavigator = bottomSheetNavigator
+                bottomSheetNavigator = bottomSheetNavigator,
+                windowSizeClass = calculateWindowSizeClass(this)
             )
 
             handleDynamicLink(
