@@ -19,4 +19,7 @@ dependencies {
     implementation Compose.material3
 
     implementation Lifecycle.viewModel
+
+    debugImplementation Compose.tooling
+    debugImplementation "androidx.compose.ui:ui-tooling:1.2.0-beta02"
 }

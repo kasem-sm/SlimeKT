@@ -15,7 +15,7 @@ object Jetbrains {
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1"
 
     // Ktor
-    private const val ktorVersion = "2.0.0"
+    private const val ktorVersion = "2.0.1"
     const val ktorJvm = "io.ktor:ktor-http-jvm:$ktorVersion"
     const val ktorUtils = "io.ktor:ktor-utils-jvm:$ktorVersion"
     const val ktorClientCore = "io.ktor:ktor-client-core-jvm:$ktorVersion"
