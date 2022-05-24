@@ -12,6 +12,7 @@ import kasem.sm.topic.domain.model.Topic
 data class HomeState(
     val currentQuery: String = "",
     val isLoading: Boolean = true,
+    val isUserAuthenticated: Boolean = false,
     val topics: List<Topic> = emptyList(),
     val dailyReadArticle: Article? = null,
     val articles: List<Article> = emptyList(),

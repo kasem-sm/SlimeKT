@@ -32,12 +32,13 @@ import kasem.sm.topic.domain.model.Topic
 
 internal fun LazyListScope.topicsView(
     isLoading: Boolean,
+    isUserAuthenticated: Boolean,
     topics: List<Topic>,
-    currentQuery: String,
+    currentTopic: String,
     onTopicChange: (String) -> Unit,
     navigateToSubscriptionScreen: () -> Unit
 ) {
-    if (!isLoading && topics.isEmpty()) {
+    if (!isLoading && topics.isEmpty() || !isUserAuthenticated) {
         item {
             SlimeCard(
                 backgroundColor = MaterialTheme.colorScheme.primaryContainer,
@@ -66,7 +67,7 @@ internal fun LazyListScope.topicsView(
         item {
             LazyRow {
                 items(topics) { topic ->
-                    val isSelected = currentQuery == topic.title
+                    val isSelected = currentTopic == topic.title
 
                     val backgroundColor = animateColorAsState(
                         targetValue = when (isSelected) {
@@ -90,7 +91,7 @@ internal fun LazyListScope.topicsView(
                         modifier = Modifier
                             .padding(10.dp)
                             .toggleWithRipple(
-                                value = currentQuery == topic.title,
+                                value = currentTopic == topic.title,
                             ) { value ->
                                 when (value) {
                                     true -> onTopicChange(topic.title)
