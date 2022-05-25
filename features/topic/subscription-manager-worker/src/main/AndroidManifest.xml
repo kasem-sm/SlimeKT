@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="kasem.sm.topic.worker"/>
+<manifest package="kasem.sm.topic.subscription_manager_worker"/>

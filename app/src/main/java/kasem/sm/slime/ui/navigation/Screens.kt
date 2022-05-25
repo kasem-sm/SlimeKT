@@ -18,7 +18,6 @@ import coil.ImageLoader
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
-import com.slime.ui_home.HomeScreen
 import kasem.sm.common_ui.util.Destination
 import kasem.sm.ui_article_list.ListScreen
 import kasem.sm.ui_auth.login.LoginScreen
@@ -26,6 +25,7 @@ import kasem.sm.ui_auth.register.RegisterScreen
 import kasem.sm.ui_bookmarks.BookmarksScreen
 import kasem.sm.ui_detail.DetailScreen
 import kasem.sm.ui_explore.ExploreScreen
+import kasem.sm.ui_home.HomeScreen
 import kasem.sm.ui_profile.ProfileScreen
 import kasem.sm.ui_subscribe_topic.SubscribeTopicScreen
 
@@ -44,6 +44,7 @@ fun NavGraphBuilder.attachRegistrationScreen(
     }
 }
 
+@ExperimentalMaterialNavigationApi
 internal fun NavGraphBuilder.attachLoginScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,

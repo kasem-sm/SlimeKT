@@ -4,8 +4,8 @@
  */
 package kasem.sm.authentication.domain.interactors
 
-import com.slime.auth_api.AuthManager
 import javax.inject.Inject
+import kasem.sm.auth_api.AuthManager
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.AuthResult.Companion.toInvalidCredentialsException

@@ -7,10 +7,10 @@ package kasem.sm.ui_subscribe_topic
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.slime.auth_api.AuthState
-import com.slime.auth_api.ObserveAuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kasem.sm.auth_api.AuthState
+import kasem.sm.auth_api.ObserveAuthState
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
@@ -19,7 +19,7 @@ import kasem.sm.core.domain.collect
 import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
-import kasem.sm.topic.worker.SubscribeTopicManager
+import kasem.sm.topic.subscription_manager_worker.SubscribeTopicManager
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.navigate

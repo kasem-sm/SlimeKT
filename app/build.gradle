@@ -24,20 +24,10 @@ android {
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
-def versionProperties = new Properties()
-versionProperties.load(new FileInputStream(rootProject.file("version.properties")))
-
-def _versionCode = "${versionProperties['VERSION_CODE']}".toInteger()
-def _versionName =
-		"${versionProperties['MAJOR']}" +
-				".${versionProperties['VERSION_CODE']}" +
-				".${versionProperties['MINOR']}" +
-				".${versionProperties['PATCH']}"
-
 android {
 	defaultConfig {
-		versionCode = _versionCode
-		versionName = _versionName
+		versionCode = 1
+		versionName = "1.0"
 		applicationId "kasem.sm.slime"
 	}
 }

@@ -4,8 +4,6 @@
  */
 package kasem.sm.article.datasource_impl.network
 
-import com.slime.auth_api.AuthManager
-import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -15,6 +13,8 @@ import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.datasource.network.response.ArticleDto
 import kasem.sm.article.datasource.network.response.ArticleResponse
 import kasem.sm.article.datasource.network.response.SlimeResponse
+import kasem.sm.auth_api.AuthManager
+import kasem.sm.auth_api.ID
 import kasem.sm.core.utils.userIdParam
 import kasem.sm.core.utils.withResult
 

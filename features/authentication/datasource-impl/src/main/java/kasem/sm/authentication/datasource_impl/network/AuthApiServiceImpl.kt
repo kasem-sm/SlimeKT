@@ -4,14 +4,14 @@
  */
 package kasem.sm.authentication.datasource_impl.network
 
-import com.slime.auth_api.AuthManager
-import com.slime.auth_api.ID
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import javax.inject.Inject
+import kasem.sm.auth_api.AuthManager
+import kasem.sm.auth_api.ID
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.datasource.network.response.AuthResponse
 import kasem.sm.authentication.datasource.network.response.SlimeResponse
