@@ -13,8 +13,6 @@ import androidx.work.NetworkType
 import androidx.work.WorkManager
 import coil.ImageLoader
 import coil.memory.MemoryCache
-import com.slime.auth_api.AuthManager
-import com.slime.auth_api.Token
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +25,8 @@ import io.ktor.client.request.header
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import javax.inject.Singleton
+import kasem.sm.auth_api.AuthManager
+import kasem.sm.auth_api.Token
 import kasem.sm.core.domain.SlimeDispatchers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
