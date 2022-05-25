@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleCard
@@ -66,6 +68,7 @@ internal fun HomeContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 10.dp)
+                            .semantics { testTag = "home_search_bar" }
                     )
                 }
 
@@ -84,6 +87,7 @@ internal fun HomeContent(
 
                 item {
                     DailyReadArticle(
+                        modifier = Modifier.semantics { testTag = "daily_read_article_view" },
                         article = state.dailyReadArticle,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
@@ -104,7 +108,8 @@ internal fun HomeContent(
                         article = article,
                         imageLoader = imageLoader,
                         onArticleClick = onArticleClick,
-                        onBookmarkClick = onBookmarkClick
+                        onBookmarkClick = onBookmarkClick,
+                        modifier = Modifier.semantics { testTag = "articles_list_card" }
                     )
                 }
             }

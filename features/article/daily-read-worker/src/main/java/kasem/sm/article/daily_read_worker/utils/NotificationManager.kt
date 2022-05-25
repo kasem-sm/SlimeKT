@@ -20,7 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kasem.sm.article.worker.R
+import kasem.sm.article.daily_read_worker.R
 
 class NotificationManager @Inject constructor(
     @ApplicationContext private val context: Context
