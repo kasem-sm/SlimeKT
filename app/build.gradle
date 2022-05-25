@@ -90,6 +90,7 @@ dependencies {
 
 	implementation Firebase.dynamicLink
 	implementation(project(":features:article:dynamic-links-handler"))
+	implementation "androidx.compose.material3:material3-window-size-class:1.0.0-alpha12"
 }
 
 if (file("google-services.json").exists()) {

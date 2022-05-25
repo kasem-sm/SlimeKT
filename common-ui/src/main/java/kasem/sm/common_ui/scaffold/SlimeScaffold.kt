@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -19,6 +20,7 @@ fun SlimeScaffold(
     state: ScaffoldState,
     bottomBarVisibility: Boolean,
     fabVisibility: Boolean,
+    windowSizeClass: WindowSizeClass,
     bottomBar: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -28,20 +30,24 @@ fun SlimeScaffold(
         content = content,
         bottomBar = {
             if (bottomBarVisibility) {
-                bottomBar()
+                if (windowSizeClass.isCompactWindow) {
+                    bottomBar()
+                }
             }
         },
         floatingActionButton = {
             if (fabVisibility) {
-                FloatingActionButton(onClick = {
-                    //
-                }) {
+                FloatingActionButton(
+                    onClick = {
+                        //
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = Icons.Default.Add.name
                     )
                 }
             }
-        }
+        },
     )
 }

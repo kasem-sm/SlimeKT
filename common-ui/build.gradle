@@ -22,4 +22,6 @@ dependencies {
 	implementation(Accompanist.flowLayout)
 	implementation Accompanist.sysUiController
 	implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
+
+	implementation "androidx.compose.material3:material3-window-size-class:1.0.0-alpha12"
 }
