@@ -6,6 +6,13 @@ apply {
 	from("$rootDir/gradle/ui.gradle")
 }
 
+android {
+	defaultConfig {
+		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+	}
+}
+
+provideUiTestDeps(this)
 dependencies {
 	implementation(project(":features:article:common-article-ui"))
 	// Article feature

@@ -13,6 +13,7 @@ digraph {
   ":core" [fillcolor="#ffb3ba"];
   ":database" [fillcolor="#baffc9"];
   ":features:article:common-article-ui" [fillcolor="#baffc9"];
+  ":features:article:daily-read-worker" [fillcolor="#baffc9"];
   ":features:article:datasource-api" [fillcolor="#ffb3ba"];
   ":features:article:datasource-impl" [fillcolor="#ffb3ba"];
   ":features:article:domain:interactors" [fillcolor="#ffb3ba"];
@@ -20,17 +21,16 @@ digraph {
   ":features:article:dynamic-links-handler" [fillcolor="#baffc9"];
   ":features:article:markdown" [fillcolor="#baffc9"];
   ":features:article:widget" [fillcolor="#baffc9"];
-  ":features:article:worker" [fillcolor="#baffc9"];
+  ":features:authentication:auth-verify-worker" [fillcolor="#baffc9"];
   ":features:authentication:datasource-api" [fillcolor="#ffb3ba"];
   ":features:authentication:datasource-impl" [fillcolor="#ffb3ba"];
   ":features:authentication:domain:interactors" [fillcolor="#ffb3ba"];
   ":features:authentication:domain:model" [fillcolor="#ffb3ba"];
-  ":features:authentication:worker" [fillcolor="#baffc9"];
   ":features:topic:datasource-api" [fillcolor="#ffb3ba"];
   ":features:topic:datasource-impl" [fillcolor="#ffb3ba"];
   ":features:topic:domain:interactors" [fillcolor="#ffb3ba"];
   ":features:topic:domain:model" [fillcolor="#ffb3ba"];
-  ":features:topic:worker" [fillcolor="#baffc9"];
+  ":features:topic:subscription-manager-worker" [fillcolor="#baffc9"];
   ":screen:core" [fillcolor="#baffc9"];
   ":screen:ui-article-detail" [fillcolor="#baffc9"];
   ":screen:ui-article-list" [fillcolor="#baffc9"];
@@ -82,9 +82,9 @@ digraph {
   ":task-impl" -> ":task-impl"
   ":task-impl" -> ":core" [style=dotted]
   ":task-impl" -> ":task-api" [style=dotted]
-  ":task-impl" -> ":features:authentication:worker" [style=dotted]
-  ":task-impl" -> ":features:topic:worker" [style=dotted]
-  ":task-impl" -> ":features:article:worker" [style=dotted]
+  ":task-impl" -> ":features:authentication:auth-verify-worker" [style=dotted]
+  ":task-impl" -> ":features:topic:subscription-manager-worker" [style=dotted]
+  ":task-impl" -> ":features:article:daily-read-worker" [style=dotted]
   ":screen:core" -> ":screen:core"
   ":screen:ui-article-detail" -> ":screen:ui-article-detail"
   ":screen:ui-article-detail" -> ":core" [style=dotted]
@@ -154,35 +154,35 @@ digraph {
   ":screen:ui-subscribe-topic" -> ":auth-api" [style=dotted]
   ":screen:ui-subscribe-topic" -> ":features:topic:domain:interactors" [style=dotted]
   ":screen:ui-subscribe-topic" -> ":features:topic:domain:model" [style=dotted]
-  ":screen:ui-subscribe-topic" -> ":features:topic:worker" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":features:topic:subscription-manager-worker" [style=dotted]
   ":features:article:common-article-ui" -> ":features:article:common-article-ui"
   ":features:article:common-article-ui" -> ":common-ui" [style=dotted]
   ":features:article:common-article-ui" -> ":features:article:domain:model" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:daily-read-worker"
+  ":features:article:daily-read-worker" -> ":core" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:datasource-api" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:widget" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:domain:model" [style=dotted]
   ":features:article:datasource-impl" -> ":core" [style=dotted]
   ":features:article:datasource-impl" -> ":auth-api" [style=dotted]
   ":features:article:datasource-impl" -> ":features:article:datasource-api" [style=dotted]
   ":features:article:dynamic-links-handler" -> ":features:article:dynamic-links-handler"
   ":features:article:markdown" -> ":features:article:markdown"
   ":features:article:widget" -> ":features:article:widget"
-  ":features:article:worker" -> ":features:article:worker"
-  ":features:article:worker" -> ":core" [style=dotted]
-  ":features:article:worker" -> ":features:article:datasource-api" [style=dotted]
-  ":features:article:worker" -> ":features:article:widget" [style=dotted]
-  ":features:article:worker" -> ":features:article:domain:model" [style=dotted]
+  ":features:authentication:auth-verify-worker" -> ":features:authentication:auth-verify-worker"
+  ":features:authentication:auth-verify-worker" -> ":core" [style=dotted]
+  ":features:authentication:auth-verify-worker" -> ":auth-api" [style=dotted]
+  ":features:authentication:auth-verify-worker" -> ":features:authentication:datasource-api" [style=dotted]
   ":features:authentication:datasource-impl" -> ":core" [style=dotted]
   ":features:authentication:datasource-impl" -> ":auth-api" [style=dotted]
   ":features:authentication:datasource-impl" -> ":features:authentication:datasource-api" [style=dotted]
-  ":features:authentication:worker" -> ":features:authentication:worker"
-  ":features:authentication:worker" -> ":core" [style=dotted]
-  ":features:authentication:worker" -> ":auth-api" [style=dotted]
-  ":features:authentication:worker" -> ":features:authentication:datasource-api" [style=dotted]
   ":features:topic:datasource-impl" -> ":core" [style=dotted]
   ":features:topic:datasource-impl" -> ":auth-api" [style=dotted]
   ":features:topic:datasource-impl" -> ":features:topic:datasource-api" [style=dotted]
-  ":features:topic:worker" -> ":features:topic:worker"
-  ":features:topic:worker" -> ":core" [style=dotted]
-  ":features:topic:worker" -> ":features:topic:datasource-api" [style=dotted]
-  ":features:topic:worker" -> ":features:topic:domain:model" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:subscription-manager-worker"
+  ":features:topic:subscription-manager-worker" -> ":core" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:datasource-api" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:domain:model" [style=dotted]
   ":features:article:domain:interactors" -> ":core" [style=dotted]
   ":features:article:domain:interactors" -> ":features:article:datasource-api" [style=dotted]
   ":features:article:domain:interactors" -> ":features:article:domain:model" [style=dotted]

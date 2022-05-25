@@ -27,6 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -47,7 +49,7 @@ fun ArticleCard(
     onBookmarkClick: (Int) -> Unit
 ) {
     SlimeCard(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 2.dp)
             .height(120.dp)
@@ -55,9 +57,10 @@ fun ArticleCard(
             .clickWithRipple {
                 onArticleClick(article.id)
             }
+            .then(modifier)
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .wrapContentSize(),
         ) {
             Column(
@@ -116,7 +119,8 @@ fun ArticleCard(
                         modifier = Modifier
                             .clickWithRipple {
                                 onBookmarkClick(article.id)
-                            },
+                            }
+                            .semantics { testTag = if (isBookmarked) "article_isBookmarked" else "article_isNotBookmarked" },
                         isBookmarked = isBookmarked
                     )
                 }

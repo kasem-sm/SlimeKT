@@ -18,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kasem.sm.common_ui.LocalSlimeFont
@@ -42,6 +44,7 @@ internal fun LazyListScope.topicsView(
         item {
             SlimeCard(
                 backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                modifier = Modifier.semantics { testTag = "subscription_card" }
             ) {
                 Column(
                     modifier = Modifier.padding(10.dp),
@@ -65,7 +68,9 @@ internal fun LazyListScope.topicsView(
         }
     } else {
         item {
-            LazyRow {
+            LazyRow(
+                modifier = Modifier.semantics { testTag = "topics_item_view" }
+            ) {
                 items(topics) { topic ->
                     val isSelected = currentTopic == topic.title
 
@@ -97,6 +102,9 @@ internal fun LazyListScope.topicsView(
                                     true -> onTopicChange(topic.title)
                                     false -> onTopicChange(HomeState.DEFAULT_TOPIC_QUERY)
                                 }
+                            }
+                            .semantics {
+                                testTag = "topic_chip"
                             }
                     )
                 }
