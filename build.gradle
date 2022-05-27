@@ -45,7 +45,7 @@ def provideKtorAndroidDeps(project) {
     project.dependencies {
         implementation "io.ktor:ktor-client-android:2.0.1"
         implementation "io.ktor:ktor-client-serialization:2.0.1"
-        implementation "io.ktor:ktor-client-content-negotiation:2.0.1"
+        implementation "io.ktor:ktor-client-content-negotiation:2.0.2"
         implementation "io.ktor:ktor-serialization-kotlinx-json:2.0.1"
     }
 }
