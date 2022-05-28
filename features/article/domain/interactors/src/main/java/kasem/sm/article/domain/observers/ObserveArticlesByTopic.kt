@@ -12,12 +12,14 @@ import kasem.sm.core.domain.ObserverInteractor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class ObserveDailyReadArticle @Inject constructor(
+class ObserveArticlesByTopic @Inject constructor(
     private val cache: ArticleDatabaseService,
-) : ObserverInteractor<Unit, Article?>() {
-    override fun execute(params: Unit): Flow<Article?> {
-        return cache.getActiveArticleFlow().map {
-            it?.toDomain()
+) : ObserverInteractor<String, List<Article>>() {
+    override fun execute(params: String): Flow<List<Article>> {
+        return cache.getArticlesByTopic(
+            topic = params
+        ).map {
+            it.toDomain()
         }
     }
 }

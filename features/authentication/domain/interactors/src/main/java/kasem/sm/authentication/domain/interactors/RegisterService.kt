@@ -21,7 +21,7 @@ class RegisterService @Inject constructor(
     private val api: AuthApiService,
     private val authManager: AuthManager,
 ) {
-    suspend fun execute(credentials: Credentials): Flow<AuthResult> = flow {
+    fun execute(credentials: Credentials): Flow<AuthResult> = flow {
         val validationResult = validateCredentials(credentials.username, credentials.password)
         if (validationResult != null) {
             emit(validationResult)

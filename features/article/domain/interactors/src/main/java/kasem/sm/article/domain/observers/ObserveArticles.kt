@@ -15,25 +15,11 @@ import kotlinx.coroutines.flow.map
 class ObserveArticles @Inject constructor(
     private val cache: ArticleDatabaseService,
 ) : ObserverInteractor<String, List<Article>>() {
-    override suspend fun execute(params: String): Flow<List<Article>> {
-        val articles = cache.getAllArticles(
+    override fun execute(params: String): Flow<List<Article>> {
+        return cache.getAllArticles(
             query = params
         ).map {
             it.toDomain()
         }
-        return articles
-    }
-}
-
-class ObserveArticlesByTopic @Inject constructor(
-    private val cache: ArticleDatabaseService,
-) : ObserverInteractor<String, List<Article>>() {
-    override suspend fun execute(params: String): Flow<List<Article>> {
-        val pagedArticles = cache.getArticlesByTopic(
-            topic = params
-        ).map {
-            it.toDomain()
-        }
-        return pagedArticles
     }
 }

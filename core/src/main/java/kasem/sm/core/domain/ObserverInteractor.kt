@@ -76,5 +76,5 @@ abstract class ObserverInteractor<P : Any, T> {
         return flow
     }
 
-    protected abstract suspend fun execute(params: P): Flow<T>
+    protected abstract fun execute(params: P): Flow<T>
 }

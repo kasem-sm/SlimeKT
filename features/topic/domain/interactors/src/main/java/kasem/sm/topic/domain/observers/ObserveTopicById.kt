@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 class ObserveTopicById @Inject constructor(
     private val cache: TopicDatabaseService,
 ) : ObserverInteractor<String, Topic?>() {
-    override suspend fun execute(params: String): Flow<Topic?> {
+    override fun execute(params: String): Flow<Topic?> {
         return cache.getTopicById(params).map { it.toDomain() }
     }
 }

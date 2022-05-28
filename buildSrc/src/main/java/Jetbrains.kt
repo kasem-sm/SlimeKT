@@ -12,10 +12,10 @@ object Jetbrains {
         "org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationCoreVersion"
 
     // Coroutines
-    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2"
 
     // Ktor
-    private const val ktorVersion = "2.0.1"
+    private const val ktorVersion = "2.0.2"
     const val ktorJvm = "io.ktor:ktor-http-jvm:$ktorVersion"
     const val ktorUtils = "io.ktor:ktor-utils-jvm:$ktorVersion"
     const val ktorClientCore = "io.ktor:ktor-client-core-jvm:$ktorVersion"

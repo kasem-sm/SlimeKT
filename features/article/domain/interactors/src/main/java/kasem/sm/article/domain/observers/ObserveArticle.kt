@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 class ObserveArticle @Inject constructor(
     private val cache: ArticleDatabaseService,
 ) : ObserverInteractor<Int, Article?>() {
-    override suspend fun execute(params: Int): Flow<Article?> {
+    override fun execute(params: Int): Flow<Article?> {
         return cache.getArticleById(params).map {
             it.toDomain()
         }
