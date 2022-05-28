@@ -7,8 +7,8 @@ package kasem.sm.topic.domain.model
 data class Topic(
     val id: String,
     val title: String,
-    val timestamp: Long,
+    val timestamp: Long = -1,
     val isSelected: Boolean = false,
-    val totalSubscribers: Int,
-    val hasUserSubscribed: Boolean,
+    val totalSubscribers: Int = 0,
+    val hasUserSubscribed: Boolean = false,
 )

@@ -14,12 +14,14 @@ import kasem.sm.article.domain.observers.ObserveArticle
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
+import kasem.sm.topic.domain.observers.ObserveTopicByTitle
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -28,6 +30,7 @@ import kotlinx.coroutines.plus
 class DetailVM @Inject constructor(
     private val getArticle: GetArticle,
     private val observeArticle: ObserveArticle,
+    private val observeTopic: ObserveTopicByTitle,
     private val dispatchers: SlimeDispatchers,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -41,11 +44,13 @@ class DetailVM @Inject constructor(
 
     val state: StateFlow<DetailState> = combine(
         loadingStatus.flow,
-        observeArticle.flow
-    ) { loading, article ->
+        observeArticle.flow,
+        observeTopic.flow,
+    ) { loading, article, topic ->
         DetailState(
             isLoading = loading,
-            article = article
+            article = article,
+            topic = topic
         )
     }.stateIn(
         coroutineScope = viewModelScope + dispatchers.main,
@@ -59,13 +64,23 @@ class DetailVM @Inject constructor(
     }
 
     private fun observe() {
-        observeArticle.join(
-            coroutineScope = viewModelScope + dispatchers.main,
-            onError = {
-                _uiEvent.emit(showMessage(it))
-            },
-            params = articleId,
-        )
+        viewModelScope.launch(dispatchers.main) {
+            observeArticle.joinAndCollect(
+                coroutineScope = viewModelScope + dispatchers.main,
+                onError = {
+                    _uiEvent.emit(showMessage(it))
+                },
+                params = articleId,
+            ).collectLatest { article ->
+                article?.let {
+                    observeTopic.join(
+                        params = it.topic,
+                        coroutineScope = viewModelScope + dispatchers.main,
+                        onError = { msg -> _uiEvent.emit(showMessage(msg)) },
+                    )
+                }
+            }
+        }
     }
 
     fun refresh() {

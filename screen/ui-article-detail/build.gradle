@@ -15,6 +15,9 @@ dependencies {
 	implementation(project(":features:article:markdown"))
 	implementation(project(":features:article:dynamic-links-handler"))
 
+	implementation(project(":features:topic:domain:model"))
+	implementation(project(":features:topic:domain:interactors"))
+
 	implementation Coil.core
 	implementation Compose.iconsExtended
 

@@ -134,6 +134,7 @@ fun NavGraphBuilder.attachProfileScreen(
 fun NavGraphBuilder.attachArticleDetailScreen(
     imageLoader: ImageLoader,
     snackbarHostState: SnackbarHostState,
+    navController: NavController
 ) {
     composable(
         route = Destination.ArticleDetailScreen.route,
@@ -146,7 +147,10 @@ fun NavGraphBuilder.attachArticleDetailScreen(
         DetailScreen(
             imageLoader = imageLoader,
             viewModel = hiltViewModel(),
-            snackbarHostState = snackbarHostState
+            snackbarHostState = snackbarHostState,
+            onTopicClick = { title, id ->
+                navController.navigate(Destination.ListScreen(title, id).route)
+            }
         )
     }
 }

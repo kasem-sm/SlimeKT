@@ -39,7 +39,7 @@ fun NavHost(
             attachHomeScreen(imageLoader, navController, snackbarHostState)
             attachExploreScreen(navController, imageLoader, snackbarHostState)
             attachProfileScreen(navController)
-            attachArticleDetailScreen(imageLoader, snackbarHostState)
+            attachArticleDetailScreen(imageLoader, snackbarHostState, navController)
             attachSelectTopicsScreen(navController, snackbarHostState)
             attachListScreen(imageLoader, snackbarHostState, navController)
             attachBookmarksScreen(imageLoader, navController)

@@ -24,5 +24,7 @@ interface TopicDatabaseService {
 
     fun getTopicById(id: String): Flow<TopicEntity?>
 
+    fun getTopicByTitle(title: String): Flow<TopicEntity?>
+
     suspend fun updateSubscriptionStatus(status: Boolean, id: String? = null)
 }

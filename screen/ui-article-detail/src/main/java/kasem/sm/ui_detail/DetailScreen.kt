@@ -15,7 +15,8 @@ import kasem.sm.ui_core.safeCollector
 fun DetailScreen(
     viewModel: DetailVM,
     imageLoader: ImageLoader,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    onTopicClick: (title: String, id: String) -> Unit,
 ) {
     val state by rememberStateWithLifecycle(viewModel.state)
 
@@ -28,5 +29,6 @@ fun DetailScreen(
         state = state,
         snackbarHostState = snackbarHostState,
         onRefresh = viewModel::refresh,
+        onTopicClick = onTopicClick
     )
 }

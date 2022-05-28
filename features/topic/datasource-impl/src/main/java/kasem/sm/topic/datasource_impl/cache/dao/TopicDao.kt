@@ -39,6 +39,9 @@ interface TopicDao {
     @Query("SELECT * FROM table_topic WHERE topic_id = :id")
     fun getTopicById(id: String): Flow<TopicEntity?>
 
+    @Query("SELECT * FROM table_topic WHERE topic_title = :title")
+    fun getTopicByTitle(title: String): Flow<TopicEntity?>
+
     @Query("UPDATE table_topic SET is_in_subscription = :inSubscription, is_in_explore = :inExplore WHERE topic_id = :id")
     suspend fun updateSubscriptionStatus(
         inSubscription: Boolean,
