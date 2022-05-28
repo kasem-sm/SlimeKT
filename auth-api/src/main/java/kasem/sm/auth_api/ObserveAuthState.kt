@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 class ObserveAuthState @Inject constructor(
     private val authManager: AuthManager
 ) : ObserverInteractor<Unit, AuthState>() {
-    override suspend fun execute(params: Unit): Flow<AuthState> {
+    override fun execute(params: Unit): Flow<AuthState> {
         return authManager.state
     }
 }
