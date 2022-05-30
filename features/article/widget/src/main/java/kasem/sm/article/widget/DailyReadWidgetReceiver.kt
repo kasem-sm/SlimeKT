@@ -9,6 +9,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.state.updateAppWidgetState
+import androidx.glance.appwidget.updateAll
 
 class DailyReadWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = DailyReadWidget()
@@ -19,7 +20,7 @@ class DailyReadWidgetReceiver : GlanceAppWidgetReceiver() {
             updateAppWidgetState(context, glanceId) { prefs ->
                 prefs[DailyReadWidget.articleTitlePreference] = articleTitle
             }
-            DailyReadWidget().update(context, glanceId)
+            DailyReadWidget().updateAll(context)
         }
     }
 }
