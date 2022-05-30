@@ -5,7 +5,6 @@
 package kasem.sm.article.widget
 
 import android.content.Context
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
@@ -18,7 +17,7 @@ class DailyReadWidgetReceiver : GlanceAppWidgetReceiver() {
         suspend fun updateWidget(articleTitle: String, context: Context) {
             val glanceId = GlanceAppWidgetManager(context).getGlanceIds(DailyReadWidget::class.java).last()
             updateAppWidgetState(context, glanceId) { prefs ->
-                prefs[stringPreferencesKey("article_title")] = articleTitle
+                prefs[DailyReadWidget.articleTitlePreference] = articleTitle
             }
             DailyReadWidget().update(context, glanceId)
         }

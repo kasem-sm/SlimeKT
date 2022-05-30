@@ -36,7 +36,7 @@ class DailyReadWidget : GlanceAppWidget() {
     @Composable
     override fun Content() {
         val state = currentState<Preferences>()
-        val articleTitle = state[stringPreferencesKey("article_title")] ?: ""
+        val articleTitle = state[articleTitlePreference] ?: ""
 
         Column(
             modifier = GlanceModifier
@@ -54,12 +54,18 @@ class DailyReadWidget : GlanceAppWidget() {
             )
         }
     }
+
+    companion object {
+        private const val ARTICLE_TITLE_KEY = "kasem.sm.article.widget.article_title_key"
+        val articleTitlePreference =
+            stringPreferencesKey(ARTICLE_TITLE_KEY)
+    }
 }
 
 class ActionUpdate : ActionCallback {
     override suspend fun onRun(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
         updateAppWidgetState(context, glanceId) { prefs ->
-            prefs[stringPreferencesKey("article_title")] = "Updated from Click"
+            prefs[DailyReadWidget.articleTitlePreference] = "Updated from Click"
         }
         DailyReadWidget().update(context, glanceId)
     }
