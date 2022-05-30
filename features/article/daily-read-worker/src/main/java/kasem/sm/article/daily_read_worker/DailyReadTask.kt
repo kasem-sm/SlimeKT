@@ -85,6 +85,8 @@ internal class DailyReadTask @AssistedInject constructor(
         articleTitle: String,
         featuredImage: String,
     ) {
+        DailyReadWidgetReceiver.updateWidget(articleTitle, context)
+
         context.getBitmap(
             imageLoader = imageLoader,
             imageUrl = featuredImage,
@@ -95,8 +97,6 @@ internal class DailyReadTask @AssistedInject constructor(
                     title = "Your daily read is ready",
                     featuredImage = image
                 )
-
-                DailyReadWidgetReceiver.updateWidget(articleTitle, context)
             }
         )
     }
