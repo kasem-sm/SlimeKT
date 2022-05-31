@@ -8,8 +8,10 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.action.ActionParameters
@@ -26,15 +28,17 @@ import androidx.glance.currentState
 import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.padding
-import androidx.glance.state.PreferencesGlanceStateDefinition
+import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import java.io.File
+import kotlin.random.Random
 
 class DailyReadWidget : GlanceAppWidget() {
 
-    override val stateDefinition = PreferencesGlanceStateDefinition
+    override val stateDefinition = CustomGlanceStateDefinition
 
     override val sizeMode: SizeMode
         get() = SizeMode.Exact
@@ -77,12 +81,27 @@ class DailyReadWidget : GlanceAppWidget() {
         val articleTitlePreference =
             stringPreferencesKey(ARTICLE_TITLE_KEY)
     }
+
+    object CustomGlanceStateDefinition : GlanceStateDefinition<Preferences> {
+        override suspend fun getDataStore(context: Context, fileKey: String): DataStore<Preferences> {
+            return context.dataStore
+        }
+
+        override fun getLocation(context: Context, fileKey: String): File {
+            return File(context.applicationContext.filesDir, "datastore/$fileName")
+        }
+
+        private const val fileName = "widget_store"
+        private val Context.dataStore: DataStore<Preferences>
+            by preferencesDataStore(name = fileName)
+    }
 }
 
 class ActionUpdate : ActionCallback {
     override suspend fun onRun(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
         updateAppWidgetState(context, glanceId) { prefs ->
-            prefs[DailyReadWidget.articleTitlePreference] = "Updated from Click"
+            prefs[DailyReadWidget.articleTitlePreference] =
+                "Updated from Click ${Random.nextBits(100)}"
         }
         DailyReadWidget().updateAll(context)
     }
