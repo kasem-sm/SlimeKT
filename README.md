@@ -127,6 +127,7 @@ questions related to SlimeKT or Android development, ping me anytime!
   Vivo**](https://twitter.com/manuelvicnt) - They always help review my code snippets and add their
   value to them.
 - [**Hadi**](https://twitter.com/hadilq) - Assisted me in improving the modularized structure of this project.
+- [**Marcel**](https://twitter.com/marxallski) - His [suggestions](https://github.com/kasem-sm/SlimeKT/pull/148) helped me to improve the Glance widget.
 
 ## License
 
