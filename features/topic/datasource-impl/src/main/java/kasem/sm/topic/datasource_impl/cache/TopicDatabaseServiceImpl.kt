@@ -64,6 +64,12 @@ internal class TopicDatabaseServiceImpl @Inject constructor(
         }
     }
 
+    override fun getTopicByTitle(title: String): Flow<TopicEntity?> {
+        return slimeTry {
+            dao.getTopicByTitle(title)
+        }
+    }
+
     override suspend fun updateSubscriptionStatus(status: Boolean, id: String?) {
         return slimeSuspendTry {
             if (id != null) {

@@ -24,6 +24,7 @@ import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeScreenColumn
 import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.common_ui.TopicChip
+import kasem.sm.common_ui.util.clickWithRipple
 import kasem.sm.dynamic_links_handler.SLIME_DYNAMIC_LINK
 import kasem.sm.dynamic_links_handler.generateSharingLink
 import kasem.sm.ui_detail.components.ArticleAuthorAndEstimatedTimeBadge
@@ -41,6 +42,7 @@ internal fun DetailContent(
     state: DetailState,
     snackbarHostState: SnackbarHostState,
     onRefresh: () -> Unit,
+    onTopicClick: (title: String, id: String) -> Unit,
 ) {
     SlimeSwipeRefresh(
         refreshing = state.isLoading,
@@ -70,7 +72,13 @@ internal fun DetailContent(
                     }
 
                     item {
-                        TopicChip(topic = article.topic)
+                        TopicChip(
+                            topic = article.topic,
+                            modifier = Modifier
+                                .clickWithRipple {
+                                    state.topic?.let { onTopicClick(it.title, it.id) }
+                                }
+                        )
                     }
 
                     item {
