@@ -17,9 +17,9 @@ import kasem.sm.common_ui.InitSlimeSystemUI
 import kasem.sm.common_ui.util.Destination
 import kasem.sm.common_ui.util.Destination.Main
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
+@ExperimentalMaterialNavigationApi
 @Composable
-fun NavHost(
+fun SlimeNavHost(
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
     imageLoader: ImageLoader,
