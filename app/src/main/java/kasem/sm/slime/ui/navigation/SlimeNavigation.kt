@@ -8,6 +8,7 @@ import android.os.Build.VERSION_CODES.S
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -52,13 +53,15 @@ fun SlimeNavigation(
             )
         }
     ) { padding ->
-        NavHost(
-            navController = navController,
-            bottomSheetNavigator = bottomSheetNavigator,
-            imageLoader = imageLoader,
-            snackbarHostState = scaffoldState.snackbarHostState,
-            modifier = Modifier
-                .padding(padding)
-        )
+        Surface {
+            SlimeNavHost(
+                navController = navController,
+                bottomSheetNavigator = bottomSheetNavigator,
+                imageLoader = imageLoader,
+                snackbarHostState = scaffoldState.snackbarHostState,
+                modifier = Modifier
+                    .padding(padding)
+            )
+        }
     }
 }
