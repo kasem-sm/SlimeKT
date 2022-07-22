@@ -26,8 +26,8 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
 	defaultConfig {
-		versionCode = 2
-		versionName = "1.1"
+		versionCode = 3
+		versionName = "1.2"
 		applicationId "kasem.sm.slime"
 	}
 }
@@ -62,7 +62,7 @@ dependencies {
 	implementation Accompanist.navigationMaterial
 	implementation Accompanist.navigationAnimation
 
-	implementation "com.google.android.material:material:1.7.0-alpha02"
+	implementation "com.google.android.material:material:1.7.0-alpha03"
 
 	implementation Hilt.navigation
 
