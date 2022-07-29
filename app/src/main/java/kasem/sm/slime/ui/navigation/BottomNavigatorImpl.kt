@@ -27,7 +27,7 @@ class BottomNavigatorImpl(private val navController: NavController) : BottomNavi
         }
     }
 
-    override fun isBottomNavItemSelectedAsState(item: BottomNavigationItems): Flow<Boolean> {
+    override fun isBottomNavItemSelectedAsFlow(item: BottomNavigationItems): Flow<Boolean> {
         return navController.currentDestinationFlow.map { it === item.toDirectionDestination() }
     }
 }

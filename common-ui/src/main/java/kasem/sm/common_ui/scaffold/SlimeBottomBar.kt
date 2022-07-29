@@ -41,7 +41,7 @@ fun SlimeBottomBar(
                         fontFamily = LocalSlimeFont.current.secondaryMedium
                     )
                 },
-                selected = bottomNavigator.isBottomNavItemSelectedAsState(item).collectAsState(
+                selected = bottomNavigator.isBottomNavItemSelectedAsFlow(item).collectAsState(
                     initial = false
                 ).value,
                 onClick = {
