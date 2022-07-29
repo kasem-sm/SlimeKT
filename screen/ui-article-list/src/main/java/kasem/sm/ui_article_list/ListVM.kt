@@ -8,31 +8,21 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.observers.ObserveArticlesByTopic
 import kasem.sm.auth_api.AuthState
 import kasem.sm.auth_api.ObserveAuthState
 import kasem.sm.common_ui.R.string
-import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
 import kasem.sm.task_api.Tasks
 import kasem.sm.topic.domain.interactors.GetTopicById
 import kasem.sm.topic.domain.observers.ObserveTopicById
-import kasem.sm.ui_core.SavedMutableState
-import kasem.sm.ui_core.UiEvent
-import kasem.sm.ui_core.combineFlows
-import kasem.sm.ui_core.navigate
-import kasem.sm.ui_core.showMessage
-import kasem.sm.ui_core.stateIn
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
+import kasem.sm.ui_core.*
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ListVM @Inject constructor(
@@ -89,7 +79,8 @@ class ListVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Destination.LoginScreen.route))
+//                _uiEvent.emit(navigate(Destination.LoginScreen.route))
+                _uiEvent.emit(UiEvent.NavigateTo(NavigationEvent.Login))
             }
         }
     }
@@ -152,8 +143,8 @@ class ListVM @Inject constructor(
 
     companion object {
         const val LIST_POSITION_KEY = "slime_list_position"
-        const val TOPIC_QUERY_KEY = "slime_topic"
-        const val TOPIC_ID_KEY = "slime_topic_id"
+        const val TOPIC_QUERY_KEY = "topicQuery"
+        const val TOPIC_ID_KEY = "topicId"
         const val USER_AUTHENTICATION_KEY = "user_authenticated"
     }
 }

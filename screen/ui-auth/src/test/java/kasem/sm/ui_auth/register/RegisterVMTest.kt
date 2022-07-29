@@ -16,12 +16,12 @@ import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.UiText
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.success
-import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 class RegisterVMTest {

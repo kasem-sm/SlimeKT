@@ -4,13 +4,10 @@
  */
 package kasem.sm.article.daily_read_worker.utils
 
-import android.app.Notification
+import android.app.*
 import android.app.Notification.VISIBILITY_PUBLIC
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -19,8 +16,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import kasem.sm.article.daily_read_worker.R
+import javax.inject.Inject
 
 class NotificationManager @Inject constructor(
     @ApplicationContext private val context: Context

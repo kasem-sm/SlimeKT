@@ -5,23 +5,20 @@
 package kasem.sm.common_ui.scaffold
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.util.BottomNavigationItems
+import kasem.sm.common_ui.util.BottomNavigator
 
 @Composable
 fun SlimeBottomBar(
-    currentRoute: String?,
-    navigateTo: (String) -> Unit,
     items: List<BottomNavigationItems>,
+    bottomNavigator: BottomNavigator
 ) {
     NavigationBar {
         items.forEach { item ->
@@ -40,9 +37,11 @@ fun SlimeBottomBar(
                         fontFamily = LocalSlimeFont.current.secondaryMedium
                     )
                 },
-                selected = currentRoute == item.route,
+                selected = bottomNavigator.isBottomNavItemSelectedAsState(item).collectAsState(
+                    initial = false
+                ).value,
                 onClick = {
-                    navigateTo(item.route)
+                    bottomNavigator.navigate(item)
                 }
             )
         }

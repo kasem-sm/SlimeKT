@@ -4,9 +4,9 @@
  */
 package kasem.sm.auth_api
 
-import javax.inject.Inject
 import kasem.sm.core.domain.ObserverInteractor
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class ObserveAuthState @Inject constructor(
     private val authManager: AuthManager

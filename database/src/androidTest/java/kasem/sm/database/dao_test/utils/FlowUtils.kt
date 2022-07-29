@@ -6,10 +6,10 @@ package kasem.sm.database.dao_test.utils
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
-import kotlinx.coroutines.flow.Flow
 
 fun <T> Flow<T>.getOrAwaitValue(
     time: Long = 2,

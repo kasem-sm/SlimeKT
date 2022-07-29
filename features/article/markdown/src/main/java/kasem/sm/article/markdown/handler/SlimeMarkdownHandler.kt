@@ -12,28 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import kasem.sm.article.markdown.components.TypeBlockQuote
-import kasem.sm.article.markdown.components.TypeCodeBlock
-import kasem.sm.article.markdown.components.TypeEmphasis
-import kasem.sm.article.markdown.components.TypeHeading
-import kasem.sm.article.markdown.components.TypeInlineCodeBlock
-import kasem.sm.article.markdown.components.TypeLink
-import kasem.sm.article.markdown.components.TypeParagraph
-import kasem.sm.article.markdown.components.TypeThematicBreak
+import kasem.sm.article.markdown.components.*
 import kasem.sm.article.markdown.utils.TAG_IMAGE_URL
-import org.commonmark.node.BlockQuote
-import org.commonmark.node.Code
-import org.commonmark.node.Emphasis
-import org.commonmark.node.FencedCodeBlock
-import org.commonmark.node.HardLineBreak
-import org.commonmark.node.Heading
-import org.commonmark.node.Image
-import org.commonmark.node.Link
-import org.commonmark.node.Node
-import org.commonmark.node.Paragraph
-import org.commonmark.node.StrongEmphasis
-import org.commonmark.node.Text
-import org.commonmark.node.ThematicBreak
+import org.commonmark.node.*
 
 data class MarkdownStyle(
     val blockQuoteSpanStyle: SpanStyle = SpanStyle(),

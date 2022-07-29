@@ -18,18 +18,18 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.request.header
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
-import javax.inject.Singleton
+import io.ktor.client.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kasem.sm.auth_api.AuthManager
 import kasem.sm.auth_api.Token
 import kasem.sm.core.domain.SlimeDispatchers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -7,7 +7,6 @@ package kasem.sm.ui_profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.auth_api.AuthManager
 import kasem.sm.auth_api.AuthState
 import kasem.sm.auth_api.ObserveAuthState
@@ -19,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ProfileVM @Inject constructor(

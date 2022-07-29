@@ -13,12 +13,14 @@ import coil.ImageLoader
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
+import com.ramcosta.composedestinations.navigation.navigate
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import kasem.sm.common_ui.util.Destination
 import kasem.sm.dynamic_links_handler.handleDynamicLink
+import kasem.sm.slime.ui.navigation.BottomNavigatorImpl
 import kasem.sm.slime.ui.navigation.SlimeNavigation
+import kasem.sm.ui_detail.destinations.DetailScreenDestination
 import timber.log.Timber
+import javax.inject.Inject
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @AndroidEntryPoint
@@ -37,12 +39,13 @@ class MainActivity : ComponentActivity() {
             SlimeNavigation(
                 navController = navController,
                 imageLoader = imageLoader,
-                bottomSheetNavigator = bottomSheetNavigator
+                bottomSheetNavigator = bottomSheetNavigator,
+                bottomNavigator = BottomNavigatorImpl(navController)
             )
 
             handleDynamicLink(
                 navigateToDetailScreen = { articleId ->
-                    navController.navigate(Destination.articleDetail(articleId))
+                    navController.navigate(DetailScreenDestination(articleId))
                 },
                 onError = {
                     Timber.d("FirebaseDynamicLink Error ${it.message}")

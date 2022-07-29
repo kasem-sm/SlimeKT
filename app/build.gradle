@@ -59,8 +59,9 @@ dependencies {
 	implementation("com.jakewharton.timber:timber:5.0.1")
 
 	implementation Coil.core
-	implementation Accompanist.navigationMaterial
-	implementation Accompanist.navigationAnimation
+
+	//Destinations
+	implementation Destinations.core
 
 	implementation "com.google.android.material:material:1.7.0-alpha03"
 
@@ -69,6 +70,9 @@ dependencies {
 	implementation Compose.ui
 	implementation Compose.material
 	implementation Compose.material3
+
+	//Ui core
+	implementation(project(":screen:core"))
 
 	// Ui Dep
 	implementation(project(":screen:ui-profile"))

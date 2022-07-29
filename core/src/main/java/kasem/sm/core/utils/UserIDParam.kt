@@ -4,8 +4,7 @@
  */
 package kasem.sm.core.utils
 
-import io.ktor.client.request.HttpRequestBuilder
-import io.ktor.client.request.parameter
+import io.ktor.client.request.*
 
 fun HttpRequestBuilder.userIdParam(id: String?) {
     parameter("userId", id)

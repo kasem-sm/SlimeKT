@@ -7,7 +7,6 @@ package kasem.sm.ui_explore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.interactors.GetInExploreArticles
 import kasem.sm.article.domain.observers.ObserveInExploreArticles
@@ -20,14 +19,9 @@ import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.showMessage
 import kasem.sm.ui_core.stateIn
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ExploreVM @Inject constructor(

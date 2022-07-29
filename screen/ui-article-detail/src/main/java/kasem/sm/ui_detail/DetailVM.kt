@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.article.domain.interactors.GetArticle
 import kasem.sm.article.domain.observers.ObserveArticle
 import kasem.sm.core.domain.ObservableLoader
@@ -23,6 +22,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import javax.inject.Inject
 
 @HiltViewModel
 class DetailVM @Inject constructor(
@@ -32,7 +32,7 @@ class DetailVM @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val articleId = savedStateHandle.get<String>("id")?.toInt() ?: -1
+    private val articleId = savedStateHandle.get<Int>("id") ?: -1
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()

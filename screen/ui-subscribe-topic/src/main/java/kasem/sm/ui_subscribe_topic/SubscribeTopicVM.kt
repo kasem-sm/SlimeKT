@@ -8,11 +8,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.auth_api.AuthState
 import kasem.sm.auth_api.ObserveAuthState
 import kasem.sm.common_ui.R.string
-import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
@@ -20,20 +18,10 @@ import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.topic.subscription_manager_worker.SubscribeTopicManager
-import kasem.sm.ui_core.SavedMutableState
-import kasem.sm.ui_core.UiEvent
-import kasem.sm.ui_core.navigate
-import kasem.sm.ui_core.showMessage
-import kasem.sm.ui_core.stateIn
-import kasem.sm.ui_core.success
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
+import kasem.sm.ui_core.*
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SubscribeTopicVM @Inject constructor(
@@ -102,7 +90,7 @@ class SubscribeTopicVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch(dispatchers.main) {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Destination.LoginScreen.route))
+                _uiEvent.emit(navigate(NavigationEvent.Login))
             }
         }
     }

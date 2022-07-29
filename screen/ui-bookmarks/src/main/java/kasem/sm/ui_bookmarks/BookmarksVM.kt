@@ -7,13 +7,13 @@ package kasem.sm.ui_bookmarks
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.interactors.ResetBookmarks
 import kasem.sm.article.domain.observers.ObserveBookmarkedArticles
 import kasem.sm.ui_core.stateIn
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class BookmarksVM @Inject constructor(

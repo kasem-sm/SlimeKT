@@ -7,6 +7,7 @@ apply {
 }
 
 dependencies {
+	implementation project(":common-ui")
 	implementation(Compose.material)
 	implementation(Jetbrains.coroutinesCore)
 

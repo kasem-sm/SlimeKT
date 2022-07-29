@@ -4,12 +4,7 @@
  */
 package kasem.sm.article.domain.interactors
 
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.just
-import io.mockk.mockk
-import io.mockk.runs
-import java.io.IOException
+import io.mockk.*
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.domain.interactors.data.FakeArticleApi
@@ -30,6 +25,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Rule
 import org.junit.Test
+import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class FakeGetArticleTest {

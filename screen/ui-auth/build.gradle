@@ -1,5 +1,6 @@
 plugins {
 	id("com.android.library")
+	id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
 }
 
 apply {
@@ -7,11 +8,22 @@ apply {
 }
 
 android {
+	libraryVariants.all { variant ->
+		kotlin.sourceSets {
+			getByName(variant.name) {
+				kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
+			}
+		}
+	}
 	buildFeatures {
 		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
 	}
 	defaultConfig {
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+	}
+	ksp {
+		arg("compose-destinations.mode", "destinations")
+		arg("compose-destinations.moduleName", "ui-auth")
 	}
 }
 
@@ -24,6 +36,10 @@ dependencies {
 	implementation(project(":features:authentication:domain:model"))
 
 	implementation(Compose.iconsExtended)
+
+
+	implementation(Destinations.core)
+	ksp(Destinations.ksp)
 
 	testImplementation(project(':common-test-utils'))
 

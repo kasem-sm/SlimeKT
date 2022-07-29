@@ -5,7 +5,7 @@
 package kasem.sm.article.common_ui
 
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 fun Long.toDate(
     pattern: String = "dd MMMM"

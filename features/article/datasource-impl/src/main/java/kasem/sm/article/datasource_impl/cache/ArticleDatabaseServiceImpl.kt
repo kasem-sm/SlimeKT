@@ -4,7 +4,6 @@
  */
 package kasem.sm.article.datasource_impl.cache
 
-import javax.inject.Inject
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.cache.Quad
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
@@ -17,6 +16,7 @@ import kasem.sm.core.utils.slimeSuspendTry
 import kasem.sm.core.utils.slimeTry
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 internal class ArticleDatabaseServiceImpl @Inject constructor(
     private val dao: ArticleDao

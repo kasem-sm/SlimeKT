@@ -4,13 +4,13 @@
  */
 package kasem.sm.article.datasource.cache
 
-import java.io.Serializable
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kasem.sm.article.datasource.utils.DailyReadStatus
 import kasem.sm.article.datasource.utils.IsActiveInDailyRead
 import kasem.sm.article.datasource.utils.IsBookmarked
 import kasem.sm.article.datasource.utils.IsInExplore
 import kotlinx.coroutines.flow.Flow
+import java.io.Serializable
 
 interface ArticleDatabaseService {
     suspend fun insert(article: ArticleEntity)

@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import io.mockk.coEvery
 import io.mockk.mockk
-import java.io.IOException
 import kasem.sm.article.domain.interactors.GetArticle
 import kasem.sm.article.domain.model.Article
 import kasem.sm.article.domain.observers.ObserveArticle
@@ -23,6 +22,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import java.io.IOException
 
 class DetailVMTest {
     @get:Rule

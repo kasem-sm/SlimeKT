@@ -4,7 +4,6 @@
  */
 package kasem.sm.article.domain.interactors
 
-import javax.inject.Inject
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.core.domain.SlimeDispatchers
@@ -12,6 +11,7 @@ import kasem.sm.core.domain.Stage
 import kasem.sm.core.domain.start
 import kasem.sm.core.utils.getOrDefault
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GetArticles @Inject constructor(
     private val api: ArticleApiService,

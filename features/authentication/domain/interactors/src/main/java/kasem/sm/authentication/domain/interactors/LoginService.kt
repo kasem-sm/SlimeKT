@@ -4,7 +4,6 @@
  */
 package kasem.sm.authentication.domain.interactors
 
-import javax.inject.Inject
 import kasem.sm.auth_api.AuthManager
 import kasem.sm.authentication.datasource.network.AuthApiService
 import kasem.sm.authentication.domain.model.AuthResult
@@ -14,6 +13,7 @@ import kasem.sm.authentication.domain.model.ServerException
 import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 /**
  * [execute] function takes user's credentials and tries to log in.

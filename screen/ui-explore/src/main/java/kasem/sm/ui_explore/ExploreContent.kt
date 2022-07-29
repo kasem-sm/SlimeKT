@@ -14,12 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import coil.ImageLoader
-import kasem.sm.common_ui.EmptyView
-import kasem.sm.common_ui.ProfileCard
+import kasem.sm.common_ui.*
 import kasem.sm.common_ui.R
-import kasem.sm.common_ui.SlimeHeader
-import kasem.sm.common_ui.SlimeScreenColumn
-import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.ui_explore.components.DiscoverTopicsView
 import kasem.sm.ui_explore.components.discoverArticlesView
 

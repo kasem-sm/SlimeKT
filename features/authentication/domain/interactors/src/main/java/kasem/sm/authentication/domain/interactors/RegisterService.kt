@@ -4,18 +4,14 @@
  */
 package kasem.sm.authentication.domain.interactors
 
-import javax.inject.Inject
 import kasem.sm.auth_api.AuthManager
 import kasem.sm.authentication.datasource.network.AuthApiService
-import kasem.sm.authentication.domain.model.AuthResult
+import kasem.sm.authentication.domain.model.*
 import kasem.sm.authentication.domain.model.AuthResult.Companion.toInvalidCredentialsException
-import kasem.sm.authentication.domain.model.Credentials
-import kasem.sm.authentication.domain.model.ServerException
-import kasem.sm.authentication.domain.model.containsOnlyNumbers
-import kasem.sm.authentication.domain.model.containsSpecialCharacters
 import kasem.sm.core.utils.toMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class RegisterService @Inject constructor(
     private val api: AuthApiService,

@@ -4,23 +4,24 @@
  */
 package kasem.sm.ui_home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import coil.ImageLoader
-import kasem.sm.common_ui.util.Destination
+import kasem.sm.ui_core.CommonNavigator
+import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 
+@com.ramcosta.composedestinations.annotation.Destination
 @Composable
 fun HomeScreen(
     viewModel: HomeVM,
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
-    onArticleClick: (Int) -> Unit,
-    navigateTo: (String) -> Unit,
-    backHandler: @Composable (enabled: Boolean, onBack: () -> Unit) -> Unit
+    navigator: CommonNavigator
 ) {
     val state by rememberStateWithLifecycle(viewModel.state)
 
@@ -28,7 +29,7 @@ fun HomeScreen(
 
     val isBackHandlerEnabled = state.currentQuery.isNotEmpty()
 
-    backHandler(
+    BackHandler(
         enabled = isBackHandlerEnabled,
         onBack = {
             if (isBackHandlerEnabled) {
@@ -42,7 +43,7 @@ fun HomeScreen(
         onDataReceived = { position ->
             listState.animateScrollToItem(position as Int)
         },
-        onRouteReceived = { navigateTo(it) }
+        onNavigate = navigator::navigateEvent
     )
 
     HomeContent(
@@ -51,9 +52,9 @@ fun HomeScreen(
         onRefresh = viewModel::refresh,
         onQueryChange = viewModel::onQueryChange,
         onTopicChange = viewModel::onQueryChange,
-        onArticleClick = onArticleClick,
+        onArticleClick = { navigator.navigateEvent(NavigationEvent.Detail(it)) },
         navigateToSubscriptionScreen = {
-            navigateTo(Destination.SubscribeTopicScreen.route)
+            navigator.navigateEvent(NavigationEvent.Subscription)
         },
         onBookmarkClick = viewModel::updateBookmarkStatus,
         listState = listState
