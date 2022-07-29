@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kasem.sm.auth_api.AuthState
 import kasem.sm.auth_api.ObserveAuthState
 import kasem.sm.common_ui.R.string
@@ -18,10 +19,21 @@ import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.topic.subscription_manager_worker.SubscribeTopicManager
-import kasem.sm.ui_core.*
-import kotlinx.coroutines.flow.*
+import kasem.sm.ui_core.NavigationEvent
+import kasem.sm.ui_core.SavedMutableState
+import kasem.sm.ui_core.UiEvent
+import kasem.sm.ui_core.navigate
+import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_core.stateIn
+import kasem.sm.ui_core.success
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SubscribeTopicVM @Inject constructor(

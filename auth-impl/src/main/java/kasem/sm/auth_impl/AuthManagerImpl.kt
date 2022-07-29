@@ -6,7 +6,12 @@ package kasem.sm.auth_impl
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import kasem.sm.auth_api.*
+import javax.inject.Inject
+import kasem.sm.auth_api.AuthManager
+import kasem.sm.auth_api.AuthState
+import kasem.sm.auth_api.ID
+import kasem.sm.auth_api.Token
+import kasem.sm.auth_api.UserData
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.task_api.Tasks
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +22,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class AuthManagerImpl @Inject constructor(
     private val dispatchers: SlimeDispatchers,

@@ -4,11 +4,11 @@
  */
 package kasem.sm.core.domain
 
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Inspired by

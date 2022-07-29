@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.slime.ui.navigation
 
 import com.ramcosta.composedestinations.spec.DestinationSpec

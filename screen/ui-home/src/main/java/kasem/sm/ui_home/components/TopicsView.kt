@@ -22,8 +22,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import kasem.sm.common_ui.*
+import kasem.sm.common_ui.LocalSlimeFont
+import kasem.sm.common_ui.R
+import kasem.sm.common_ui.SlimeCard
+import kasem.sm.common_ui.SlimePrimaryButton
+import kasem.sm.common_ui.TopicChip
 import kasem.sm.common_ui.util.toggleWithRipple
+import kasem.sm.common_ui.withScale
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.ui_home.HomeState
 

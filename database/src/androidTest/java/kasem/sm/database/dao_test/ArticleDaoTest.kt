@@ -9,18 +9,18 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
+import javax.inject.Named
 import kasem.sm.article.datasource_impl.cache.dao.ArticleDao
 import kasem.sm.database.dao_test.utils.FakeData
 import kasem.sm.database.dao_test.utils.getOrAwaitValue
 import kasem.sm.database.db.SlimeDatabase
+import kotlin.random.Random
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
-import javax.inject.Named
-import kotlin.random.Random
 
 @HiltAndroidTest
 @SmallTest

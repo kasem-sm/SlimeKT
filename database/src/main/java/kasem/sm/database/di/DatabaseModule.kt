@@ -11,11 +11,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kasem.sm.article.datasource_impl.inject.ArticleModule
 import kasem.sm.authentication.datasource_impl.inject.AuthModule
 import kasem.sm.database.db.SlimeDatabase
 import kasem.sm.topic.datasource_impl.inject.TopicModule
-import javax.inject.Singleton
 
 @Module(
     includes = [

@@ -4,7 +4,11 @@
  */
 package kasem.sm.article.datasource_impl.cache.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 import kasem.sm.article.datasource.cache.entity.ArticleEntity
 import kotlinx.coroutines.flow.Flow
 

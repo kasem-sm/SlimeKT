@@ -7,6 +7,7 @@ package kasem.sm.article.domain.interactors
 import app.cash.turbine.test
 import io.mockk.coEvery
 import io.mockk.mockk
+import java.sql.SQLException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultQuadDataWithOneFalse
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.getMockEntity
@@ -21,7 +22,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import java.sql.SQLException
 
 @ExperimentalCoroutinesApi
 class ObserveDailyReadArticleTest {

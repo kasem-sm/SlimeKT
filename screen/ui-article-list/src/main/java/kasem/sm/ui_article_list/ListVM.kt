@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kasem.sm.article.domain.interactors.BookmarkArticle
 import kasem.sm.article.domain.observers.ObserveArticlesByTopic
 import kasem.sm.auth_api.AuthState
@@ -19,10 +20,18 @@ import kasem.sm.core.domain.collect
 import kasem.sm.task_api.Tasks
 import kasem.sm.topic.domain.interactors.GetTopicById
 import kasem.sm.topic.domain.observers.ObserveTopicById
-import kasem.sm.ui_core.*
-import kotlinx.coroutines.flow.*
+import kasem.sm.ui_core.NavigationEvent
+import kasem.sm.ui_core.SavedMutableState
+import kasem.sm.ui_core.UiEvent
+import kasem.sm.ui_core.combineFlows
+import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_core.stateIn
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ListVM @Inject constructor(

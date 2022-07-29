@@ -26,7 +26,8 @@ fun RegisterScreen(
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,
         onSuccessCallback = {
-            navigator.navigateEvent(NavigationEvent.NavigateUp)        }
+            navigator.navigateEvent(NavigationEvent.NavigateUp)
+        }
     )
 
     RegisterContent(

@@ -15,12 +15,12 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.ramcosta.composedestinations.navigation.navigate
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kasem.sm.dynamic_links_handler.handleDynamicLink
 import kasem.sm.slime.ui.navigation.BottomNavigatorImpl
 import kasem.sm.slime.ui.navigation.SlimeNavigation
 import kasem.sm.ui_detail.destinations.DetailScreenDestination
 import timber.log.Timber
-import javax.inject.Inject
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @AndroidEntryPoint

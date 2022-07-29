@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kasem.sm.authentication.domain.interactors.LoginService
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.AuthState
@@ -16,11 +17,19 @@ import kasem.sm.common_ui.R
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.utils.toMessage
-import kasem.sm.ui_core.*
-import kotlinx.coroutines.flow.*
+import kasem.sm.ui_core.SavedMutableState
+import kasem.sm.ui_core.UiEvent
+import kasem.sm.ui_core.combineFlows
+import kasem.sm.ui_core.showMessage
+import kasem.sm.ui_core.stateIn
+import kasem.sm.ui_core.success
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginVM @Inject constructor(

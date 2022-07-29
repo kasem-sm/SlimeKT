@@ -1,6 +1,9 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.slime.ui.navigation
 
-import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.material.SnackbarHostState
@@ -11,7 +14,6 @@ import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.animations.defaults.DestinationEnterTransition
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.navigation.dependency
@@ -46,7 +48,8 @@ internal fun AppNavigation(
         engine = rememberAnimatedNavHostEngine(
             rootDefaultAnimations = RootNavGraphDefaultAnimations(
                 enterTransition = { fadeIn() },
-                exitTransition = { fadeOut() })
+                exitTransition = { fadeOut() }
+            )
         ),
         navController = navController,
         navGraph = NavGraphs.root,

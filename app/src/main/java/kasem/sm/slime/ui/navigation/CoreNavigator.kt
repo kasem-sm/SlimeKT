@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.slime.ui.navigation
 
 import androidx.navigation.NavController
@@ -15,7 +19,7 @@ import kasem.sm.ui_subscribe_topic.destinations.SubscribeTopicScreenDestination
 
 class CoreNavigator(private val navController: NavController) : CommonNavigator {
     override fun navigateEvent(event: NavigationEvent) {
-        when(event) {
+        when (event) {
             is NavigationEvent.Detail -> {
                 navController.navigate(DetailScreenDestination(event.id))
             }

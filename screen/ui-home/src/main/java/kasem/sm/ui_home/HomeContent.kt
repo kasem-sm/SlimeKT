@@ -22,8 +22,11 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import kasem.sm.article.common_ui.ArticleCard
-import kasem.sm.common_ui.*
+import kasem.sm.common_ui.EmptyView
 import kasem.sm.common_ui.R
+import kasem.sm.common_ui.SlimeHeader
+import kasem.sm.common_ui.SlimeScreenColumn
+import kasem.sm.common_ui.SlimeSwipeRefresh
 import kasem.sm.common_ui.util.dynamicItem
 import kasem.sm.ui_home.components.DailyReadArticle
 import kasem.sm.ui_home.components.SearchBar

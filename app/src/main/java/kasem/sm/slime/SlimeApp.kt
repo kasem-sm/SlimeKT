@@ -8,10 +8,10 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import kasem.sm.task_api.Tasks
 import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
-import javax.inject.Inject
 
 @HiltAndroidApp
 class SlimeApp : Application(), Configuration.Provider {

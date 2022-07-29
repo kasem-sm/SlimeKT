@@ -4,7 +4,12 @@
  */
 package kasem.sm.article.domain.interactors
 
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import java.io.IOException
 import kasem.sm.article.datasource.cache.ArticleDatabaseService
 import kasem.sm.article.datasource.network.ArticleApiService
 import kasem.sm.article.domain.interactors.utils.ArticleFakes.defaultQuadData
@@ -24,7 +29,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class GetLatestArticleTest {

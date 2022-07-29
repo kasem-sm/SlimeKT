@@ -4,10 +4,14 @@
  */
 package kasem.sm.topic.datasource_impl.network
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import javax.inject.Inject
 import kasem.sm.auth_api.AuthManager
 import kasem.sm.auth_api.ID
 import kasem.sm.core.utils.userIdParam
@@ -15,7 +19,6 @@ import kasem.sm.core.utils.withResult
 import kasem.sm.topic.datasource.network.TopicApiService
 import kasem.sm.topic.datasource.network.response.SlimeResponse
 import kasem.sm.topic.datasource.network.response.TopicResponse
-import javax.inject.Inject
 
 internal class TopicApiServiceImpl @Inject constructor(
     private val client: HttpClient,

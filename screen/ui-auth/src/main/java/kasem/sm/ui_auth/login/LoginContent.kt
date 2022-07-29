@@ -18,7 +18,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.SlimeScreenColumn
-import kasem.sm.ui_auth.components.*
+import kasem.sm.ui_auth.components.BottomSheetHandle
+import kasem.sm.ui_auth.components.Header
+import kasem.sm.ui_auth.components.LoginButton
+import kasem.sm.ui_auth.components.PasswordField
+import kasem.sm.ui_auth.components.SignUpButton
+import kasem.sm.ui_auth.components.UsernameField
 
 /**
  * This composable maintains the entire screen for handling user login.

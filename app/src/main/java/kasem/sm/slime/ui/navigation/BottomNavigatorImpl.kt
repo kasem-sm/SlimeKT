@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2022, Kasem S.M
+ * All rights reserved.
+ */
 package kasem.sm.slime.ui.navigation
 
 import androidx.navigation.NavController
@@ -10,7 +14,7 @@ import kasem.sm.slime.ui.util.toDirectionDestination
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class BottomNavigatorImpl(private val navController: NavController): BottomNavigator {
+class BottomNavigatorImpl(private val navController: NavController) : BottomNavigator {
     override fun navigate(item: BottomNavigationItems) {
         if (navController.currentDestination?.route !== item.toDirectionDestination().route) {
             navController.navigate(item.toDirectionDestination()) {

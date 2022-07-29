@@ -4,13 +4,13 @@
  */
 package kasem.sm.topic.datasource_impl.cache
 
+import javax.inject.Inject
 import kasem.sm.core.utils.slimeSuspendTry
 import kasem.sm.core.utils.slimeTry
 import kasem.sm.topic.datasource.cache.TopicDatabaseService
 import kasem.sm.topic.datasource.cache.entity.TopicEntity
 import kasem.sm.topic.datasource_impl.cache.dao.TopicDao
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 internal class TopicDatabaseServiceImpl @Inject constructor(
     private val dao: TopicDao,
