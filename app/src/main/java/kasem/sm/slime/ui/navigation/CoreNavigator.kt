@@ -4,7 +4,6 @@
  */
 package kasem.sm.slime.ui.navigation
 
-import android.util.Log
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
 import kasem.sm.ui_article_list.destinations.ListScreenDestination
