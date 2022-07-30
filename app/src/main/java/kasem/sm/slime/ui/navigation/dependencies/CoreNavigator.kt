@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package kasem.sm.slime.ui.navigation
+package kasem.sm.slime.ui.navigation.dependencies
 
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate

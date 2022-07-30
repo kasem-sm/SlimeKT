@@ -1,6 +1,6 @@
 name: Slime Build (Android)
 
-on: push
+on: [push, pull_request]
 
 jobs:
   build:

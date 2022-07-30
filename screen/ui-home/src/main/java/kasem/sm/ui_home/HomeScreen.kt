@@ -10,6 +10,7 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import coil.ImageLoader
+import kasem.sm.ui_core.BackHandler
 import kasem.sm.ui_core.CommonNavigator
 import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.rememberStateWithLifecycle
@@ -21,7 +22,8 @@ fun HomeScreen(
     viewModel: HomeVM,
     snackbarHostState: SnackbarHostState,
     imageLoader: ImageLoader,
-    navigator: CommonNavigator
+    navigator: CommonNavigator,
+    backHandler: BackHandler
 ) {
     val state by rememberStateWithLifecycle(viewModel.state)
 
@@ -29,7 +31,7 @@ fun HomeScreen(
 
     val isBackHandlerEnabled = state.currentQuery.isNotEmpty()
 
-    BackHandler(
+    backHandler(
         enabled = isBackHandlerEnabled,
         onBack = {
             if (isBackHandlerEnabled) {

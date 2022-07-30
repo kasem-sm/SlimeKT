@@ -17,8 +17,8 @@ import com.ramcosta.composedestinations.navigation.navigate
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kasem.sm.dynamic_links_handler.handleDynamicLink
-import kasem.sm.slime.ui.navigation.BottomNavigatorImpl
 import kasem.sm.slime.ui.navigation.SlimeNavigation
+import kasem.sm.slime.ui.navigation.dependencies.BottomNavigatorImpl
 import kasem.sm.ui_detail.destinations.DetailScreenDestination
 import timber.log.Timber
 

@@ -17,6 +17,8 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.navigation.dependency
+import kasem.sm.slime.ui.navigation.dependencies.BackHandlerImpl
+import kasem.sm.slime.ui.navigation.dependencies.CoreNavigator
 import kasem.sm.ui_article_list.ListVM
 import kasem.sm.ui_article_list.destinations.ListScreenDestination
 import kasem.sm.ui_auth.destinations.LoginScreenDestination
@@ -60,6 +62,8 @@ internal fun AppNavigation(
             dependency(imageLoader)
 
             dependency(snackbarHostState)
+
+            dependency(BackHandlerImpl())
 
             dependency(HomeScreenDestination) {
                 hiltViewModel<HomeVM>()
