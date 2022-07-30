@@ -1,8 +1,8 @@
 object Compose {
     private const val compostActivity = "1.6.0-alpha05"
-    private const val composeVersion = "1.2.0-rc03"
-    private const val composeMaterial3Version = "1.0.0-alpha14"
-    const val composeCompiler = "1.3.0-beta01"
+    private const val composeVersion = "1.3.0-alpha02"
+    private const val composeMaterial3Version = "1.0.0-alpha15"
+    const val composeCompiler = "1.3.0-rc01"
 
     const val ui = "androidx.compose.ui:ui:$composeVersion"
     const val material = "androidx.compose.material:material:$composeVersion"

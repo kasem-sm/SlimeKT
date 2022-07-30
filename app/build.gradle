@@ -15,9 +15,9 @@ android {
 		}
 	}
 	buildFeatures {
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi"
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+		kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+		kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
+		kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
 	}
 }
 
@@ -26,8 +26,8 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
 	defaultConfig {
-		versionCode = 3
-		versionName = "1.2"
+		versionCode = 4
+		versionName = "1.3"
 		applicationId "kasem.sm.slime"
 	}
 }
