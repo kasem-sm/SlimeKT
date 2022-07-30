@@ -11,7 +11,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.google.accompanist.navigation.material.BottomSheetNavigator
@@ -20,6 +19,7 @@ import kasem.sm.common_ui.scaffold.SlimeBottomBar
 import kasem.sm.common_ui.scaffold.SlimeScaffold
 import kasem.sm.common_ui.theme.SlimeTheme
 import kasem.sm.common_ui.util.BottomNavigationItems
+import kasem.sm.common_ui.util.BottomNavigator
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @RequiresApi(S)
@@ -28,6 +28,7 @@ fun SlimeNavigation(
     imageLoader: ImageLoader,
     navController: NavHostController,
     bottomSheetNavigator: BottomSheetNavigator,
+    bottomNavigator: BottomNavigator
 ) = SlimeTheme {
     val scaffoldState = rememberScaffoldState()
 
@@ -37,19 +38,8 @@ fun SlimeNavigation(
         fabVisibility = navController.isProfileScreenRoute(),
         bottomBar = {
             SlimeBottomBar(
-                currentRoute = navController.currentRouteAsState(),
                 items = BottomNavigationItems.toList,
-                navigateTo = { route ->
-                    if (navController.currentDestination?.route != route) {
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
-                }
+                bottomNavigator = bottomNavigator
             )
         }
     ) { padding ->

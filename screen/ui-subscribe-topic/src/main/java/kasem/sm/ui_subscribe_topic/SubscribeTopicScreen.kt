@@ -7,23 +7,27 @@ package kasem.sm.ui_subscribe_topic
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import com.ramcosta.composedestinations.annotation.Destination
+import kasem.sm.ui_core.CommonNavigator
+import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 
+@Destination
 @Composable
 fun SubscribeTopicScreen(
     viewModel: SubscribeTopicVM,
     snackbarHostState: SnackbarHostState,
-    onSubscriptionSaved: () -> Unit,
-    navigateTo: (String) -> Unit,
-    navigateBack: () -> Unit,
+    navigator: CommonNavigator
 ) {
     val viewState by rememberStateWithLifecycle(viewModel.state)
 
     viewModel.uiEvent.safeCollector(
         onMessageReceived = snackbarHostState::showSnackbar,
-        onSuccessCallback = onSubscriptionSaved,
-        onRouteReceived = navigateTo
+        onSuccessCallback = {
+            navigator.navigateEvent(NavigationEvent.NavigateUp)
+        },
+        onNavigate = navigator::navigateEvent
     )
 
     SubscribeTopicContent(
@@ -32,6 +36,6 @@ fun SubscribeTopicScreen(
         saveRecommendedValues = viewModel::saveUserSubscribedTopics,
         updateList = viewModel::updateList,
         showAuthenticationSheet = viewModel::checkAuthenticationStatus,
-        navigateBack = navigateBack
+        navigateBack = { navigator.navigateEvent(NavigationEvent.NavigateUp) }
     )
 }

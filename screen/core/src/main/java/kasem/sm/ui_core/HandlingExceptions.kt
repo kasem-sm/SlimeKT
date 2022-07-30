@@ -7,8 +7,8 @@ package kasem.sm.ui_core
 import androidx.annotation.StringRes
 
 fun navigate(
-    route: String
-): UiEvent.NavigateTo = UiEvent.NavigateTo(route)
+    navigationEvent: NavigationEvent
+): UiEvent.NavigateTo = UiEvent.NavigateTo(navigationEvent)
 
 fun showMessage(
     value: String,

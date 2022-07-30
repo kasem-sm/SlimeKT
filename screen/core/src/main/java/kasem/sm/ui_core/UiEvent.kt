@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.SharedFlow
 
 sealed class UiEvent {
     data class ShowMessage(val uiText: UiText) : UiEvent()
-    data class NavigateTo(val route: String) : UiEvent()
+    data class NavigateTo(val navigationEvent: NavigationEvent) : UiEvent()
     data class SendData(val data: Any) : UiEvent()
     object Success : UiEvent()
 }
 
 @Composable
 fun SharedFlow<UiEvent>.safeCollector(
-    onRouteReceived: suspend (route: String) -> Unit = {},
+    onNavigate: suspend (route: NavigationEvent) -> Unit = {},
     onDataReceived: suspend (data: Any) -> Unit = {},
     onMessageReceived: suspend (message: String) -> Unit = {},
     onSuccessCallback: () -> Unit = {}
@@ -29,7 +29,7 @@ fun SharedFlow<UiEvent>.safeCollector(
         collect {
             when (it) {
                 is UiEvent.ShowMessage -> onMessageReceived(it.uiText.get(context))
-                is UiEvent.NavigateTo -> onRouteReceived(it.route)
+                is UiEvent.NavigateTo -> onNavigate(it.navigationEvent)
                 is UiEvent.SendData -> onDataReceived(it.data)
                 is UiEvent.Success -> onSuccessCallback()
             }

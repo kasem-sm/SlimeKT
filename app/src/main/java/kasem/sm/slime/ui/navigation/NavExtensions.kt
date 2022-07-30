@@ -7,25 +7,30 @@ package kasem.sm.slime.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import kasem.sm.common_ui.util.Destination
+import com.ramcosta.composedestinations.spec.DestinationSpec
+import com.ramcosta.composedestinations.utils.destination
+import kasem.sm.ui_bookmarks.destinations.BookmarksScreenDestination
+import kasem.sm.ui_explore.destinations.ExploreScreenDestination
+import kasem.sm.ui_home.destinations.HomeScreenDestination
+import kasem.sm.ui_profile.destinations.ProfileScreenDestination
 
 @Composable
-fun NavController.currentRouteAsState(): String? {
-    return currentBackStackEntryAsState().value?.destination?.route
+fun NavController.currentDestinationAsState(): DestinationSpec<*>? {
+    return currentBackStackEntryAsState().value?.destination()
 }
 
 @Composable
 fun NavController.isNotAuthRoute(): Boolean {
-    return when (currentRouteAsState()) {
-        Destination.HomeScreen.route -> true
-        Destination.ExploreScreen().route -> true
-        Destination.ProfileScreen.route -> true
-        Destination.BookmarkScreen.route -> true
+    return when (currentDestinationAsState()) {
+        HomeScreenDestination -> true
+        ExploreScreenDestination -> true
+        ProfileScreenDestination -> true
+        BookmarksScreenDestination -> true
         else -> false
     }
 }
 
 @Composable
 fun NavController.isProfileScreenRoute(): Boolean {
-    return currentRouteAsState() == Destination.ProfileScreen.route
+    return currentDestinationAsState() == ProfileScreenDestination
 }

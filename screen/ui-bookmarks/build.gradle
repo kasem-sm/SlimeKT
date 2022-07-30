@@ -1,9 +1,24 @@
 plugins {
 	id("com.android.library")
+	id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
 }
 
 apply {
 	from("$rootDir/gradle/ui.gradle")
+}
+
+android {
+	libraryVariants.all { variant ->
+		kotlin.sourceSets {
+			getByName(variant.name) {
+				kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
+			}
+		}
+	}
+	ksp {
+		arg("compose-destinations.mode", "destinations")
+		arg("compose-destinations.moduleName", "ui-bookmarks")
+	}
 }
 
 dependencies {
@@ -13,4 +28,7 @@ dependencies {
 	implementation(project(":features:article:domain:model"))
 
 	implementation(Coil.core)
+
+	implementation(Destinations.core)
+	ksp(Destinations.ksp)
 }

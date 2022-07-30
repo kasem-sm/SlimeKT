@@ -13,23 +13,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.ramcosta.composedestinations.annotation.Destination
 import kasem.sm.common_ui.SlimeScreenColumn
+import kasem.sm.ui_core.CommonNavigator
+import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.rememberStateWithLifecycle
 import kasem.sm.ui_core.safeCollector
 import kasem.sm.ui_profile.components.SignInOutButton
 import kasem.sm.ui_profile.components.WorkInProgressView
 
+@Destination
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileVM,
-    onLogOutSuccess: () -> Unit,
-    navigateTo: (String) -> Unit
+    navigator: CommonNavigator
 ) {
     val isUserAuthenticated by rememberStateWithLifecycle(viewModel.isUserAuthenticated)
 
     viewModel.uiEvent.safeCollector(
-        onSuccessCallback = onLogOutSuccess
+        onSuccessCallback = {
+            navigator.navigateEvent(NavigationEvent.NavigateUp)
+        }
     )
 
     Box(
@@ -49,7 +54,9 @@ fun ProfileScreen(
                 SignInOutButton(
                     isUserAuthenticated = isUserAuthenticated,
                     clearUserSession = viewModel::clearUserSession,
-                    navigateTo = navigateTo
+                    navigateTo = {
+                        navigator.navigateEvent(it)
+                    }
                 )
             }
         }

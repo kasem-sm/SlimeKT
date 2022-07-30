@@ -1,5 +1,20 @@
 plugins {
 	id("com.android.library")
+	id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
+}
+
+android {
+	libraryVariants.all { variant ->
+		kotlin.sourceSets {
+			getByName(variant.name) {
+				kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
+			}
+		}
+	}
+	ksp {
+		arg("compose-destinations.mode", "destinations")
+		arg("compose-destinations.moduleName", "ui-profile")
+	}
 }
 
 apply {
@@ -8,4 +23,7 @@ apply {
 
 dependencies {
 	implementation(project(":auth-api"))
+
+	implementation(Destinations.core)
+	ksp(Destinations.ksp)
 }

@@ -120,7 +120,10 @@ fun ArticleCard(
                             .clickWithRipple {
                                 onBookmarkClick(article.id)
                             }
-                            .semantics { testTag = if (isBookmarked) "article_isBookmarked" else "article_isNotBookmarked" },
+                            .semantics {
+                                testTag =
+                                    if (isBookmarked) "article_isBookmarked" else "article_isNotBookmarked"
+                            },
                         isBookmarked = isBookmarked
                     )
                 }

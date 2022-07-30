@@ -12,7 +12,6 @@ import javax.inject.Inject
 import kasem.sm.auth_api.AuthState
 import kasem.sm.auth_api.ObserveAuthState
 import kasem.sm.common_ui.R.string
-import kasem.sm.common_ui.util.Destination
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
 import kasem.sm.core.domain.collect
@@ -20,6 +19,7 @@ import kasem.sm.topic.domain.interactors.GetInExploreTopics
 import kasem.sm.topic.domain.model.Topic
 import kasem.sm.topic.domain.observers.ObserveInExploreTopics
 import kasem.sm.topic.subscription_manager_worker.SubscribeTopicManager
+import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.SavedMutableState
 import kasem.sm.ui_core.UiEvent
 import kasem.sm.ui_core.navigate
@@ -102,7 +102,7 @@ class SubscribeTopicVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch(dispatchers.main) {
             if (!isUserAuthenticated.value) {
-                _uiEvent.emit(navigate(Destination.LoginScreen.route))
+                _uiEvent.emit(navigate(NavigationEvent.Login))
             }
         }
     }
