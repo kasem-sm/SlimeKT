@@ -1,5 +1,5 @@
 object Accompanist {
-    private const val accompanistVersion = "0.24.13-rc"
+    private const val accompanistVersion = "0.26.0-alpha"
     private const val prefix = "com.google.accompanist:accompanist"
 
     const val sysUiController =

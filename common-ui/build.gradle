@@ -6,7 +6,7 @@ apply {
 
 android {
 	buildFeatures {
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi"
+		kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
 	}
 }
 
@@ -21,5 +21,5 @@ dependencies {
 	implementation(Accompanist.swipeRefresh)
 	implementation(Accompanist.flowLayout)
 	implementation Accompanist.sysUiController
-	implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
+	implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
 }

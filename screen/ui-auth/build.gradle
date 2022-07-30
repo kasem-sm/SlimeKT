@@ -1,6 +1,6 @@
 plugins {
 	id("com.android.library")
-	id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
+	id 'com.google.devtools.ksp' version "${kspVersion}"
 }
 
 apply {
@@ -16,7 +16,7 @@ android {
 		}
 	}
 	buildFeatures {
-		kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+		kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
 	}
 	defaultConfig {
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
