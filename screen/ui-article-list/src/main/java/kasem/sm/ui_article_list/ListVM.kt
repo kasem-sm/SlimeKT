@@ -4,6 +4,7 @@
  */
 package kasem.sm.ui_article_list
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -88,7 +89,6 @@ class ListVM @Inject constructor(
     fun checkAuthenticationStatus() {
         viewModelScope.launch {
             if (!isUserAuthenticated.value) {
-//                _uiEvent.emit(navigate(Destination.LoginScreen.route))
                 _uiEvent.emit(UiEvent.NavigateTo(NavigationEvent.Login))
             }
         }
@@ -152,8 +152,6 @@ class ListVM @Inject constructor(
 
     companion object {
         const val LIST_POSITION_KEY = "slime_list_position"
-        const val TOPIC_QUERY_KEY = "topicQuery"
-        const val TOPIC_ID_KEY = "topicId"
         const val USER_AUTHENTICATION_KEY = "user_authenticated"
     }
 }

@@ -4,6 +4,7 @@
  */
 package kasem.sm.ui_explore
 
+import android.util.Log
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

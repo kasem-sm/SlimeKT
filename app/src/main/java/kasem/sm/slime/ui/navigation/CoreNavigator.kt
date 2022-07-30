@@ -4,6 +4,7 @@
  */
 package kasem.sm.slime.ui.navigation
 
+import android.util.Log
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
 import kasem.sm.ui_article_list.destinations.ListScreenDestination
@@ -24,7 +25,7 @@ class CoreNavigator(private val navController: NavController) : CommonNavigator 
                 navController.navigate(DetailScreenDestination(event.id))
             }
             is NavigationEvent.ListScreen -> {
-                navController.navigate(ListScreenDestination(topicId = event.title, topicQuery = event.id))
+                navController.navigate(ListScreenDestination(topicId = event.id, topicQuery = event.title))
             }
             NavigationEvent.Login -> {
                 navController.navigate(LoginScreenDestination)
