@@ -45,9 +45,9 @@ class ListVM @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val topicId = savedStateHandle.get<String>(TOPIC_ID_KEY)!!
+    private val topicId = savedStateHandle.navArgs<ListScreenArgs>().topicId
 
-    private val topicQuery = savedStateHandle.get<String>(TOPIC_QUERY_KEY)!!
+    private val topicQuery = savedStateHandle.navArgs<ListScreenArgs>().topicQuery
 
     private val isUserAuthenticated = SavedMutableState(
         savedStateHandle,

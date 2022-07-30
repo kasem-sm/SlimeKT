@@ -32,7 +32,7 @@ class DetailVM @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val articleId = savedStateHandle.get<Int>("id") ?: -1
+    private val articleId = savedStateHandle.navArgs<DetailScreenArgs>().id
 
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
