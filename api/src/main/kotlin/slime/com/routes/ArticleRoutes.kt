@@ -16,7 +16,7 @@ import slime.com.utils.get
 import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 
-fun Route.registerArticleRoutes(
+fun Route.articleRoutes(
     service: ArticleService
 ) {
     get("/api/article/get/random") {
@@ -39,7 +39,8 @@ fun Route.registerArticleRoutes(
         val query = get("query") ?: ""
 
         val articles = service.getAllArticles(
-            topic = topic, query = query
+            topic = topic,
+            query = query
         )
 
         val articlesResponse = ArticlesResponse(
@@ -70,7 +71,8 @@ fun Route.registerArticleRoutes(
                 true -> respondWith<Unit>(SlimeResponse(true, "Article deleted successfully"))
                 false -> respondWith<Unit>(
                     SlimeResponse(
-                        false, "Couldn't complete your request, Please try again later"
+                        false,
+                        "Couldn't complete your request, Please try again later"
                     )
                 )
             }

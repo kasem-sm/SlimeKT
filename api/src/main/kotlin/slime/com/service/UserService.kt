@@ -61,7 +61,8 @@ class UserService(
             (userName.isBlank() || password.isBlank()) -> ServiceResult.Error("Required fields cannot be blank")
             authRepository.isUsernameAvailable(userName) -> ServiceResult.Error("No such user exists.")
             !authRepository.verifyPasswordForUsername(
-                userName, encryptorService.encryptPassword(password)
+                userName,
+                encryptorService.encryptPassword(password)
             ) -> ServiceResult.Error("Invalid Credentials")
             else -> loginUserAndGenerateToken(userName)
         }

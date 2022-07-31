@@ -11,13 +11,13 @@ import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.auth.AuthRepository
-import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
+import slime.com.data.repository.recommendedtopic.RecommendedTopicRepository
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.isDebugMode
-import slime.com.routes.registerArticleRoutes
-import slime.com.routes.registerAuthenticationRoutes
-import slime.com.routes.registerSubscribeTopicsRoute
-import slime.com.routes.registerTopicRoutes
+import slime.com.routes.articleRoutes
+import slime.com.routes.authenticationRoutes
+import slime.com.routes.subscribeTopicsRoute
+import slime.com.routes.topicRoutes
 import slime.com.service.ArticleService
 import slime.com.service.SubscriptionService
 import slime.com.service.UserService
@@ -43,10 +43,10 @@ fun Application.configureRouting() {
     val subscriptionService by inject<SubscriptionService>()
 
     routing {
-        registerAuthenticationRoutes(userService)
-        registerArticleRoutes(articleService)
-        registerTopicRoutes(topicRepository, subscriptionService)
-        registerSubscribeTopicsRoute(subscriptionService, userService, topicRepository)
+        authenticationRoutes(userService)
+        articleRoutes(articleService)
+        topicRoutes(topicRepository, subscriptionService)
+        subscribeTopicsRoute(subscriptionService, userService, topicRepository)
 
         static {
             resources("static")

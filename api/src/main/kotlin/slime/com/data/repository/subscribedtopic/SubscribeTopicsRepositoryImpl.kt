@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package slime.com.data.repository.subscribed_topic
+package slime.com.data.repository.subscribedtopic
 
 import org.litote.kmongo.and
 import org.litote.kmongo.coroutine.CoroutineDatabase
@@ -11,7 +11,7 @@ import slime.com.data.models.SubscribedTopic
 import slime.com.data.models.Topic
 
 class SubscribeTopicsRepositoryImpl(
-    db: CoroutineDatabase,
+    db: CoroutineDatabase
 ) : SubscribeTopicsRepository {
 
     private val subscribedTopicDb = db.getCollection<SubscribedTopic>()
@@ -26,7 +26,8 @@ class SubscribeTopicsRepositoryImpl(
     override suspend fun subscribe(userId: String, topicId: String): Boolean {
         return subscribedTopicDb.insertOne(
             SubscribedTopic(
-                userId = userId, topicId = topicId
+                userId = userId,
+                topicId = topicId
             )
         ).wasAcknowledged()
     }
@@ -34,7 +35,8 @@ class SubscribeTopicsRepositoryImpl(
     override suspend fun unSubscribe(userId: String, topicId: String): Boolean {
         return subscribedTopicDb.deleteOne(
             and(
-                SubscribedTopic::userId eq userId, SubscribedTopic::topicId eq topicId
+                SubscribedTopic::userId eq userId,
+                SubscribedTopic::topicId eq topicId
             )
         ).wasAcknowledged()
     }
@@ -42,7 +44,8 @@ class SubscribeTopicsRepositoryImpl(
     override suspend fun checkAlreadySubscribed(userId: String, topicId: String): Boolean {
         return subscribedTopicDb.findOne(
             and(
-                SubscribedTopic::userId eq userId, SubscribedTopic::topicId eq topicId
+                SubscribedTopic::userId eq userId,
+                SubscribedTopic::topicId eq topicId
             )
         ) != null
     }

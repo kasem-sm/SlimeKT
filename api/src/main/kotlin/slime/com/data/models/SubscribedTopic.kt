@@ -14,5 +14,5 @@ data class SubscribedTopic(
     val topicId: String,
     val isInExplore: Boolean = false,
     @BsonId
-    val id: String = ObjectId().toString(),
+    val id: String = ObjectId().toString()
 )

@@ -18,7 +18,7 @@ import slime.com.utils.loginUser
 import slime.com.utils.respondWith
 import slime.com.utils.respondWithBadRequest
 
-fun Route.registerAuthenticationRoutes(
+fun Route.authenticationRoutes(
     service: UserService
 ) {
     post("api/auth/register") {
@@ -49,7 +49,7 @@ fun Route.registerAuthenticationRoutes(
                         validateLogin = service::validateCredentialsForLogin,
                         username = username,
                         password = password,
-                        userId = it.id,
+                        userId = it.id
                     )
                 } ?: kotlin.run { return@post }
             }
@@ -72,7 +72,7 @@ fun Route.registerAuthenticationRoutes(
                 validateLogin = service::validateCredentialsForLogin,
                 username = username,
                 password = password,
-                userId = it.id,
+                userId = it.id
             )
         } ?: kotlin.run {
             respondWith(

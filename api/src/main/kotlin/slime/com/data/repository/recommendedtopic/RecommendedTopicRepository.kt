@@ -2,7 +2,7 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package slime.com.data.repository.recommended_topic
+package slime.com.data.repository.recommendedtopic
 
 import slime.com.data.models.RecommendedTopic
 

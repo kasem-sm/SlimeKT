@@ -6,7 +6,7 @@ package slime.com.service
 
 import slime.com.data.models.Article
 import slime.com.data.repository.article.ArticleRepository
-import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
+import slime.com.data.repository.recommendedtopic.RecommendedTopicRepository
 import slime.com.data.request.CreateArticleRequest
 import slime.com.utils.ServiceResult
 
@@ -38,6 +38,7 @@ class ArticleService(
 
     suspend fun deleteArticleById(articleId: Int) = articleRepository.deleteArticle(articleId)
 
+    @Suppress("Unused")
     suspend fun validateAndCreateArticle(article: CreateArticleRequest): ServiceResult {
         article.apply {
             return when {

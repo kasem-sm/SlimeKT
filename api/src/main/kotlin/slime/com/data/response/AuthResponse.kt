@@ -14,5 +14,5 @@ data class AuthResponse(
     @SerialName("username")
     val username: String,
     @SerialName("token")
-    val token: String,
+    val token: String
 )
