@@ -6,14 +6,14 @@ val kmongoVersion: String by project
 
 plugins {
 	application
-	kotlin("jvm") version "1.7.0"
-	id("org.jetbrains.kotlin.plugin.serialization") version "1.7.0"
+	kotlin("jvm") version "1.7.10"
+	id("org.jetbrains.kotlin.plugin.serialization") version "1.7.10"
 	id("com.github.johnrengelman.shadow") version "7.1.2"
-	id("com.diffplug.spotless") version "6.7.2"
+	id("com.diffplug.spotless") version "6.9.0"
 }
 
 group = "slime.com"
-version = "0.0.1"
+version = "0.0.2"
 application {
 	mainClass.set("io.ktor.server.netty.EngineMain")
 }

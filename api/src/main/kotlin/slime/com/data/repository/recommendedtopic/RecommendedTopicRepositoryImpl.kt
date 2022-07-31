@@ -2,14 +2,14 @@
  * Copyright (C) 2022, Kasem S.M
  * All rights reserved.
  */
-package slime.com.data.repository.recommended_topic
+package slime.com.data.repository.recommendedtopic
 
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.eq
 import slime.com.data.models.RecommendedTopic
 
 class RecommendedTopicRepositoryImpl(
-    db: CoroutineDatabase,
+    db: CoroutineDatabase
 ) : RecommendedTopicRepository {
 
     private val recommendedDb = db.getCollection<RecommendedTopic>()

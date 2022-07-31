@@ -5,15 +5,15 @@
 package slime.com.service
 
 import slime.com.data.models.Topic
-import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
-import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
+import slime.com.data.repository.recommendedtopic.RecommendedTopicRepository
+import slime.com.data.repository.subscribedtopic.SubscribeTopicsRepository
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.utils.ServiceResult
 
 class SubscriptionService(
     private val subscribeRepository: SubscribeTopicsRepository,
     private val topicRepository: TopicRepository,
-    private val recommendedTopicRepository: RecommendedTopicRepository,
+    private val recommendedTopicRepository: RecommendedTopicRepository
 ) {
     suspend fun getNumber(topicId: String) = subscribeRepository.getNumberOfSubscribers(topicId)
 
@@ -72,7 +72,8 @@ class SubscriptionService(
     suspend fun checkIfUserSubscribes(userId: String, topicId: String): Boolean {
         return when {
             subscribeRepository.checkAlreadySubscribed(
-                userId = userId, topicId = topicId
+                userId = userId,
+                topicId = topicId
             ) -> true
             else -> false
         }
@@ -93,7 +94,7 @@ class SubscriptionService(
     }
 
     private suspend fun refreshRecommendedTopic(
-        currentUserId: String,
+        currentUserId: String
     ) {
         val isNotEmpty = getUserSubscribedTopics(currentUserId).isNotEmpty()
         if (isNotEmpty) {

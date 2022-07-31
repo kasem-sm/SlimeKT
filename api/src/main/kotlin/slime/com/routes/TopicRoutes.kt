@@ -16,7 +16,7 @@ import slime.com.utils.get
 import slime.com.utils.getUserId
 import slime.com.utils.respondWith
 
-fun Route.registerTopicRoutes(
+fun Route.topicRoutes(
     repository: TopicRepository,
     subscriptionService: SubscriptionService
 ) {

@@ -56,8 +56,8 @@ for more.
 
 ## Tech stack / Miscellaneous Features 🚀
 
-- <b>Kotlin, Jetpack Compose, Work Manager, Glance API, Material You, Coroutines, Flow, Accompanist,
-  Navigation Component, Ktor, Room Database, Coil, Dagger Hilt, Mockk etc.</b>
+- <b>Kotlin, Jetpack Compose, Work Manager, Glance API, Material You, Coroutines, Flow, Accompanist, Ktor, Room Database, Coil, Dagger Hilt, Mockk etc.</b>
+- **[Compose Destinations:](https://github.com/raamcosta/compose-destinations)** Annotation processing library for type-safe Jetpack Compose navigation with no boilerplate.
 - **Observer Pattern:** Data from the cache would be shown while new data is fetched from the
   server. Newly retrieved data gets updated immediately on the screen.
 - **WorkManager:** App uses WorkManager API to update user's subscriptions and to fetch Daily Read
@@ -96,8 +96,7 @@ when you create a pull request. Running `spotlessApply` before creating a pull r
 _cherry on the cake_.
 
 * Special thanks to our contributors:
-    - The first one gets featured here 😎
-    - [All contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
+    - [List of Contributors](https://github.com/kasem-sm/SlimeKT/graphs/contributors)
 
 ## Medium Articles related to this project 🖋
 

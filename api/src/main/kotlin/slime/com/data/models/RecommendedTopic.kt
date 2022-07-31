@@ -13,5 +13,5 @@ data class RecommendedTopic(
     val topicId: String,
     val topicName: String,
     @BsonId
-    val id: String = ObjectId().toString(),
+    val id: String = ObjectId().toString()
 )

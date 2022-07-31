@@ -11,10 +11,10 @@ import slime.com.data.repository.article.ArticleRepository
 import slime.com.data.repository.article.ArticleRepositoryImpl
 import slime.com.data.repository.auth.AuthRepository
 import slime.com.data.repository.auth.AuthRepositoryImpl
-import slime.com.data.repository.recommended_topic.RecommendedTopicRepository
-import slime.com.data.repository.recommended_topic.RecommendedTopicRepositoryImpl
-import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepository
-import slime.com.data.repository.subscribed_topic.SubscribeTopicsRepositoryImpl
+import slime.com.data.repository.recommendedtopic.RecommendedTopicRepository
+import slime.com.data.repository.recommendedtopic.RecommendedTopicRepositoryImpl
+import slime.com.data.repository.subscribedtopic.SubscribeTopicsRepository
+import slime.com.data.repository.subscribedtopic.SubscribeTopicsRepositoryImpl
 import slime.com.data.repository.topic.TopicRepository
 import slime.com.data.repository.topic.TopicRepositoryImpl
 import slime.com.isDebugMode
@@ -40,7 +40,7 @@ val mainModule = module(createdAtStart = true) {
         TopicRepositoryImpl(get())
     }
     single<SubscribeTopicsRepository> {
-        SubscribeTopicsRepositoryImpl(get(),)
+        SubscribeTopicsRepositoryImpl(get())
     }
     single<RecommendedTopicRepository> {
         RecommendedTopicRepositoryImpl(get())

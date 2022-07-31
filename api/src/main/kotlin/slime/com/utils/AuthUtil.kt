@@ -16,7 +16,7 @@ suspend fun PipelineContext<Unit, ApplicationCall>.loginUser(
     validateLogin: suspend (username: String, password: String) -> ServiceResult,
     username: String,
     password: String,
-    userId: String,
+    userId: String
 ) {
     when (val result = validateLogin(username, password)) {
         is ServiceResult.Success -> {

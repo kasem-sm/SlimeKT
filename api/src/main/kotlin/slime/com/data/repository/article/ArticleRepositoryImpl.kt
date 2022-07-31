@@ -51,14 +51,14 @@ class ArticleRepositoryImpl(
 
     override suspend fun getAllArticles(
         topic: String,
-        query: String,
+        query: String
     ): List<Article> {
         val articles = when {
             topic.isEmpty() && query.isNotEmpty() -> {
                 articleDb.find().filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
-                        Article::author regex Regex("(?i).*$query.*"),
+                        Article::author regex Regex("(?i).*$query.*")
                     )
                 ).skipAndMap()
             }
@@ -81,7 +81,7 @@ class ArticleRepositoryImpl(
                 ).filter(
                     or(
                         Article::title regex Regex("(?i).*$query.*"),
-                        Article::author regex Regex("(?i).*$query.*"),
+                        Article::author regex Regex("(?i).*$query.*")
                     )
                 ).skipAndMap()
             }

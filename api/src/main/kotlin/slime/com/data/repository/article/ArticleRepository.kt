@@ -12,10 +12,10 @@ interface ArticleRepository {
     suspend fun getArticleById(articleId: Int): Article?
     suspend fun getAllArticles(
         topic: String = "",
-        query: String = "",
+        query: String = ""
     ): List<Article>
     suspend fun getRandomArticleFromSubscription(userId: String? = null): Article?
     suspend fun getRecommendedArticles(
-        userId: String? = null,
+        userId: String? = null
     ): List<Article>
 }
