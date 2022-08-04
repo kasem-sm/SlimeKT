@@ -68,6 +68,7 @@ include(":screen:ui-bookmarks")
 // Feature Auth
 include(":features:authentication")
 include(":features:authentication:domain:model")
+include(":features:authentication:domain:usecases")
 include(":features:authentication:datasource-api")
 include(":features:authentication:domain:interactors")
 include(":features:authentication:datasource-impl")

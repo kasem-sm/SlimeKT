@@ -86,6 +86,7 @@ dependencies {
 
 	implementation Firebase.dynamicLink
 	implementation(project(":features:article:dynamic-links-handler"))
+	implementation(project(":features:authentication:domain:usecases"))
 }
 
 if (file("google-services.json").exists()) {

@@ -26,7 +26,9 @@ import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeTextField
+import kasem.sm.common_ui.util.FocusedState
 import kasem.sm.common_ui.util.TestTags
+import kasem.sm.common_ui.util.rememberFocusedState
 import kasem.sm.common_ui.withScale
 
 @Composable
@@ -35,6 +37,7 @@ fun UsernameField(
     state: AuthState,
     onUsernameChanged: (String) -> Unit,
     onNextClicked: KeyboardActionScope.() -> Unit,
+    focusedState: FocusedState = rememberFocusedState()
 ) {
     SlimeTextField(
         modifier = modifier
@@ -67,5 +70,7 @@ fun UsernameField(
         keyboardActions = KeyboardActions(
             onDone = onNextClicked
         ),
+        supportingText = if (focusedState.focused) state.usernameInfoMsg else null,
+        interactionSource = focusedState.interactionSource
     )
 }

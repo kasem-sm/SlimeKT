@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="space_not_allowed">Space is not allowed here</string>
+    <string name="special_chars_not_allowed">Special characters are not allowed here</string>
+    <string name="password_len_should_bw">Password length should be between 4 to 20 characters</string>
+    <string name="username_len_should_bw">Username length should be between 4 to 10 characters</string>
+</resources>

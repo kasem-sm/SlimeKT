@@ -13,6 +13,8 @@ import kasem.sm.authentication.domain.interactors.RegisterService
 import kasem.sm.authentication.domain.model.AuthResult
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.authentication.domain.model.Credentials
+import kasem.sm.authentication.domain.usecases.ValidatePassword
+import kasem.sm.authentication.domain.usecases.ValidateUsername
 import kasem.sm.common_ui.R
 import kasem.sm.core.domain.ObservableLoader
 import kasem.sm.core.domain.SlimeDispatchers
@@ -35,6 +37,8 @@ import kotlinx.coroutines.plus
 class RegisterVM @Inject constructor(
     private val registerService: RegisterService,
     private val dispatchers: SlimeDispatchers,
+    private val validateUsername: ValidateUsername,
+    private val validatePassword: ValidatePassword,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -44,9 +48,21 @@ class RegisterVM @Inject constructor(
         defValue = ""
     )
 
+    private val usernameInfoMsg = SavedMutableState(
+        savedStateHandle,
+        USERNAME_ERR_MSG,
+        defValue = ""
+    )
+
     private val password = SavedMutableState(
         savedStateHandle,
         PASSWORD_KEY,
+        defValue = ""
+    )
+
+    private val passwordInfoMsg = SavedMutableState(
+        savedStateHandle,
+        PASSWORD_ERR_MSG,
         defValue = ""
     )
 
@@ -69,14 +85,18 @@ class RegisterVM @Inject constructor(
         password.flow,
         loadingStatus.flow,
         passwordVisibilityToggle.flow,
-        isAccountDiscoverable.flow
-    ) { username, password, isLoading, passwordVisibility, isAccountDiscoverable ->
+        isAccountDiscoverable.flow,
+        usernameInfoMsg.flow,
+        passwordInfoMsg.flow
+    ) { username, password, isLoading, passwordVisibility, isAccountDiscoverable, usernameErrMsg, passwordWarnMsg ->
         AuthState(
             username = username,
             password = password,
             isLoading = isLoading,
             passwordVisibility = passwordVisibility,
-            isAccountDiscoverable = isAccountDiscoverable
+            isAccountDiscoverable = isAccountDiscoverable,
+            usernameInfoMsg = usernameErrMsg,
+            passwordInfoMsg = passwordWarnMsg
         )
     }.stateIn(
         coroutineScope = viewModelScope + dispatchers.main,
@@ -87,11 +107,17 @@ class RegisterVM @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
     fun onUsernameChange(updatedUsername: String) {
-        username.value = updatedUsername
+        if (username.value == updatedUsername) return
+        val validatedResult = validateUsername(updatedUsername)
+        username.value = validatedResult.formattedValue
+        usernameInfoMsg.value = validatedResult.message ?: ""
     }
 
     fun onPasswordChange(updatedPassword: String) {
-        password.value = updatedPassword
+        if (password.value == updatedPassword) return
+        val validatedResult = validatePassword(updatedPassword)
+        password.value = validatedResult.formattedValue
+        passwordInfoMsg.value = validatedResult.message ?: ""
     }
 
     fun togglePasswordVisibility(updatedValue: Boolean) {
@@ -124,10 +150,17 @@ class RegisterVM @Inject constructor(
         }
     }
 
+    fun clearInfoMsgsOfTextFields() {
+        usernameInfoMsg.value = ""
+        passwordInfoMsg.value = ""
+    }
+
     companion object {
         const val USERNAME_KEY = "slime_reg_username"
         const val PASSWORD_KEY = "slime_reg_password"
         const val PASSWORD_VIS_KEY = "slime_reg_pass_vis_toggle"
         const val DISCOVERABLE_TOGGLE_KEY = "slime_dis_toggle"
+        const val USERNAME_ERR_MSG = "slime_user_info_msg"
+        const val PASSWORD_ERR_MSG = "slime_pw_info_msg"
     }
 }

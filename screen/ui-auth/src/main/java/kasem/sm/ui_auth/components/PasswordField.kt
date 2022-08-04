@@ -33,7 +33,9 @@ import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.LocalSlimeFont
 import kasem.sm.common_ui.R.string
 import kasem.sm.common_ui.SlimeTextField
+import kasem.sm.common_ui.util.FocusedState
 import kasem.sm.common_ui.util.TestTags
+import kasem.sm.common_ui.util.rememberFocusedState
 import kasem.sm.common_ui.withScale
 
 @Composable
@@ -43,6 +45,7 @@ fun PasswordField(
     onPasswordChanged: (String) -> Unit,
     onPasswordToggleClick: (Boolean) -> Unit,
     onDoneClicked: KeyboardActionScope.() -> Unit,
+    focusedState: FocusedState = rememberFocusedState()
 ) {
     SlimeTextField(
         modifier = modifier
@@ -93,7 +96,9 @@ fun PasswordField(
         ),
         visualTransformation = if (state.passwordVisibility) {
             VisualTransformation.None
-        } else PasswordVisualTransformation()
+        } else PasswordVisualTransformation(),
+        supportingText = if (focusedState.focused) state.passwordInfoMsg else null,
+        interactionSource = focusedState.interactionSource
     )
 }
 

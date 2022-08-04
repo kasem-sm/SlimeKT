@@ -6,9 +6,11 @@ package kasem.sm.ui_auth.register
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.spec.DestinationStyle
+import kasem.sm.common_ui.util.rememberFocusedState
 import kasem.sm.ui_core.CommonNavigator
 import kasem.sm.ui_core.NavigationEvent
 import kasem.sm.ui_core.rememberStateWithLifecycle
@@ -30,12 +32,25 @@ fun RegisterScreen(
         }
     )
 
+    val usernameFocusedState = rememberFocusedState()
+    val passwordFocusedState = rememberFocusedState()
+
+    LaunchedEffect(
+        key1 = usernameFocusedState.focused,
+        key2 = passwordFocusedState.focused,
+        block = {
+            viewModel.clearInfoMsgsOfTextFields()
+        }
+    )
+
     RegisterContent(
         state = viewState,
         onUsernameChanged = viewModel::onUsernameChange,
         onPasswordChanged = viewModel::onPasswordChange,
         togglePasswordVisibility = viewModel::togglePasswordVisibility,
         onConfirmClicked = viewModel::registerUser,
-        toggleAccountDiscoverability = viewModel::toggleAccountDiscoverability
+        toggleAccountDiscoverability = viewModel::toggleAccountDiscoverability,
+        usernameFocusedState = usernameFocusedState,
+        passwordFocusedState = passwordFocusedState
     )
 }

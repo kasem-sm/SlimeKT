@@ -9,7 +9,9 @@ data class AuthState(
     val password: String = "",
     val isLoading: Boolean = false,
     val passwordVisibility: Boolean = true,
-    val isAccountDiscoverable: Boolean = true
+    val isAccountDiscoverable: Boolean = true,
+    val usernameInfoMsg: String? = null,
+    val passwordInfoMsg: String? = null
 ) {
     companion object {
         val EMPTY = AuthState()

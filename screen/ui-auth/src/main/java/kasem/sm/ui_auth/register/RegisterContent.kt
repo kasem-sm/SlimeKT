@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import kasem.sm.authentication.domain.model.AuthState
 import kasem.sm.common_ui.R
 import kasem.sm.common_ui.SlimeScreenColumn
+import kasem.sm.common_ui.util.FocusedState
 import kasem.sm.ui_auth.components.BottomSheetHandle
 import kasem.sm.ui_auth.components.Header
 import kasem.sm.ui_auth.components.PasswordField
@@ -39,6 +40,8 @@ import kasem.sm.ui_auth.register.components.DiscoverableToOtherUsersToggle
 @Composable
 internal fun RegisterContent(
     state: AuthState,
+    usernameFocusedState: FocusedState,
+    passwordFocusedState: FocusedState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onConfirmClicked: () -> Unit,
@@ -76,7 +79,8 @@ internal fun RegisterContent(
                     onUsernameChanged = onUsernameChanged,
                     onNextClicked = {
                         focusManager.moveFocus(FocusDirection.Down)
-                    }
+                    },
+                    focusedState = usernameFocusedState
                 )
             }
 
@@ -89,7 +93,8 @@ internal fun RegisterContent(
                     onDoneClicked = {
                         keyboardController?.hide()
                         onConfirmClicked()
-                    }
+                    },
+                    focusedState = passwordFocusedState
                 )
             }
 

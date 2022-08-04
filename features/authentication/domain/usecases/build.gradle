@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+apply {
+	from("$rootDir/gradle/non-compose.gradle")
+}
+
+provideUnitTestDeps(this)
+
+dependencies {
+	testImplementation(project(':common-test-utils'))
+}
