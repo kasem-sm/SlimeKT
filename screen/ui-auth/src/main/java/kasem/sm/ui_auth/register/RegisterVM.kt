@@ -107,7 +107,7 @@ class RegisterVM @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
     fun onUsernameChange(updatedUsername: String) {
-        //Because of recomposition this function may call with same value, that's why we need return here
+        // Because of recomposition this function may call with same value, that's why we need return here
         if (username.value == updatedUsername) return
         val validatedResult = validateUsername(updatedUsername)
         username.value = validatedResult.formattedValue
@@ -115,7 +115,7 @@ class RegisterVM @Inject constructor(
     }
 
     fun onPasswordChange(updatedPassword: String) {
-        //Because of recomposition this function may call with same value, that's why we need return here
+        // Because of recomposition this function may call with same value, that's why we need return here
         if (password.value == updatedPassword) return
         val validatedResult = validatePassword(updatedPassword)
         password.value = validatedResult.formattedValue
