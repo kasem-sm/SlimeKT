@@ -98,7 +98,11 @@ class DailyReadWidget : GlanceAppWidget() {
 }
 
 class ActionUpdate : ActionCallback {
-    override suspend fun onRun(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
+    override suspend fun onAction(
+        context: Context,
+        glanceId: GlanceId,
+        parameters: ActionParameters
+    ) {
         updateAppWidgetState(context, glanceId) { prefs ->
             prefs[DailyReadWidget.articleTitlePreference] =
                 "Updated from Click ${Random.nextBits(100)}"

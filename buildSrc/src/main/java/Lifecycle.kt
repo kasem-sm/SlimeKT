@@ -1,5 +1,5 @@
 object Lifecycle {
-    private const val version = "2.6.0-alpha01"
+    private const val version = "2.6.0-alpha02"
 
     const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
