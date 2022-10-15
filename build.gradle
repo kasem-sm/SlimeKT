@@ -11,14 +11,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath AndroidX.gradle
-        classpath Jetbrains.gradle
-        classpath Hilt.gradle
-        classpath Spotless.gradle
-        classpath Jetbrains.serializationGradle
-        classpath Extras.dependencyUpdates
-        classpath Firebase.gmsGoogleService
+        classpath(libs.google.services.gradle)
     }
+}
+
+plugins {
+    alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.android.library).apply(false)
+    alias(libs.plugins.kotlin.android).apply(false)
+    alias(libs.plugins.hilt.gradle.plugin).apply(false)
+    alias(libs.plugins.spotless).apply(false)
+    alias(libs.plugins.kotlin.plugin.serialization).apply(false)
+    alias(libs.plugins.version.check).apply(false)
 }
 
 apply from: "gradle/project-dependency-graph.gradle"

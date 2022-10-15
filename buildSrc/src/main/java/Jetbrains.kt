@@ -1,13 +1,7 @@
 object Jetbrains {
-    private const val kotlin = "1.7.20"
-    private const val serializationGradleVersion = "1.6.0-RC2"
     private const val serializationCoreVersion = "1.4.0"
 
-    const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
-
     // Serialization
-    const val serializationGradle =
-        "org.jetbrains.kotlin:kotlin-serialization:$serializationGradleVersion"
     const val serializationCore =
         "org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationCoreVersion"
 

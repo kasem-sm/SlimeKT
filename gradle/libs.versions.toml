@@ -1,0 +1,21 @@
+[versions]
+gradleplugin = "7.2.1"
+gms = "4.3.10"
+hilt = "2.44"
+kotlin = "1.7.20"
+spotless = "5.15.0"
+versionCheck = "0.38.0"
+
+[libraries]
+google-services-gradle = { module = "com.google.gms:google-services", version.ref = "gms"}
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradleplugin" }
+android-library = { id = "com.android.library", version.ref = "gradleplugin" }
+hilt-gradle-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+version-check = { id = "com.github.ben-manes.versions", version.ref = "versionCheck"}
