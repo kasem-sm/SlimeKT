@@ -2,7 +2,7 @@
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk App.compileSkd
+    compileSdk App.compileSdk
 
     defaultConfig {
         minSdk App.minSdk

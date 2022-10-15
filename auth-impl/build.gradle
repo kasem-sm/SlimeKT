@@ -13,6 +13,6 @@ dependencies {
 	implementation(project(":auth-api"))
 	implementation(project(":task-api"))
 
-	implementation(AndroidX.core)
-	implementation(Jetbrains.coroutinesCore)
+	implementation libs.androidx.core.ktx
+	implementation libs.kotlinx.coroutines.core
 }

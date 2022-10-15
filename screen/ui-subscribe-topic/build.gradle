@@ -29,6 +29,6 @@ dependencies {
 	implementation(project(":features:topic:domain:model"))
 	implementation(project(':features:topic:subscription-manager-worker'))
 
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 }

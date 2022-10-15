@@ -10,10 +10,10 @@ java {
 }
 
 dependencies {
-	api(Jetbrains.serializationCore)
-	api(Jetbrains.coroutinesCore)
-	api(Jetbrains.ktorClientCore)
-	implementation(JavaX.inject)
+	api libs.kotlinx.coroutines.core
+	api libs.kotlinx.serialization.core
+	api libs.ktor.client.core
+	implementation libs.javax.inject
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

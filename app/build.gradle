@@ -52,24 +52,24 @@ dependencies {
 
 	implementation("androidx.security:security-crypto:1.1.0-alpha03")
 
-	implementation AndroidX.core
-	implementation Compose.activity
+	implementation libs.androidx.core.ktx
 
-	implementation Coil.core
+	implementation libs.androidx.activity.compose
+	implementation libs.coil.compose.base
+
 	implementation("com.jakewharton.timber:timber:5.0.1")
 
-	implementation Coil.core
 
 	//Destinations
-	implementation Destinations.core
+	implementation libs.compose.destinations.animations.core
 
 	implementation "com.google.android.material:material:1.8.0-alpha01"
 
-	implementation Hilt.navigation
+	implementation libs.hilt.navigation.compose
 
-	implementation Compose.ui
-	implementation Compose.material
-	implementation Compose.material3
+	implementation libs.androidx.compose.ui
+	implementation libs.androidx.compose.material
+	implementation libs.androidx.compose.material3
 
 	//Ui core
 	implementation(project(":screen:core"))
@@ -84,7 +84,7 @@ dependencies {
 	implementation(project(":screen:ui-subscribe-topic"))
 	implementation(project(":screen:ui-bookmarks"))
 
-	implementation Firebase.dynamicLink
+	implementation libs.firebase.dynamic.link
 	implementation(project(":features:article:dynamic-links-handler"))
 }
 

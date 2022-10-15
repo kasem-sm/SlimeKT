@@ -15,7 +15,7 @@ dependencies {
 	implementation(project(':features:article:datasource-api'))
 	implementation(project(":features:article:domain:model"))
 
-	implementation(JavaX.inject)
+	implementation libs.javax.inject
 
 	testImplementation(project(':common-test-utils'))
 }

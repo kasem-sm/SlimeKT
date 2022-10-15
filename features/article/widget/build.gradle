@@ -5,7 +5,8 @@ apply {
 }
 
 dependencies {
-	implementation Compose.material3
+	implementation libs.androidx.compose.material3
+
 	// Widget
-	implementation AndroidX.glance
+	implementation libs.glance.appwidget
 }

@@ -32,11 +32,11 @@ dependencies {
 	implementation(project(":features:authentication:datasource-api"))
 
 	// Room
-	implementation AndroidX.room
-	ksp AndroidX.roomCompiler
+	implementation libs.room.ktx
+	ksp libs.room.compiler
 
 	// LiveData
-	implementation Lifecycle.livedataKtx
+	implementation libs.androidx.lifecycle.livedata.ktx
 
 	// Instrumentation Test
 	androidTestImplementation "com.google.truth:truth:1.1.3"

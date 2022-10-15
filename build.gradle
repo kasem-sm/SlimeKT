@@ -42,8 +42,8 @@ def provideAndroidXWorkerDeps(project) {
 def provideHiltDeps(project) {
     project.dependencies {
         // Hilt
-        implementation Hilt.library
-        kapt Hilt.compiler
+        implementation libs.hilt.android
+        kapt libs.hilt.compiler
     }
 }
 

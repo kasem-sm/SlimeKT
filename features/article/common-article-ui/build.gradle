@@ -10,9 +10,9 @@ dependencies {
 	implementation(project(":common-ui"))
 	implementation(project(":features:article:domain:model"))
 
-	implementation Coil.core
+	implementation libs.coil.compose.base
 
 	// Material 3
-	implementation(Compose.material3)
-	implementation(Compose.iconsExtended)
+	implementation libs.androidx.compose.material3
+	implementation libs.androidx.compose.material.icons.extended
 }

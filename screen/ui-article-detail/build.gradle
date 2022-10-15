@@ -30,12 +30,11 @@ dependencies {
 	implementation(project(":features:article:markdown"))
 	implementation(project(":features:article:dynamic-links-handler"))
 
-	implementation Coil.core
-	implementation Compose.iconsExtended
+	implementation libs.coil.compose.base
+	implementation libs.androidx.compose.material.icons.extended
 
-
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 
 	testImplementation(project(":common-test-utils"))
 }

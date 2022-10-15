@@ -24,6 +24,6 @@ apply {
 dependencies {
 	implementation(project(":auth-api"))
 
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 }

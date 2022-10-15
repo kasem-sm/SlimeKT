@@ -13,13 +13,12 @@ android {
 dependencies {
 	api("com.jakewharton.timber:timber:5.0.1")
 
-	implementation(AndroidX.core)
+	implementation libs.androidx.core.ktx
 
-	implementation(Compose.material)
-	implementation(Compose.material3)
+	implementation libs.androidx.compose.material
+	implementation libs.androidx.compose.material3
 
-	implementation(Accompanist.swipeRefresh)
-	implementation(Accompanist.flowLayout)
-	implementation Accompanist.sysUiController
 	implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
+
+	implementation libs.bundles.accompanist
 }

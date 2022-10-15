@@ -7,5 +7,5 @@ apply {
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-	implementation Firebase.dynamicLink
+	implementation libs.firebase.dynamic.link
 }

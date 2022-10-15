@@ -2,7 +2,7 @@
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk App.compileSkd
+    compileSdk App.compileSdk
 
     defaultConfig {
         minSdk App.minSdk
@@ -27,7 +27,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     packagingOptions {
         resources {

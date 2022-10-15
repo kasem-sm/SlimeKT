@@ -39,10 +39,10 @@ dependencies {
 	implementation(project(":features:topic:domain:interactors"))
 	implementation(project(":features:topic:domain:model"))
 
-	implementation Coil.core
+	implementation libs.coil.compose.base
 
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 
 	androidTestImplementation(project(':common-test-utils'))
 }
