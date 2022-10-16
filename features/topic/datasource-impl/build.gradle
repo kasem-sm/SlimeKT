@@ -13,9 +13,7 @@ dependencies {
 	implementation(project(":auth-api"))
 	implementation(project(":features:topic:datasource-api"))
 
-	implementation libs.ktor.jvm
-	implementation libs.ktor.utils
-	implementation libs.ktor.client.core
 	implementation libs.room.common
 	implementation libs.hilt.core
+	implementation libs.bundles.ktor
 }

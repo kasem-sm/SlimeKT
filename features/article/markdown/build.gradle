@@ -7,6 +7,6 @@ apply {
 }
 
 dependencies {
-	implementation("org.commonmark:commonmark:0.19.0")
+	implementation libs.commonmark
 	implementation libs.androidx.compose.material3
 }

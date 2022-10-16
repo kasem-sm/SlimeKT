@@ -11,14 +11,13 @@ android {
 }
 
 dependencies {
-	api("com.jakewharton.timber:timber:5.0.1")
+	api libs.timber
 
 	implementation libs.androidx.core.ktx
-
 	implementation libs.androidx.compose.material
 	implementation libs.androidx.compose.material3
 
-	implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
+	implementation libs.kotlin.reflect
 
 	implementation libs.bundles.accompanist
 }

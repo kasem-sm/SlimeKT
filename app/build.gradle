@@ -34,7 +34,6 @@ android {
 
 provideAndroidXWorkerDeps(this)
 provideHiltDeps(this)
-provideKtorAndroidDeps(this)
 
 dependencies {
 	implementation(project(":core"))
@@ -50,28 +49,23 @@ dependencies {
 	// Article
 	implementation(project(":features:article:widget"))
 
-	implementation("androidx.security:security-crypto:1.1.0-alpha03")
-
 	implementation libs.androidx.core.ktx
-
 	implementation libs.androidx.activity.compose
-	implementation libs.coil.compose.base
-
-	implementation("com.jakewharton.timber:timber:5.0.1")
-
-
-	//Destinations
-	implementation libs.compose.destinations.animations.core
-
-	implementation "com.google.android.material:material:1.8.0-alpha01"
-
-	implementation libs.hilt.navigation.compose
-
 	implementation libs.androidx.compose.ui
 	implementation libs.androidx.compose.material
 	implementation libs.androidx.compose.material3
+	implementation libs.androidx.security.crypto
+	implementation libs.google.material
 
-	//Ui core
+	implementation libs.coil.compose.base
+	implementation libs.timber
+	implementation libs.hilt.navigation.compose
+	implementation libs.bundles.ktor.android
+
+	// Destinations
+	implementation libs.compose.destinations.animations.core
+
+	// Ui core
 	implementation(project(":screen:core"))
 
 	// Ui Dep
