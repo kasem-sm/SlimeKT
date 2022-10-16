@@ -14,5 +14,5 @@ dependencies {
 	implementation(project(":features:authentication:datasource-api"))
 	implementation(project(":features:authentication:domain:model"))
 
-	implementation(JavaX.inject)
+	implementation libs.javax.inject
 }

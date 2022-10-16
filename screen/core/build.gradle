@@ -7,10 +7,10 @@ apply {
 }
 
 dependencies {
-	implementation(Compose.material)
-	implementation(Jetbrains.coroutinesCore)
+	implementation libs.androidx.lifecycle.livedata.core.ktx
+	implementation libs.androidx.lifecycle.runtime.ktx
+	implementation libs.androidx.lifecycle.viewmodel.savedstate.ktx
+	implementation libs.androidx.compose.material
 
-	implementation(Lifecycle.core)
-	implementation(Lifecycle.runtime)
-	implementation(Lifecycle.savedState)
+	implementation libs.kotlinx.coroutines.core
 }

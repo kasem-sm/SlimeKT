@@ -10,7 +10,7 @@ java {
 }
 
 dependencies {
-	implementation(Jetbrains.serializationCore)
-	implementation(Jetbrains.coroutinesCore)
-	implementation(AndroidX.annotation)
+	implementation libs.androidx.annotation
+	implementation libs.kotlinx.coroutines.core
+	implementation libs.kotlinx.serialization.core
 }

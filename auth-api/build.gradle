@@ -10,5 +10,6 @@ java {
 
 dependencies {
 	implementation(project(":core"))
-	implementation(JavaX.inject)
+
+	implementation libs.javax.inject
 }

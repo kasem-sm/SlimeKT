@@ -35,13 +35,11 @@ dependencies {
 	implementation(project(":features:authentication:domain:interactors"))
 	implementation(project(":features:authentication:domain:model"))
 
-	implementation(Compose.iconsExtended)
+	implementation libs.androidx.compose.material.icons.extended
 
-
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 
 	testImplementation(project(':common-test-utils'))
-
 	androidTestImplementation(project(':common-test-utils'))
 }

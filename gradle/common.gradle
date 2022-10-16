@@ -2,11 +2,11 @@
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk App.compileSkd
+    compileSdk 33
 
     defaultConfig {
-        minSdk App.minSdk
-        targetSdk App.targetSdk
+        minSdk 24
+        targetSdk 33
 
         vectorDrawables {
             useSupportLibrary true
@@ -27,7 +27,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     packagingOptions {
         resources {

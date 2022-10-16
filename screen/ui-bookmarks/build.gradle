@@ -27,8 +27,7 @@ dependencies {
 	implementation(project(":features:article:domain:interactors"))
 	implementation(project(":features:article:domain:model"))
 
-	implementation(Coil.core)
-
-	implementation(Destinations.core)
-	ksp(Destinations.ksp)
+	implementation libs.coil.compose.base
+	implementation libs.compose.destinations.animations.core
+	ksp libs.compose.destinations.ksp
 }

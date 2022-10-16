@@ -13,14 +13,9 @@ dependencies {
 	implementation(project(":auth-api"))
 	implementation(project(':features:article:datasource-api'))
 
-	// Ktor (with)
-	implementation(Jetbrains.ktorJvm)
-	implementation(Jetbrains.ktorUtils)
-	implementation(Jetbrains.ktorClientCore)
-
-	// Room
-	implementation AndroidX.roomCommon
-
-	// Hilt core
-	implementation Hilt.core
+	implementation libs.kotlinx.coroutines.core
+	implementation libs.kotlinx.serialization.core
+	implementation libs.room.common
+	implementation libs.hilt.core
+	implementation libs.bundles.ktor
 }

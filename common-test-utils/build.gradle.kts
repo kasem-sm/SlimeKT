@@ -22,12 +22,10 @@ artifacts {
 }
 
 dependencies {
-	// Test Libs
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-	implementation("com.google.truth:truth:1.1.3")
-	implementation("junit:junit:4.13.2")
-
 	implementation(project(":core"))
-
-	implementation("app.cash.turbine:turbine:0.8.0")
+	
+	implementation(libs.kotlinx.coroutines.test)
+	implementation(libs.google.truth)
+	implementation(libs.junit)
+	implementation(libs.turbine)
 }

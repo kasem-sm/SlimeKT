@@ -13,5 +13,5 @@ dependencies {
 	implementation(project(":features:topic:datasource-api"))
 	implementation(project(":features:topic:domain:model"))
 
-	implementation(JavaX.inject)
+	implementation libs.javax.inject
 }

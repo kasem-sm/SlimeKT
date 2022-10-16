@@ -13,14 +13,7 @@ dependencies {
 	implementation(project(":auth-api"))
 	implementation(project(":features:authentication:datasource-api"))
 
-	// Ktor (with)
-	implementation(Jetbrains.ktorJvm)
-	implementation(Jetbrains.ktorUtils)
-	implementation(Jetbrains.ktorClientCore)
-
-	// Inject
-	implementation(JavaX.inject)
-
-	// Hilt
-	implementation Hilt.core
+	implementation libs.javax.inject
+	implementation libs.hilt.core
+	implementation libs.bundles.ktor
 }
