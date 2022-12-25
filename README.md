@@ -10,6 +10,11 @@
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23515-blue)](https://androidweekly.net/issues/issue-515)
 [![Google Dev Library](https://img.shields.io/badge/Google%20Dev%20Library-Android-blue)](https://devlibrary.withgoogle.com/products/android/repos/kasem-sm-SlimeKT)
 
+## Important ‼️
+
+SlimeKt's server was hosted at Heroku but as they dismissed their free plan, the app does not works as expected. You can clone the repo and start the Ktor server locally (Please refer the Backend section below).
+Meanwhile these days I'm also exploring NextJS with Typescript so I plan to recreate SlimeKT's backend using the same stack.
+
 ## Introduction 🙋‍♂️
 
 An article sharing platform where you can _**personalize, subscribe to your favorite topics, get
