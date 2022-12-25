@@ -12,7 +12,7 @@
 
 ## Important ‼️
 
-SlimeKt's server was hosted at Heroku but as they dismissed their free plan, the app does not works as expected. You can clone the repo and start the Ktor server locally (Please refer the Backend section below).
+SlimeKt's server was hosted at Heroku but as they dismissed their free plan, the app does not works as expected. You can clone the repo and start the Ktor server locally (Please refer [Project Setup Guide ⚒](https://github.com/kasem-sm/SlimeKT#project-setup-guide-) section for more information)
 Meanwhile these days I'm also exploring NextJS with Typescript so I plan to recreate SlimeKT's backend using the same stack.
 
 ## Introduction 🙋‍♂️
