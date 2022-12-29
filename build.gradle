@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kspVersion = '1.7.20-1.0.6'
+        kspVersion = '1.8.0-1.0.8'
     }
     repositories {
         google()
