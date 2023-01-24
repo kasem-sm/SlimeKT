@@ -1,0 +1,197 @@
+digraph {
+  graph [label="Slime\n ",labelloc=t,fontsize=30,ranksep=1.4];
+  node [style=filled, fillcolor="#bbbbbb"];
+  rankdir=TB;
+
+  # Projects
+
+  ":app" [fillcolor="#baffc9"];
+  ":auth-api" [fillcolor="#ffb3ba"];
+  ":auth-impl" [fillcolor="#baffc9"];
+  ":common-test-utils" [fillcolor="#ffb3ba"];
+  ":common-ui" [fillcolor="#baffc9"];
+  ":core" [fillcolor="#ffb3ba"];
+  ":database" [fillcolor="#baffc9"];
+  ":features:article:common-article-ui" [fillcolor="#baffc9"];
+  ":features:article:daily-read-worker" [fillcolor="#baffc9"];
+  ":features:article:datasource-api" [fillcolor="#ffb3ba"];
+  ":features:article:datasource-impl" [fillcolor="#ffb3ba"];
+  ":features:article:domain:interactors" [fillcolor="#ffb3ba"];
+  ":features:article:domain:model" [fillcolor="#ffb3ba"];
+  ":features:article:dynamic-links-handler" [fillcolor="#baffc9"];
+  ":features:article:markdown" [fillcolor="#baffc9"];
+  ":features:article:widget" [fillcolor="#baffc9"];
+  ":features:authentication:auth-verify-worker" [fillcolor="#baffc9"];
+  ":features:authentication:datasource-api" [fillcolor="#ffb3ba"];
+  ":features:authentication:datasource-impl" [fillcolor="#ffb3ba"];
+  ":features:authentication:domain:interactors" [fillcolor="#ffb3ba"];
+  ":features:authentication:domain:model" [fillcolor="#ffb3ba"];
+  ":features:topic:datasource-api" [fillcolor="#ffb3ba"];
+  ":features:topic:datasource-impl" [fillcolor="#ffb3ba"];
+  ":features:topic:domain:interactors" [fillcolor="#ffb3ba"];
+  ":features:topic:domain:model" [fillcolor="#ffb3ba"];
+  ":features:topic:subscription-manager-worker" [fillcolor="#baffc9"];
+  ":screen:core" [fillcolor="#baffc9"];
+  ":screen:ui-article-detail" [fillcolor="#baffc9"];
+  ":screen:ui-article-list" [fillcolor="#baffc9"];
+  ":screen:ui-auth" [fillcolor="#baffc9"];
+  ":screen:ui-bookmarks" [fillcolor="#baffc9"];
+  ":screen:ui-explore" [fillcolor="#baffc9"];
+  ":screen:ui-home" [fillcolor="#baffc9"];
+  ":screen:ui-profile" [fillcolor="#baffc9"];
+  ":screen:ui-subscribe-topic" [fillcolor="#baffc9"];
+  ":task-api" [fillcolor="#ffb3ba"];
+  ":task-impl" [fillcolor="#baffc9"];
+
+  {rank = same;}
+
+  # Dependencies
+
+  ":app" -> ":app"
+  ":app" -> ":core" [style=dotted]
+  ":app" -> ":common-ui" [style=dotted]
+  ":app" -> ":task-api" [style=dotted]
+  ":app" -> ":task-impl" [style=dotted]
+  ":app" -> ":auth-impl" [style=dotted]
+  ":app" -> ":auth-api" [style=dotted]
+  ":app" -> ":database" [style=dotted]
+  ":app" -> ":features:article:widget" [style=dotted]
+  ":app" -> ":screen:ui-profile" [style=dotted]
+  ":app" -> ":screen:ui-auth" [style=dotted]
+  ":app" -> ":screen:ui-article-list" [style=dotted]
+  ":app" -> ":screen:ui-explore" [style=dotted]
+  ":app" -> ":screen:ui-home" [style=dotted]
+  ":app" -> ":screen:ui-article-detail" [style=dotted]
+  ":app" -> ":screen:ui-subscribe-topic" [style=dotted]
+  ":app" -> ":screen:ui-bookmarks" [style=dotted]
+  ":app" -> ":features:article:dynamic-links-handler" [style=dotted]
+  ":auth-api" -> ":core" [style=dotted]
+  ":auth-impl" -> ":auth-impl"
+  ":auth-impl" -> ":core" [style=dotted]
+  ":auth-impl" -> ":auth-api" [style=dotted]
+  ":auth-impl" -> ":task-api" [style=dotted]
+  ":common-test-utils" -> ":core" [style=dotted]
+  ":common-ui" -> ":common-ui"
+  ":database" -> ":database"
+  ":database" -> ":features:article:datasource-impl" [style=dotted]
+  ":database" -> ":features:article:datasource-api" [style=dotted]
+  ":database" -> ":features:topic:datasource-impl" [style=dotted]
+  ":database" -> ":features:topic:datasource-api" [style=dotted]
+  ":database" -> ":features:authentication:datasource-impl" [style=dotted]
+  ":database" -> ":features:authentication:datasource-api" [style=dotted]
+  ":task-impl" -> ":task-impl"
+  ":task-impl" -> ":core" [style=dotted]
+  ":task-impl" -> ":task-api" [style=dotted]
+  ":task-impl" -> ":features:authentication:auth-verify-worker" [style=dotted]
+  ":task-impl" -> ":features:topic:subscription-manager-worker" [style=dotted]
+  ":task-impl" -> ":features:article:daily-read-worker" [style=dotted]
+  ":screen:core" -> ":screen:core"
+  ":screen:ui-article-detail" -> ":screen:ui-article-detail"
+  ":screen:ui-article-detail" -> ":core" [style=dotted]
+  ":screen:ui-article-detail" -> ":screen:core" [style=dotted]
+  ":screen:ui-article-detail" -> ":common-ui" [style=dotted]
+  ":screen:ui-article-detail" -> ":features:article:common-article-ui" [style=dotted]
+  ":screen:ui-article-detail" -> ":features:article:domain:interactors" [style=dotted]
+  ":screen:ui-article-detail" -> ":features:article:domain:model" [style=dotted]
+  ":screen:ui-article-detail" -> ":features:article:markdown" [style=dotted]
+  ":screen:ui-article-detail" -> ":features:article:dynamic-links-handler" [style=dotted]
+  ":screen:ui-article-detail" -> ":common-test-utils" [style=dotted]
+  ":screen:ui-article-list" -> ":common-test-utils" [style=dotted]
+  ":screen:ui-article-list" -> ":screen:ui-article-list"
+  ":screen:ui-article-list" -> ":core" [style=dotted]
+  ":screen:ui-article-list" -> ":screen:core" [style=dotted]
+  ":screen:ui-article-list" -> ":common-ui" [style=dotted]
+  ":screen:ui-article-list" -> ":task-api" [style=dotted]
+  ":screen:ui-article-list" -> ":auth-api" [style=dotted]
+  ":screen:ui-article-list" -> ":features:article:common-article-ui" [style=dotted]
+  ":screen:ui-article-list" -> ":features:article:domain:interactors" [style=dotted]
+  ":screen:ui-article-list" -> ":features:article:domain:model" [style=dotted]
+  ":screen:ui-article-list" -> ":features:topic:domain:interactors" [style=dotted]
+  ":screen:ui-article-list" -> ":features:topic:domain:model" [style=dotted]
+  ":screen:ui-auth" -> ":common-test-utils" [style=dotted, style=dotted]
+  ":screen:ui-auth" -> ":screen:ui-auth"
+  ":screen:ui-auth" -> ":core" [style=dotted]
+  ":screen:ui-auth" -> ":screen:core" [style=dotted]
+  ":screen:ui-auth" -> ":common-ui" [style=dotted]
+  ":screen:ui-auth" -> ":features:authentication:domain:interactors" [style=dotted]
+  ":screen:ui-auth" -> ":features:authentication:domain:model" [style=dotted]
+  ":screen:ui-bookmarks" -> ":screen:ui-bookmarks"
+  ":screen:ui-bookmarks" -> ":core" [style=dotted]
+  ":screen:ui-bookmarks" -> ":screen:core" [style=dotted]
+  ":screen:ui-bookmarks" -> ":common-ui" [style=dotted]
+  ":screen:ui-bookmarks" -> ":features:article:common-article-ui" [style=dotted]
+  ":screen:ui-bookmarks" -> ":features:article:domain:interactors" [style=dotted]
+  ":screen:ui-bookmarks" -> ":features:article:domain:model" [style=dotted]
+  ":screen:ui-explore" -> ":screen:ui-explore"
+  ":screen:ui-explore" -> ":core" [style=dotted]
+  ":screen:ui-explore" -> ":screen:core" [style=dotted]
+  ":screen:ui-explore" -> ":common-ui" [style=dotted]
+  ":screen:ui-explore" -> ":features:article:common-article-ui" [style=dotted]
+  ":screen:ui-explore" -> ":features:article:domain:interactors" [style=dotted]
+  ":screen:ui-explore" -> ":features:article:domain:model" [style=dotted]
+  ":screen:ui-explore" -> ":features:topic:domain:interactors" [style=dotted]
+  ":screen:ui-explore" -> ":features:topic:domain:model" [style=dotted]
+  ":screen:ui-explore" -> ":auth-api" [style=dotted]
+  ":screen:ui-home" -> ":screen:ui-home"
+  ":screen:ui-home" -> ":core" [style=dotted]
+  ":screen:ui-home" -> ":screen:core" [style=dotted]
+  ":screen:ui-home" -> ":common-ui" [style=dotted]
+  ":screen:ui-home" -> ":features:article:common-article-ui" [style=dotted]
+  ":screen:ui-home" -> ":features:article:domain:interactors" [style=dotted]
+  ":screen:ui-home" -> ":features:article:domain:model" [style=dotted]
+  ":screen:ui-home" -> ":features:topic:domain:interactors" [style=dotted]
+  ":screen:ui-home" -> ":features:topic:domain:model" [style=dotted]
+  ":screen:ui-home" -> ":auth-api" [style=dotted]
+  ":screen:ui-profile" -> ":screen:ui-profile"
+  ":screen:ui-profile" -> ":core" [style=dotted]
+  ":screen:ui-profile" -> ":screen:core" [style=dotted]
+  ":screen:ui-profile" -> ":common-ui" [style=dotted]
+  ":screen:ui-profile" -> ":auth-api" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":screen:ui-subscribe-topic"
+  ":screen:ui-subscribe-topic" -> ":core" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":screen:core" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":common-ui" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":auth-api" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":features:topic:domain:interactors" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":features:topic:domain:model" [style=dotted]
+  ":screen:ui-subscribe-topic" -> ":features:topic:subscription-manager-worker" [style=dotted]
+  ":features:article:common-article-ui" -> ":features:article:common-article-ui"
+  ":features:article:common-article-ui" -> ":common-ui" [style=dotted]
+  ":features:article:common-article-ui" -> ":features:article:domain:model" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:daily-read-worker"
+  ":features:article:daily-read-worker" -> ":core" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:datasource-api" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:widget" [style=dotted]
+  ":features:article:daily-read-worker" -> ":features:article:domain:model" [style=dotted]
+  ":features:article:datasource-impl" -> ":core" [style=dotted]
+  ":features:article:datasource-impl" -> ":auth-api" [style=dotted]
+  ":features:article:datasource-impl" -> ":features:article:datasource-api" [style=dotted]
+  ":features:article:dynamic-links-handler" -> ":features:article:dynamic-links-handler"
+  ":features:article:markdown" -> ":features:article:markdown"
+  ":features:article:widget" -> ":features:article:widget"
+  ":features:authentication:auth-verify-worker" -> ":features:authentication:auth-verify-worker"
+  ":features:authentication:auth-verify-worker" -> ":core" [style=dotted]
+  ":features:authentication:auth-verify-worker" -> ":auth-api" [style=dotted]
+  ":features:authentication:auth-verify-worker" -> ":features:authentication:datasource-api" [style=dotted]
+  ":features:authentication:datasource-impl" -> ":core" [style=dotted]
+  ":features:authentication:datasource-impl" -> ":auth-api" [style=dotted]
+  ":features:authentication:datasource-impl" -> ":features:authentication:datasource-api" [style=dotted]
+  ":features:topic:datasource-impl" -> ":core" [style=dotted]
+  ":features:topic:datasource-impl" -> ":auth-api" [style=dotted]
+  ":features:topic:datasource-impl" -> ":features:topic:datasource-api" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:subscription-manager-worker"
+  ":features:topic:subscription-manager-worker" -> ":core" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:datasource-api" [style=dotted]
+  ":features:topic:subscription-manager-worker" -> ":features:topic:domain:model" [style=dotted]
+  ":features:article:domain:interactors" -> ":core" [style=dotted]
+  ":features:article:domain:interactors" -> ":features:article:datasource-api" [style=dotted]
+  ":features:article:domain:interactors" -> ":features:article:domain:model" [style=dotted]
+  ":features:article:domain:interactors" -> ":common-test-utils" [style=dotted]
+  ":features:authentication:domain:interactors" -> ":core" [style=dotted]
+  ":features:authentication:domain:interactors" -> ":auth-api" [style=dotted]
+  ":features:authentication:domain:interactors" -> ":features:authentication:datasource-api" [style=dotted]
+  ":features:authentication:domain:interactors" -> ":features:authentication:domain:model" [style=dotted]
+  ":features:topic:domain:interactors" -> ":core" [style=dotted]
+  ":features:topic:domain:interactors" -> ":features:topic:datasource-api" [style=dotted]
+  ":features:topic:domain:interactors" -> ":features:topic:domain:model" [style=dotted]
+}
