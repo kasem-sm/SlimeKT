@@ -68,5 +68,3 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
 		trimTrailingWhitespace()
 	}
 }
-
-tasks.getByName("build").finalizedBy("installDist")
