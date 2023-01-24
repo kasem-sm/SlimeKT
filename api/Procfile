@@ -1,1 +1,1 @@
-web: java -jar build/libs/com.slime.api-0.0.2-all.jar
+web: application/build/install/application/bin/application
