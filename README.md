@@ -2,7 +2,6 @@
 
 [![Slime Build (Android)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/android_action.yml)
 [![Slime Build (API)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml/badge.svg)](https://github.com/kasem-sm/SlimeKT/actions/workflows/api_action.yml)
-![Slime Heroku Deployment](https://img.shields.io/github/deployments/kasem-sm/SlimeKT/slime-kt?logo=Heroku)
 
 [![GitHub stars](https://img.shields.io/github/stars/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/kasem-sm/SlimeKT?style=social)](https://github.com/kasem-sm/SlimeKT/watchers)
@@ -12,11 +11,6 @@
 
 # Disclaimer
 This is an over-engineered project.
-
-## Important ‼️
-
-SlimeKt's server was hosted at Heroku but as they dismissed their free plan, the app does not works as expected. You can clone the repo and start the Ktor server locally (Please refer [Project Setup Guide ⚒](https://github.com/kasem-sm/SlimeKT#project-setup-guide-) section for more information)
-Meanwhile these days I'm also exploring NextJS with Typescript so I plan to recreate SlimeKT's backend using the same stack.
 
 ## Introduction 🙋‍♂️
 
@@ -34,8 +28,7 @@ the Github repository itself.
 
 ## Repository overview 📂
 
-SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed
-on Heroku. SlimeKT Android application resides inside of the [`/app`](/app) folder.
+SlimeKT has its backend built with Ktor. The folder [`/api`](/api) consists of our backend deployed at [Railway](https://railway.app). SlimeKT Android application resides inside of the [`/app`](/app) folder.
 
 ## App Architecture Diagram
 

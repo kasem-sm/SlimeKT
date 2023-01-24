@@ -111,6 +111,6 @@ object AppModule {
         )
     }
 
-    private const val BASE_URL = "slime-kt.herokuapp.com"
+    private const val BASE_URL = "slimekt-production.up.railway.app"
     private const val LOCAL_BASE_URL = "192.168.0.106"
 }
