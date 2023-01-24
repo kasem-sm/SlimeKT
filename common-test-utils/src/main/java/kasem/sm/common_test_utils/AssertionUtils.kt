@@ -4,7 +4,7 @@
  */
 package kasem.sm.common_test_utils
 
-import app.cash.turbine.FlowTurbine
+import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import com.google.common.truth.Truth
 import kasem.sm.core.domain.Stage
@@ -24,7 +24,7 @@ infix fun Boolean.shouldBe(bool: Boolean) {
 }
 
 suspend inline fun Flow<Stage>.shouldBeInOrder(
-    crossinline scope: suspend FlowTurbine<Stage>.() -> Unit
+    crossinline scope: suspend ReceiveTurbine<Stage>.() -> Unit
 ) {
     test {
         scope()

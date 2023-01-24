@@ -81,18 +81,20 @@ internal fun HomeContent(
                     navigateToSubscriptionScreen = navigateToSubscriptionScreen
                 )
 
-                item {
-                    SlimeHeader(text = stringResource(id = R.string.daily_read_header))
-                }
+                state.dailyReadArticle?.let {
+                    item {
+                        SlimeHeader(text = stringResource(id = R.string.daily_read_header))
+                    }
 
-                item {
-                    DailyReadArticle(
-                        modifier = Modifier.semantics { testTag = "daily_read_article_view" },
-                        article = state.dailyReadArticle,
-                        imageLoader = imageLoader,
-                        onArticleClick = onArticleClick,
-                        onBookmarkClick = onBookmarkClick
-                    )
+                    item {
+                        DailyReadArticle(
+                            modifier = Modifier.semantics { testTag = "daily_read_article_view" },
+                            article = state.dailyReadArticle,
+                            imageLoader = imageLoader,
+                            onArticleClick = onArticleClick,
+                            onBookmarkClick = onBookmarkClick
+                        )
+                    }
                 }
 
                 item {
