@@ -10,6 +10,9 @@
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23515-blue)](https://androidweekly.net/issues/issue-515)
 [![Google Dev Library](https://img.shields.io/badge/Google%20Dev%20Library-Android-blue)](https://devlibrary.withgoogle.com/products/android/repos/kasem-sm-SlimeKT)
 
+# Disclaimer
+This is an over-engineered project.
+
 ## Important ‼️
 
 SlimeKt's server was hosted at Heroku but as they dismissed their free plan, the app does not works as expected. You can clone the repo and start the Ktor server locally (Please refer [Project Setup Guide ⚒](https://github.com/kasem-sm/SlimeKT#project-setup-guide-) section for more information)
