@@ -9,7 +9,7 @@ plugins {
 	kotlin("jvm") version "1.7.10"
 	id("org.jetbrains.kotlin.plugin.serialization") version "1.7.10"
 	id("com.github.johnrengelman.shadow") version "7.1.2"
-	id("com.diffplug.spotless") version "6.9.0"
+	id("com.diffplug.spotless") version "6.14.1"
 }
 
 group = "slime.com"
